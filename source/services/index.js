@@ -18,4 +18,11 @@ let services = angular.module('App.services')
 //   ngComponent.factory('exampleFactory', ExampleFactory)
 // }
 
+require('./auth')(services)
+require('./user')(services)
+
+services.run((Auth) => {
+  console.log(Auth)
+})
+
 export default services

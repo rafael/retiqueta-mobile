@@ -20,6 +20,7 @@ var gulp = require('gulp'),
     Server = require('karma').Server,
     sh = require('shelljs'),
     gutil = require('gulp-util'),
+    envify = require('envify')
     sass = require('gulp-sass');
 
 var source_paths = {
@@ -42,7 +43,10 @@ var source_paths = {
 tasks = {
   baseBrowserify: function() {
    return browserify([source_paths.js], {
-          transform: [['babelify', { compact: false }]]
+          transform: [
+            'envify',
+            ['babelify', { compact: false }]
+          ]
       })
       .bundle()
       .pipe(source('app.js'))
@@ -117,7 +121,12 @@ gulp.task('ngHtml', function() {
   tasks.BaseNgHtml(source_paths.partials_dest)
 })
 
-gulp.task('inject', ['ngHtml'], function() {
+gulp.task('copyFonts', function() {
+  gulp.src('./source/fonts/**/*')
+  .pipe(gulp.dest('./www/fonts/'))
+})
+
+gulp.task('inject', ['ngHtml', 'copyFonts'], function() {
   tasks.injectHtml(
     source_paths.dev_html,
     es.merge(tasks.devCss(), tasks.devBrowserify())
@@ -129,6 +138,8 @@ gulp.task('inject:prod',['ngHtml'], function() {
     source_paths.prod_html,
     es.merge(tasks.prodCss(), tasks.prodBrowserify())
   )
+  .pipe(gulp.src('./source/fonts/**/*'))
+  .pipe.dest('./www/fonts/')
 });
 
 gulp.task('build', ['inject'])
