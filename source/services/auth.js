@@ -9,6 +9,7 @@ export default function(ngComponent) {
     }
 
     this.user = {};
+    this.updateTokenIntent = 0;
 
     $rootScope.$on('session:start', () => {
       this.getUser();
@@ -21,14 +22,20 @@ export default function(ngComponent) {
     // Login user
     this.login = (user) => {
       var deferred = $q.defer();
-      $http.post(ENV.api.url + '/oauth/token.json', {
-        grant_type: 'password',
-        email: user.email.toLowerCase(),
-        password: user.password
+      $http({
+        method: 'POST',
+        url: ENV.api.url + '/v1/authenticate',
+        data: {
+          grant_type: 'password',
+          client_id: "ret-mobile-ios",
+          login: user.username.toLowerCase(),
+          password: user.password
+        }
       })
-      .success((data) => {
-        this.loginToken(data);
-        deferred.resolve(data);
+      .success((result) => {
+        console.log(result)
+        this.loginToken(result);
+        deferred.resolve(result);
       })
       .error((err) => {
         this.logout();
@@ -39,9 +46,34 @@ export default function(ngComponent) {
       return deferred.promise
     };
 
+    this.refreshToken = () => {
+      if(this.updateTokenIntent === 0) {
+        this.updateTokenIntent += 1;
+        let deferred = $q.defer();
+        $http({
+          method: 'POST',
+          url: `${ENV.api.url}/v1/authenticate/token`,
+          data: {
+            refresh_token: this.getToken().refresh_token
+          }
+        })
+        .then((result) => {
+          this.updateToken(result.data)
+          deferred.resolve(result)
+        })
+        .catch((e) => {
+          deferred.reject(e)
+        })
+        return deferred.promise
+      } else {
+        this.logout();
+        return false
+      }
+    }
+
     // Login token
     this.loginToken = (token) => {
-      window.localStorage.setItem('token', JSON.stringify(token))
+      this.updateToken(token)
       $rootScope.$broadcast('session:start')
     };
 
@@ -82,17 +114,16 @@ export default function(ngComponent) {
     this.getUser = () => {
       var deferred = $q.defer();
       if(this.isLogin()) {
-        User.get({id: 'me'}).$promise
-          .then(function(user) {
-            this.user = user;
+        User.get(this.getToken().user_id)
+          .then((result) => {
+            this.user = result.data
             deferred.resolve(this.user);
-          }.bind(this),
-          function(error) {
-            console.log(error);
+          })
+          .catch((error) => {
             this.user = {};
             this.logout();
             deferred.reject(error);
-          }.bind(this));
+          });
       } else {
         deferred.reject({data: 'your are not login'});
       }
@@ -100,16 +131,21 @@ export default function(ngComponent) {
     };
 
     // get current_user
-    this.current_user = (force) => {
-      force = (typeof force === 'undefined') ? false : force
-      if(this.user.hasOwnProperty('_id') && !force) {
+    this.current_user = (force = false) => {
+      if(this.user.hasOwnProperty('id') && !force) {
         return this.user
-      } else {
-        User.get({id: 'me'}, (user) => {
-          return this.user = user
-        })
       }
     };
+
+    this.getCurrentUser = () => {
+      var deferred = $q.defer();
+      if(typeof this.current_user() === 'undefined'){
+        return this.getUser()
+      } else {
+        deferred.resolve(this.current_user())
+        return deferred.promise
+      }
+    }
 
     this.hasRole = (role) => {
       var deferred = $q.defer();
@@ -130,9 +166,17 @@ export default function(ngComponent) {
       }
     };
 
+    this.updateToken = (newtoken) => {
+      var oldtoken = this.getToken()
+      newtoken =  Object.assign({}, oldtoken, newtoken)
+      return window.localStorage.setItem('token', JSON.stringify(newtoken))
+    }
+
     this.getToken = () => {
       if(this.isLogin()) {
         return JSON.parse(window.localStorage.getItem('token'))
+      } else {
+        return {}
       }
     }
   }

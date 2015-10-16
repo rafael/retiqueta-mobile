@@ -20,7 +20,8 @@ var gulp = require('gulp'),
     Server = require('karma').Server,
     sh = require('shelljs'),
     gutil = require('gulp-util'),
-    envify = require('envify')
+    envify = require('envify'),
+    protractor = require("gulp-protractor").protractor,
     sass = require('gulp-sass');
 
 var source_paths = {
@@ -179,6 +180,15 @@ gulp.task('tdd', ['build:watch'], function (done) {
   new Server({
     configFile: __dirname + '/test/karma.conf.js'
   }, done).start();
+});
+
+gulp.task('e2e', ['build'], function() {
+  gulp.src(["./tests/e2e/*.js"])
+    .pipe(protractor({
+        configFile: "test/protractor.conf.js",
+        args: ['--baseUrl', 'http://127.0.0.1:8000']
+    }))
+    .on('error', function(e) { throw e })
 });
 
 gulp.task('default', ['build']);

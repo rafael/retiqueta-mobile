@@ -1,6 +1,8 @@
 import permission from 'angular-permission'
 
-let routes = angular.module('App.routes', ['ui.router', 'permission'])
+angular.module('App.routes', ['ui.router', 'permission'])
+
+let routes = angular.module('App.routes')
 
 routes.run(function (Permission, Auth) {
   Permission
@@ -20,7 +22,8 @@ routes.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: 'home/home.html',
       data: {
         permissions: {
-          only: ['anonymous']
+          only: ['anonymous'],
+          redirectTo: 'users.dashboard'
         }
       },
     })
@@ -34,6 +37,15 @@ routes.config(function($stateProvider, $urlRouterProvider) {
         }
       },
     })
+    .state('logout', {
+      url: '/logout',
+      controller: 'logoutCtrl',
+      data: {
+        permissions: {
+          only: ['client']
+        }
+      },
+    })
     .state('signup', {
       url: '/signup',
       controller: 'signupCtrl as signup',
@@ -44,6 +56,36 @@ routes.config(function($stateProvider, $urlRouterProvider) {
         }
       },
     })
+    .state('update-token', {
+      url: '/update-token',
+      controller: 'updateTokenCtrl',
+    })
+    .state('users', {
+      abstract: true,
+      url: '/users',
+      templateUrl: 'user/index.html',
+      data: {
+        permissions: {
+          only: ['client'],
+          redirectTo: 'login',
+        },
+      },
+      resolve: {
+        currentUser: function(Auth) {
+          return Auth.getCurrentUser()
+        },
+      },
+    })
+    .state('users.dashboard', {
+      url: '/dashboard',
+      views: {
+        'dashboard-tab': {
+          templateUrl: 'user/dashboard.html',
+          controller: 'dashboardCtrl as dash',
+        }
+      }
+    })
+
   $urlRouterProvider.otherwise("/")
 })
 

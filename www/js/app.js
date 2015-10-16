@@ -1,4 +1,2810 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+angular.module("formFor.defaultTemplates", []).run(["$templateCache", function($templateCache) {$templateCache.put("form-for/templates/checkbox-field.html","<div class=\"form-for-field\" ng-class=\"{\'invalid\': model.error}\">\n  <field-error  error=\"model.error\"\n                left-aligned=\"true\"\n                uid=\"{{model.uid}}-error\">\n  </field-error>\n\n  <input  aria-manager\n          id=\"{{model.uid}}\"\n          name=\"{{attribute}}\"\n          type=\"checkbox\"\n          tabindex=\"{{tabIndex}}\"\n          ng-model=\"model.bindable\"\n          ng-checked=\"checked\"\n          ng-disabled=\"disable || model.disabled\"\n          ng-change=\"changed()\">\n\n  <field-label  ng-if=\"label\"\n                input-uid=\"{{model.uid}}\"\n                uid=\"{{model.uid}}-label\"\n                label=\"{{label}}\"\n                label-class=\"{{labelClass}}\"\n                help=\"{{help}}\">\n  </field-label>\n</div>\n");
+$templateCache.put("form-for/templates/collection-label.html","<div class=\"collection-label\">\n  <field-label  ng-if=\"label\"\n                label=\"{{label}}\"\n                help=\"{{help}}\"\n                required=\"{{model.required}}\">\n  </field-label>\n\n  <small field-error error=\"model.error\" left-aligned=\"true\"></small>\n</div>\n");
+$templateCache.put("form-for/templates/field-error.html","<p  ng-if=\"error\"\n    id=\"{{uid}}\"\n    class=\"field-error\" ng-class=\"{\'left-aligned\': leftAligned}\"\n    ng-bind=\"error\">\n</p>\n");
+$templateCache.put("form-for/templates/field-label.html","<label id=\"{{uid}}\" for=\"{{inputUid}}\" class=\"field-label\" ng-class=\"[labelClass]\">\n  <span ng-bind-html=\"bindableLabel\"></span>\n\n  <span ng-if=\"help\">\n     <span ng-if=\"helpIcon\" class=\"{{helpIcon}}\"\n           popover=\"{{help}}\"\n           popover-trigger=\"mouseenter\"\n           popover-placement=\"right\"></span>\n\n     <span ng-if=\"!helpIcon\" class=\"form-for-tooltip\">\n       <div class=\"form-for-tooltip-icon\">?</div>\n       <div class=\"form-for-tooltip-popover\" ng-bind=\"help\"></div>\n     </span>\n   </span>\n\n  <span ng-if=\"requiredLabel\" class=\"field-label-required-label\" ng-bind=\"requiredLabel\"></span>\n</label>\n");
+$templateCache.put("form-for/templates/radio-field.html","<div class=\"form-for-field\" ng-class=\"{\'invalid\': model.error}\">\n  <field-label  ng-if=\"label\"\n                input-uid=\"{{uid}}\"\n                label=\"{{label}}\"\n                label-class=\"{{labelClass}}\"\n                help=\"{{help}}\">\n  </field-label>\n\n  <field-error  error=\"model.error\"\n                left-aligned=\"true\"\n                uid=\"{{uid}}-error\">\n  </field-error>\n\n  <label ng-repeat=\"option in options track by $index\">\n    <input  aria-manager\n            id=\"{{uid}}-{{$index}}\"\n            type=\"radio\"\n            name=\"{{attribute}}\"\n            tabindex=\"{{tabIndex}}\"\n            ng-model=\"model.bindable\"\n            ng-value=\"option[valueAttribute]\"\n            ng-disabled=\"disable || model.disabled\">\n\n    <span ng-bind-html=\"option[labelAttribute]\"></span>\n  </label>\n</div>");
+$templateCache.put("form-for/templates/select-field.html","<div class=\"form-for-field with-icon-after\" ng-class=\"{\'invalid\': model.error}\">\n  <field-label  ng-if=\"label\"\n                input-uid=\"{{model.uid}}\"\n                iud=\"{{model.uid}}-label\"\n                label=\"{{label}}\"\n                label-class=\"{{labelClass}}\"\n                help=\"{{help}}\"\n                required=\"{{model.required}}\">\n  </field-label>\n\n  <field-error uid=\"{{model.uid}}-error\" error=\"model.error\"></field-error>\n\n  <!-- Binding to the \'multiple\' attribute is not supported, even with ng-attr-multiple.\n       This means that single and multiple select menus need to be defined separately.\n       For ease of customization, they\'re also separated into their own partials. -->\n\n  <span ng-if=\"multiple\"\n        ng-include\n        src=\"\'form-for/templates/select-field/_multi-select.html\'\"></span>\n\n  <span ng-if=\"!multiple\"\n        ng-include\n        src=\"\'form-for/templates/select-field/_select.html\'\"></span>\n</div>\n");
+$templateCache.put("form-for/templates/submit-button.html","<button class=\"submit-button\" ng-class=\"buttonClass\"\n        ng-disabled=\"disable || model.disabled\"\n        role=\"button\"\n        aria-label=\"bindableLabel\"\n        tabindex=\"{{tabIndex}}\">\n\n  <i ng-if=\"icon\" class=\"submit-button-icon\" ng-class=\"icon\"></i>\n\n  <span ng-bind-html=\"bindableLabel\"></span>\n</button>\n");
+$templateCache.put("form-for/templates/text-field.html","<div class=\"form-for-field\" ng-class=\"{ \'invalid\': model.error, \'with-icon-after\': iconAfter, \'with-icon-before\': iconBefore }\">\n  <field-label  ng-if=\"label\"\n                input-uid=\"{{model.uid}}\"\n                iud=\"{{model.uid}}-label\"\n                label=\"{{label}}\"\n                label-class=\"{{labelClass}}\"\n                help=\"{{help}}\"\n                required=\"{{model.required}}\">\n  </field-label>\n\n  <field-error uid=\"{{model.uid}}-error\" error=\"model.error\"></field-error>\n\n  <!-- <input> and <textarea> rendered as partials to allow for easier overrides -->\n  <span ng-if=\"!multiline\" ng-include src=\"\'form-for/templates/text-field/_input.html\'\"></span>\n  <span ng-if=\"multiline\"  ng-include src=\"\'form-for/templates/text-field/_textarea.html\'\"></span>\n\n  <i class=\"form-for-input-icon-left\"\n     ng-class=\"iconBefore\"\n     ng-click=\"onIconBeforeClick()\"></i>\n\n  <i class=\"form-for-input-icon-right\"\n     ng-class=\"iconAfter\"\n     ng-click=\"onIconAfterClick()\"></i>\n</div>\n");
+$templateCache.put("form-for/templates/type-ahead-field.html","<div class=\"form-for-field with-icon-after\" ng-class=\"{\'invalid\': model.error}\">\n  <field-label  ng-if=\"label\"\n                input-uid=\"{{model.uid + \'-filter\'}}\"\n                iud=\"{{model.uid}}-label\"\n                label=\"{{label}}\"\n                label-class=\"{{labelClass}}\"\n                help=\"{{help}}\"\n                required=\"{{model.required}}\">\n  </field-label>\n\n  <field-error uid=\"{{model.uid}}-error\" error=\"model.error\"></field-error>\n\n  <!-- Filtered dropdowns use a type-ahead style component -->\n  <input  aria-manager\n          id=\"{{model.uid}}-filter\"\n          name=\"{{attribute}}\"\n          type=\"search\"\n          tabindex=\"{{tabIndex}}\"\n          placeholder=\"{{placeholder}}\"\n          form-for-debounce=\"{{debounce}}\"\n          ng-disabled=\"disable || model.disabled\"\n          ng-model=\"scopeBuster.filter\"\n          ng-click=\"filterTextClick($event)\"\n          ng-focus=\"open()\"\n          ng-keydown=\"keyDown($event)\">\n\n  <ul ng-if=\"options.length\">\n    <li ng-repeat=\"option in filteredOptions\"\n        ng-class=\"{ \'form-for-typeahead-list-item-active\': option === selectedOption,\n                    \'form-for-typeahead-list-item-hover\':  $index === mouseOverIndex}\"\n        ng-bind=\"option[labelAttribute]\"\n        ng-mousedown=\"selectOption(option)\"\n        ng-mouseenter=\"mouseOver($index)\">\n    </li>\n  </ul>\n\n  <i class=\"form-for-input-icon-right fa fa-search\"\n     ng-click=\"setFilterFocus()\"></i>\n</div>\n");
+$templateCache.put("form-for/templates/select-field/_multi-select.html","<select aria-manager multiple\n        id=\"{{model.uid}}\"\n        name=\"{{attribute}}\"\n        class=\"select-field-select\"\n        tabindex=\"{{tabIndex}}\"\n        ng-disabled=\"disable || model.disabled\"\n        ng-model=\"model.bindable\"\n        ng-options=\"option[valueAttribute] as option[labelAttribute] for option in bindableOptions\">\n</select>\n\n<i class=\"form-for-select-arrows\"></i>");
+$templateCache.put("form-for/templates/select-field/_select.html","<select aria-manager\n        id=\"{{model.uid}}\"\n        name=\"{{attribute}}\"\n        class=\"select-field-select\"\n        tabindex=\"{{tabIndex}}\"\n        ng-disabled=\"disable || model.disabled\"\n        ng-model=\"model.bindable\"\n        ng-options=\"option[valueAttribute] as option[labelAttribute] for option in bindableOptions\">\n</select>\n\n<i class=\"form-for-select-arrows\"></i>");
+$templateCache.put("form-for/templates/text-field/_input.html","<input  aria-manager\n        id=\"{{model.uid}}\"\n        name=\"{{attribute}}\"\n        type=\"{{type}}\"\n        tabindex=\"{{tabIndex}}\"\n        placeholder=\"{{placeholder}}\"\n        ng-model=\"model.bindable\"\n        ng-disabled=\"disable || model.disabled\"\n        form-for-debounce=\"{{debounce}}\"\n        ng-click=\"onFocus()\"\n        ng-blur=\"onBlur()\" />\n");
+$templateCache.put("form-for/templates/text-field/_textarea.html","<textarea aria-manager\n          id=\"{{model.uid}}\"\n          name=\"{{attribute}}\"\n          tabindex=\"{{tabIndex}}\"\n          ng-attr-placeholder=\"{{placeholder}}\"\n          rows=\"{{rows}}\"\n          ng-model=\"model.bindable\"\n          ng-disabled=\"disable || model.disabled\"\n          form-for-debounce=\"{{debounce}}\"\n          ng-click=\"onFocus()\"\n          ng-blur=\"onBlur()\">\n</textarea>\n");}]);
+},{}],2:[function(require,module,exports){
+/// <reference path="../definitions/angular.d.ts" />
+angular.module('formFor', []);
+var formFor;
+(function (formFor) {
+    /**
+     * Helper directive for input elements.
+     * Observes the $scope :model attribute and updates aria-* elements accordingly.
+     */
+    var AriaManager = (function () {
+        function AriaManager() {
+            this.restrict = 'A';
+        }
+        /* @ngInject */
+        AriaManager.prototype.link = function ($scope, $element, $attributes) {
+            $scope.$watch('model.uid', function (uid) {
+                $attributes.$set('ariaDescribedby', uid + '-error');
+                $attributes.$set('ariaLabelledby', uid + '-label');
+            });
+            $scope.$watch('model.error', function (error) {
+                $attributes.$set('ariaInvalid', !!error);
+            });
+        };
+        AriaManager.prototype.link.$inject = ["$scope", "$element", "$attributes"];
+        return AriaManager;
+    })();
+    formFor.AriaManager = AriaManager;
+    angular.module('formFor').directive('ariaManager', function () {
+        return new AriaManager();
+    });
+})(formFor || (formFor = {}));
+/// <reference path="../../definitions/angular.d.ts" />
+var formFor;
+(function (formFor) {
+    /**
+     * This service can be used to configure default behavior for all instances of formFor within a project.
+     * Note that it is a service accessible to during the run loop and not a provider accessible during config.
+     */
+    var FormForConfiguration = (function () {
+        function FormForConfiguration() {
+            this.autoGenerateLabels = false;
+            this.autoTrimValues = false;
+            this.defaultDebounceDuration = 500;
+            this.defaultSubmitComplete = angular.noop;
+            this.defaultSubmitError = angular.noop;
+            this.defaultValidationFailed = angular.noop;
+            this.defaultSelectEmptyOptionValue = undefined;
+            this.helpIcon = null;
+            this.labelClass = null;
+            this.requiredLabel = null;
+            this.validationFailedForCustomMessage_ = "Failed custom validation";
+            this.validationFailedForEmailTypeMessage_ = "Invalid email format";
+            this.validationFailedForIntegerTypeMessage_ = "Must be an integer";
+            this.validationFailedForMaxCollectionSizeMessage_ = "Must be fewer than {{num}} items";
+            this.validationFailedForMaximumMessage_ = "Must be no more than {{num}}";
+            this.validationFailedForMaxLengthMessage_ = "Must be fewer than {{num}} characters";
+            this.validationFailedForMinimumMessage_ = "Must be at least {{num}}";
+            this.validationFailedForMinCollectionSizeMessage_ = "Must at least {{num}} items";
+            this.validationFailedForMinLengthMessage_ = "Must be at least {{num}} characters";
+            this.validationFailedForNegativeTypeMessage_ = "Must be negative";
+            this.validationFailedForNonNegativeTypeMessage_ = "Must be non-negative";
+            this.validationFailedForNumericTypeMessage_ = "Must be numeric";
+            this.validationFailedForPatternMessage_ = "Invalid format";
+            this.validationFailedForPositiveTypeMessage_ = "Must be positive";
+            this.validationFailedForRequiredMessage_ = "Required field";
+        }
+        // Public methods ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+         * Use this method to disable auto-generated labels for formFor input fields.
+         */
+        FormForConfiguration.prototype.disableAutoLabels = function () {
+            this.autoGenerateLabels = false;
+        };
+        /**
+         * Use this method to enable auto-generated labels for formFor input fields.
+         * Labels will be generated based on attribute-name for fields without a label attribute present.
+         * Radio fields are an exception to this rule.
+         * Their names are generated from their values.
+         */
+        FormForConfiguration.prototype.enableAutoLabels = function () {
+            this.autoGenerateLabels = true;
+        };
+        /**
+         * Disable auto-trim.
+         */
+        FormForConfiguration.prototype.disableAutoTrimValues = function () {
+            this.autoTrimValues = false;
+        };
+        /**
+         * Auto-trim leading and trailing whitespace from values before syncing back to the formData object.
+         */
+        FormForConfiguration.prototype.enableAutoTrimValues = function () {
+            this.autoTrimValues = true;
+        };
+        /**
+         * Returns the appropriate error message for the validation failure type.
+         */
+        FormForConfiguration.prototype.getFailedValidationMessage = function (failureType) {
+            switch (failureType) {
+                case formFor.ValidationFailureType.CUSTOM:
+                    return this.validationFailedForCustomMessage_;
+                case formFor.ValidationFailureType.COLLECTION_MAX_SIZE:
+                    return this.validationFailedForMaxCollectionSizeMessage_;
+                case formFor.ValidationFailureType.COLLECTION_MIN_SIZE:
+                    return this.validationFailedForMinCollectionSizeMessage_;
+                case formFor.ValidationFailureType.MINIMUM:
+                    return this.validationFailedForMinimumMessage_;
+                case formFor.ValidationFailureType.MAX_LENGTH:
+                    return this.validationFailedForMaxLengthMessage_;
+                case formFor.ValidationFailureType.MAXIMUM:
+                    return this.validationFailedForMaximumMessage_;
+                case formFor.ValidationFailureType.MIN_LENGTH:
+                    return this.validationFailedForMinLengthMessage_;
+                case formFor.ValidationFailureType.PATTERN:
+                    return this.validationFailedForPatternMessage_;
+                case formFor.ValidationFailureType.REQUIRED:
+                    return this.validationFailedForRequiredMessage_;
+                case formFor.ValidationFailureType.TYPE_EMAIL:
+                    return this.validationFailedForEmailTypeMessage_;
+                case formFor.ValidationFailureType.TYPE_INTEGER:
+                    return this.validationFailedForIntegerTypeMessage_;
+                case formFor.ValidationFailureType.TYPE_NEGATIVE:
+                    return this.validationFailedForNegativeTypeMessage_;
+                case formFor.ValidationFailureType.TYPE_NON_NEGATIVE:
+                    return this.validationFailedForNonNegativeTypeMessage_;
+                case formFor.ValidationFailureType.TYPE_NUMERIC:
+                    return this.validationFailedForNumericTypeMessage_;
+                case formFor.ValidationFailureType.TYPE_POSITIVE:
+                    return this.validationFailedForPositiveTypeMessage_;
+            }
+        };
+        /**
+         * Sets the default debounce interval (in ms) for all textField inputs.
+         * This setting can be overridden on a per-input basis (see textField).
+         * Defaults to 500ms.
+         * To disable debounce (update only on blur) pass false.
+         */
+        FormForConfiguration.prototype.setDefaultDebounceDuration = function (value) {
+            this.defaultDebounceDuration = value;
+        };
+        /**
+         * Sets the default submit-complete behavior for all formFor directives.
+         * This setting can be overridden on a per-form basis (see formFor).
+         *
+         * Default handler function accepting a data parameter representing the server-response returned by the submitted form.
+         * This function should accept a single parameter, the response data from the form-submit method.
+         */
+        FormForConfiguration.prototype.setDefaultSubmitComplete = function (value) {
+            this.defaultSubmitComplete = value;
+        };
+        /**
+         * Sets the default submit-error behavior for all formFor directives.
+         * This setting can be overridden on a per-form basis (see formFor).
+         * @memberof FormForConfiguration
+         * @param {Function} method Default handler function accepting an error parameter representing the data passed to the rejected submit promise.
+         * This function should accept a single parameter, the error returned by the form-submit method.
+         */
+        FormForConfiguration.prototype.setDefaultSubmitError = function (value) {
+            this.defaultSubmitError = value;
+        };
+        /**
+         * Sets the default validation-failed behavior for all formFor directives.
+         * This setting can be overridden on a per-form basis (see formFor).
+         * @memberof FormForConfiguration
+         * @param {Function} method Default function invoked when local form validation fails.
+         */
+        FormForConfiguration.prototype.setDefaultValidationFailed = function (value) {
+            this.defaultValidationFailed = value;
+        };
+        /**
+         * Sets the default value of empty option for selectField inputs.
+         * Defaults to undefined.
+         */
+        FormForConfiguration.prototype.setDefaultSelectEmptyOptionValue = function (value) {
+            this.defaultSelectEmptyOptionValue = value;
+        };
+        /**
+         * Sets the class(es) to be used as the help icon in supported templates.
+         * Each template specifies its own default help icon that can be overridden with this method.
+         * @memberof FormForConfiguration
+         * @param {string} class(es) for the desired icon, multiple classes are space separated
+         */
+        FormForConfiguration.prototype.setHelpIcon = function (value) {
+            this.helpIcon = value;
+        };
+        /**
+         * Global class-name for field <label>s.
+         */
+        FormForConfiguration.prototype.setLabelClass = function (value) {
+            this.labelClass = value;
+        };
+        /**
+         * Sets a default label to be displayed beside each text and select input for required attributes only.
+         */
+        FormForConfiguration.prototype.setRequiredLabel = function (value) {
+            this.requiredLabel = value;
+        };
+        /**
+         * Override the default error message for failed custom validations.
+         * This setting applies to all instances of formFor unless otherwise overridden on a per-rule basis.
+         */
+        FormForConfiguration.prototype.setValidationFailedForCustomMessage = function (value) {
+            this.validationFailedForCustomMessage_ = value;
+        };
+        /**
+         * Override the default error message for failed max collection size validations.
+         * This setting applies to all instances of formFor unless otherwise overridden on a per-rule basis.
+         */
+        FormForConfiguration.prototype.setValidationFailedForMaxCollectionSizeMessage = function (value) {
+            this.validationFailedForMaxCollectionSizeMessage_ = value;
+        };
+        /**
+         * Override the default error message for failed maximum validations.
+         * This setting applies to all instances of formFor unless otherwise overridden on a per-rule basis.
+         */
+        FormForConfiguration.prototype.setValidationFailedForMaximumMessage = function (value) {
+            this.validationFailedForMaximumMessage_ = value;
+        };
+        /**
+         * Override the default error message for failed maxlength validations.
+         * This setting applies to all instances of formFor unless otherwise overridden on a per-rule basis.
+         */
+        FormForConfiguration.prototype.setValidationFailedForMaxLengthMessage = function (value) {
+            this.validationFailedForMaxLengthMessage_ = value;
+        };
+        /**
+         * Override the default error message for failed min collection size validations.
+         * This setting applies to all instances of formFor unless otherwise overridden on a per-rule basis.
+         */
+        FormForConfiguration.prototype.setValidationFailedForMinCollectionSizeMessage = function (value) {
+            this.validationFailedForMaxCollectionSizeMessage_ = value;
+        };
+        /**
+         * Override the default error message for failed minimum validations.
+         * This setting applies to all instances of formFor unless otherwise overridden on a per-rule basis.
+         */
+        FormForConfiguration.prototype.setValidationFailedForMinimumMessage = function (value) {
+            this.validationFailedForMinimumMessage_ = value;
+        };
+        /**
+         * Override the default error message for failed minlength validations.
+         * This setting applies to all instances of formFor unless otherwise overridden on a per-rule basis.
+         */
+        FormForConfiguration.prototype.setValidationFailedForMinLengthMessage = function (value) {
+            this.validationFailedForMinLengthMessage_ = value;
+        };
+        /**
+         * Override the default error message for failed pattern validations.
+         * This setting applies to all instances of formFor unless otherwise overridden on a per-rule basis.
+         */
+        FormForConfiguration.prototype.setValidationFailedForPatternMessage = function (value) {
+            this.validationFailedForPatternMessage_ = value;
+        };
+        /**
+         * Override the default error message for failed required validations.
+         * This setting applies to all instances of formFor unless otherwise overridden on a per-rule basis.
+         */
+        FormForConfiguration.prototype.setValidationFailedForRequiredMessage = function (value) {
+            this.validationFailedForRequiredMessage_ = value;
+        };
+        /**
+         * Override the default error message for failed type = 'email' validations.
+         * This setting applies to all instances of formFor unless otherwise overridden on a per-rule basis.
+         */
+        FormForConfiguration.prototype.setValidationFailedForEmailTypeMessage = function (value) {
+            this.validationFailedForEmailTypeMessage_ = value;
+        };
+        /**
+         * Override the default error message for failed type = 'integer' validations.
+         * This setting applies to all instances of formFor unless otherwise overridden on a per-rule basis.
+         */
+        FormForConfiguration.prototype.setValidationFailedForIntegerTypeMessage = function (value) {
+            this.validationFailedForIntegerTypeMessage_ = value;
+        };
+        /**
+         * Override the default error message for failed type = 'negative' validations.
+         * This setting applies to all instances of formFor unless otherwise overridden on a per-rule basis.
+         */
+        FormForConfiguration.prototype.setValidationFailedForNegativeTypeMessage = function (value) {
+            this.validationFailedForNegativeTypeMessage_ = value;
+        };
+        /**
+         * Override the default error message for failed type = 'nonNegative' validations.
+         * This setting applies to all instances of formFor unless otherwise overridden on a per-rule basis.
+         */
+        FormForConfiguration.prototype.setValidationFailedForNonNegativeTypeMessage = function (value) {
+            this.validationFailedForNonNegativeTypeMessage_ = value;
+        };
+        /**
+         * Override the default error message for failed type = 'numeric' validations.
+         * This setting applies to all instances of formFor unless otherwise overridden on a per-rule basis.
+         */
+        FormForConfiguration.prototype.setValidationFailedForNumericTypeMessage = function (value) {
+            this.validationFailedForNumericTypeMessage_ = value;
+        };
+        /**
+         * Override the default error message for failed type = 'positive' validations.
+         * This setting applies to all instances of formFor unless otherwise overridden on a per-rule basis.
+         */
+        FormForConfiguration.prototype.setValidationFailedForPositiveTypeMessage = function (value) {
+            this.validationFailedForPositiveTypeMessage_ = value;
+        };
+        return FormForConfiguration;
+    })();
+    formFor.FormForConfiguration = FormForConfiguration;
+    ;
+    angular.module('formFor').service('FormForConfiguration', function () { return new FormForConfiguration(); });
+})(formFor || (formFor = {}));
+;
+/// <reference path="form-for-configuration.ts" />
+var formFor;
+(function (formFor) {
+    /**
+     * Various helper methods for functionality shared between formFor field directives.
+     */
+    var FieldHelper = (function () {
+        function FieldHelper(FormForConfiguration) {
+            this.formForConfiguration_ = FormForConfiguration;
+        }
+        /**
+         * Determines the field's label based on its current attributes and the FormForConfiguration configuration settings.
+         * Also watches for changes in the (attributes) label and updates $scope accordingly.
+         *
+         * @param $scope Directive link $scope
+         * @param $attributes Directive link $attributes
+         * @param humanizeValueAttribute Fall back to a humanized version of the :value attribute if no label is provided;
+         *                               This can be useful for radio options where the label should represent the value.
+         *                               By default, a humanized version of the :attribute attribute will be used.
+         */
+        FieldHelper.prototype.manageLabel = function ($scope, $attributes, humanizeValueAttribute) {
+            if (this.formForConfiguration_.autoGenerateLabels) {
+                $scope['label'] = humanizeValueAttribute ? formFor.StringUtil.humanize($scope['value']) : formFor.StringUtil.humanize($scope['attribute']);
+            }
+            if (this.formForConfiguration_.labelClass) {
+                $scope['labelClass'] = this.formForConfiguration_.labelClass;
+            }
+            if ($attributes.hasOwnProperty('label')) {
+                $attributes.$observe('label', function (label) {
+                    $scope['label'] = label;
+                });
+            }
+            if ($attributes.hasOwnProperty('labelClass')) {
+                $attributes.$observe('labelClass', function (labelClass) {
+                    $scope['labelClass'] = labelClass;
+                });
+            }
+        };
+        /**
+         * Helper method that registers a form field and stores the bindable object returned on the $scope.
+         * This method also unregisters the field on $scope $destroy.
+         *
+         * @param $scope Input field $scope
+         * @param $attributes Input field $attributes element
+         * @param formForController Controller object for parent formFor
+         */
+        FieldHelper.prototype.manageFieldRegistration = function ($scope, $attributes, formForController) {
+            $scope.$watch('attribute', function (newValue, oldValue) {
+                if ($scope['model']) {
+                    formForController.unregisterFormField(oldValue);
+                }
+                $scope['model'] = formForController.registerFormField($scope['attribute']);
+                if ($attributes['uid']) {
+                    $scope['model']['uid'] = $attributes['uid'];
+                }
+            });
+            $scope.$on('$destroy', function () {
+                formForController.unregisterFormField($scope['attribute']);
+            });
+        };
+        return FieldHelper;
+    })();
+    formFor.FieldHelper = FieldHelper;
+    angular.module('formFor').service('FieldHelper', ["FormForConfiguration", function (FormForConfiguration) { return new FieldHelper(FormForConfiguration); }]);
+})(formFor || (formFor = {}));
+/// <reference path="../services/field-helper.ts" />
+/// <reference path="../services/form-for-configuration.ts" />
+var formFor;
+(function (formFor) {
+    var $log_;
+    var fieldHelper_;
+    /**
+     * Renders a checkbox <code>input</code> with optional label.
+     * This type of component is well-suited for boolean attributes.
+     *
+     * @example
+     * // To display a simple TOS checkbox you might use the following markup:
+     * <checkbox-field label="I agree with the TOS"
+     *                 attribute="accepted">
+     * </checkbox-field>
+     */
+    var CheckboxFieldDirective = (function () {
+        /* @ngInject */
+        function CheckboxFieldDirective($log, fieldHelper) {
+            this.require = '^formFor';
+            this.restrict = 'EA';
+            this.templateUrl = 'form-for/templates/checkbox-field.html';
+            this.scope = {
+                attribute: '@',
+                disable: '=',
+                help: '@?',
+                changed: '@?'
+            };
+            $log_ = $log;
+            fieldHelper_ = fieldHelper;
+        }
+        CheckboxFieldDirective.$inject = ["$log", "fieldHelper"];
+        /* @ngInject */
+        CheckboxFieldDirective.prototype.link = function ($scope, $element, $attributes, formForController) {
+            if (!$scope['attribute']) {
+                $log_.error('Missing required field "attribute"');
+                return;
+            }
+            $scope.attributes = $attributes;
+            $scope.tabIndex = $attributes['tabIndex'] || 0;
+            $scope.toggle = function toggle() {
+                if (!$scope.disable && !$scope.model.disabled) {
+                    $scope.model.bindable = !$scope.model.bindable;
+                }
+            };
+            $scope.$watch('model.bindable', function (value) {
+                if (!$scope.model)
+                    return;
+                $scope.model.bindable = !$scope.model.required ? !!value : (value || undefined);
+            });
+            fieldHelper_.manageLabel($scope, $attributes, false);
+            fieldHelper_.manageFieldRegistration($scope, $attributes, formForController);
+        };
+        CheckboxFieldDirective.prototype.link.$inject = ["$scope", "$element", "$attributes", "formForController"];
+        return CheckboxFieldDirective;
+    })();
+    formFor.CheckboxFieldDirective = CheckboxFieldDirective;
+    angular.module('formFor').directive('checkboxField', ["$log", "FieldHelper", function ($log, FieldHelper) {
+        return new CheckboxFieldDirective($log, FieldHelper);
+    }]);
+})(formFor || (formFor = {}));
+var formFor;
+(function (formFor) {
+    var $sce_;
+    /**
+     * Header label for collections.
+     * This component displays header text as well as collection validation errors.
+     *
+     * @example
+     * // To display a simple collection header:
+     * <collection-label  label="Hobbies" attribute="hobbies">
+     * </collection-label>
+     *
+     * @param $sce $injector-supplied $sce service
+     */
+    var CollectionLabelDirective = (function () {
+        /* @ngInject */
+        function CollectionLabelDirective($sce) {
+            this.require = '^formFor';
+            this.restrict = 'EA';
+            this.templateUrl = 'form-for/templates/collection-label.html';
+            this.scope = {
+                attribute: '@',
+                help: '@?',
+                label: '@'
+            };
+            $sce_ = $sce;
+        }
+        CollectionLabelDirective.$inject = ["$sce"];
+        /* @ngInject */
+        CollectionLabelDirective.prototype.link = function ($scope, $element, $attributes, formForController) {
+            $scope.$watch('label', function (value) {
+                $scope.bindableLabel = $sce_.trustAsHtml(value);
+            });
+            $scope.model = formForController.registerCollectionLabel($scope.attribute);
+        };
+        CollectionLabelDirective.prototype.link.$inject = ["$scope", "$element", "$attributes", "formForController"];
+        return CollectionLabelDirective;
+    })();
+    formFor.CollectionLabelDirective = CollectionLabelDirective;
+    angular.module('formFor').directive('collectionLabel', ["$sce", function ($sce) {
+        return new CollectionLabelDirective($sce);
+    }]);
+})(formFor || (formFor = {}));
+var formFor;
+(function (formFor) {
+    /**
+     * Displays a standard formFor field validation error message.
+     *
+     * @example
+     * // To display a field error:
+     * <field-error error="This is an error message">
+     * </field-error>
+     */
+    var FieldErrorDirective = (function () {
+        function FieldErrorDirective() {
+            this.restrict = 'EA';
+            this.templateUrl = 'form-for/templates/field-error.html';
+            this.scope = {
+                error: '=',
+                leftAligned: '@?',
+                uid: '@'
+            };
+        }
+        /* @ngInject */
+        FieldErrorDirective.prototype.link = function ($scope) {
+        };
+        FieldErrorDirective.prototype.link.$inject = ["$scope"];
+        return FieldErrorDirective;
+    })();
+    formFor.FieldErrorDirective = FieldErrorDirective;
+    angular.module('formFor').directive('fieldError', function () {
+        return new FieldErrorDirective();
+    });
+})(formFor || (formFor = {}));
+/// <reference path="../services/form-for-configuration.ts" />
+var formFor;
+(function (formFor) {
+    var $sce_;
+    var formForConfiguration_;
+    /**
+     * This component is only intended for internal use by the formFor module.
+     *
+     * @example
+     * // To display a simple label with a help tooltip:
+     * <field-label label="Username"
+     *              help="This will be visible to other users">
+     * </field-label>
+     *
+     * @param $sce $injector-supplied $sce service
+     * @param formForConfiguration
+     */
+    var FieldLabelDirective = (function () {
+        /* @ngInject */
+        function FieldLabelDirective($sce, formForConfiguration) {
+            this.replace = true; // Necessary for CSS sibling selectors
+            this.restrict = 'EA';
+            this.templateUrl = 'form-for/templates/field-label.html';
+            this.scope = {
+                inputUid: '@',
+                help: '@?',
+                label: '@',
+                labelClass: '@?',
+                required: '@?',
+                uid: '@'
+            };
+            $sce_ = $sce;
+            formForConfiguration_ = formForConfiguration;
+        }
+        FieldLabelDirective.$inject = ["$sce", "formForConfiguration"];
+        /* @ngInject */
+        FieldLabelDirective.prototype.link = function ($scope, $element, $attributes) {
+            $scope.attributes = $attributes;
+            $scope.helpIcon = formForConfiguration_.helpIcon;
+            $scope.$watch('label', function (value) {
+                $scope.bindableLabel = $sce_.trustAsHtml(value);
+            });
+            $scope.$watch('required', function (required) {
+                $scope.requiredLabel = $scope.$eval(required) ? formForConfiguration_.requiredLabel : null;
+            });
+        };
+        FieldLabelDirective.prototype.link.$inject = ["$scope", "$element", "$attributes"];
+        return FieldLabelDirective;
+    })();
+    formFor.FieldLabelDirective = FieldLabelDirective;
+    angular.module('formFor').directive('fieldLabel', ["$sce", "FormForConfiguration", function ($sce, FormForConfiguration) {
+        return new FieldLabelDirective($sce, FormForConfiguration);
+    }]);
+})(formFor || (formFor = {}));
+var formFor;
+(function (formFor) {
+    var $compile_;
+    var nestedObjectHelper_;
+    /**
+     * Automatically creates and compiles form input elements based on a {@link ViewSchema}.
+     */
+    var FormForBuilderDirective = (function () {
+        /* @ngInject */
+        function FormForBuilderDirective($compile, $parse) {
+            this.require = 'formFor';
+            this.restrict = 'A';
+            $compile_ = $compile;
+            nestedObjectHelper_ = new formFor.NestedObjectHelper($parse);
+        }
+        FormForBuilderDirective.$inject = ["$compile", "$parse"];
+        /* @ngInject */
+        FormForBuilderDirective.prototype.link = function ($scope, $element, $attributes, formForController) {
+            // View schema may be explicitly passed in as a separate model,
+            // Or it may be combined with the validation rules used by formFor.
+            var viewSchema;
+            if ($attributes.formForBuilder) {
+                viewSchema = $scope.$eval($attributes.formForBuilder);
+            }
+            else if ($attributes.validationRules) {
+                viewSchema = $scope.$eval($attributes.validationRules);
+            }
+            else if ($attributes.$service) {
+                viewSchema = $scope.$eval($attributes.$service.validationRules);
+            }
+            // View schema may contain nested properties.
+            // We will differentiate between form-fields and other properties using the 'inputType' field.
+            var viewSchemaKeys = nestedObjectHelper_.flattenObjectKeys(viewSchema);
+            var htmlString = "";
+            for (var i = 0, length = viewSchemaKeys.length; i < length; i++) {
+                var fieldName = viewSchemaKeys[i];
+                var viewField = nestedObjectHelper_.readAttribute(viewSchema, fieldName);
+                var html;
+                if (viewField && viewField.hasOwnProperty('inputType')) {
+                    var help = viewField.help || '';
+                    var label = viewField.label || '';
+                    var placeholderAttribute = '';
+                    var uid = viewField.uid || '';
+                    var values;
+                    var labelAttribute = label ? "label=\"" + label + "\"" : '';
+                    if (viewField.hasOwnProperty('placeholder')) {
+                        placeholderAttribute = "placeholder=\"" + viewField.placeholder + "\"";
+                    }
+                    switch (viewField.inputType) {
+                        case formFor.BuilderFieldType.CHECKBOX:
+                            htmlString += "<checkbox-field attribute=\"" + fieldName + "\"\n                                             help=\"" + help + "\"\n                                             " + labelAttribute + "\n                                             uid=\"" + uid + "\">\n                             </checkbox-field>";
+                            break;
+                        case formFor.BuilderFieldType.RADIO:
+                            values = JSON.stringify(viewField.values).replace(/"/g, '&quot;');
+                            htmlString += "<radio-field attribute=\"" + fieldName + "\"\n                                          " + labelAttribute + "\n                                          options=\"" + values + "\"\n                                          uid=\"" + uid + "\">\n                             </radio-field>";
+                            break;
+                        case formFor.BuilderFieldType.SELECT:
+                            values = JSON.stringify(viewField.values).replace(/"/g, '&quot;');
+                            htmlString += "<select-field attribute=\"" + fieldName + "\"\n                                           " + (viewField.allowBlank ? 'allow-blank' : '') + "\n                                           " + (viewField.enableFiltering ? 'enable-filtering' : '') + "\n                                           help=\"" + help + "\"\n                                           " + labelAttribute + "\n                                           multiple=\"" + !!viewField.multipleSelection + "\"\n                                           options=\"" + values + "\"\n                                           " + placeholderAttribute + "\n                                           uid=\"" + uid + "\"\n                                           value-attribute=\"" + (viewField.valueAttribute || '') + "\">\n                             </select-field>";
+                            break;
+                        case formFor.BuilderFieldType.NUMBER:
+                        case formFor.BuilderFieldType.PASSWORD:
+                        case formFor.BuilderFieldType.TEXT:
+                            var placeholderAttribute;
+                            if (viewField.hasOwnProperty('placeholder')) {
+                                placeholderAttribute = "placeholder=\"" + viewField.placeholder + "\"";
+                            }
+                            htmlString += "<text-field attribute=\"" + fieldName + "\"\n                                         " + labelAttribute + "\n                                         help=\"" + help + "\"\n                                         ng-attr-multiline=\"" + !!viewField.multiline + "\"\n                                         " + placeholderAttribute + "\n                                         rows=\"" + (viewField.rows || '') + "\"\n                                         type=\"" + viewField.inputType + "\"\n                                         uid=\"" + uid + "\">\n                             </text-field>";
+                            break;
+                    }
+                }
+            }
+            // Append a submit button if one isn't already present inside of $element.
+            if ($element.find('input[type=button], button, submit-button').length === 0) {
+                htmlString += "<submit-button label=\"Submit\"></submit-button>";
+            }
+            var linkingFunction = $compile_(htmlString);
+            var compiled = linkingFunction($scope, undefined, { transcludeControllers: formForController });
+            // Prepend in case the user has specified their own custom submit button(s).
+            $element.prepend(compiled);
+        };
+        FormForBuilderDirective.prototype.link.$inject = ["$scope", "$element", "$attributes", "formForController"];
+        return FormForBuilderDirective;
+    })();
+    formFor.FormForBuilderDirective = FormForBuilderDirective;
+    ;
+    angular.module('formFor').directive('formForBuilder', ["$compile", "$parse", function ($compile, $parse) {
+        return new FormForBuilderDirective($compile, $parse);
+    }]);
+})(formFor || (formFor = {}));
+/// <reference path="../services/form-for-configuration.ts" />
+var formFor;
+(function (formFor) {
+    var $log_;
+    var $sniffer_;
+    var $timeout_;
+    var formForConfiguration_;
+    /**
+     * Angular introduced debouncing (via ngModelOptions) in version 1.3.
+     * As of the time of this writing, that version is still in beta.
+     * This component adds debouncing behavior for Angular 1.2.x.
+     * It is primarily intended for use with &lt;input type=text&gt; and &lt;textarea&gt; elements.
+     *
+     * @example
+     * // To configure this component to debounce with a 2 second delay:
+     * <input type="text"
+     *        ng-model="username"
+     *        form-for-debounce="2000" />
+     *
+     * // To disable the debounce interval and configure an input to update only on blur:
+     * <input type="text"
+     *        ng-model="username"
+     *        form-for-debounce="false" />
+     */
+    var FormForDebounceDirective = (function () {
+        /* @ngInject */
+        function FormForDebounceDirective($log, $sniffer, $timeout, formForConfiguration) {
+            this.priority = 99;
+            this.require = 'ngModel';
+            this.restrict = 'A';
+            /**
+             * Scope.
+             *
+             * @param formForDebounce Debounce duration in milliseconds.
+             *                        By default this value is 1000ms.
+             *                        To disable the debounce interval (to update on blur) a value of false should be specified.
+             */
+            this.scope = {
+                formForDebounce: '@'
+            };
+            $log_ = $log;
+            $sniffer_ = $sniffer;
+            $timeout_ = $timeout;
+            formForConfiguration_ = formForConfiguration;
+        }
+        FormForDebounceDirective.$inject = ["$log", "$sniffer", "$timeout", "formForConfiguration"];
+        /* @ngInject */
+        FormForDebounceDirective.prototype.link = function ($scope, $element, $attributes, ngModelController) {
+            if ($attributes['type'] === 'radio' || $attributes['type'] === 'checkbox') {
+                $log_.warn("formForDebounce should only be used with <input type=text> and <textarea> elements");
+                return;
+            }
+            var durationAttributeValue = $attributes['formForDebounce'];
+            var duration = formForConfiguration_.defaultDebounceDuration;
+            // Debounce can be configured for blur-only by passing a value of 'false'.
+            if (durationAttributeValue !== undefined) {
+                if (durationAttributeValue.toString() === 'false') {
+                    duration = false;
+                }
+                else {
+                    durationAttributeValue = parseInt(durationAttributeValue);
+                    if (angular.isNumber(durationAttributeValue) && !isNaN(durationAttributeValue)) {
+                        duration = durationAttributeValue;
+                    }
+                }
+            }
+            // Older IEs do not have 'input' events - and trying to access them can cause TypeErrors.
+            // Angular's ngModel falls back to 'keydown' and 'paste' events in this case, so we must also.
+            if ($sniffer_.hasEvent('input')) {
+                $element.off('input');
+            }
+            else {
+                $element.off('keydown');
+                if ($sniffer_.hasEvent('paste')) {
+                    $element.off('paste');
+                }
+            }
+            var debounceTimeoutId;
+            if (duration !== false) {
+                var inputChangeHandler = function () {
+                    $timeout_.cancel(debounceTimeoutId);
+                    debounceTimeoutId = $timeout_(function () {
+                        $scope.$apply(function () {
+                            ngModelController.$setViewValue($element.val());
+                        });
+                    }, duration);
+                };
+                if ($sniffer_.hasEvent('input')) {
+                    $element.on('input', inputChangeHandler);
+                }
+                else {
+                    $element.on('keydown', inputChangeHandler);
+                    if ($sniffer_.hasEvent('paste')) {
+                        $element.on('paste', inputChangeHandler);
+                    }
+                }
+            }
+            $element.on('blur', function () {
+                $scope.$apply(function () {
+                    ngModelController.$setViewValue($element.val());
+                });
+            });
+            $scope.$on('$destroy', function () {
+                if (debounceTimeoutId) {
+                    $timeout_.cancel(debounceTimeoutId);
+                }
+            });
+        };
+        FormForDebounceDirective.prototype.link.$inject = ["$scope", "$element", "$attributes", "ngModelController"];
+        return FormForDebounceDirective;
+    })();
+    formFor.FormForDebounceDirective = FormForDebounceDirective;
+    angular.module('formFor').directive('formForDebounce', ["$log", "$sniffer", "$timeout", "FormForConfiguration", function ($log, $sniffer, $timeout, FormForConfiguration) {
+        return new FormForDebounceDirective($log, $sniffer, $timeout, FormForConfiguration);
+    }]);
+})(formFor || (formFor = {}));
+/// <reference path="../../definitions/angular.d.ts" />
+var formFor;
+(function (formFor) {
+    /**
+     * Helper utility to simplify working with nested objects.
+     *
+     * <p>Intended for use only by formFor directive; this class is not exposed to the $injector.
+     */
+    var NestedObjectHelper = (function () {
+        /**
+         * Constructor.
+         *
+         * @param $parse Injector-supplied $parse service
+         */
+        function NestedObjectHelper($parse) {
+            this.$parse_ = $parse;
+        }
+        /**
+         * Converts a field name (which may contain dots or array indices) into a string that can be used to key an object.
+         * e.g. a field name like 'items[0].name' would be converted into 'items___0______name'
+         *
+         * @param fieldName Attribute (or dot-notation path) to read
+         * @returns Modified field name safe to use as an object key
+         */
+        NestedObjectHelper.prototype.flattenAttribute = function (fieldName) {
+            return fieldName.replace(/\[([^\]]+)\]\.{0,1}/g, '___$1___').replace(/\./g, '___');
+        };
+        /**
+         * Crawls an object and returns a flattened set of all attributes using dot notation.
+         * This converts an Object like: {foo: {bar: true}, baz: true} into an Array like ['foo', 'foo.bar', 'baz'].
+         *
+         * @param object Object to be flattened
+         * @returns Array of flattened keys (perhaps containing dot notation)
+         */
+        NestedObjectHelper.prototype.flattenObjectKeys = function (object) {
+            var keys = [];
+            var queue = [{
+                object: object,
+                prefix: null
+            }];
+            while (true) {
+                if (queue.length === 0) {
+                    break;
+                }
+                var data = queue.pop();
+                var objectIsArray = Array.isArray(data.object);
+                var prefix = data.prefix ? data.prefix + (objectIsArray ? '[' : '.') : '';
+                var suffix = objectIsArray ? ']' : '';
+                if (typeof data.object === 'object') {
+                    for (var prop in data.object) {
+                        var path = prefix + prop + suffix;
+                        var value = data.object[prop];
+                        keys.push(path);
+                        queue.push({
+                            object: value,
+                            prefix: path
+                        });
+                    }
+                }
+            }
+            return keys;
+        };
+        /**
+         * Returns the value defined by the specified attribute.
+         * This function guards against dot notation for nested references (ex. 'foo.bar').
+         *
+         * @param object Object ot be read
+         * @param fieldName Attribute (or dot-notation path) to read
+         * @returns Value defined at the specified key
+         */
+        NestedObjectHelper.prototype.readAttribute = function (object, fieldName) {
+            return this.$parse_(fieldName)(object);
+        };
+        /**
+         * Writes the specified value to the specified attribute.
+         * This function guards against dot notation for nested references (ex. 'foo.bar').
+         *
+         * @param object Object ot be updated
+         * @param fieldName Attribute (or dot-notation path) to update
+         * @param value Value to be written
+         */
+        NestedObjectHelper.prototype.writeAttribute = function (object, fieldName, value) {
+            this.initializeArraysAndObjectsForParse_(object, fieldName);
+            this.$parse_(fieldName).assign(object, value);
+        };
+        // Helper methods ////////////////////////////////////////////////////////////////////////////////////////////////////
+        // For Angular 1.2.21 and below, $parse does not handle array brackets gracefully.
+        // Essentially we need to create Arrays that don't exist yet or objects within array indices that don't yet exist.
+        // @see https://github.com/angular/angular.js/issues/2845
+        NestedObjectHelper.prototype.initializeArraysAndObjectsForParse_ = function (object, attribute) {
+            var startOfArray = 0;
+            while (true) {
+                startOfArray = attribute.indexOf('[', startOfArray);
+                if (startOfArray < 0) {
+                    break;
+                }
+                var arrayAttribute = attribute.substr(0, startOfArray);
+                var possibleArray = this.readAttribute(object, arrayAttribute);
+                // Create the Array if it doesn't yet exist
+                if (!possibleArray) {
+                    possibleArray = [];
+                    this.writeAttribute(object, arrayAttribute, possibleArray);
+                }
+                // Create an empty Object in the Array if the user is about to write to one (and one does not yet exist)
+                var match = attribute.substr(startOfArray).match(/([0-9]+)\]\./);
+                if (match) {
+                    var targetIndex = parseInt(match[1]);
+                    if (!possibleArray[targetIndex]) {
+                        possibleArray[targetIndex] = {};
+                    }
+                }
+                // Increment and keep scanning
+                startOfArray++;
+            }
+        };
+        return NestedObjectHelper;
+    })();
+    formFor.NestedObjectHelper = NestedObjectHelper;
+})(formFor || (formFor = {}));
+var formFor;
+(function (formFor) {
+    /**
+     * Supplies $q service with additional methods.
+     *
+     * <p>Intended for use only by formFor directive; this class is not exposed to the $injector.
+     */
+    var PromiseUtils = (function () {
+        /**
+         * Constructor.
+         *
+         * @param $q Injector-supplied $q service
+         */
+        function PromiseUtils($q) {
+            this.$q_ = $q;
+        }
+        /**
+         * @inheritDoc
+         */
+        PromiseUtils.prototype.all = function (promises) {
+            return this.$q_.all(promises);
+        };
+        /**
+         * @inheritDoc
+         */
+        PromiseUtils.prototype.defer = function () {
+            return this.$q_.defer();
+        };
+        /**
+         * Similar to $q.reject, this is a convenience method to create and resolve a Promise.
+         *
+         * @param data Value to resolve the promise with
+         * @returns A resolved promise
+         */
+        PromiseUtils.prototype.resolve = function (data) {
+            var deferred = this.$q_.defer();
+            deferred.resolve(data);
+            return deferred.promise;
+        };
+        /**
+         * @inheritDoc
+         */
+        PromiseUtils.prototype.reject = function (reason) {
+            return this.$q_.reject(reason);
+        };
+        /**
+         * Similar to $q.all but waits for all promises to resolve/reject before resolving/rejecting.
+         *
+         * @param promises Array of Promises
+         * @returns A promise to be resolved or rejected once all of the observed promises complete
+         */
+        PromiseUtils.prototype.waitForAll = function (promises) {
+            var deferred = this.$q_.defer();
+            var results = {};
+            var counter = 0;
+            var errored = false;
+            function updateResult(key, data) {
+                if (!results.hasOwnProperty(key)) {
+                    results[key] = data;
+                    counter--;
+                }
+                checkForDone();
+            }
+            function checkForDone() {
+                if (counter === 0) {
+                    if (errored) {
+                        deferred.reject(results);
+                    }
+                    else {
+                        deferred.resolve(results);
+                    }
+                }
+            }
+            angular.forEach(promises, function (promise, key) {
+                counter++;
+                promise.then(function (data) {
+                    updateResult(key, data);
+                }, function (data) {
+                    errored = true;
+                    updateResult(key, data);
+                });
+            });
+            checkForDone(); // Handle empty Array
+            return deferred.promise;
+        };
+        /**
+         * @inheritDoc
+         */
+        PromiseUtils.prototype.when = function (value) {
+            return this.$q_.when(value);
+        };
+        return PromiseUtils;
+    })();
+    formFor.PromiseUtils = PromiseUtils;
+})(formFor || (formFor = {}));
+/// <reference path="../utils/nested-object-helper.ts" />
+/// <reference path="../utils/promise-utils.ts" />
+var formFor;
+(function (formFor) {
+    /**
+     * Controller exposed via the FormFor directive's scope.
+     *
+     * <p>Intended for use only by formFor directive and fields (children); this class is not exposed to the $injector.
+     *
+     * @param target Object to attach controller methods to
+     * @param $parse Injector-supplied $parse service
+     * @param $q Injector-supplied $q service
+     * @param $scope formFor directive $scope
+     * @param modelValidator ModelValidator service
+     * @param formForConfiguration
+     */
+    function createFormForController(target, $parse, $q, $scope, modelValidator, formForConfiguration) {
+        var nestedObjectHelper = new formFor.NestedObjectHelper($parse);
+        var promiseUtils = new formFor.PromiseUtils($q);
+        /**
+         * @inheritDocs
+         */
+        target.registerCollectionLabel = function (fieldName) {
+            var bindableFieldName = nestedObjectHelper.flattenAttribute(fieldName);
+            var bindableWrapper = {
+                error: null,
+                required: modelValidator.isCollectionRequired(fieldName, $scope.$validationRuleset)
+            };
+            $scope.collectionLabels[bindableFieldName] = bindableWrapper;
+            var watcherInitialized = false;
+            $scope.$watch('formFor.' + fieldName + '.length', function () {
+                // The initial $watch should not trigger a visible validation...
+                if (!watcherInitialized) {
+                    watcherInitialized = true;
+                }
+                else if (!$scope.validateOn || $scope.validateOn === 'change') {
+                    modelValidator.validateCollection($scope.formFor, fieldName, $scope.$validationRuleset).then(function () {
+                        $scope.formForStateHelper.setFieldError(bindableFieldName, null);
+                    }, function (error) {
+                        $scope.formForStateHelper.setFieldError(bindableFieldName, error);
+                    });
+                }
+            });
+            return bindableWrapper;
+        };
+        /**
+         * @inheritDocs
+         */
+        target.registerFormField = function (fieldName) {
+            if (!fieldName) {
+                throw Error('Invalid field name "' + fieldName + '" provided.');
+            }
+            var bindableFieldName = nestedObjectHelper.flattenAttribute(fieldName);
+            if ($scope['fields'].hasOwnProperty(bindableFieldName)) {
+                throw Error('Field "' + fieldName + '" has already been registered. Field names must be unique.');
+            }
+            var bindableFieldWrapper = {
+                bindable: null,
+                disabled: $scope.disable,
+                error: null,
+                pristine: true,
+                required: modelValidator.isFieldRequired(fieldName, $scope.$validationRuleset),
+                uid: formFor.FormForGUID.create()
+            };
+            // Store information about this field that we'll need for validation and binding purposes.
+            // @see Above documentation for $scope.fields
+            var fieldDatum = {
+                bindableWrapper: bindableFieldWrapper,
+                fieldName: fieldName,
+                formForStateHelper: $scope.formForStateHelper,
+                unwatchers: []
+            };
+            $scope.fields[bindableFieldName] = fieldDatum;
+            var getter = $parse(fieldName);
+            var setter = getter.assign;
+            // Changes made by our field should be synced back to the form-data model.
+            fieldDatum.unwatchers.push($scope.$watch('fields.' + bindableFieldName + '.bindableWrapper.bindable', function (newValue, oldValue) {
+                // Don't update the value unless it changes; (this prevents us from wiping out the default model value).
+                if (newValue || newValue != oldValue) {
+                    if (formForConfiguration.autoTrimValues && typeof newValue == 'string') {
+                        newValue = newValue.trim();
+                    }
+                    // Keep the form data object and our bindable wrapper in-sync
+                    setter($scope.formFor, newValue);
+                }
+            }));
+            var formDataWatcherInitialized;
+            // Changes made to the form-data model should likewise be synced to the field's bindable model.
+            // (This is necessary for data that is loaded asynchronously after a form has already been displayed.)
+            fieldDatum.unwatchers.push($scope.$watch('formFor.' + fieldName, function (newValue, oldValue) {
+                // An asynchronous formFor data source should reset any dirty flags.
+                // A user tabbing in and out of a field also shouldn't be counted as dirty.
+                // Easiest way to guard against this is to reset the initialization flag.
+                if (newValue !== fieldDatum.bindableWrapper.bindable || oldValue === undefined && newValue === '' || newValue === undefined) {
+                    formDataWatcherInitialized = false;
+                }
+                fieldDatum.bindableWrapper.bindable = newValue;
+                if (!$scope.validateOn || $scope.validateOn === 'change') {
+                    target.validateField(fieldName);
+                }
+                // Changes in form-data should also trigger validations.
+                // Validation failures will not be displayed unless the form-field has been marked dirty (changed by user).
+                // We shouldn't mark our field as dirty when Angular auto-invokes the initial watcher though,
+                // So we ignore the first invocation...
+                if (!formDataWatcherInitialized) {
+                    formDataWatcherInitialized = true;
+                    $scope.formForStateHelper.setFieldHasBeenModified(bindableFieldName, false);
+                }
+                fieldDatum.bindableWrapper.pristine = !$scope.formForStateHelper.hasFieldBeenModified(bindableFieldName);
+            }));
+            return bindableFieldWrapper;
+        };
+        /**
+         * @inheritDocs
+         */
+        target.registerSubmitButton = function (submitButtonScope) {
+            var bindableWrapper = {
+                disabled: false
+            };
+            $scope.buttons.push(bindableWrapper);
+            return bindableWrapper;
+        };
+        /**
+         * @inheritDocs
+         */
+        target.resetErrors = function () {
+            for (var bindableFieldName in $scope.fields) {
+                // If the field is invalid, we don't want it to appear valid- just pristing.
+                if ($scope.formForStateHelper.getFieldError(bindableFieldName)) {
+                    $scope.formForStateHelper.setFieldHasBeenModified(bindableFieldName, false);
+                    $scope.fields[bindableFieldName].bindableWrapper.pristine = true;
+                }
+            }
+            $scope.formForStateHelper.setFormSubmitted(false);
+            $scope.formForStateHelper.resetFieldErrors();
+        };
+        /**
+         * @inheritDocs
+         */
+        target.resetField = function (fieldName) {
+            var bindableFieldName = nestedObjectHelper.flattenAttribute(fieldName);
+            // If the field is invalid, we don't want it to appear valid- just pristing.
+            if ($scope.formForStateHelper.getFieldError(bindableFieldName)) {
+                $scope.formForStateHelper.setFieldHasBeenModified(bindableFieldName, false);
+                $scope.fields[bindableFieldName].bindableWrapper.pristine = true;
+            }
+            $scope.formForStateHelper.setFieldError(bindableFieldName, null);
+        };
+        /**
+         * @inheritDocs
+         */
+        target.resetFields = function () {
+            target.resetErrors();
+        };
+        /**
+         * @inheritDocs
+         */
+        target.setFieldError = function (fieldName, error) {
+            var bindableFieldName = nestedObjectHelper.flattenAttribute(fieldName);
+            $scope.formForStateHelper.setFieldHasBeenModified(bindableFieldName, true);
+            $scope.formForStateHelper.setFieldError(bindableFieldName, error);
+        };
+        /**
+         * @inheritDocs
+         */
+        target.unregisterFormField = function (fieldName) {
+            var bindableFieldName = nestedObjectHelper.flattenAttribute(fieldName);
+            angular.forEach($scope.fields[bindableFieldName].unwatchers, function (unwatch) {
+                unwatch();
+            });
+            delete $scope.fields[bindableFieldName];
+        };
+        /**
+         * @inheritDocs
+         */
+        target.updateCollectionErrors = function (fieldNameToErrorMap) {
+            angular.forEach($scope.collectionLabels, function (bindableWrapper, bindableFieldName) {
+                var error = nestedObjectHelper.readAttribute(fieldNameToErrorMap, bindableFieldName);
+                $scope.formForStateHelper.setFieldError(bindableFieldName, error);
+            });
+        };
+        /**
+         * @inheritDocs
+         */
+        target.updateFieldErrors = function (fieldNameToErrorMap) {
+            angular.forEach($scope.fields, function (scope, bindableFieldName) {
+                var error = nestedObjectHelper.readAttribute(fieldNameToErrorMap, scope.fieldName);
+                $scope.formForStateHelper.setFieldError(bindableFieldName, error);
+            });
+        };
+        /**
+         * @inheritDocs
+         */
+        target.validateField = function (fieldName) {
+            var bindableFieldName = nestedObjectHelper.flattenAttribute(fieldName);
+            $scope.formForStateHelper.setFieldHasBeenModified(bindableFieldName, true);
+            // Run validations and store the result keyed by our bindableFieldName for easier subsequent lookup.
+            if ($scope.$validationRuleset) {
+                modelValidator.validateField($scope.formFor, fieldName, $scope.$validationRuleset).then(function () {
+                    $scope.formForStateHelper.setFieldError(bindableFieldName, null);
+                }, function (error) {
+                    $scope.formForStateHelper.setFieldError(bindableFieldName, error);
+                });
+            }
+        };
+        /**
+         * @inheritDocs
+         */
+        target.validateForm = function (showErrors) {
+            // Reset errors before starting new validation.
+            target.updateCollectionErrors({});
+            target.updateFieldErrors({});
+            var validateCollectionsPromise;
+            var validateFieldsPromise;
+            if ($scope.$validationRuleset) {
+                var validationKeys = [];
+                angular.forEach($scope.fields, function (fieldDatum) {
+                    validationKeys.push(fieldDatum.fieldName);
+                });
+                validateFieldsPromise = modelValidator.validateFields($scope.formFor, validationKeys, $scope.$validationRuleset);
+                validateFieldsPromise.then(angular.noop, target.updateFieldErrors);
+                validationKeys = []; // Reset for below re-use
+                angular.forEach($scope.collectionLabels, function (bindableWrapper, bindableFieldName) {
+                    validationKeys.push(bindableFieldName);
+                });
+                validateCollectionsPromise = modelValidator.validateFields($scope.formFor, validationKeys, $scope.$validationRuleset);
+                validateCollectionsPromise.then(angular.noop, target.updateCollectionErrors);
+            }
+            else {
+                validateCollectionsPromise = promiseUtils.resolve();
+                validateFieldsPromise = promiseUtils.resolve();
+            }
+            var deferred = promiseUtils.defer();
+            promiseUtils.waitForAll([validateCollectionsPromise, validateFieldsPromise]).then(deferred.resolve, function (errors) {
+                // If all collections are valid (or no collections exist) this will be an empty array.
+                if (angular.isArray(errors[0]) && errors[0].length === 0) {
+                    errors.splice(0, 1);
+                }
+                // Errors won't be shown for clean fields, so mark errored fields as dirty.
+                if (showErrors) {
+                    angular.forEach(errors, function (errorObjectOrArray) {
+                        var flattenedFields = nestedObjectHelper.flattenObjectKeys(errorObjectOrArray);
+                        angular.forEach(flattenedFields, function (fieldName) {
+                            var error = nestedObjectHelper.readAttribute(errorObjectOrArray, fieldName);
+                            if (error) {
+                                var bindableFieldName = nestedObjectHelper.flattenAttribute(fieldName);
+                                $scope.formForStateHelper.setFieldHasBeenModified(bindableFieldName, true);
+                            }
+                        });
+                    });
+                }
+                deferred.reject(errors);
+            });
+            return deferred.promise;
+        };
+        return target;
+    }
+    formFor.createFormForController = createFormForController;
+})(formFor || (formFor = {}));
+/// <reference path="../utils/form-for-controller.ts" />
+/// <reference path="../utils/promise-utils.ts" />
+var formFor;
+(function (formFor) {
+    var $injector_;
+    var $log_;
+    var $parse_;
+    var $sce_;
+    var formForConfiguration_;
+    var modelValidator_;
+    var promiseUtils_;
+    /**
+     * This directive should be paired with an Angular ngForm object,
+     * and should contain at least one of the formFor field types described below.
+     * At a high level, it operates on a bindable form-data object and runs validations each time a change is detected.
+     */
+    var FormForDirective = (function () {
+        /* @ngInject */
+        function FormForDirective($injector) {
+            // We don't need the ngForm controller, but we do rely on the form-submit hook
+            this.require = 'form';
+            this.restrict = 'A';
+            this.scope = {
+                controller: '=?',
+                disable: '=?',
+                formFor: '=',
+                service: '@',
+                submitComplete: '&?',
+                submitError: '&?',
+                submitWith: '&?',
+                valid: '=?',
+                validateOn: '=?',
+                validationFailed: '&?',
+                validationRules: '=?'
+            };
+            $injector_ = $injector;
+            $log_ = $injector.get('$log');
+            $parse_ = $injector.get('$parse');
+            $sce_ = $injector.get('$sce');
+            formForConfiguration_ = $injector.get('FormForConfiguration');
+            modelValidator_ = $injector.get('ModelValidator');
+            promiseUtils_ = new formFor.PromiseUtils($injector.get('$q'));
+        }
+        FormForDirective.$inject = ["$injector"];
+        /* @ngInject */
+        FormForDirective.prototype.controller = function ($scope) {
+            if (!$scope.formFor) {
+                $log_.error('The form data object specified by <form form-for=""> is null or undefined.');
+            }
+            $scope.fields = {};
+            $scope.collectionLabels = {};
+            $scope.buttons = [];
+            $scope.controller = $scope.controller || {};
+            if ($scope.service) {
+                $scope.$service = $injector_.get($scope.service);
+            }
+            // Validation rules can come through 2 ways:
+            // As part of the validation service or as a direct binding (specified via an HTML attribute binding).
+            if ($scope.validationRules) {
+                $scope.$validationRuleset = $scope.validationRules;
+            }
+            else if ($scope.$service) {
+                $scope.$validationRuleset = $scope.$service.validationRules;
+            }
+            // Attach FormForController (interface) methods to the directive's controller (this).
+            formFor.createFormForController(this, $parse_, promiseUtils_, $scope, modelValidator_, formForConfiguration_);
+            // Expose controller methods to the shared, bindable $scope.controller
+            if ($scope.controller) {
+                angular.copy(this, $scope.controller);
+            }
+            // Disable all child inputs if the form becomes disabled.
+            $scope.$watch('disable', function (value) {
+                angular.forEach($scope.fields, function (fieldDatum) {
+                    fieldDatum.bindableWrapper.disabled = value;
+                });
+                angular.forEach($scope.buttons, function (buttonWrapper) {
+                    buttonWrapper.disabled = value;
+                });
+            });
+            // Track field validity and dirty state.
+            $scope.formForStateHelper = new formFor.FormForStateHelper($parse_, $scope);
+            // Watch for any validation changes or changes in form-state that require us to notify the user.
+            // Rather than using a deep-watch, FormForStateHelper exposes a bindable attribute 'watchable'.
+            // This attribute is guaranteed to change whenever validation criteria change (but its value is meaningless).
+            $scope.$watch('formForStateHelper.watchable', function () {
+                var hasFormBeenSubmitted = $scope.formForStateHelper.hasFormBeenSubmitted();
+                // Mark invalid fields
+                angular.forEach($scope.fields, function (fieldDatum, bindableFieldName) {
+                    if (hasFormBeenSubmitted || $scope.formForStateHelper.hasFieldBeenModified(bindableFieldName)) {
+                        var error = $scope.formForStateHelper.getFieldError(bindableFieldName);
+                        fieldDatum.bindableWrapper.error = error ? $sce_.trustAsHtml(error) : null;
+                    }
+                    else {
+                        fieldDatum.bindableWrapper.error = null; // Clear out field errors in the event that the form has been reset
+                    }
+                });
+                // Mark invalid collections
+                angular.forEach($scope.collectionLabels, function (bindableWrapper, bindableFieldName) {
+                    var error = $scope.formForStateHelper.getFieldError(bindableFieldName);
+                    bindableWrapper.error = error ? $sce_.trustAsHtml(error) : null;
+                });
+            });
+        };
+        FormForDirective.prototype.controller.$inject = ["$scope"];
+        /* @ngInject */
+        FormForDirective.prototype.link = function ($scope, $element, $attributes) {
+            $element.on('submit', function () {
+                $scope.formForStateHelper.setFormSubmitted(true);
+                $scope.disable = true;
+                var validationPromise;
+                // By default formFor validates on-change,
+                // But we need to [re-]validate on submit as well to handle pristine fields.
+                // The only case we don't want to validate for is 'manual'.
+                if ($scope.validateOn === 'manual') {
+                    validationPromise = promiseUtils_.resolve();
+                }
+                else {
+                    validationPromise = $scope.controller.validateForm();
+                }
+                validationPromise.then(function () {
+                    var promise;
+                    // $scope.submitWith is wrapped with a virtual function so we must check via attributes
+                    if ($attributes['submitWith']) {
+                        promise = $scope.submitWith({ data: $scope.formFor });
+                    }
+                    else if ($scope.$service && $scope.$service.submit) {
+                        promise = $scope.$service.submit($scope.formFor);
+                    }
+                    else {
+                        promise = promiseUtils_.reject('No submit function provided');
+                    }
+                    // Issue #18 Guard against submit functions that don't return a promise by warning rather than erroring.
+                    if (!promise) {
+                        promise = promiseUtils_.reject('Submit function did not return a promise');
+                    }
+                    promise.then(function (response) {
+                        // $scope.submitComplete is wrapped with a virtual function so we must check via attributes
+                        if ($attributes['submitComplete']) {
+                            $scope.submitComplete({ data: response });
+                        }
+                        else {
+                            formForConfiguration_.defaultSubmitComplete(response, $scope.controller);
+                        }
+                    }, function (errorMessageOrErrorMap) {
+                        // If the remote response returned inline-errors update our error map.
+                        // This is unecessary if a string was returned.
+                        if (angular.isObject(errorMessageOrErrorMap)) {
+                            if ($scope.validateOn !== 'manual') {
+                                // TODO Questionable: Maybe server should be forced to return fields/collections constraints?
+                                $scope.controller.updateCollectionErrors(errorMessageOrErrorMap);
+                                $scope.controller.updateFieldErrors(errorMessageOrErrorMap);
+                            }
+                        }
+                        // $scope.submitError is wrapped with a virtual function so we must check via attributes
+                        if ($attributes['submitError']) {
+                            $scope.submitError({ error: errorMessageOrErrorMap });
+                        }
+                        else {
+                            formForConfiguration_.defaultSubmitError(errorMessageOrErrorMap, $scope.controller);
+                        }
+                    });
+                    promise['finally'](function () {
+                        $scope.disable = false;
+                    });
+                }, function (reason) {
+                    $scope.disable = false;
+                    // $scope.validationFailed is wrapped with a virtual function so we must check via attributes
+                    if ($attributes['validationFailed']) {
+                        $scope.validationFailed();
+                    }
+                    else {
+                        formForConfiguration_.defaultValidationFailed(reason);
+                    }
+                });
+                return false;
+            });
+        };
+        FormForDirective.prototype.link.$inject = ["$scope", "$element", "$attributes"];
+        return FormForDirective;
+    })();
+    formFor.FormForDirective = FormForDirective;
+    angular.module('formFor').directive('formFor', ["$injector", function ($injector) {
+        return new FormForDirective($injector);
+    }]);
+})(formFor || (formFor = {}));
+var formFor;
+(function (formFor) {
+    /**
+     * UID generator for formFor input fields.
+     * @see http://stackoverflow.com/questions/6248666/how-to-generate-short-uid-like-ax4j9z-in-js
+     *
+     * <p>Intended for use only by formFor directive; this class is not exposed to the $injector.
+     */
+    var FormForGUID = (function () {
+        function FormForGUID() {
+        }
+        /**
+         * Create a new GUID.
+         */
+        FormForGUID.create = function () {
+            return ("0000" + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-4);
+        };
+        return FormForGUID;
+    })();
+    formFor.FormForGUID = FormForGUID;
+})(formFor || (formFor = {}));
+/// <reference path="../services/field-helper.ts" />
+/// <reference path="../services/form-for-configuration.ts" />
+/// <reference path="../utils/form-for-guid.ts" />
+var formFor;
+(function (formFor) {
+    var $sce_;
+    var $log_;
+    var fieldHelper_;
+    /**
+     * Renders a radio &lt;input&gt; with optional label.
+     * This type of component is well-suited for small enumerations.
+     *
+     * @example
+     * // To render a radio group for gender selection you might use the following markup:
+     * <radio-field label="Female" attribute="gender" value="f"></radio-field>
+     * <radio-field label="Male" attribute="gender" value="m"></radio-field>
+     *
+     * @param $sce $injector-supplied $sce service
+     * @param $log $injector-supplied $log service
+     * @param FormForConfiguration
+     */
+    var RadioFieldDirective = (function () {
+        /* @ngInject */
+        function RadioFieldDirective($sce, $log, FormForConfiguration) {
+            this.require = '^formFor';
+            this.restrict = 'EA';
+            this.templateUrl = 'form-for/templates/radio-field.html';
+            this.scope = {
+                attribute: '@',
+                disable: '=',
+                help: '@?',
+                options: '=',
+                value: '@'
+            };
+            fieldHelper_ = new formFor.FieldHelper(FormForConfiguration);
+            $sce_ = $sce;
+            $log_ = $log;
+        }
+        RadioFieldDirective.$inject = ["$sce", "$log", "FormForConfiguration"];
+        /* @ngInject */
+        RadioFieldDirective.prototype.link = function ($scope, $element, $attributes, formForController) {
+            if (!$scope.attribute) {
+                $log_.error('Missing required field "attribute"');
+                return;
+            }
+            // Read from $attributes to avoid getting any interference from $scope.
+            $scope.labelAttribute = $attributes['labelAttribute'] || 'label';
+            $scope.valueAttribute = $attributes['valueAttribute'] || 'value';
+            fieldHelper_.manageFieldRegistration($scope, $attributes, formForController);
+            // Everything inside of  $scope.model pertains to the first <input type="radio"> for this attribute/name.
+            // In order for our view's aria-* and label-for tags to function properly, we need a unique uid for this instance.
+            $scope.uid = $attributes['uid'] || formFor.FormForGUID.create();
+            fieldHelper_.manageLabel($scope, $attributes, true);
+            $scope.tabIndex = $attributes['tabIndex'] || 0;
+            $scope.click = function () {
+                if (!$scope.disable && !$scope.model.disabled) {
+                }
+            };
+            $scope.$watch('options', function (options) {
+                options.forEach(function (option) {
+                    if (!angular.isObject(option[$scope.labelAttribute]))
+                        option[$scope.labelAttribute] = $sce_.trustAsHtml(option[$scope.labelAttribute]);
+                });
+            }, true);
+            $scope.$watch('model', function (value) {
+                $scope.model = value;
+            });
+            $scope.$watch('disable', function (value) {
+                $scope.disable = value;
+            });
+            $scope.$watch('model.disabled', function (value) {
+                if ($scope.model) {
+                    $scope.model.disabled = value;
+                }
+            });
+            /**
+             * Update this RadioField (UI) whenever the group's value changes.
+             * This could be triggered by another RadioField in the group.
+            $scope.$watch('model.bindable', function(newValue:any) {
+              $scope.checked =
+                newValue !== undefined &&
+                newValue !== null &&
+                newValue.toString() === $scope.value.toString();
+            });
+             */
+        };
+        RadioFieldDirective.prototype.link.$inject = ["$scope", "$element", "$attributes", "formForController"];
+        return RadioFieldDirective;
+    })();
+    formFor.RadioFieldDirective = RadioFieldDirective;
+    angular.module('formFor').directive('radioField', ["$sce", "$log", "FormForConfiguration", function ($sce, $log, FormForConfiguration) {
+        return new RadioFieldDirective($sce, $log, FormForConfiguration);
+    }]);
+})(formFor || (formFor = {}));
+/// <reference path="../services/field-helper.ts" />
+var formFor;
+(function (formFor) {
+    var MIN_TIMEOUT_INTERVAL = 10;
+    var $document_;
+    var $log_;
+    var $timeout_;
+    var fieldHelper_;
+    var formForConfiguration_;
+    /**
+     * Renders a drop-down &lt;select&gt; menu along with an input label.
+     * This type of component works with large enumerations and can be configured to allow for a blank/empty selection
+     * by way of an allow-blank attribute.
+     *
+     * The following HTML attributes are supported by this directive:
+     * <ul>
+     * <li>allow-blank: The presence of this attribute indicates that an empty/blank selection should be allowed.
+     * <li>prevent-default-option: Optional attribute to override default selection of the first list option.
+     *       Without this attribute, lists with `allow-blank` will default select the first option in the options array.
+     *</ul>
+     *
+     * @example
+     * // To use this component you'll first need to define a set of options. For instance:
+     * $scope.genders = [
+     *   { value: 'f', label: 'Female' },
+     *   { value: 'm', label: 'Male' }
+     * ];
+     *
+     * // To render a drop-down input using the above options:
+     * <select-field attribute="gender"
+     *               label="Gender"
+     *               options="genders">
+     * </select-field>
+     *
+     * // If you want to make this attribute optional you can use the allow-blank attribute as follows:
+     * <select-field attribute="gender"
+     *               label="Gender"
+     *               options="genders"
+     *               allow-blank>
+     * </select-field>
+     *
+     * @param $document $injector-supplied $document service
+     * @param $log $injector-supplied $log service
+     * @param $timeout $injector-supplied $timeout service
+     * @param fieldHelper
+     * @param formForConfiguration
+     */
+    var SelectFieldDirective = (function () {
+        /* @ngInject */
+        function SelectFieldDirective($document, $log, $timeout, fieldHelper, formForConfiguration) {
+            this.require = '^formFor';
+            this.restrict = 'EA';
+            this.templateUrl = 'form-for/templates/select-field.html';
+            this.scope = {
+                attribute: '@',
+                disable: '=',
+                help: '@?',
+                multiple: '=?',
+                options: '='
+            };
+            $document_ = $document;
+            $log_ = $log;
+            $timeout_ = $timeout;
+            fieldHelper_ = fieldHelper;
+            formForConfiguration_ = formForConfiguration;
+        }
+        SelectFieldDirective.$inject = ["$document", "$log", "$timeout", "fieldHelper", "formForConfiguration"];
+        /* @ngInject */
+        SelectFieldDirective.prototype.link = function ($scope, $element, $attributes, formForController) {
+            if (!$scope.attribute) {
+                $log_.error('Missing required field "attribute"');
+                return;
+            }
+            $scope.allowBlank = $attributes.hasOwnProperty('allowBlank');
+            $scope.preventDefaultOption = $attributes.hasOwnProperty('preventDefaultOption');
+            // Read from $attributes to avoid getting any interference from $scope.
+            $scope.labelAttribute = $attributes['labelAttribute'] || 'label';
+            $scope.valueAttribute = $attributes['valueAttribute'] || 'value';
+            $scope.placeholder = $attributes.hasOwnProperty('placeholder') ? $attributes['placeholder'] : 'Select';
+            $scope.tabIndex = $attributes['tabIndex'] || 0;
+            $scope.scopeBuster = {};
+            fieldHelper_.manageLabel($scope, $attributes, false);
+            fieldHelper_.manageFieldRegistration($scope, $attributes, formForController);
+            $scope.close = function () {
+                $timeout_(function () {
+                    $scope.isOpen = false;
+                });
+            };
+            $scope.open = function () {
+                if ($scope.disable || $scope.model.disabled) {
+                    return;
+                }
+                $timeout_(function () {
+                    $scope.isOpen = true;
+                });
+            };
+            $scope.bindableOptions = [];
+            $scope.emptyOption = {};
+            $scope.emptyOption[$scope.labelAttribute] = $scope.placeholder;
+            $scope.emptyOption[$scope.valueAttribute] = formForConfiguration_.defaultSelectEmptyOptionValue;
+            /*****************************************************************************************
+             * The following code manages setting the correct default value based on bindable model.
+             *****************************************************************************************/
+            $scope.selectOption = function (option) {
+                $scope.model.bindable = option && option[$scope.valueAttribute];
+            };
+            var updateDefaultOption = function () {
+                var numOptions = $scope.options && $scope.options.length;
+                // Default select the first item in the list
+                // Do not do this if a blank option is allowed OR if the user has explicitly disabled this function
+                if (!$scope.model.bindable && !$scope.allowBlank && !$scope.preventDefaultOption && numOptions) {
+                    $scope.selectOption($scope.options[0]);
+                }
+                // Certain falsy values may indicate a non-selection.
+                // In this case, the placeholder (empty) option needs to match the falsy selected value,
+                // Otherwise the Angular select directive will generate an additional empty <option> ~ see #110
+                // Angular 1.2.x-1.3.x may generate an empty <option> regardless, unless the non-selection is undefined.
+                if ($scope.model.bindable === null || $scope.model.bindable === undefined || $scope.model.bindable === '') {
+                    // Rather than sanitizing `$scope.model.bindable` to undefined, update the empty option's value.
+                    // This way users are able to choose between undefined, null, and empty string ~ see #141
+                    $scope.model.bindable = formForConfiguration_.defaultSelectEmptyOptionValue;
+                    $scope.emptyOption[$scope.valueAttribute] = $scope.model.bindable;
+                }
+                $scope.bindableOptions.splice(0);
+                if (!$scope.model.bindable || $scope.allowBlank) {
+                    $scope.bindableOptions.push($scope.emptyOption);
+                }
+                $scope.bindableOptions.push.apply($scope.bindableOptions, $scope.options);
+                // Once a value has been selected, clear the placeholder prompt.
+                if ($scope.model.bindable) {
+                    $scope.emptyOption[$scope.labelAttribute] = '';
+                }
+            };
+            // Allow the current $digest cycle (if we're in one) to complete so that the FormForController has a chance to set
+            // the bindable model attribute to that of the external formData field. This way we won't overwrite the default
+            // value with one of our own.
+            $timeout_(function () {
+                $scope.$watch('model.bindable', updateDefaultOption);
+                $scope.$watch('options.length', updateDefaultOption);
+            });
+            /*****************************************************************************************
+             * The following code deals with toggling/collapsing the drop-down and selecting values.
+             *****************************************************************************************/
+            var documentClick = function (event) {
+                $scope.close();
+            };
+            var pendingTimeoutId;
+            $scope.$watch('isOpen', function () {
+                if (pendingTimeoutId) {
+                    $timeout_.cancel(pendingTimeoutId);
+                }
+                pendingTimeoutId = $timeout_(function () {
+                    pendingTimeoutId = null;
+                    if ($scope.isOpen) {
+                        $document_.on('click', documentClick);
+                    }
+                    else {
+                        $document_.off('click', documentClick);
+                    }
+                }, MIN_TIMEOUT_INTERVAL);
+            });
+            $scope.$on('$destroy', function () {
+                $document_.off('click', documentClick);
+            });
+            /*****************************************************************************************
+             * The following code responds to keyboard events when the drop-down is visible
+             *****************************************************************************************/
+            $scope.mouseOver = function (index) {
+                $scope.mouseOverIndex = index;
+                $scope.mouseOverOption = index >= 0 ? $scope.options[index] : null;
+            };
+            // Listen to key down, not up, because ENTER key sometimes gets converted into a click event.
+            $scope.keyDown = function (event) {
+                switch (event.keyCode) {
+                    case 27:
+                        $scope.close();
+                        break;
+                    case 13:
+                        if ($scope.isOpen) {
+                            $scope.selectOption($scope.mouseOverOption);
+                            $scope.close();
+                        }
+                        else {
+                            $scope.open();
+                        }
+                        event.preventDefault();
+                        break;
+                    case 38:
+                        if ($scope.isOpen) {
+                            $scope.mouseOver($scope.mouseOverIndex > 0 ? $scope.mouseOverIndex - 1 : $scope.options.length - 1);
+                        }
+                        else {
+                            $scope.open();
+                        }
+                        break;
+                    case 40:
+                        if ($scope.isOpen) {
+                            $scope.mouseOver($scope.mouseOverIndex < $scope.options.length - 1 ? $scope.mouseOverIndex + 1 : 0);
+                        }
+                        else {
+                            $scope.open();
+                        }
+                        break;
+                    case 9:
+                    case 16:
+                        $scope.close();
+                        break;
+                    default:
+                        $scope.open();
+                        break;
+                }
+            };
+        };
+        SelectFieldDirective.prototype.link.$inject = ["$scope", "$element", "$attributes", "formForController"];
+        return SelectFieldDirective;
+    })();
+    formFor.SelectFieldDirective = SelectFieldDirective;
+    angular.module('formFor').directive('selectField', ["$document", "$log", "$timeout", "FieldHelper", "FormForConfiguration", function ($document, $log, $timeout, FieldHelper, FormForConfiguration) {
+        return new SelectFieldDirective($document, $log, $timeout, FieldHelper, FormForConfiguration);
+    }]);
+})(formFor || (formFor = {}));
+var formFor;
+(function (formFor) {
+    var $sce_;
+    /**
+     * Displays a submit &lt;button&gt; component that is automatically disabled when a form is invalid or in the process of submitting.
+     *
+     * @example
+     * // Here is a simple submit button with an icon:
+     * <submit-button label="Sign Up" icon="fa fa-user"></submit-button>
+     *
+     * // You can use your own <button> components within a formFor as well.
+     * // If you choose to you must register your button with formFor's controller using registerSubmitButton().
+     * // This method returns a model with a bindable 'disabled' attribute that your button should use like so:
+     * <form form-for="formData">
+     *   <button ng-disabled="model.disabled">Submit</button>
+     * </form>
+     *
+     * @param $sce $injector-supplied $sce service
+     */
+    var SubmitButtonDirective = (function () {
+        /* @ngInject */
+        function SubmitButtonDirective($sce) {
+            this.require = '^formFor';
+            this.restrict = 'EA';
+            this.templateUrl = 'form-for/templates/submit-button.html';
+            this.scope = {
+                disable: '=',
+                buttonClass: '@',
+                icon: '@',
+                label: '@'
+            };
+            $sce_ = $sce;
+        }
+        SubmitButtonDirective.$inject = ["$sce"];
+        /* @ngInject */
+        SubmitButtonDirective.prototype.link = function ($scope, $element, $attributes, formForController) {
+            $scope.tabIndex = $attributes['tabIndex'] || 0;
+            $scope.$watch('label', function (value) {
+                $scope.bindableLabel = $sce_.trustAsHtml(value);
+            });
+            $scope.model = formForController.registerSubmitButton($scope);
+        };
+        SubmitButtonDirective.prototype.link.$inject = ["$scope", "$element", "$attributes", "formForController"];
+        return SubmitButtonDirective;
+    })();
+    formFor.SubmitButtonDirective = SubmitButtonDirective;
+    angular.module('formFor').directive('submitButton', ["$sce", function ($sce) {
+        return new SubmitButtonDirective($sce);
+    }]);
+})(formFor || (formFor = {}));
+/// <reference path="../services/field-helper.ts" />
+var formFor;
+(function (formFor) {
+    var $log_;
+    var $timeout_;
+    var fieldHelper_;
+    /**
+     * Displays an HTML &lt;input&gt; or &lt;textarea&gt; element along with an optional label.
+     *
+     * <p>The HTML &lt;input&gt; type can be configured to allow for passwords, numbers, etc.
+     * This directive can also be configured to display an informational tooltip.
+     * In the event of a validation error, this directive will also render an inline error message.
+     *
+     * <p>This directive supports the following HTML attributes in addition to its scope properties:
+     *
+     * <ul>
+     *   <li>autofocus: The presence of this attribute will auto-focus the input field.
+     *   <li>multiline: The presence of this attribute enables multi-line input.
+     * </ul>
+     *
+     * @example
+     * // To create a password input you might use the following markup:
+     * <text-field attribute="password" label="Password" type="password"></text-field>
+     *
+     * // To create a more advanced input field, with placeholder text and help tooltip you might use the following markup:
+     * <text-field attribute="username" label="Username"
+     *             placeholder="Example brianvaughn"
+     *             help="Your username will be visible to others!"></text-field>
+     *
+     * // To render a multiline text input (or <textarea>):
+     * <text-field attribute="description" label="Description" multiline></text-field>
+     *
+     * // To render icons based on the status of the field (pristin, invalid, valid) pass an object:
+     * <text-field attribute="username" label="Username"
+     *             icon-after="{pristine: 'fa fa-user', invalid: 'fa fa-times', valid: 'fa fa-check'}">
+     * </text-field>
+     */
+    var TextFieldDirective = (function () {
+        /* @ngInject */
+        function TextFieldDirective($log, $timeout, fieldHelper) {
+            this.require = '^formFor';
+            this.restrict = 'EA';
+            this.templateUrl = 'form-for/templates/text-field.html';
+            this.scope = {
+                attribute: '@',
+                debounce: '@?',
+                disable: '=',
+                focused: '&?',
+                blurred: '&?',
+                help: '@?',
+                iconAfterClicked: '&?',
+                iconBeforeClicked: '&?',
+                placeholder: '@?',
+                rows: '=?',
+                controller: '=?'
+            };
+            $log_ = $log;
+            $timeout_ = $timeout;
+            fieldHelper_ = fieldHelper;
+        }
+        TextFieldDirective.$inject = ["$log", "$timeout", "fieldHelper"];
+        TextFieldDirective.prototype.link = function ($scope, $element, $attributes, formForController) {
+            if (!$scope.attribute) {
+                $log_.error('Missing required field "attribute"');
+                return;
+            }
+            // Expose textField attributes to textField template partials for easier customization (see issue #61)
+            $scope.attributes = $attributes;
+            $scope.rows = $scope.rows || 3;
+            $scope.type = $attributes['type'] || 'text';
+            $scope.multiline = $attributes.hasOwnProperty('multiline') && $attributes['multiline'] !== 'false';
+            $scope.tabIndex = $attributes['tabIndex'] || 0;
+            $timeout_(function () {
+                $scope.controller = $element.find($scope.multiline ? 'textarea' : 'input').controller('ngModel');
+            });
+            if ($attributes.hasOwnProperty('autofocus')) {
+                $timeout_(function () {
+                    $element.find($scope.multiline ? 'textarea' : 'input')[0].focus();
+                });
+            }
+            fieldHelper_.manageLabel($scope, $attributes, false);
+            fieldHelper_.manageFieldRegistration($scope, $attributes, formForController);
+            // Update $scope.iconAfter based on the field state (see class-level documentation for more)
+            if ($attributes['iconAfter']) {
+                var updateIconAfter = function () {
+                    if (!$scope.model) {
+                        return;
+                    }
+                    var iconAfter = $attributes['iconAfter'].charAt(0) === '{' ? $scope.$eval($attributes['iconAfter']) : $attributes['iconAfter'];
+                    if (angular.isObject(iconAfter)) {
+                        if ($scope.model.error) {
+                            $scope.iconAfter = iconAfter['invalid'];
+                        }
+                        else if ($scope.model.pristine) {
+                            $scope.iconAfter = iconAfter['pristine'];
+                        }
+                        else {
+                            $scope.iconAfter = iconAfter['valid'];
+                        }
+                    }
+                    else {
+                        $scope.iconAfter = iconAfter;
+                    }
+                };
+                $attributes.$observe('iconAfter', updateIconAfter);
+                $scope.$watch('model.error', updateIconAfter);
+                $scope.$watch('model.pristine', updateIconAfter);
+            }
+            // Update $scope.iconBefore based on the field state (see class-level documentation for more)
+            if ($attributes['iconBefore']) {
+                var updateIconBefore = function () {
+                    if (!$scope.model) {
+                        return;
+                    }
+                    var iconBefore = $attributes['iconBefore'].charAt(0) === '{' ? $scope.$eval($attributes['iconBefore']) : $attributes['iconBefore'];
+                    if (angular.isObject(iconBefore)) {
+                        if ($scope.model.error) {
+                            $scope.iconBefore = iconBefore['invalid'];
+                        }
+                        else if ($scope.model.pristine) {
+                            $scope.iconBefore = iconBefore['pristine'];
+                        }
+                        else {
+                            $scope.iconBefore = iconBefore['valid'];
+                        }
+                    }
+                    else {
+                        $scope.iconBefore = iconBefore;
+                    }
+                };
+                $attributes.$observe('iconBefore', updateIconBefore);
+                $scope.$watch('model.error', updateIconBefore);
+                $scope.$watch('model.pristine', updateIconBefore);
+            }
+            $scope.onIconAfterClick = function () {
+                if ($scope.hasOwnProperty('iconAfterClicked')) {
+                    $scope.iconAfterClicked();
+                }
+            };
+            $scope.onIconBeforeClick = function () {
+                if ($scope.hasOwnProperty('iconBeforeClicked')) {
+                    $scope.iconBeforeClicked();
+                }
+            };
+            $scope.onFocus = function () {
+                if ($scope.hasOwnProperty('focused')) {
+                    $scope.focused();
+                }
+            };
+            $scope.onBlur = function () {
+                if ($scope.hasOwnProperty('blurred')) {
+                    $scope.blurred();
+                }
+            };
+        };
+        return TextFieldDirective;
+    })();
+    formFor.TextFieldDirective = TextFieldDirective;
+    angular.module('formFor').directive('textField', ["$log", "$timeout", "FieldHelper", function ($log, $timeout, FieldHelper) {
+        return new TextFieldDirective($log, $timeout, FieldHelper);
+    }]);
+})(formFor || (formFor = {}));
+/// <reference path="../services/field-helper.ts" />
+var formFor;
+(function (formFor) {
+    var MIN_TIMEOUT_INTERVAL = 10;
+    var $document_;
+    var $log_;
+    var $timeout_;
+    var fieldHelper_;
+    /**
+     * Renders an &lt;input type="text"&gt; component with type-ahead functionality.
+     * This type of component works with a large set of options that can be loaded asynchronously if needed.
+     *
+     * @example
+     * // To use this component you'll first need to define a set of options. For instance:
+     * $scope.genders = [
+     *   { value: 'f', label: 'Female' },
+     *   { value: 'm', label: 'Male' }
+     * ];
+     *
+     * // To render a drop-down input using the above options:
+     * <type-ahead-field attribute="gender"
+     *                   label="Gender"
+     *                   options="genders">
+     * </type-ahead-field>
+     *
+     * @param $document $injector-supplied $document service
+     * @param $log $injector-supplied $log service
+     * @param $timeout $injector-supplied $timeout service
+     * @param fieldHelper
+     */
+    var TypeAheadFieldDirective = (function () {
+        /* @ngInject */
+        function TypeAheadFieldDirective($document, $log, $timeout, fieldHelper) {
+            this.require = '^formFor';
+            this.restrict = 'EA';
+            this.templateUrl = 'form-for/templates/type-ahead-field.html';
+            this.scope = {
+                attribute: '@',
+                debounce: '@?',
+                disable: '=',
+                filterDebounce: '@?',
+                filterTextChanged: '&?',
+                help: '@?',
+                options: '='
+            };
+            $document_ = $document;
+            $log_ = $log;
+            $timeout_ = $timeout;
+            fieldHelper_ = fieldHelper;
+        }
+        TypeAheadFieldDirective.$inject = ["$document", "$log", "$timeout", "fieldHelper"];
+        /* @ngInject */
+        TypeAheadFieldDirective.prototype.link = function ($scope, $element, $attributes, formForController) {
+            if (!$scope.attribute) {
+                $log_.error('Missing required field "attribute"');
+                return;
+            }
+            // Read from $attributes to avoid getting any interference from $scope.
+            $scope.labelAttribute = $attributes['labelAttribute'] || 'label';
+            $scope.valueAttribute = $attributes['valueAttribute'] || 'value';
+            $scope.placeholder = $attributes.hasOwnProperty('placeholder') ? $attributes['placeholder'] : 'Select';
+            $scope.tabIndex = $attributes['tabIndex'] || 0;
+            $scope.scopeBuster = {
+                filter: ''
+            };
+            fieldHelper_.manageLabel($scope, $attributes, false);
+            fieldHelper_.manageFieldRegistration($scope, $attributes, formForController);
+            /*****************************************************************************************
+             * The following code pertains to opening and closing the filter.
+             *****************************************************************************************/
+            var filterText;
+            // Helper method for setting focus on an item after a delay
+            var setDelayedFilterTextFocus = function () {
+                if (!filterText) {
+                    var filterTextSelector = $element.find('input');
+                    if (filterTextSelector.length) {
+                        filterText = filterTextSelector[0];
+                    }
+                }
+                if (filterText) {
+                    $timeout_(filterText.focus.bind(filterText));
+                }
+            };
+            $scope.close = function () {
+                $timeout_(function () {
+                    $scope.isOpen = false;
+                });
+            };
+            $scope.open = function () {
+                if ($scope.disable || $scope.model.disabled) {
+                    return;
+                }
+                $timeout_(function () {
+                    $scope.isOpen = true;
+                });
+            };
+            /*****************************************************************************************
+             * The following code pertains to filtering visible options.
+             *****************************************************************************************/
+            $scope.filteredOptions = [];
+            // Sanitizes option and filter-text values for comparison
+            var sanitize = function (value) {
+                return typeof value === "string" ? value.toLowerCase() : '';
+            };
+            // Updates visible <option>s based on current filter text
+            var calculateFilteredOptions = function () {
+                var options = $scope.options || [];
+                $scope.filteredOptions.splice(0);
+                if (!$scope.scopeBuster.filter) {
+                    angular.copy(options, $scope.filteredOptions);
+                }
+                else {
+                    var filter = sanitize($scope.scopeBuster.filter);
+                    angular.forEach(options, function (option) {
+                        var index = sanitize(option[$scope.labelAttribute]).indexOf(filter);
+                        if (index >= 0) {
+                            $scope.filteredOptions.push(option);
+                        }
+                    });
+                }
+            };
+            $scope.searchTextChange = function (text) {
+                // No-op required by Angular Material
+            };
+            $scope.$watch('scopeBuster.filter', calculateFilteredOptions);
+            $scope.$watch('options.length', calculateFilteredOptions);
+            /*****************************************************************************************
+             * The following code deals with toggling/collapsing the drop-down and selecting values.
+             *****************************************************************************************/
+            var documentClick = function (event) {
+                // See filterTextClick() for why we check this property.
+                if (event.ignoreFor === $scope.model.uid) {
+                    return;
+                }
+                $scope.close();
+            };
+            $scope.filterTextClick = function (event) {
+                // We can't stop the event from propagating or we might prevent other inputs from closing on blur.
+                // But we can't let it proceed as normal or it may result in the $document click handler closing a newly-opened input.
+                // Instead we tag it for this particular instance of <select-field> to ignore.
+                if ($scope.isOpen) {
+                    event.ignoreFor = $scope.model.uid;
+                }
+            };
+            var pendingTimeoutId;
+            $scope.$watch('isOpen', function () {
+                if (pendingTimeoutId) {
+                    $timeout_.cancel(pendingTimeoutId);
+                }
+                pendingTimeoutId = $timeout_(function () {
+                    pendingTimeoutId = null;
+                    if ($scope.isOpen) {
+                        $document_.on('click', documentClick);
+                    }
+                    else {
+                        $document_.off('click', documentClick);
+                    }
+                }, MIN_TIMEOUT_INTERVAL);
+            });
+            $scope.$on('$destroy', function () {
+                $document_.off('click', documentClick);
+            });
+            /*****************************************************************************************
+             * The following code responds to keyboard events when the drop-down is visible
+             *****************************************************************************************/
+            $scope.setFilterFocus = function () {
+                setDelayedFilterTextFocus();
+            };
+            $scope.mouseOver = function (index) {
+                $scope.mouseOverIndex = index;
+                $scope.mouseOverOption = index >= 0 ? $scope.filteredOptions[index] : null;
+            };
+            $scope.selectOption = function (option) {
+                $scope.model.bindable = option && option[$scope.valueAttribute];
+                $scope.scopeBuster.filter = option && option[$scope.labelAttribute];
+            };
+            var syncFilterText = function () {
+                if ($scope.model.bindable && $scope.options) {
+                    $scope.options.forEach(function (option) {
+                        if ($scope.model.bindable === option[$scope.valueAttribute]) {
+                            $scope.scopeBuster.filter = option[$scope.labelAttribute];
+                        }
+                    });
+                }
+            };
+            $scope.$watch('model.bindable', syncFilterText);
+            $scope.$watch('options.length', syncFilterText);
+            // Listen to key down, not up, because ENTER key sometimes gets converted into a click event.
+            $scope.keyDown = function (event) {
+                switch (event.keyCode) {
+                    case 27:
+                        $scope.close();
+                        break;
+                    case 13:
+                        if ($scope.isOpen) {
+                            $scope.selectOption($scope.mouseOverOption);
+                            $scope.close();
+                        }
+                        else {
+                            $scope.open();
+                        }
+                        event.preventDefault();
+                        break;
+                    case 38:
+                        if ($scope.isOpen) {
+                            $scope.mouseOver($scope.mouseOverIndex > 0 ? $scope.mouseOverIndex - 1 : $scope.filteredOptions.length - 1);
+                        }
+                        else {
+                            $scope.open();
+                        }
+                        break;
+                    case 40:
+                        if ($scope.isOpen) {
+                            $scope.mouseOver($scope.mouseOverIndex < $scope.filteredOptions.length - 1 ? $scope.mouseOverIndex + 1 : 0);
+                        }
+                        else {
+                            $scope.open();
+                        }
+                        break;
+                    case 9:
+                    case 16:
+                        $scope.close();
+                        break;
+                    default:
+                        $scope.open();
+                        break;
+                }
+            };
+            $scope.$watchCollection('[isOpen, filteredOptions.length]', function () {
+                // Reset hover anytime our list opens/closes or our collection is refreshed.
+                $scope.mouseOver(-1);
+                // Pass focus through to filter field when the type-ahead is opened
+                if ($scope.isOpen) {
+                    setDelayedFilterTextFocus();
+                }
+            });
+            if ($scope.filterTextChanged instanceof Function) {
+                $scope.$watch('scopeBuster.filter', function (text) {
+                    $scope.filterTextChanged({ text: text });
+                });
+            }
+        };
+        TypeAheadFieldDirective.prototype.link.$inject = ["$scope", "$element", "$attributes", "formForController"];
+        return TypeAheadFieldDirective;
+    })();
+    formFor.TypeAheadFieldDirective = TypeAheadFieldDirective;
+    angular.module('formFor').directive('typeAheadField', ["$document", "$log", "$timeout", "FieldHelper", function ($document, $log, $timeout, FieldHelper) {
+        return new TypeAheadFieldDirective($document, $log, $timeout, FieldHelper);
+    }]);
+})(formFor || (formFor = {}));
+var formFor;
+(function (formFor) {
+    /**
+     * Input types available for auto-created forms; see {@link FieldView}.
+     */
+    (function (BuilderFieldType) {
+        BuilderFieldType[BuilderFieldType["CHECKBOX"] = "checkbox"] = "CHECKBOX";
+        BuilderFieldType[BuilderFieldType["NUMBER"] = "number"] = "NUMBER";
+        BuilderFieldType[BuilderFieldType["PASSWORD"] = "password"] = "PASSWORD";
+        BuilderFieldType[BuilderFieldType["RADIO"] = "radio"] = "RADIO";
+        BuilderFieldType[BuilderFieldType["SELECT"] = "select"] = "SELECT";
+        BuilderFieldType[BuilderFieldType["TEXT"] = "text"] = "TEXT";
+    })(formFor.BuilderFieldType || (formFor.BuilderFieldType = {}));
+    var BuilderFieldType = formFor.BuilderFieldType;
+})(formFor || (formFor = {}));
+var formFor;
+(function (formFor) {
+    /**
+     * Identifies a validation failure type.
+     */
+    (function (ValidationFailureType) {
+        ValidationFailureType[ValidationFailureType["COLLECTION_MAX_SIZE"] = "COLLECTION_MAX_SIZE"] = "COLLECTION_MAX_SIZE";
+        ValidationFailureType[ValidationFailureType["COLLECTION_MIN_SIZE"] = "COLLECTION_MIN_SIZE"] = "COLLECTION_MIN_SIZE";
+        ValidationFailureType[ValidationFailureType["CUSTOM"] = "CUSTOM"] = "CUSTOM";
+        ValidationFailureType[ValidationFailureType["MAXIMUM"] = "MAXIMUM"] = "MAXIMUM";
+        ValidationFailureType[ValidationFailureType["MAX_LENGTH"] = "MAX_LENGTH"] = "MAX_LENGTH";
+        ValidationFailureType[ValidationFailureType["MINIMUM"] = "MINIMUM"] = "MINIMUM";
+        ValidationFailureType[ValidationFailureType["MIN_LENGTH"] = "MIN_LENGTH"] = "MIN_LENGTH";
+        ValidationFailureType[ValidationFailureType["PATTERN"] = "PATTERN"] = "PATTERN";
+        ValidationFailureType[ValidationFailureType["REQUIRED"] = "REQUIRED_FIELD"] = "REQUIRED";
+        ValidationFailureType[ValidationFailureType["TYPE_EMAIL"] = "TYPE_EMAIL"] = "TYPE_EMAIL";
+        ValidationFailureType[ValidationFailureType["TYPE_INTEGER"] = "TYPE_INTEGER"] = "TYPE_INTEGER";
+        ValidationFailureType[ValidationFailureType["TYPE_NEGATIVE"] = "TYPE_NEGATIVE"] = "TYPE_NEGATIVE";
+        ValidationFailureType[ValidationFailureType["TYPE_NON_NEGATIVE"] = "TYPE_NON_NEGATIVE"] = "TYPE_NON_NEGATIVE";
+        ValidationFailureType[ValidationFailureType["TYPE_NUMERIC"] = "TYPE_NUMERIC"] = "TYPE_NUMERIC";
+        ValidationFailureType[ValidationFailureType["TYPE_POSITIVE"] = "TYPE_POSITIVE"] = "TYPE_POSITIVE";
+    })(formFor.ValidationFailureType || (formFor.ValidationFailureType = {}));
+    var ValidationFailureType = formFor.ValidationFailureType;
+    ;
+})(formFor || (formFor = {}));
+;
+var formFor;
+(function (formFor) {
+    /**
+     * Constraints that can be applied to a form field.
+     * These constraints can be combined (e.g. "positive integer").
+     */
+    (function (ValidationFieldType) {
+        ValidationFieldType[ValidationFieldType["EMAIL"] = "email"] = "EMAIL";
+        ValidationFieldType[ValidationFieldType["INTEGER"] = "integer"] = "INTEGER";
+        ValidationFieldType[ValidationFieldType["NEGATIVE"] = "negative"] = "NEGATIVE";
+        ValidationFieldType[ValidationFieldType["NON_NEGATIVE"] = "nonNegative"] = "NON_NEGATIVE";
+        ValidationFieldType[ValidationFieldType["NUMBER"] = "number"] = "NUMBER";
+        ValidationFieldType[ValidationFieldType["POSITIVE"] = "positive"] = "POSITIVE";
+    })(formFor.ValidationFieldType || (formFor.ValidationFieldType = {}));
+    var ValidationFieldType = formFor.ValidationFieldType;
+    ;
+})(formFor || (formFor = {}));
+;
+var formFor;
+(function (formFor) {
+    /**
+     * Wrapper object for a form-field attribute that exposes field-state to field directives.
+     *
+     * <p>Note that this interface exists for type-checking only; nothing actually implements this interface.
+     */
+    var BindableFieldWrapper = (function () {
+        function BindableFieldWrapper() {
+        }
+        return BindableFieldWrapper;
+    })();
+    formFor.BindableFieldWrapper = BindableFieldWrapper;
+    ;
+})(formFor || (formFor = {}));
+;
+/// <reference path="../../definitions/angular.d.ts" />
+/// <reference path="form-for-configuration.ts" />
+/// <reference path="../utils/nested-object-helper.ts" />
+/// <reference path="../utils/promise-utils.ts" />
+var formFor;
+(function (formFor) {
+    /**
+     * Model validation service.
+     */
+    var ModelValidator = (function () {
+        /**
+         * Constructor.
+         *
+         * @param $interpolate Injector-supplied $interpolate service
+         * @param $parse Injecter-supplied $parse service
+         * @param $q Injector-supplied $q service
+         * @param formForConfiguration
+         */
+        function ModelValidator($interpolate, $parse, $q, formForConfiguration) {
+            this.$interpolate_ = $interpolate;
+            this.formForConfiguration_ = formForConfiguration;
+            this.nestedObjectHelper_ = new formFor.NestedObjectHelper($parse);
+            this.promiseUtils_ = new formFor.PromiseUtils($q);
+        }
+        /**
+         * Determines if the specified collection is required (requires a minimum number of items).
+         *
+         * @param fieldName Name of field containing the collection.
+         * @param validationRuleSet Map of field names to validation rules
+         */
+        ModelValidator.prototype.isCollectionRequired = function (fieldName, validationRuleSet) {
+            var validationRules = this.getRulesFor_(fieldName, validationRuleSet);
+            if (validationRules && validationRules.collection && validationRules.collection.min) {
+                if (angular.isObject(validationRules.collection.min)) {
+                    return validationRules.collection.min.rule > 0;
+                }
+                else {
+                    return validationRules.collection.min > 0;
+                }
+            }
+            return false;
+        };
+        /**
+         * Determines if the specified field is flagged as required.
+         *
+         * @param fieldName Name of field in question.
+         * @param validationRuleSet Map of field names to validation rules
+         */
+        ModelValidator.prototype.isFieldRequired = function (fieldName, validationRuleSet) {
+            var validationRules = this.getRulesFor_(fieldName, validationRuleSet);
+            if (validationRules && validationRules.required) {
+                if (angular.isObject(validationRules.required)) {
+                    return validationRules.required.rule;
+                }
+                else {
+                    return !!validationRules.required;
+                }
+            }
+            return false;
+        };
+        /**
+         * Validates the model against all rules in the validationRules.
+         * This method returns a promise to be resolved on successful validation,
+         * or rejected with a map of field-name to error-message.
+         *
+         * @param formData Form-data object model is contained within
+         * @param validationRuleSet Map of field names to validation rules
+         * @return Promise to be resolved or rejected based on validation success or failure.
+         */
+        ModelValidator.prototype.validateAll = function (formData, validationRuleSet) {
+            var fieldNames = this.nestedObjectHelper_.flattenObjectKeys(formData);
+            return this.validateFields(formData, fieldNames, validationRuleSet);
+        };
+        /**
+         * Validate the properties of a collection (but not the items within the collection).
+         * This method returns a promise to be resolved on successful validation or rejected with an error message.
+         *
+         * @param formData Form-data object model is contained within
+         * @param fieldName Name of collection to validate
+         * @param validationRuleSet Map of field names to validation rules
+         * @return Promise to be resolved or rejected based on validation success or failure.
+         */
+        ModelValidator.prototype.validateCollection = function (formData, fieldName, validationRuleSet) {
+            var validationRules = this.getRulesFor_(fieldName, validationRuleSet);
+            var collection = this.nestedObjectHelper_.readAttribute(formData, fieldName);
+            if (validationRules && validationRules.collection) {
+                collection = collection || [];
+                return this.validateCollectionMinLength_(collection, validationRules.collection) || this.validateCollectionMaxLength_(collection, validationRules.collection) || this.promiseUtils_.resolve();
+            }
+            return this.promiseUtils_.resolve();
+        };
+        /**
+         * Validates a value against the related rule-set (within validationRules).
+         * This method returns a promise to be resolved on successful validation.
+         * If validation fails the promise will be rejected with an error message.
+         *
+         * @param formData Form-data object model is contained within.
+         * @param fieldName Name of field used to associate the rule-set map with a given value.
+         * @param validationRuleSet Map of field names to validation rules
+         * @return Promise to be resolved or rejected based on validation success or failure.
+         */
+        ModelValidator.prototype.validateField = function (formData, fieldName, validationRuleSet) {
+            var validationRules = this.getRulesFor_(fieldName, validationRuleSet);
+            var value = this.nestedObjectHelper_.readAttribute(formData, fieldName);
+            if (validationRules) {
+                if (value === undefined || value === null) {
+                    value = ""; // Escape falsy values liked null or undefined, but not ones like 0
+                }
+                return this.validateFieldRequired_(value, validationRules) || this.validateFieldMinimum_(value, validationRules) || this.validateFieldMinLength_(value, validationRules) || this.validateFieldMaximum_(value, validationRules) || this.validateFieldMaxLength_(value, validationRules) || this.validateFieldType_(value, validationRules) || this.validateFieldPattern_(value, validationRules) || this.validateFieldCustom_(value, formData, validationRules, fieldName) || this.promiseUtils_.resolve();
+            }
+            return this.promiseUtils_.resolve();
+        };
+        /**
+         * Validates the values in model with the rules defined in the current validationRules.
+         * This method returns a promise to be resolved on successful validation,
+         * or rejected with a map of field-name to error-message.
+         *
+         * @param formData Form-data object model is contained within
+         * @param fieldNames White-list set of fields to validate for the given model.
+         *                   Values outside of this list will be ignored.
+         * @param validationRuleSet Map of field names to validation rules
+         * @return Promise to be resolved or rejected based on validation success or failure.
+         */
+        ModelValidator.prototype.validateFields = function (formData, fieldNames, validationRuleSet) {
+            var _this = this;
+            var deferred = this.promiseUtils_.defer();
+            var promises = [];
+            var errorMap = {};
+            angular.forEach(fieldNames, function (fieldName) {
+                var validationRules = _this.getRulesFor_(fieldName, validationRuleSet);
+                if (validationRules) {
+                    var promise;
+                    if (validationRules.collection) {
+                        promise = _this.validateCollection(formData, fieldName, validationRuleSet);
+                    }
+                    else {
+                        promise = _this.validateField(formData, fieldName, validationRuleSet);
+                    }
+                    promise.then(angular.noop, function (error) {
+                        _this.nestedObjectHelper_.writeAttribute(errorMap, fieldName, error);
+                    });
+                    promises.push(promise);
+                }
+            }, this);
+            // Wait until all validations have finished before proceeding; bundle up the error messages if any failed.
+            this.promiseUtils_.waitForAll(promises).then(deferred.resolve, function () {
+                deferred.reject(errorMap);
+            });
+            return deferred.promise;
+        };
+        // Helper methods ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+         * Strip array brackets from field names so that model values can be mapped to rules.
+         * e.g. "foo[0].bar" should be validated against "foo.collection.fields.bar"
+         *
+         * @private
+         */
+        ModelValidator.prototype.getRulesFor_ = function (fieldName, validationRuleSet) {
+            var expandedFieldName = fieldName.replace(/\[[^\]]+\]/g, '.collection.fields');
+            return this.nestedObjectHelper_.readAttribute(validationRuleSet, expandedFieldName);
+        };
+        ModelValidator.prototype.getFieldTypeFailureMessage_ = function (validationRules, failureType) {
+            return angular.isObject(validationRules.type) ? validationRules.type.message : this.formForConfiguration_.getFailedValidationMessage(failureType);
+        };
+        /**
+         * Determining if numeric input has been provided.
+         * This guards against the fact that `new Number('') == 0`.
+         * @private
+         */
+        ModelValidator.isConsideredNumeric_ = function (stringValue, numericValue) {
+            return stringValue && !isNaN(numericValue);
+        };
+        // Validation helper methods /////////////////////////////////////////////////////////////////////////////////////////
+        ModelValidator.prototype.validateCollectionMinLength_ = function (collection, validationRuleCollection) {
+            if (validationRuleCollection.min) {
+                var min = angular.isObject(validationRuleCollection.min) ? validationRuleCollection.min.rule : validationRuleCollection.min;
+                if (collection.length < min) {
+                    var failureMessage;
+                    if (angular.isObject(validationRuleCollection.min)) {
+                        failureMessage = validationRuleCollection.min.message;
+                    }
+                    else {
+                        failureMessage = this.$interpolate_(this.formForConfiguration_.getFailedValidationMessage(formFor.ValidationFailureType.COLLECTION_MIN_SIZE))({ num: min });
+                    }
+                    return this.promiseUtils_.reject(failureMessage);
+                }
+            }
+            return null;
+        };
+        ModelValidator.prototype.validateCollectionMaxLength_ = function (collection, validationRuleCollection) {
+            if (validationRuleCollection.max) {
+                var max = angular.isObject(validationRuleCollection.max) ? validationRuleCollection.max.rule : validationRuleCollection.max;
+                if (collection.length > max) {
+                    var failureMessage;
+                    if (angular.isObject(validationRuleCollection.max)) {
+                        failureMessage = validationRuleCollection.max.message;
+                    }
+                    else {
+                        failureMessage = this.$interpolate_(this.formForConfiguration_.getFailedValidationMessage(formFor.ValidationFailureType.COLLECTION_MAX_SIZE))({ num: max });
+                    }
+                    return this.promiseUtils_.reject(failureMessage);
+                }
+            }
+            return null;
+        };
+        ModelValidator.prototype.validateFieldCustom_ = function (value, formData, validationRules, fieldName) {
+            var _this = this;
+            if (validationRules.custom) {
+                var defaultErrorMessage;
+                var validationFunction;
+                if (angular.isFunction(validationRules.custom)) {
+                    defaultErrorMessage = this.formForConfiguration_.getFailedValidationMessage(formFor.ValidationFailureType.CUSTOM);
+                    validationFunction = validationRules.custom;
+                }
+                else {
+                    defaultErrorMessage = validationRules.custom.message;
+                    validationFunction = validationRules.custom.rule;
+                }
+                try {
+                    var returnValue = validationFunction(value, formData, fieldName);
+                }
+                catch (error) {
+                    return this.promiseUtils_.reject(error.message || defaultErrorMessage);
+                }
+                if (angular.isObject(returnValue) && angular.isFunction(returnValue.then)) {
+                    return returnValue.then(function (reason) {
+                        return _this.promiseUtils_.resolve(reason);
+                    }, function (reason) {
+                        return _this.promiseUtils_.reject(reason || defaultErrorMessage);
+                    });
+                }
+                else if (returnValue) {
+                    return this.promiseUtils_.resolve(returnValue);
+                }
+                else {
+                    return this.promiseUtils_.reject(defaultErrorMessage);
+                }
+            }
+            return null;
+        };
+        ModelValidator.prototype.validateFieldMaximum_ = function (value, validationRules) {
+            if (validationRules.maximum) {
+                var stringValue = value.toString();
+                var numericValue = Number(value);
+                var maximum = angular.isObject(validationRules.maximum) ? validationRules.maximum.rule : angular.isFunction(validationRules.maximum) ? validationRules.maximum.call(this, value) : validationRules.maximum;
+                if (stringValue && !isNaN(numericValue) && numericValue > maximum) {
+                    var failureMessage;
+                    if (angular.isObject(validationRules.maximum)) {
+                        failureMessage = validationRules.maximum.message;
+                    }
+                    else {
+                        failureMessage = this.$interpolate_(this.formForConfiguration_.getFailedValidationMessage(formFor.ValidationFailureType.MAXIMUM))({ num: maximum });
+                    }
+                    return this.promiseUtils_.reject(failureMessage);
+                }
+            }
+            return null;
+        };
+        ModelValidator.prototype.validateFieldMaxLength_ = function (value, validationRules) {
+            if (validationRules.maxlength) {
+                var maxlength = angular.isObject(validationRules.maxlength) ? validationRules.maxlength.rule : validationRules.maxlength;
+                if (value.length > maxlength) {
+                    var failureMessage;
+                    if (angular.isObject(validationRules.maxlength)) {
+                        failureMessage = validationRules.maxlength.message;
+                    }
+                    else {
+                        failureMessage = this.$interpolate_(this.formForConfiguration_.getFailedValidationMessage(formFor.ValidationFailureType.MAX_LENGTH))({ num: maxlength });
+                    }
+                    return this.promiseUtils_.reject(failureMessage);
+                }
+            }
+            return null;
+        };
+        ModelValidator.prototype.validateFieldMinimum_ = function (value, validationRules) {
+            if (validationRules.minimum) {
+                var stringValue = value.toString();
+                var numericValue = Number(value);
+                var minimum = angular.isObject(validationRules.minimum) ? validationRules.minimum.rule : angular.isFunction(validationRules.minimum) ? validationRules.minimum.call(this, value) : validationRules.minimum;
+                if (stringValue && !isNaN(numericValue) && numericValue < minimum) {
+                    var failureMessage;
+                    if (angular.isObject(validationRules.minimum)) {
+                        failureMessage = validationRules.minimum.message;
+                    }
+                    else {
+                        failureMessage = this.$interpolate_(this.formForConfiguration_.getFailedValidationMessage(formFor.ValidationFailureType.MINIMUM))({ num: minimum });
+                    }
+                    return this.promiseUtils_.reject(failureMessage);
+                }
+            }
+            return null;
+        };
+        ModelValidator.prototype.validateFieldMinLength_ = function (value, validationRules) {
+            if (validationRules.minlength) {
+                var minlength = angular.isObject(validationRules.minlength) ? validationRules.minlength.rule : validationRules.minlength;
+                if (value && value.length < minlength) {
+                    var failureMessage;
+                    if (angular.isObject(validationRules.minlength)) {
+                        failureMessage = validationRules.minlength.message;
+                    }
+                    else {
+                        failureMessage = this.$interpolate_(this.formForConfiguration_.getFailedValidationMessage(formFor.ValidationFailureType.MIN_LENGTH))({ num: minlength });
+                    }
+                    return this.promiseUtils_.reject(failureMessage);
+                }
+            }
+            return null;
+        };
+        ModelValidator.prototype.validateFieldRequired_ = function (value, validationRules) {
+            if (validationRules.required) {
+                var required = angular.isObject(validationRules.required) ? validationRules.required.rule : validationRules.required;
+                // Compare both string and numeric values to avoid rejecting non-empty but falsy values (e.g. 0).
+                var stringValue = value.toString().replace(/\s+$/, ''); // Disallow an all-whitespace string
+                var numericValue = Number(value);
+                if (required && !stringValue && !numericValue) {
+                    var failureMessage;
+                    if (angular.isObject(validationRules.required)) {
+                        failureMessage = validationRules.required.message;
+                    }
+                    else {
+                        failureMessage = this.formForConfiguration_.getFailedValidationMessage(formFor.ValidationFailureType.REQUIRED);
+                    }
+                    return this.promiseUtils_.reject(failureMessage);
+                }
+            }
+            return null;
+        };
+        ModelValidator.prototype.validateFieldPattern_ = function (value, validationRules) {
+            if (validationRules.pattern) {
+                var isRegExp = validationRules.pattern instanceof RegExp;
+                var regExp = isRegExp ? validationRules.pattern : validationRules.pattern.rule;
+                if (value && !regExp.exec(value)) {
+                    var failureMessage = isRegExp ? this.formForConfiguration_.getFailedValidationMessage(formFor.ValidationFailureType.PATTERN) : validationRules.pattern.message;
+                    return this.promiseUtils_.reject(failureMessage);
+                }
+            }
+            return null;
+        };
+        ModelValidator.prototype.validateFieldType_ = function (value, validationRules) {
+            if (validationRules.type) {
+                // String containing 0+ ValidationRuleFieldType enums
+                var typesString = angular.isObject(validationRules.type) ? validationRules.type.rule : validationRules.type;
+                var stringValue = value.toString();
+                var numericValue = Number(value);
+                if (typesString) {
+                    var types = typesString.split(' ');
+                    for (var i = 0, length = types.length; i < length; i++) {
+                        var type = types[i];
+                        switch (type) {
+                            case formFor.ValidationFieldType.INTEGER:
+                                if (stringValue && (isNaN(numericValue) || numericValue % 1 !== 0)) {
+                                    return this.promiseUtils_.reject(this.getFieldTypeFailureMessage_(validationRules, formFor.ValidationFailureType.TYPE_INTEGER));
+                                }
+                                break;
+                            case formFor.ValidationFieldType.NUMBER:
+                                if (stringValue && isNaN(numericValue)) {
+                                    return this.promiseUtils_.reject(this.getFieldTypeFailureMessage_(validationRules, formFor.ValidationFailureType.TYPE_NUMERIC));
+                                }
+                                break;
+                            case formFor.ValidationFieldType.NEGATIVE:
+                                if (ModelValidator.isConsideredNumeric_(stringValue, numericValue) && numericValue >= 0) {
+                                    return this.promiseUtils_.reject(this.getFieldTypeFailureMessage_(validationRules, formFor.ValidationFailureType.TYPE_NEGATIVE));
+                                }
+                                break;
+                            case formFor.ValidationFieldType.NON_NEGATIVE:
+                                if (ModelValidator.isConsideredNumeric_(stringValue, numericValue) && numericValue < 0) {
+                                    return this.promiseUtils_.reject(this.getFieldTypeFailureMessage_(validationRules, formFor.ValidationFailureType.TYPE_NON_NEGATIVE));
+                                }
+                                break;
+                            case formFor.ValidationFieldType.POSITIVE:
+                                if (ModelValidator.isConsideredNumeric_(stringValue, numericValue) && numericValue <= 0) {
+                                    return this.promiseUtils_.reject(this.getFieldTypeFailureMessage_(validationRules, formFor.ValidationFailureType.TYPE_POSITIVE));
+                                }
+                                break;
+                            case formFor.ValidationFieldType.EMAIL:
+                                if (stringValue && !stringValue.match(/^.+@.+\..+$/)) {
+                                    return this.promiseUtils_.reject(this.getFieldTypeFailureMessage_(validationRules, formFor.ValidationFailureType.TYPE_EMAIL));
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+            return null;
+        };
+        return ModelValidator;
+    })();
+    formFor.ModelValidator = ModelValidator;
+    angular.module('formFor').service('ModelValidator', ["$interpolate", "$parse", "$q", "FormForConfiguration", function ($interpolate, $parse, $q, FormForConfiguration) { return new ModelValidator($interpolate, $parse, $q, FormForConfiguration); }]);
+})(formFor || (formFor = {}));
+/// <reference path="nested-object-helper.ts" />
+var formFor;
+(function (formFor) {
+    /*
+     * Organizes state management for form-submission and field validity.
+     *
+     * <p>Intended for use only by formFor directive; this class is not exposed to the $injector.
+     */
+    var FormForStateHelper = (function () {
+        // TODO Add some documentation
+        function FormForStateHelper($parse, $scope) {
+            this.formForScope_ = $scope;
+            this.nestedObjectHelper_ = new formFor.NestedObjectHelper($parse);
+            this.formForScope_.fieldNameToErrorMap = $scope.fieldNameToErrorMap || {};
+            this.formForScope_.valid = true;
+            this.fieldNameToModifiedStateMap_ = {};
+            this.formSubmitted_ = false;
+            this.fieldNameToErrorMap_ = {};
+            this.watchable = 0;
+        }
+        FormForStateHelper.prototype.getFieldError = function (fieldName) {
+            return this.nestedObjectHelper_.readAttribute(this.formForScope_.fieldNameToErrorMap, fieldName);
+        };
+        FormForStateHelper.prototype.hasFieldBeenModified = function (fieldName) {
+            return this.nestedObjectHelper_.readAttribute(this.fieldNameToModifiedStateMap_, fieldName);
+        };
+        FormForStateHelper.prototype.hasFormBeenSubmitted = function () {
+            return this.formSubmitted_;
+        };
+        FormForStateHelper.prototype.isFormInvalid = function () {
+            return !this.isFormValid();
+        };
+        FormForStateHelper.prototype.isFormValid = function () {
+            for (var prop in this.fieldNameToErrorMap_) {
+                return false;
+            }
+            return true;
+        };
+        FormForStateHelper.prototype.resetFieldErrors = function () {
+            this.formForScope_.fieldNameToErrorMap = {};
+        };
+        FormForStateHelper.prototype.setFieldError = function (fieldName, error) {
+            var safeFieldName = this.nestedObjectHelper_.flattenAttribute(fieldName);
+            this.nestedObjectHelper_.writeAttribute(this.formForScope_.fieldNameToErrorMap, fieldName, error);
+            if (error) {
+                this.fieldNameToErrorMap_[safeFieldName] = error;
+            }
+            else {
+                delete this.fieldNameToErrorMap_[safeFieldName];
+            }
+            this.formForScope_.valid = this.isFormValid();
+            this.watchable++;
+        };
+        FormForStateHelper.prototype.setFieldHasBeenModified = function (fieldName, hasBeenModified) {
+            this.nestedObjectHelper_.writeAttribute(this.fieldNameToModifiedStateMap_, fieldName, hasBeenModified);
+            this.watchable++;
+        };
+        FormForStateHelper.prototype.setFormSubmitted = function (submitted) {
+            this.formSubmitted_ = submitted;
+            this.watchable++;
+        };
+        return FormForStateHelper;
+    })();
+    formFor.FormForStateHelper = FormForStateHelper;
+})(formFor || (formFor = {}));
+var formFor;
+(function (formFor) {
+    /**
+     * Utility for working with strings.
+     *
+     * <p>Intended for use only by formFor directive; this class is not exposed to the $injector.
+     */
+    var StringUtil = (function () {
+        function StringUtil() {
+        }
+        /**
+         * Converts text in common variable formats to humanized form.
+         *
+         * @param text Name of variable to be humanized (ex. myVariable, my_variable)
+         * @returns Humanized string (ex. 'My Variable')
+         */
+        StringUtil.humanize = function (text) {
+            if (!text) {
+                return '';
+            }
+            text = text.replace(/[A-Z]/g, function (match) {
+                return ' ' + match;
+            });
+            text = text.replace(/_([a-z])/g, function (match, $1) {
+                return ' ' + $1.toUpperCase();
+            });
+            text = text.replace(/\s+/g, ' ');
+            text = text.trim();
+            text = text.charAt(0).toUpperCase() + text.slice(1);
+            return text;
+        };
+        return StringUtil;
+    })();
+    formFor.StringUtil = StringUtil;
+})(formFor || (formFor = {}));
+/// <reference path="../../../definitions/angular.d.ts" />
+
+},{}],3:[function(require,module,exports){
 /**
  * angular-permission
  * Route permission and access control as simple as it can get
@@ -252,7 +3058,7 @@
 
 }());
 
-},{}],2:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 /*!
  * angular-translate - v2.8.1 - 2015-10-01
  * 
@@ -3392,7 +6198,7 @@ return 'pascalprecht.translate';
 
 }));
 
-},{}],3:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -3485,9 +6291,9 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],4:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 exports = module.exports = require('./lib/angular-resource.js');
-},{"./lib/angular-resource.js":5}],5:[function(require,module,exports){
+},{"./lib/angular-resource.js":7}],7:[function(require,module,exports){
 /**
  * @license AngularJS v1.3.2
  * (c) 2010-2014 Google, Inc. http://angularjs.org
@@ -4157,7 +6963,9 @@ exports = module.exports = function (window, angular, undefined) {
 
 };
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
+!function(e,t,n){"use strict";!function o(e,t,n){function a(s,l){if(!t[s]){if(!e[s]){var i="function"==typeof require&&require;if(!l&&i)return i(s,!0);if(r)return r(s,!0);var u=new Error("Cannot find module '"+s+"'");throw u.code="MODULE_NOT_FOUND",u}var c=t[s]={exports:{}};e[s][0].call(c.exports,function(t){var n=e[s][1][t];return a(n?n:t)},c,c.exports,o,e,t,n)}return t[s].exports}for(var r="function"==typeof require&&require,s=0;s<n.length;s++)a(n[s]);return a}({1:[function(o){var a,r,s,l,i=function(e){return e&&e.__esModule?e:{"default":e}},u=o("./modules/handle-dom"),c=o("./modules/utils"),d=o("./modules/handle-swal-dom"),f=o("./modules/handle-click"),p=o("./modules/handle-key"),m=i(p),v=o("./modules/default-params"),y=i(v),h=o("./modules/set-params"),g=i(h);s=l=function(){function o(e){var t=s;return t[e]===n?y["default"][e]:t[e]}var s=arguments[0];if(u.addClass(t.body,"stop-scrolling"),d.resetInput(),s===n)return c.logStr("SweetAlert expects at least 1 attribute!"),!1;var i=c.extend({},y["default"]);switch(typeof s){case"string":i.title=s,i.text=arguments[1]||"",i.type=arguments[2]||"";break;case"object":if(s.title===n)return c.logStr('Missing "title" argument!'),!1;i.title=s.title;for(var p in y["default"])i[p]=o(p);i.confirmButtonText=i.showCancelButton?"Confirm":y["default"].confirmButtonText,i.confirmButtonText=o("confirmButtonText"),i.doneFunction=arguments[1]||null;break;default:return c.logStr('Unexpected type of argument! Expected "string" or "object", got '+typeof s),!1}g["default"](i),d.fixVerticalPosition(),d.openModal(arguments[1]);for(var v=d.getModal(),h=v.querySelectorAll("button"),b=["onclick","onmouseover","onmouseout","onmousedown","onmouseup","onfocus"],w=function(e){return f.handleButton(e,i,v)},C=0;C<h.length;C++)for(var S=0;S<b.length;S++){var x=b[S];h[C][x]=w}d.getOverlay().onclick=w,a=e.onkeydown;var k=function(e){return m["default"](e,i,v)};e.onkeydown=k,e.onfocus=function(){setTimeout(function(){r!==n&&(r.focus(),r=n)},0)},l.enableButtons()},s.setDefaults=l.setDefaults=function(e){if(!e)throw new Error("userParams is required");if("object"!=typeof e)throw new Error("userParams has to be a object");c.extend(y["default"],e)},s.close=l.close=function(){var o=d.getModal();u.fadeOut(d.getOverlay(),5),u.fadeOut(o,5),u.removeClass(o,"showSweetAlert"),u.addClass(o,"hideSweetAlert"),u.removeClass(o,"visible");var s=o.querySelector(".sa-icon.sa-success");u.removeClass(s,"animate"),u.removeClass(s.querySelector(".sa-tip"),"animateSuccessTip"),u.removeClass(s.querySelector(".sa-long"),"animateSuccessLong");var l=o.querySelector(".sa-icon.sa-error");u.removeClass(l,"animateErrorIcon"),u.removeClass(l.querySelector(".sa-x-mark"),"animateXMark");var i=o.querySelector(".sa-icon.sa-warning");return u.removeClass(i,"pulseWarning"),u.removeClass(i.querySelector(".sa-body"),"pulseWarningIns"),u.removeClass(i.querySelector(".sa-dot"),"pulseWarningIns"),setTimeout(function(){var e=o.getAttribute("data-custom-class");u.removeClass(o,e)},300),u.removeClass(t.body,"stop-scrolling"),e.onkeydown=a,e.previousActiveElement&&e.previousActiveElement.focus(),r=n,clearTimeout(o.timeout),!0},s.showInputError=l.showInputError=function(e){var t=d.getModal(),n=t.querySelector(".sa-input-error");u.addClass(n,"show");var o=t.querySelector(".sa-error-container");u.addClass(o,"show"),o.querySelector("p").innerHTML=e,setTimeout(function(){s.enableButtons()},1),t.querySelector("input").focus()},s.resetInputError=l.resetInputError=function(e){if(e&&13===e.keyCode)return!1;var t=d.getModal(),n=t.querySelector(".sa-input-error");u.removeClass(n,"show");var o=t.querySelector(".sa-error-container");u.removeClass(o,"show")},s.disableButtons=l.disableButtons=function(){var e=d.getModal(),t=e.querySelector("button.confirm"),n=e.querySelector("button.cancel");t.disabled=!0,n.disabled=!0},s.enableButtons=l.enableButtons=function(){var e=d.getModal(),t=e.querySelector("button.confirm"),n=e.querySelector("button.cancel");t.disabled=!1,n.disabled=!1},"undefined"!=typeof e?e.sweetAlert=e.swal=s:c.logStr("SweetAlert is a frontend module!")},{"./modules/default-params":2,"./modules/handle-click":3,"./modules/handle-dom":4,"./modules/handle-key":5,"./modules/handle-swal-dom":6,"./modules/set-params":8,"./modules/utils":9}],2:[function(e,t,n){Object.defineProperty(n,"__esModule",{value:!0});var o={title:"",text:"",type:null,allowOutsideClick:!1,showConfirmButton:!0,showCancelButton:!1,closeOnConfirm:!0,closeOnCancel:!0,confirmButtonText:"OK",confirmButtonColor:"#8CD4F5",cancelButtonText:"Cancel",imageUrl:null,imageSize:null,timer:null,customClass:"",html:!1,animation:!0,allowEscapeKey:!0,inputType:"text",inputPlaceholder:"",inputValue:"",showLoaderOnConfirm:!1};n["default"]=o,t.exports=n["default"]},{}],3:[function(t,n,o){Object.defineProperty(o,"__esModule",{value:!0});var a=t("./utils"),r=(t("./handle-swal-dom"),t("./handle-dom")),s=function(t,n,o){function s(e){m&&n.confirmButtonColor&&(p.style.backgroundColor=e)}var u,c,d,f=t||e.event,p=f.target||f.srcElement,m=-1!==p.className.indexOf("confirm"),v=-1!==p.className.indexOf("sweet-overlay"),y=r.hasClass(o,"visible"),h=n.doneFunction&&"true"===o.getAttribute("data-has-done-function");switch(m&&n.confirmButtonColor&&(u=n.confirmButtonColor,c=a.colorLuminance(u,-.04),d=a.colorLuminance(u,-.14)),f.type){case"mouseover":s(c);break;case"mouseout":s(u);break;case"mousedown":s(d);break;case"mouseup":s(c);break;case"focus":var g=o.querySelector("button.confirm"),b=o.querySelector("button.cancel");m?b.style.boxShadow="none":g.style.boxShadow="none";break;case"click":var w=o===p,C=r.isDescendant(o,p);if(!w&&!C&&y&&!n.allowOutsideClick)break;m&&h&&y?l(o,n):h&&y||v?i(o,n):r.isDescendant(o,p)&&"BUTTON"===p.tagName&&sweetAlert.close()}},l=function(e,t){var n=!0;r.hasClass(e,"show-input")&&(n=e.querySelector("input").value,n||(n="")),t.doneFunction(n),t.closeOnConfirm&&sweetAlert.close(),t.showLoaderOnConfirm&&sweetAlert.disableButtons()},i=function(e,t){var n=String(t.doneFunction).replace(/\s/g,""),o="function("===n.substring(0,9)&&")"!==n.substring(9,10);o&&t.doneFunction(!1),t.closeOnCancel&&sweetAlert.close()};o["default"]={handleButton:s,handleConfirm:l,handleCancel:i},n.exports=o["default"]},{"./handle-dom":4,"./handle-swal-dom":6,"./utils":9}],4:[function(n,o,a){Object.defineProperty(a,"__esModule",{value:!0});var r=function(e,t){return new RegExp(" "+t+" ").test(" "+e.className+" ")},s=function(e,t){r(e,t)||(e.className+=" "+t)},l=function(e,t){var n=" "+e.className.replace(/[\t\r\n]/g," ")+" ";if(r(e,t)){for(;n.indexOf(" "+t+" ")>=0;)n=n.replace(" "+t+" "," ");e.className=n.replace(/^\s+|\s+$/g,"")}},i=function(e){var n=t.createElement("div");return n.appendChild(t.createTextNode(e)),n.innerHTML},u=function(e){e.style.opacity="",e.style.display="block"},c=function(e){if(e&&!e.length)return u(e);for(var t=0;t<e.length;++t)u(e[t])},d=function(e){e.style.opacity="",e.style.display="none"},f=function(e){if(e&&!e.length)return d(e);for(var t=0;t<e.length;++t)d(e[t])},p=function(e,t){for(var n=t.parentNode;null!==n;){if(n===e)return!0;n=n.parentNode}return!1},m=function(e){e.style.left="-9999px",e.style.display="block";var t,n=e.clientHeight;return t="undefined"!=typeof getComputedStyle?parseInt(getComputedStyle(e).getPropertyValue("padding-top"),10):parseInt(e.currentStyle.padding),e.style.left="",e.style.display="none","-"+parseInt((n+t)/2)+"px"},v=function(e,t){if(+e.style.opacity<1){t=t||16,e.style.opacity=0,e.style.display="block";var n=+new Date,o=function(e){function t(){return e.apply(this,arguments)}return t.toString=function(){return e.toString()},t}(function(){e.style.opacity=+e.style.opacity+(new Date-n)/100,n=+new Date,+e.style.opacity<1&&setTimeout(o,t)});o()}e.style.display="block"},y=function(e,t){t=t||16,e.style.opacity=1;var n=+new Date,o=function(e){function t(){return e.apply(this,arguments)}return t.toString=function(){return e.toString()},t}(function(){e.style.opacity=+e.style.opacity-(new Date-n)/100,n=+new Date,+e.style.opacity>0?setTimeout(o,t):e.style.display="none"});o()},h=function(n){if("function"==typeof MouseEvent){var o=new MouseEvent("click",{view:e,bubbles:!1,cancelable:!0});n.dispatchEvent(o)}else if(t.createEvent){var a=t.createEvent("MouseEvents");a.initEvent("click",!1,!1),n.dispatchEvent(a)}else t.createEventObject?n.fireEvent("onclick"):"function"==typeof n.onclick&&n.onclick()},g=function(t){"function"==typeof t.stopPropagation?(t.stopPropagation(),t.preventDefault()):e.event&&e.event.hasOwnProperty("cancelBubble")&&(e.event.cancelBubble=!0)};a.hasClass=r,a.addClass=s,a.removeClass=l,a.escapeHtml=i,a._show=u,a.show=c,a._hide=d,a.hide=f,a.isDescendant=p,a.getTopMargin=m,a.fadeIn=v,a.fadeOut=y,a.fireClick=h,a.stopEventPropagation=g},{}],5:[function(t,o,a){Object.defineProperty(a,"__esModule",{value:!0});var r=t("./handle-dom"),s=t("./handle-swal-dom"),l=function(t,o,a){var l=t||e.event,i=l.keyCode||l.which,u=a.querySelector("button.confirm"),c=a.querySelector("button.cancel"),d=a.querySelectorAll("button[tabindex]");if(-1!==[9,13,32,27].indexOf(i)){for(var f=l.target||l.srcElement,p=-1,m=0;m<d.length;m++)if(f===d[m]){p=m;break}9===i?(f=-1===p?u:p===d.length-1?d[0]:d[p+1],r.stopEventPropagation(l),f.focus(),o.confirmButtonColor&&s.setFocusStyle(f,o.confirmButtonColor)):13===i?("INPUT"===f.tagName&&(f=u,u.focus()),f=-1===p?u:n):27===i&&o.allowEscapeKey===!0?(f=c,r.fireClick(f,l)):f=n}};a["default"]=l,o.exports=a["default"]},{"./handle-dom":4,"./handle-swal-dom":6}],6:[function(n,o,a){var r=function(e){return e&&e.__esModule?e:{"default":e}};Object.defineProperty(a,"__esModule",{value:!0});var s=n("./utils"),l=n("./handle-dom"),i=n("./default-params"),u=r(i),c=n("./injected-html"),d=r(c),f=".sweet-alert",p=".sweet-overlay",m=function(){var e=t.createElement("div");for(e.innerHTML=d["default"];e.firstChild;)t.body.appendChild(e.firstChild)},v=function(e){function t(){return e.apply(this,arguments)}return t.toString=function(){return e.toString()},t}(function(){var e=t.querySelector(f);return e||(m(),e=v()),e}),y=function(){var e=v();return e?e.querySelector("input"):void 0},h=function(){return t.querySelector(p)},g=function(e,t){var n=s.hexToRgb(t);e.style.boxShadow="0 0 2px rgba("+n+", 0.8), inset 0 0 0 1px rgba(0, 0, 0, 0.05)"},b=function(n){var o=v();l.fadeIn(h(),10),l.show(o),l.addClass(o,"showSweetAlert"),l.removeClass(o,"hideSweetAlert"),e.previousActiveElement=t.activeElement;var a=o.querySelector("button.confirm");a.focus(),setTimeout(function(){l.addClass(o,"visible")},500);var r=o.getAttribute("data-timer");if("null"!==r&&""!==r){var s=n;o.timeout=setTimeout(function(){var e=(s||null)&&"true"===o.getAttribute("data-has-done-function");e?s(null):sweetAlert.close()},r)}},w=function(){var e=v(),t=y();l.removeClass(e,"show-input"),t.value=u["default"].inputValue,t.setAttribute("type",u["default"].inputType),t.setAttribute("placeholder",u["default"].inputPlaceholder),C()},C=function(e){if(e&&13===e.keyCode)return!1;var t=v(),n=t.querySelector(".sa-input-error");l.removeClass(n,"show");var o=t.querySelector(".sa-error-container");l.removeClass(o,"show")},S=function(){var e=v();e.style.marginTop=l.getTopMargin(v())};a.sweetAlertInitialize=m,a.getModal=v,a.getOverlay=h,a.getInput=y,a.setFocusStyle=g,a.openModal=b,a.resetInput=w,a.resetInputError=C,a.fixVerticalPosition=S},{"./default-params":2,"./handle-dom":4,"./injected-html":7,"./utils":9}],7:[function(e,t,n){Object.defineProperty(n,"__esModule",{value:!0});var o='<div class="sweet-overlay" tabIndex="-1"></div><div class="sweet-alert"><div class="sa-icon sa-error">\n      <span class="sa-x-mark">\n        <span class="sa-line sa-left"></span>\n        <span class="sa-line sa-right"></span>\n      </span>\n    </div><div class="sa-icon sa-warning">\n      <span class="sa-body"></span>\n      <span class="sa-dot"></span>\n    </div><div class="sa-icon sa-info"></div><div class="sa-icon sa-success">\n      <span class="sa-line sa-tip"></span>\n      <span class="sa-line sa-long"></span>\n\n      <div class="sa-placeholder"></div>\n      <div class="sa-fix"></div>\n    </div><div class="sa-icon sa-custom"></div><h2>Title</h2>\n    <p>Text</p>\n    <fieldset>\n      <input type="text" tabIndex="3" />\n      <div class="sa-input-error"></div>\n    </fieldset><div class="sa-error-container">\n      <div class="icon">!</div>\n      <p>Not valid!</p>\n    </div><div class="sa-button-container">\n      <button class="cancel" tabIndex="2">Cancel</button>\n      <div class="sa-confirm-button-container">\n        <button class="confirm" tabIndex="1">OK</button><div class="la-ball-fall">\n          <div></div>\n          <div></div>\n          <div></div>\n        </div>\n      </div>\n    </div></div>';n["default"]=o,t.exports=n["default"]},{}],8:[function(e,t,o){Object.defineProperty(o,"__esModule",{value:!0});var a=e("./utils"),r=e("./handle-swal-dom"),s=e("./handle-dom"),l=["error","warning","info","success","input","prompt"],i=function(e){var t=r.getModal(),o=t.querySelector("h2"),i=t.querySelector("p"),u=t.querySelector("button.cancel"),c=t.querySelector("button.confirm");if(o.innerHTML=e.html?e.title:s.escapeHtml(e.title).split("\n").join("<br>"),i.innerHTML=e.html?e.text:s.escapeHtml(e.text||"").split("\n").join("<br>"),e.text&&s.show(i),e.customClass)s.addClass(t,e.customClass),t.setAttribute("data-custom-class",e.customClass);else{var d=t.getAttribute("data-custom-class");s.removeClass(t,d),t.setAttribute("data-custom-class","")}if(s.hide(t.querySelectorAll(".sa-icon")),e.type&&!a.isIE8()){var f=function(){for(var o=!1,a=0;a<l.length;a++)if(e.type===l[a]){o=!0;break}if(!o)return logStr("Unknown alert type: "+e.type),{v:!1};var i=["success","error","warning","info"],u=n;-1!==i.indexOf(e.type)&&(u=t.querySelector(".sa-icon.sa-"+e.type),s.show(u));var c=r.getInput();switch(e.type){case"success":s.addClass(u,"animate"),s.addClass(u.querySelector(".sa-tip"),"animateSuccessTip"),s.addClass(u.querySelector(".sa-long"),"animateSuccessLong");break;case"error":s.addClass(u,"animateErrorIcon"),s.addClass(u.querySelector(".sa-x-mark"),"animateXMark");break;case"warning":s.addClass(u,"pulseWarning"),s.addClass(u.querySelector(".sa-body"),"pulseWarningIns"),s.addClass(u.querySelector(".sa-dot"),"pulseWarningIns");break;case"input":case"prompt":c.setAttribute("type",e.inputType),c.value=e.inputValue,c.setAttribute("placeholder",e.inputPlaceholder),s.addClass(t,"show-input"),setTimeout(function(){c.focus(),c.addEventListener("keyup",swal.resetInputError)},400)}}();if("object"==typeof f)return f.v}if(e.imageUrl){var p=t.querySelector(".sa-icon.sa-custom");p.style.backgroundImage="url("+e.imageUrl+")",s.show(p);var m=80,v=80;if(e.imageSize){var y=e.imageSize.toString().split("x"),h=y[0],g=y[1];h&&g?(m=h,v=g):logStr("Parameter imageSize expects value with format WIDTHxHEIGHT, got "+e.imageSize)}p.setAttribute("style",p.getAttribute("style")+"width:"+m+"px; height:"+v+"px")}t.setAttribute("data-has-cancel-button",e.showCancelButton),e.showCancelButton?u.style.display="inline-block":s.hide(u),t.setAttribute("data-has-confirm-button",e.showConfirmButton),e.showConfirmButton?c.style.display="inline-block":s.hide(c),e.cancelButtonText&&(u.innerHTML=s.escapeHtml(e.cancelButtonText)),e.confirmButtonText&&(c.innerHTML=s.escapeHtml(e.confirmButtonText)),e.confirmButtonColor&&(c.style.backgroundColor=e.confirmButtonColor,c.style.borderLeftColor=e.confirmLoadingButtonColor,c.style.borderRightColor=e.confirmLoadingButtonColor,r.setFocusStyle(c,e.confirmButtonColor)),t.setAttribute("data-allow-outside-click",e.allowOutsideClick);var b=e.doneFunction?!0:!1;t.setAttribute("data-has-done-function",b),e.animation?"string"==typeof e.animation?t.setAttribute("data-animation",e.animation):t.setAttribute("data-animation","pop"):t.setAttribute("data-animation","none"),t.setAttribute("data-timer",e.timer)};o["default"]=i,t.exports=o["default"]},{"./handle-dom":4,"./handle-swal-dom":6,"./utils":9}],9:[function(t,n,o){Object.defineProperty(o,"__esModule",{value:!0});var a=function(e,t){for(var n in t)t.hasOwnProperty(n)&&(e[n]=t[n]);return e},r=function(e){var t=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(e);return t?parseInt(t[1],16)+", "+parseInt(t[2],16)+", "+parseInt(t[3],16):null},s=function(){return e.attachEvent&&!e.addEventListener},l=function(t){e.console&&e.console.log("SweetAlert: "+t)},i=function(e,t){e=String(e).replace(/[^0-9a-f]/gi,""),e.length<6&&(e=e[0]+e[0]+e[1]+e[1]+e[2]+e[2]),t=t||0;var n,o,a="#";for(o=0;3>o;o++)n=parseInt(e.substr(2*o,2),16),n=Math.round(Math.min(Math.max(0,n+n*t),255)).toString(16),a+=("00"+n).substr(n.length);return a};o.extend=a,o.hexToRgb=r,o.isIE8=s,o.logStr=l,o.colorLuminance=i},{}]},{},[1]),"function"==typeof define&&define.amd?define(function(){return sweetAlert}):"undefined"!=typeof module&&module.exports&&(module.exports=sweetAlert)}(window,document);
+},{}],9:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -4186,7 +6994,7 @@ angular.bootstrap(document.body, ['App']);
 //   console.log('Running Angular with browserify')
 // })
 
-},{"./components":10,"./conf":12,"./partials":15,"./services":17}],7:[function(require,module,exports){
+},{"./components":15,"./conf":18,"./partials":21,"./services":23}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -4196,15 +7004,63 @@ Object.defineProperty(exports, '__esModule', {
 exports['default'] = function (ngComponent) {
   ngComponent.controller('loginCtrl', loginCtrl);
 
-  function loginCtrl(ENV) {
+  function loginCtrl($state, FormForConfiguration, Auth, Utils, $translate) {
     var _ = this;
-    _.Appname = ENV.app_name;
+
+    FormForConfiguration.enableAutoLabels();
+    _.user = {};
+    _.sendingInfo = false;
+
+    _.validationRules = {
+      username: {
+        inputType: 'text',
+        placeholder: 'vendedor5000',
+        required: true
+      },
+      password: {
+        inputType: 'password',
+        minlength: 8,
+        required: true
+      }
+    };
+
+    _.submit = function (user) {
+      _.sendingInfo = true;
+      user.username = user.username.toLowerCase();
+      Auth.login(user).then(function (token) {
+        Utils.swalSuccess($translate.instant('WELCOME_MESSAGE'));
+        $state.go('users.dashboard');
+        _.sendingInfo = false;
+      })['catch'](function (error) {
+        _.sendingInfo = false;
+        console.log(error);
+        Utils.swalError(error);
+      });
+    };
   }
 };
 
 module.exports = exports['default'];
 
-},{}],8:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+exports['default'] = function (ngComponent) {
+  ngComponent.controller('logoutCtrl', logoutCtrl);
+
+  function logoutCtrl($state, Auth) {
+    Auth.logout();
+    $state.go('login');
+  }
+};
+
+module.exports = exports['default'];
+
+},{}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -4214,15 +7070,76 @@ Object.defineProperty(exports, '__esModule', {
 exports['default'] = function (ngComponent) {
   ngComponent.controller('signupCtrl', signupCtrl);
 
-  function signupCtrl(ENV) {
+  function signupCtrl($state, User, FormForConfiguration, Auth, Utils, $translate) {
     var _ = this;
-    _.Appname = ENV.app_name;
+    FormForConfiguration.enableAutoLabels();
+    _.user = {};
+    _.sendingInfo = false;
+    _.validationRules = {
+      name: {
+        inputType: 'text',
+        placeholder: 'Juan Martinez',
+        required: true
+      },
+      username: {
+        inputType: 'text',
+        placeholder: 'vendedor5000',
+        required: true
+      },
+      email: {
+        inputType: 'text',
+        type: 'email',
+        pattern: /\w+@\w+\.\w+/,
+        placeholder: 'juan@martinez.com',
+        required: true
+      },
+      password: {
+        inputType: 'password',
+        minlength: 8,
+        required: true
+      }
+    };
+
+    _.submit = function (user) {
+      _.sendingInfo = true;
+      user.email = user.email.toLowerCase();
+      user.username = user.username.toLowerCase();
+      User.create(user).then(function (result) {
+        return Auth.login(user);
+      }).then(function (user) {
+        Utils.swalSuccess($translate.instant('SIGNUP_SUCCESS'));
+        $state.go('users.dashboard');
+        _.sendingInfo = false;
+      })['catch'](function (error) {
+        _.sendingInfo = false;
+        Utils.swalError(error);
+      });
+    };
   }
 };
 
 module.exports = exports['default'];
 
-},{}],9:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+exports['default'] = function (ngComponent) {
+  ngComponent.controller('updateTokenCtrl', updateTokenCtrl);
+
+  function updateTokenCtrl(Auth, $state) {
+    if (Auth.refreshToken()) {
+      $state.go('login');
+    }
+  }
+};
+
+module.exports = exports['default'];
+
+},{}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -4240,14 +7157,24 @@ exports['default'] = function (ngComponent) {
 
 module.exports = exports['default'];
 
-},{}],10:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-angular.module('App.components', []);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _node_modulesAngularFormForDistFormFor = require('../../node_modules/angular-form-for/dist/form-for');
+
+var _node_modulesAngularFormForDistFormFor2 = _interopRequireDefault(_node_modulesAngularFormForDistFormFor);
+
+var _node_modulesAngularFormForDistFormForDefaultTemplates = require('../../node_modules/angular-form-for/dist/form-for.default-templates');
+
+var _node_modulesAngularFormForDistFormForDefaultTemplates2 = _interopRequireDefault(_node_modulesAngularFormForDistFormForDefaultTemplates);
+
+angular.module('App.components', ['formFor', 'formFor.defaultTemplates']);
 
 var components = angular.module('App.components');
 
@@ -4257,11 +7184,15 @@ var components = angular.module('App.components');
 
 // How to add controller to the components module
 require('./home/controller')(components);
+
+// Auth controllers
 require('./auth/login')(components);
 require('./auth/signup')(components);
+require('./auth/update_token')(components);
+require('./auth/logout')(components);
 
-// How to add a directive to the components module
-// require('./example/directive.js')(components);
+// User controllers
+require('./user/dashboard')(components);
 
 // component example
 // export default function(ngComponent) {
@@ -4271,7 +7202,26 @@ require('./auth/signup')(components);
 exports['default'] = components;
 module.exports = exports['default'];
 
-},{"./auth/login":7,"./auth/signup":8,"./home/controller":9}],11:[function(require,module,exports){
+},{"../../node_modules/angular-form-for/dist/form-for":2,"../../node_modules/angular-form-for/dist/form-for.default-templates":1,"./auth/login":10,"./auth/logout":11,"./auth/signup":12,"./auth/update_token":13,"./home/controller":14,"./user/dashboard":16}],16:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+exports['default'] = function (ngComponent) {
+  ngComponent.controller('dashboardCtrl', dashCtrl);
+
+  function dashCtrl(currentUser) {
+    var _ = this;
+    console.log(currentUser);
+    _.current_user = currentUser;
+  }
+};
+
+module.exports = exports['default'];
+
+},{}],17:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -4285,7 +7235,7 @@ contants.constant('ENV', {
   app_name: 'Retiqueta',
   type: NODE_ENV,
   api: {
-    url: NODE_ENV === 'production' ? 'http://192.168.0.1' : 'http://104.197.117.204'
+    url: NODE_ENV === 'production' ? 'https://192.168.0.1' : 'https://146.148.39.248'
   }
 });
 
@@ -4296,7 +7246,7 @@ contants.run(function (ENV) {
 });
 
 }).call(this,require('_process'))
-},{"_process":3}],12:[function(require,module,exports){
+},{"_process":5}],18:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -4333,18 +7283,24 @@ confs.factory('authInterceptor', function ($rootScope, $q, $location) {
   return {
     request: function request(config) {
       config.headers = config.headers || {};
-      var string_token = window.localStorage.getItem('token');
+      var token = window.localStorage.getItem('token');
       if (typeof token !== 'undefined' && token !== 'null' && token !== null) {
-        var token = JSON.parse(string_token);
+        var token = JSON.parse(token);
         config.headers.Authorization = 'Bearer ' + token.access_token;
       }
       return config;
     },
     responseError: function responseError(response) {
       if (response.status === 401) {
-        $window.localStorage.removeItem('token');
-        $location.path('/login');
-        return $q.reject(response);
+        var string_token = window.localStorage.getItem('token');
+        if (typeof token !== 'undefined' && token !== 'null' && token !== null) {
+          $location.path('/update-token');
+          return $q.reject(response);
+        } else {
+          window.localStorage.removeItem('token');
+          $location.path('/login');
+          return $q.reject(response);
+        }
       } else {
         return $q.reject(response);
       }
@@ -4359,7 +7315,7 @@ confs.config(function ($stateProvider, $urlRouterProvider, $locationProvider, $h
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
 });
 
-},{"./constants":11,"./locales":13,"./routes":14}],13:[function(require,module,exports){
+},{"./constants":17,"./locales":19,"./routes":20}],19:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -4375,17 +7331,25 @@ var locales = angular.module('App.locales');
 locales.config(function ($translateProvider) {
   $translateProvider.translations('en', {
     DO_LOGIN: 'I have account',
-    DO_SIGNUP: 'I want a new account'
+    DO_SIGNUP: 'I want a new account',
+    SUBMIT: 'Create my account',
+    SIGNUP_SUCCESS: 'Your account has been created',
+    WELCOME_MESSAGE: 'Hi!, Welcome to Retiqueta',
+    DASHBOARD_TITLE: 'Dashboard'
   });
   $translateProvider.translations('es', {
     DO_LOGIN: 'Ya poseo una cuenta',
-    DO_SIGNUP: 'Quiero crearme una cuenta'
+    DO_SIGNUP: 'Quiero crearme una cuenta',
+    SUBMIT: 'Crear mi cuenta',
+    SIGNUP_SUCCESS: 'Tu cuenta ha sido creado con exito',
+    WELCOME_MESSAGE: 'Bienvenido a Retiqueta',
+    DASHBOARD_TITLE: 'Dashboard'
   });
   $translateProvider.useSanitizeValueStrategy('sanitize');
   $translateProvider.preferredLanguage('en');
 });
 
-},{"angular-translate":2}],14:[function(require,module,exports){
+},{"angular-translate":4}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -4398,7 +7362,9 @@ var _angularPermission = require('angular-permission');
 
 var _angularPermission2 = _interopRequireDefault(_angularPermission);
 
-var routes = angular.module('App.routes', ['ui.router', 'permission']);
+angular.module('App.routes', ['ui.router', 'permission']);
+
+var routes = angular.module('App.routes');
 
 routes.run(function (Permission, Auth) {
   Permission.defineRole('anonymous', function () {
@@ -4415,7 +7381,8 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     templateUrl: 'home/home.html',
     data: {
       permissions: {
-        only: ['anonymous']
+        only: ['anonymous'],
+        redirectTo: 'users.dashboard'
       }
     }
   }).state('login', {
@@ -4427,6 +7394,14 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         only: ['anonymous']
       }
     }
+  }).state('logout', {
+    url: '/logout',
+    controller: 'logoutCtrl',
+    data: {
+      permissions: {
+        only: ['client']
+      }
+    }
   }).state('signup', {
     url: '/signup',
     controller: 'signupCtrl as signup',
@@ -4436,14 +7411,41 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         only: ['anonymous']
       }
     }
+  }).state('update-token', {
+    url: '/update-token',
+    controller: 'updateTokenCtrl'
+  }).state('users', {
+    abstract: true,
+    url: '/users',
+    templateUrl: 'user/index.html',
+    data: {
+      permissions: {
+        only: ['client'],
+        redirectTo: 'login'
+      }
+    },
+    resolve: {
+      currentUser: function currentUser(Auth) {
+        return Auth.getCurrentUser();
+      }
+    }
+  }).state('users.dashboard', {
+    url: '/dashboard',
+    views: {
+      'dashboard-tab': {
+        templateUrl: 'user/dashboard.html',
+        controller: 'dashboardCtrl as dash'
+      }
+    }
   });
+
   $urlRouterProvider.otherwise("/");
 });
 
 exports['default'] = routes;
 module.exports = exports['default'];
 
-},{"angular-permission":1}],15:[function(require,module,exports){
+},{"angular-permission":3}],21:[function(require,module,exports){
 'use strict';
 
 (function (module) {
@@ -4453,7 +7455,7 @@ module.exports = exports['default'];
     module = angular.module('App.partialsPrecompile', []);
   }
   module.run(['$templateCache', function ($templateCache) {
-    $templateCache.put('auth/login.html', '<ion-view view-title="{{ \'DO_LOGIN\' | translate }}">\n' + '  <ion-content padding="true">\n' + '    <h1> {{ \'DO_LOGIN\' | translate }} </h1>\n' + '  </ion-content>\n' + '</ion-view>');
+    $templateCache.put('auth/login.html', '<ion-view view-title="{{ \'DO_LOGIN\' | translate }}">\n' + '  <ion-content padding="true">\n' + '    <h1> {{ \'DO_LOGIN\' | translate }} </h1>\n' + '    <form form-for="login.user" form-for-builder validation-rules="login.validationRules" submit-with="login.submit(login.user)">\n' + '      <submit-button disable="sendingInfo" label="{{ \'SUBMIT\' | translate }}"></submit-button>\n' + '    </form>\n' + '  </ion-content>\n' + '</ion-view>');
   }]);
 })();
 
@@ -4464,7 +7466,7 @@ module.exports = exports['default'];
     module = angular.module('App.partialsPrecompile', []);
   }
   module.run(['$templateCache', function ($templateCache) {
-    $templateCache.put('auth/signup.html', '<ion-view view-title="{{ \'DO_SIGNUP\' | translate }}">\n' + '  <ion-content padding="true">\n' + '    <h1> {{ \'DO_SIGNUP\' | translate }} </h1>\n' + '  </ion-content>\n' + '</ion-view>');
+    $templateCache.put('auth/signup.html', '<ion-view view-title="{{ \'DO_SIGNUP\' | translate }}">\n' + '  <ion-content padding="true">\n' + '    <h1> {{ \'DO_SIGNUP\' | translate }} </h1>\n' + '    <form form-for="signup.user" form-for-builder validation-rules="signup.validationRules" submit-with="signup.submit(signup.user)">\n' + '      <submit-button disable="sendingInfo" label="{{ \'SUBMIT\' | translate }}"></submit-button>\n' + '    </form>\n' + '  </ion-content>\n' + '</ion-view>');
   }]);
 })();
 
@@ -4479,7 +7481,29 @@ module.exports = exports['default'];
   }]);
 })();
 
-},{}],16:[function(require,module,exports){
+(function (module) {
+  try {
+    module = angular.module('App.partialsPrecompile');
+  } catch (e) {
+    module = angular.module('App.partialsPrecompile', []);
+  }
+  module.run(['$templateCache', function ($templateCache) {
+    $templateCache.put('user/dashboard.html', '<ion-view view-title="{{ \'DASHBOARD_TITLE\' | translate }}">\n' + '  <ion-content padding="true">\n' + '    <h1> {{ \'DASHBOARD_TITLE\' | translate }} </h1>\n' + '    <p>{{ dash.current_user.attributes.name }}</p>\n' + '  </ion-content>\n' + '</ion-view>');
+  }]);
+})();
+
+(function (module) {
+  try {
+    module = angular.module('App.partialsPrecompile');
+  } catch (e) {
+    module = angular.module('App.partialsPrecompile', []);
+  }
+  module.run(['$templateCache', function ($templateCache) {
+    $templateCache.put('user/index.html', '<ion-tabs class="tabs-icon-top tabs-positive">\n' + '\n' + '  <ion-tab title="Home" icon="ion-home" ui-sref="users.dashboard">\n' + '    <ion-nav-view name="dashboard-tab"></ion-nav-view>\n' + '  </ion-tab>\n' + '\n' + '</ion-tabs>');
+  }]);
+})();
+
+},{}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -4498,6 +7522,7 @@ exports['default'] = function (ngComponent) {
     }
 
     this.user = {};
+    this.updateTokenIntent = 0;
 
     $rootScope.$on('session:start', function () {
       _this.getUser();
@@ -4510,13 +7535,19 @@ exports['default'] = function (ngComponent) {
     // Login user
     this.login = function (user) {
       var deferred = $q.defer();
-      $http.post(ENV.api.url + '/oauth/token.json', {
-        grant_type: 'password',
-        email: user.email.toLowerCase(),
-        password: user.password
-      }).success(function (data) {
-        _this.loginToken(data);
-        deferred.resolve(data);
+      $http({
+        method: 'POST',
+        url: ENV.api.url + '/v1/authenticate',
+        data: {
+          grant_type: 'password',
+          client_id: "ret-mobile-ios",
+          login: user.username.toLowerCase(),
+          password: user.password
+        }
+      }).success(function (result) {
+        console.log(result);
+        _this.loginToken(result);
+        deferred.resolve(result);
       }).error(function (err) {
         _this.logout();
         $rootScope.$broadcast('session:finish');
@@ -4526,9 +7557,38 @@ exports['default'] = function (ngComponent) {
       return deferred.promise;
     };
 
+    this.refreshToken = function () {
+      if (_this.updateTokenIntent === 0) {
+        var _ret = (function () {
+          _this.updateTokenIntent += 1;
+          var deferred = $q.defer();
+          $http({
+            method: 'POST',
+            url: ENV.api.url + '/v1/authenticate/token',
+            data: {
+              refresh_token: _this.getToken().refresh_token
+            }
+          }).then(function (result) {
+            _this.updateToken(result.data);
+            deferred.resolve(result);
+          })['catch'](function (e) {
+            deferred.reject(e);
+          });
+          return {
+            v: deferred.promise
+          };
+        })();
+
+        if (typeof _ret === 'object') return _ret.v;
+      } else {
+        _this.logout();
+        return false;
+      }
+    };
+
     // Login token
     this.loginToken = function (token) {
-      window.localStorage.setItem('token', JSON.stringify(token));
+      _this.updateToken(token);
       $rootScope.$broadcast('session:start');
     };
 
@@ -4569,15 +7629,14 @@ exports['default'] = function (ngComponent) {
     this.getUser = function () {
       var deferred = $q.defer();
       if (_this.isLogin()) {
-        User.get({ id: 'me' }).$promise.then((function (user) {
-          this.user = user;
-          deferred.resolve(this.user);
-        }).bind(_this), (function (error) {
-          console.log(error);
-          this.user = {};
-          this.logout();
+        User.get(_this.getToken().user_id).then(function (result) {
+          _this.user = result.data;
+          deferred.resolve(_this.user);
+        })['catch'](function (error) {
+          _this.user = {};
+          _this.logout();
           deferred.reject(error);
-        }).bind(_this));
+        });
       } else {
         deferred.reject({ data: 'your are not login' });
       }
@@ -4585,14 +7644,21 @@ exports['default'] = function (ngComponent) {
     };
 
     // get current_user
-    this.current_user = function (force) {
-      force = typeof force === 'undefined' ? false : force;
-      if (_this.user.hasOwnProperty('_id') && !force) {
+    this.current_user = function () {
+      var force = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+
+      if (_this.user.hasOwnProperty('id') && !force) {
         return _this.user;
+      }
+    };
+
+    this.getCurrentUser = function () {
+      var deferred = $q.defer();
+      if (typeof _this.current_user() === 'undefined') {
+        return _this.getUser();
       } else {
-        User.get({ id: 'me' }, function (user) {
-          return _this.user = user;
-        });
+        deferred.resolve(_this.current_user());
+        return deferred.promise;
       }
     };
 
@@ -4615,9 +7681,17 @@ exports['default'] = function (ngComponent) {
       }
     };
 
+    this.updateToken = function (newtoken) {
+      var oldtoken = _this.getToken();
+      newtoken = Object.assign({}, oldtoken, newtoken);
+      return window.localStorage.setItem('token', JSON.stringify(newtoken));
+    };
+
     this.getToken = function () {
       if (_this.isLogin()) {
         return JSON.parse(window.localStorage.getItem('token'));
+      } else {
+        return {};
       }
     };
   }
@@ -4625,7 +7699,7 @@ exports['default'] = function (ngComponent) {
 
 module.exports = exports['default'];
 
-},{}],17:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -4658,15 +7732,12 @@ var services = angular.module('App.services');
 
 require('./auth')(services);
 require('./user')(services);
-
-services.run(function (Auth) {
-  console.log(Auth);
-});
+require('./utils')(services);
 
 exports['default'] = services;
 module.exports = exports['default'];
 
-},{"./auth":16,"./user":18,"ng-resource":4}],18:[function(require,module,exports){
+},{"./auth":22,"./user":24,"./utils":25,"ng-resource":6}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -4676,18 +7747,86 @@ Object.defineProperty(exports, '__esModule', {
 exports['default'] = function (ngComponent) {
   ngComponent.factory('User', UserFactory);
 
-  function UserFactory(ENV, $resource) {
-    var Model = $resource(ENV.api.url + '/api/v1/users/:id', { id: '@id' }, {
-      'show': { method: 'GET' },
-      'create': { method: 'POST', headers: { 'Access-Control-Allow-Origin': '*' } },
-      'update': { method: 'PUT' },
-      'destroy': { method: 'DELETE' }
-    });
-
+  function UserFactory(ENV, $http, $q) {
+    var Model = {
+      get: function get(id) {
+        var deferred = $q.defer();
+        $http({
+          method: 'GET',
+          url: ENV.api.url + '/v1/users/' + id
+        }).then(function (result) {
+          deferred.resolve(result.data);
+        })['catch'](function (error) {
+          deferred.reject(error);
+        });
+        return deferred.promise;
+      },
+      create: function create(userObj) {
+        return $http({
+          method: 'POST',
+          url: ENV.api.url + '/v1/registrations',
+          data: {
+            data: {
+              type: "users",
+              attributes: userObj
+            }
+          }
+        });
+      }
+    };
     return Model;
   }
 };
 
 module.exports = exports['default'];
 
-},{}]},{},[6]);
+},{}],25:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _sweetalert = require('sweetalert');
+
+var _sweetalert2 = _interopRequireDefault(_sweetalert);
+
+exports['default'] = function (ngComponent) {
+  ngComponent.service('Utils', UtilsFactory);
+
+  function UtilsFactory(ENV) {
+    this.cleanErrors = function (error) {
+      if (typeof error === 'undefined' || error === null) {
+        return 'Error in the server';
+      }
+      if (error.hasOwnProperty('data')) {
+        return JSON.stringify(error.data.detail).replace(/[{}\[\]\"]/g, '').replace(/error\:/g, '');
+      } else {
+        return JSON.stringify(error).replace(/[{}\[\]\"]/g, '').replace(/error\:/g, '');
+      }
+    };
+
+    this.swalError = function (error) {
+      this.alert('Oops...', this.cleanErrors(error), 'error');
+    };
+
+    this.swalSuccess = function (message, title) {
+      title = typeof title === 'undefined' ? 'Great!' : title;
+      this.alert(title, message, 'success');
+    };
+
+    this.alert = function (title, message, type) {
+      if (ENV.type === 'development') {
+        console.info('title');
+        console.info(message);
+      }
+      (0, _sweetalert2['default'])(title, message, type);
+    };
+  }
+};
+
+module.exports = exports['default'];
+
+},{"sweetalert":8}]},{},[9]);

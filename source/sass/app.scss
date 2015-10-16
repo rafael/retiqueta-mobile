@@ -21,6 +21,13 @@ $ionicons-font-path: "../fonts" !default;
 // Include all of Ionic
 @import "../../vendors/ionic/scss/ionic";
 
+// Vendors
+// Must vendors css have to be converted to scss file manualy in order to be imported here
+@import "../../vendors/angular-form-for/form-for";
+@import "../../vendors/sweetalert/sweetalert";
+
+@import "helpers";
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }

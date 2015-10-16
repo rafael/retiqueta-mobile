@@ -20,9 +20,7 @@ let services = angular.module('App.services')
 
 require('./auth')(services)
 require('./user')(services)
+require('./utils')(services)
 
-services.run((Auth) => {
-  console.log(Auth)
-})
 
 export default services
