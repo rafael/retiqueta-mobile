@@ -43,6 +43,7 @@
     "q": "^1.4.1",
     "run-sequence": "^1.1.4",
     "shelljs": "^0.3.0",
+    "sweetalert": "^1.1.0",
     "uglifyify": "^3.0.1",
     "vinyl-source-stream": "^1.1.0"
   },
