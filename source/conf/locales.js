@@ -12,6 +12,8 @@ locales.config(function ($translateProvider) {
     SIGNUP_SUCCESS: 'Your account has been created',
     WELCOME_MESSAGE: 'Hi!, Welcome to Retiqueta',
     DASHBOARD_TITLE: 'Dashboard',
+    PROFILE_TITLE: 'Profile',
+    UPLOADING_PICTURE: 'Uploading your picture ...',
   });
   $translateProvider.translations('es', {
     DO_LOGIN: 'Ya poseo una cuenta',
@@ -20,6 +22,8 @@ locales.config(function ($translateProvider) {
     SIGNUP_SUCCESS: 'Tu cuenta ha sido creado con exito',
     WELCOME_MESSAGE: 'Bienvenido a Retiqueta',
     DASHBOARD_TITLE: 'Dashboard',
+    PROFILE_TITLE: 'Profile',
+    UPLOADING_PICTURE: 'Actualizando tu imagen ...',
   });
   $translateProvider.useSanitizeValueStrategy('sanitize');
   $translateProvider.preferredLanguage('en');

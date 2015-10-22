@@ -20,10 +20,14 @@ require('./auth/logout')(components)
 
 // User controllers
 require('./user/dashboard')(components)
-
+require('./profile/profile')(components)
 // component example
 // export default function(ngComponent) {
 //   ngComponent.controllers('Example', Example)
 // }
+
+// Utils
+require('./utils/file-model')(components)
+require('./utils/on-change-file')(components)
 
 export default components

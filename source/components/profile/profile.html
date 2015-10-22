@@ -1,0 +1,17 @@
+<ion-view view-title="{{ 'PROFILE_TITLE' | translate }}">
+  <ion-content padding="true">
+    <h1> {{ 'PROFILE_TITLE' | translate }} </h1>
+    <p>{{ profile.user.attributes.name }}</p>
+    <p ng-show="profile.user.attributes.profile_pic">
+      <img src="{{profile.user.attributes.profile_pic}}" alt="">
+    </p>
+    <form name="form" accept-charset="utf-8" ng-submit="">
+      <p ng-hide="profile.loadingPicture">
+        <input type="file" file-model="profile.user.picture" on-file-change="profile.loadPicture" >
+      </p>
+      <h3 ng-show="profile.loadingPicture">
+        {{ 'UPLOADING_PICTURE' | translate }}
+      </h3>
+    </form>
+  </ion-content>
+</ion-view>

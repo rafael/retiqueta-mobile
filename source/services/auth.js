@@ -33,7 +33,6 @@ export default function(ngComponent) {
         }
       })
       .success((result) => {
-        console.log(result)
         this.loginToken(result);
         deferred.resolve(result);
       })

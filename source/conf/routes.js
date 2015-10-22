@@ -85,6 +85,15 @@ routes.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('users.profile', {
+      url: '/profile',
+      views: {
+        'profile-tab': {
+          templateUrl: 'profile/profile.html',
+          controller: 'profileCtrl as profile',
+        }
+      }
+    })
 
   $urlRouterProvider.otherwise("/")
 })
