@@ -1,9 +1,8 @@
 <input 
   type="file" 
-  style="display:none" 
+  style="height:0px;width:0px;display:block;"
   on-file-change="onChangeHandler" 
-  accept="image/*" 
-  capture>
+  accept="image/*;capture=camera" capture="camera">
 <a href="#" ng-click="changePic()" class="button button-block button-positive">
   {{ uploadText }}  
 </a>
