@@ -127,7 +127,12 @@ gulp.task('copyFonts', function() {
   .pipe(gulp.dest('./www/fonts/'))
 })
 
-gulp.task('inject', ['ngHtml', 'copyFonts'], function() {
+gulp.task('copyIonic', function() {
+  gulp.src('./source/ionic.bundle.min.js')
+  .pipe(gulp.dest('./www/'))
+})
+
+gulp.task('inject', ['ngHtml', 'copyFonts', 'copyIonic'], function() {
   tasks.injectHtml(
     source_paths.dev_html,
     es.merge(tasks.devCss(), tasks.devBrowserify())

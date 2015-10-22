@@ -29,5 +29,6 @@ require('./profile/profile')(components)
 // Utils
 require('./utils/file-model')(components)
 require('./utils/on-change-file')(components)
+require('./utils/picture-input')(components)
 
 export default components

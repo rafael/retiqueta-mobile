@@ -7,7 +7,7 @@
     </p>
     <form name="form" accept-charset="utf-8" ng-submit="">
       <p ng-hide="profile.loadingPicture">
-        <input type="file" file-model="profile.user.picture" on-file-change="profile.loadPicture" >
+        <picture-input text="'UPLOADING_PICTURE' | translate" on-change="profile.loadPicture">
       </p>
       <h3 ng-show="profile.loadingPicture">
         {{ 'UPLOADING_PICTURE' | translate }}

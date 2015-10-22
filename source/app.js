@@ -1,3 +1,5 @@
+require("babelify/polyfill");
+
 import configurations from './conf'
 import components from './components'
 import services from './services'

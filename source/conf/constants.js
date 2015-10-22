@@ -8,7 +8,7 @@ contants.constant('ENV', {
   app_name: 'Retiqueta',
   type: NODE_ENV,
   api: {
-    url: (NODE_ENV === 'production') ? 'https://130.211.180.35':'https://130.211.180.35'
+    url: (NODE_ENV === 'production') ? 'https://api.retiqueta.com':'https://api.retiqueta.com'
   }
 })
 

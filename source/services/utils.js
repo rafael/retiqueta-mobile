@@ -3,7 +3,7 @@ import swal from 'sweetalert'
 export default function(ngComponent) {
   ngComponent.service('Utils', UtilsFactory)
 
-  function UtilsFactory(ENV) {
+  function UtilsFactory(ENV, $rootScope) {
     this.cleanErrors = function(error) {
       if(typeof error === 'undefined' || error === null) {
         return 'Error in the server'
@@ -29,7 +29,9 @@ export default function(ngComponent) {
         console.info('title')
         console.info(message)
       }
-      swal(title,message, type)
+      $rootScope.$evalAsync(function(){
+        swal(title,message, type)
+      });
     }
   }
 }
