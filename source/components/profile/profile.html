@@ -1,17 +1,38 @@
 <ion-view view-title="{{ 'PROFILE_TITLE' | translate }}">
   <ion-content padding="true">
     <h1> {{ 'PROFILE_TITLE' | translate }} </h1>
-    <p>{{ profile.user.attributes.name }}</p>
-    <p ng-show="profile.user.attributes.profile_pic">
-      <img src="{{profile.user.attributes.profile_pic}}" alt="">
-    </p>
-    <form name="form" accept-charset="utf-8" ng-submit="">
-      <p ng-hide="profile.loadingPicture">
-        <picture-input text="'UPLOADING_PICTURE' | translate" on-change="profile.loadPicture">
-      </p>
-      <h3 ng-show="profile.loadingPicture">
-        {{ 'UPLOADING_PICTURE' | translate }}
-      </h3>
+    <p>{{ profile.user.attributes.username }}</p>
+    <profile-picture user='profile.user'></profile-picture>
+    <form 
+      form-for="profile.userAttributes"
+      validation-rules="profile.schema"
+      submit-with="profile.submit(profile.userAttributes)">
+      <text-field label="Username"
+        attribute="username"
+        placeholder="set your username">
+      </text-field>
+      <text-field label="Fistname"
+        attribute="first_name"
+        placeholder="Pedro">
+      </text-field>
+      <text-field label="Lastname"
+        attribute="last_name"
+        placeholder="Perez">
+      </text-field>
+      <text-field label="Website"
+        attribute="website"
+        placeholder="http://yourwebsite.com">
+      </text-field>
+      <text-field label="Bio"
+        attribute="bio"
+        multiline
+        rows="4"
+        placeholder="About you">
+      </text-field>
+      <submit-button  
+        disable="profile.sendingInfo" 
+        label="{{ 'UPDATE_PROFILE' | translate }}" >
+      </submit-button>
     </form>
   </ion-content>
 </ion-view>

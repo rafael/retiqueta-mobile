@@ -1,8 +1,12 @@
 <ion-view view-title="{{ 'DO_SIGNUP' | translate }}">
   <ion-content padding="true">
     <h1> {{ 'DO_SIGNUP' | translate }} </h1>
-    <form form-for="signup.user" form-for-builder validation-rules="signup.validationRules" submit-with="signup.submit(signup.user)">
-      <submit-button  disable="sendingInfo" label="{{ 'SUBMIT' | translate }}" ></submit-button>
+    <form 
+      form-for="signup.user" 
+      form-for-builder 
+      validation-rules="signup.validationRules" 
+      submit-with="signup.submit(signup.user)">
+      <submit-button  disable="signup.sendingInfo" label="{{ 'SUBMIT' | translate }}" ></submit-button>
     </form>
   </ion-content>
 </ion-view>

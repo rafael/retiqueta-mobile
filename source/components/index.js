@@ -21,12 +21,14 @@ require('./auth/logout')(components)
 // User controllers
 require('./user/dashboard')(components)
 require('./profile/profile')(components)
+require('./profile/profile_picture')(components)
+
 // component example
 // export default function(ngComponent) {
 //   ngComponent.controllers('Example', Example)
 // }
 
-// Utils
+// Util
 require('./utils/file-model')(components)
 require('./utils/on-change-file')(components)
 require('./utils/picture-input')(components)

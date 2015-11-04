@@ -7,11 +7,6 @@ export default function(ngComponent) {
     _.user = {};
     _.sendingInfo = false;
     _.validationRules = {
-      name: {
-        inputType: 'text',
-        placeholder: 'Juan Martinez',
-        required: true
-      },
       username: {
         inputType: 'text',
         placeholder: 'vendedor5000',
@@ -36,18 +31,19 @@ export default function(ngComponent) {
       user.email = user.email.toLowerCase();
       user.username = user.username.toLowerCase();
       User.create(user)
-        .then(function(result) {
+      .then((result) => {
           return Auth.login(user)
-        })
-        .then(function(user) {
-          Utils.swalSuccess($translate.instant('SIGNUP_SUCCESS'));
-          $state.go('users.dashboard');
-          _.sendingInfo = false;
-        })
-        .catch(function(error) {
-          _.sendingInfo = false;
-          Utils.swalError(error);
-        });
+      })
+      .then((user) => {
+        Utils.swalSuccess($translate.instant('SIGNUP_SUCCESS'));
+        $state.go('users.dashboard');
+      })
+      .catch((error) => {
+        Utils.swalError(error);
+      })
+      .finally(() => {
+        _.sendingInfo = false;
+      });
     };
   }
 }

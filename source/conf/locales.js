@@ -13,7 +13,9 @@ locales.config(function ($translateProvider) {
     WELCOME_MESSAGE: 'Hi!, Welcome to Retiqueta',
     DASHBOARD_TITLE: 'Dashboard',
     PROFILE_TITLE: 'Profile',
+    UPLOAD_PICTURE: 'Select new picture',
     UPLOADING_PICTURE: 'Uploading your picture ...',
+    UPDATE_PROFILE: 'Update profile',
   });
   $translateProvider.translations('es', {
     DO_LOGIN: 'Ya poseo una cuenta',
@@ -23,7 +25,9 @@ locales.config(function ($translateProvider) {
     WELCOME_MESSAGE: 'Bienvenido a Retiqueta',
     DASHBOARD_TITLE: 'Dashboard',
     PROFILE_TITLE: 'Profile',
+    UPLOAD_PICTURE: 'Seleccionar nueva imagen',
     UPLOADING_PICTURE: 'Actualizando tu imagen ...',
+    UPDATE_PROFILE: 'actualizar perfil',
   });
   $translateProvider.useSanitizeValueStrategy('sanitize');
   $translateProvider.preferredLanguage('en');

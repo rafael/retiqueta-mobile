@@ -29,6 +29,18 @@ export default function(ngComponent) {
           }
         })
       },
+      update(id, attrs) {
+        return $http({
+          method: 'PATCH',
+          url: `${ENV.api.url}/v1/users/${id}`,
+          data: {
+            data: {
+              type: 'users',
+              attributes: attrs,
+            }
+          }
+        })
+      },
       updatePicture(id, picture, encodedPicture) {
         return $http({
           method: 'PUT',

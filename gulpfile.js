@@ -188,7 +188,7 @@ gulp.task('tdd', ['build:watch'], function (done) {
 });
 
 gulp.task('e2e', ['build'], function() {
-  gulp.src(["./tests/e2e/*.js"])
+  gulp.src(["./test/e2e/*.js"])
     .pipe(protractor({
         configFile: "test/protractor.conf.js",
         args: ['--baseUrl', 'http://127.0.0.1:8000']
