@@ -1,8 +1,10 @@
+import profileForm from './profile_form_fields'
+
 export default function(ngComponent) {
   ngComponent.controller('profileCtrl', profileCtrl)
 
   function profileCtrl(currentUser, User, FormForConfiguration) {
-    var _ = this    
+    var _ = this
     var defaultAttibutes = {
       first_name: '',
       last_name: '',
@@ -10,37 +12,15 @@ export default function(ngComponent) {
       bio: '',
     }
     _.user = currentUser
-    
+
     _.userAttributes = Object.assign({}, defaultAttibutes, _.user.attributes)
-    
+
     FormForConfiguration.enableAutoLabels();
 
     _.sendingInfo = false
 
-    _.schema = {
-      'first_name': {
-        inputType: 'text',
-        placeholder: 'Juan',
-        required: true,
-      },
-      'last_name': {
-        inputType: 'text',        
-        placaeholder: 'Perez',
-        required: true,
-      },
-      'website': {
-        inputType: 'text',
-        placeholder: 'http://yourwebsite.com',
-        require: false,
-      },
-      'bio': {
-        inputType: 'text',
-        placeholder: 'Something about you',
-        require: false,
-        //multiline: true,
-      },
-    }
-   
+    _.schema = profileForm
+
     _.submit = (attrs) => {
       _.sendingInfo = true
       console.log(attrs)

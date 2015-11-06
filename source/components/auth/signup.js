@@ -1,3 +1,5 @@
+import userForm from './user_form_fields'
+
 export default function(ngComponent) {
   ngComponent.controller('signupCtrl', signupCtrl)
 
@@ -6,25 +8,7 @@ export default function(ngComponent) {
     FormForConfiguration.enableAutoLabels();
     _.user = {};
     _.sendingInfo = false;
-    _.validationRules = {
-      username: {
-        inputType: 'text',
-        placeholder: 'vendedor5000',
-        required: true
-      },
-      email: {
-        inputType: 'text',
-        type: 'email',
-        pattern: /\w+@\w+\.\w+/,
-        placeholder: 'juan@martinez.com',
-        required: true
-      },
-      password: {
-        inputType: 'password',
-        minlength: 8,
-        required: true
-      }
-    };
+    _.validationRules = userForm
 
     _.submit = function(user) {
       _.sendingInfo = true;

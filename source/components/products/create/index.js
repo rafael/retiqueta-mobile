@@ -1,3 +1,4 @@
+import productForm from './product_form_fields'
 
 export default function(ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
@@ -12,29 +13,8 @@ export default function(ngComponent) {
     FormForConfiguration.enableAutoLabels();
     _.sendingInfo = false;
     
-    _.validationRules = {
-      category: {
-        inputType: 'text',
-        required: true
-      },
-      title: {
-        inputType: 'text',
-        required: true
-      }, 
-      description: {
-        inputType: 'text',
-        required: true
-      },
-      original_price: {
-        inputType: 'text',
-        required: true
-      }, 
-      price: {
-        inputType: 'text',
-        required: true
-      },  
-    };
-
+    _.validationRules = productForm
+      
     _.submit = (product) => {
       _.sendingInfo = true
       product.pictures = picturesStore.ids()
@@ -51,7 +31,6 @@ export default function(ngComponent) {
     }
 
     Array.observe(_.pictures, function(changes) {
-      //console.log(changes)
       changes.forEach((change) => {
         picturesStore.set(change.object)
       })
