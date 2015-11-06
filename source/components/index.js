@@ -19,9 +19,14 @@ require('./auth/update_token')(components)
 require('./auth/logout')(components)
 
 // User controllers
-require('./user/dashboard')(components)
 require('./profile/profile')(components)
 require('./profile/profile_picture')(components)
+
+// Products
+require('./products/dashboard/index')(components)
+require('./products/create/index')(components)
+require('./products/create/product_picture')(components)
+require('./products/wardrobe/index')(components)
 
 // component example
 // export default function(ngComponent) {

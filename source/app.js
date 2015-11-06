@@ -5,13 +5,16 @@ import components from './components'
 import services from './services'
 import partials from './partials'
 
+require('object.observe')
+require('array.observe')
+
 angular.module('App', [
   'App.components',
   'App.partialsPrecompile',
   'App.services',
   'App.routes',
   'App.contants',
-  'App.configutarions',
+  'App.configurations',
   'App.locales'
 ])
 

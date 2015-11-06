@@ -2,7 +2,10 @@
   "name": "retiqueta",
   "version": "0.0.1",
   "description": "Retiqueta: An Ionic project",
-  "dependencies": {},
+  "dependencies": {
+    "array.observe": "0.0.1",
+    "object.observe": "^0.2.6"
+  },
   "devDependencies": {
     "angular": "^1.4.7",
     "angular-form-for": "^4.1.6",

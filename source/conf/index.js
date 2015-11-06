@@ -2,9 +2,9 @@ import routes from './routes'
 import constans from './constants'
 import locales from './locales'
 
-angular.module('App.configutarions', ['ionic'])
+angular.module('App.configurations', ['ionic'])
 
-const confs = angular.module('App.configutarions')
+const confs = angular.module('App.configurations')
 
 confs.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

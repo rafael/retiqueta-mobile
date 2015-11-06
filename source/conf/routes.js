@@ -80,7 +80,7 @@ routes.config(function($stateProvider, $urlRouterProvider) {
       url: '/dashboard',
       views: {
         'dashboard-tab': {
-          templateUrl: 'user/dashboard.html',
+          templateUrl: 'products/dashboard/index.html',
           controller: 'dashboardCtrl as dash',
         }
       }
@@ -94,6 +94,21 @@ routes.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('users.wardrobe', {
+      url: '/wardrobe',
+      templateUrl: 'products/wardrobe/index.html',
+      controller: 'wardrobeCtrl as wardrobe',
+    })
+    .state('users.wardrobeNew', {
+      url: '/wardrobe/new',
+      views: {
+        'newproduct-tab': {
+          templateUrl: 'products/create/index.html',
+          controller: 'productCreateCtrl as create',
+        } 
+      }
+    })
+
 
   $urlRouterProvider.otherwise("/")
 })

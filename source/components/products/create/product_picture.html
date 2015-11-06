@@ -1,0 +1,15 @@
+<p ng-repeat="picture in ctrl.pictures">
+  <img 
+  style="max-width: 100%" 
+  src="{{ picture.attributes.url }}" 
+  alt="">
+</p>
+<p ng-hide="ctrl.loadingPicture">
+  <picture-input 
+    text="'UPLOAD_PICTURE' | translate" 
+    on-change="ctrl.loadPicture">
+</p>
+<p ng-show="ctrl.loadingPicture">
+  <span class="button button-block button-positive">{{ 'UPLOADING_PICTURE' | translate }}</span>
+</p>
+

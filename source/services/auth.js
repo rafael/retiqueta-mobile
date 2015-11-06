@@ -115,7 +115,7 @@ export default function(ngComponent) {
       if(this.isLogin()) {
         User.get(this.getToken().user_id)
           .then((result) => {
-            this.user = result.data
+            this.user = result            
             deferred.resolve(this.user);
           })
           .catch((error) => {

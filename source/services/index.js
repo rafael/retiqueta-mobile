@@ -20,7 +20,11 @@ let services = angular.module('App.services')
 
 require('./auth')(services)
 require('./user')(services)
+require('./products')(services)
 require('./utils')(services)
 
+// Stores (this objects save the state on localStorage)
+require('./stores/product_pictures')(services)
+require('./stores/product')(services)
 
 export default services
