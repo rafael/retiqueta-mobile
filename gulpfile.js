@@ -140,7 +140,7 @@ gulp.task('inject', ['ngHtml', 'copyFonts', 'copyIonic'], function() {
   )
 })
 
-gulp.task('inject:prod',['ngHtml', 'copyFonts'], function() {
+gulp.task('inject:prod',['ngHtml', 'copyFonts', 'copyIonic'], function() {
   tasks.injectHtml(
     source_paths.prod_html,
     es.merge(tasks.prodCss(), tasks.prodBrowserify())
