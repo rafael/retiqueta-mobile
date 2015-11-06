@@ -1,12 +1,12 @@
+// Polyfills
 require("babelify/polyfill");
+require('object.observe')
+require('array.observe')
 
 import configurations from './conf'
 import components from './components'
 import services from './services'
 import partials from './partials'
-
-require('object.observe')
-require('array.observe')
 
 angular.module('App', [
   'App.components',

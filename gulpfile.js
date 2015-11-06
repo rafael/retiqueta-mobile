@@ -140,13 +140,11 @@ gulp.task('inject', ['ngHtml', 'copyFonts', 'copyIonic'], function() {
   )
 })
 
-gulp.task('inject:prod',['ngHtml'], function() {
+gulp.task('inject:prod',['ngHtml', 'copyFonts'], function() {
   tasks.injectHtml(
     source_paths.prod_html,
     es.merge(tasks.prodCss(), tasks.prodBrowserify())
   )
-  .pipe(gulp.src('./source/fonts/**/*'))
-  .pipe.dest('./www/fonts/')
 });
 
 gulp.task('build', ['inject'])
