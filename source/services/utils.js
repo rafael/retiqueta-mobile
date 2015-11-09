@@ -3,7 +3,7 @@ import swal from 'sweetalert'
 export default function(ngComponent) {
   ngComponent.service('Utils', UtilsFactory)
 
-  function UtilsFactory(ENV, $rootScope) {
+  function UtilsFactory(ENV, $rootScope, $translate) {
     this.cleanErrors = function(error) {
       if(typeof error === 'undefined' || error === null) {
         return 'Error in the server'

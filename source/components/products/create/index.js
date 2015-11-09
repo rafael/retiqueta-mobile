@@ -3,12 +3,10 @@ import productForm from './product_form_fields'
 export default function(ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
 
-  function productCreateCtrl($scope, FormForConfiguration, Product, ProductPictures, ProductStore) {
+  function productCreateCtrl($scope, FormForConfiguration, Product, PictureStore, ProductStore) {
     var _ = this
-    var picturesStore = ProductPictures()
-    var productStore = ProductStore()
-    _.pictures = picturesStore.get()
-    _.product = productStore.get()
+    _.pictureStore = PictureStore
+    _.product = ProductStore.get()
 
     FormForConfiguration.enableAutoLabels();
     _.sendingInfo = false;
@@ -17,10 +15,13 @@ export default function(ngComponent) {
       
     _.submit = (product) => {
       _.sendingInfo = true
-      product.pictures = picturesStore.ids()
+      product.pictures = _.pictureStore.ids()
       Product.create(product)
       .then(result => {
-        console.log(result)
+        ProductStore.clear()
+        _.pictureStore.clear()
+        Utils.swalSuccess($translate.instant('PRODUCT_SAVE_MESSAGE'));
+        
       })
       .catch(error => {
         console.warn(error)
@@ -30,16 +31,13 @@ export default function(ngComponent) {
       })
     }
 
-    Array.observe(_.pictures, function(changes) {
-      changes.forEach((change) => {
-        picturesStore.set(change.object)
-      })
-    });
+    _.draft = (product) => {
+      ProductStore.set(product)
+    }
 
-    Object.observe(_.product, function(changes) {
-      changes.forEach((change) => {
-        productStore.set(change.object)
-      })
+    ProductStore.on('change', function() {
+      _.product = ProductStore.get()
     })
+
   }
 }

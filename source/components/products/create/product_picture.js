@@ -1,23 +1,21 @@
 export default function(ngComponent) {
   ngComponent.directive('productPicture', productPicture)
 
-  function productPicture(Product) {
+  function productPicture(Product, PictureStore) {
     return {
       templateUrl: 'products/create/product_picture.html',
       retrict: 'E',
-      scope: {
-        pictures: '='
-      },
       controllerAs: 'ctrl',
       bindToController: true,
 
       controller: function() {
         var _ = this
-        _.picture = ''
+        _.picture = ''       
+        _.pictures = PictureStore.get()
         _.loadingPicture = false
 
-        var reader = new FileReader();
-    
+        var reader = new FileReader();   
+       
         reader.onload = function(e) {
           _.updatePicture(e.target.result.split(',')[1])
         }
@@ -31,7 +29,7 @@ export default function(ngComponent) {
           _.loadingPicture = true
           Product.uploadPicture(_.picture, base64picture)
           .then((result) => {
-            _.pictures.push(result)
+            _.pictures = PictureStore.push(result)
           })
           .catch((e) => {     
             console.log(e)
@@ -39,6 +37,12 @@ export default function(ngComponent) {
           .finally(() => {
             _.loadingPicture = false
           })
+        }
+
+        PictureStore.on('change', updatePictures)
+
+        function updatePictures() {
+          _.pictures = PictureStore.get()
         }
       }
     }
