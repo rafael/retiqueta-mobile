@@ -1,4 +1,5 @@
 import event from 'events'
+import _tap from '../../libs/tapeable'
 
 export default function(ngComponent) {
   ngComponent.factory('PictureStore', PictureStore)
@@ -14,9 +15,14 @@ export default function(ngComponent) {
         return (picturesLocal != null) ? JSON.parse(picturesLocal) : []
       },
       push(picture) {
-        var pictures = this.get()
-        pictures.push(picture)
-        window.localStorage.setItem('cacheProductPictures', JSON.stringify(pictures))
+        _tap(this.get())
+        .tap((pictures) => { 
+          pictures.push(picture)
+          return pictures
+        })
+        .tap((pictures) => {
+          window.localStorage.setItem('cacheProductPictures', JSON.stringify(pictures))
+        })
         this.emit('change') 
       },
       set(newPictures) {

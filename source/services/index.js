@@ -1,8 +1,4 @@
-import ngResource from 'ng-resource'
-
-ngResource(window, angular)
-
-angular.module('App.services', ['ngResource'])
+angular.module('App.services', [])
 
 let services = angular.module('App.services')
 
@@ -26,5 +22,9 @@ require('./utils')(services)
 // Stores (this objects save the state on localStorage)
 require('./stores/product_pictures')(services)
 require('./stores/product')(services)
+
+services.run((PictureStore) => {
+  PictureStore.get()
+})
 
 export default services

@@ -108,7 +108,15 @@ routes.config(function($stateProvider, $urlRouterProvider) {
         } 
       }
     })
-
+    .state('users.productsSearch', {
+      url: '/search/product',
+      views: {
+        'search-tab': {
+          templateUrl: 'search/index.html',
+          controller: 'SearchProductCtrl as search'
+        }
+      }
+    })
 
   $urlRouterProvider.otherwise("/")
 })

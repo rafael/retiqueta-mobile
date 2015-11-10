@@ -27,6 +27,11 @@ require('./products/dashboard/index')(components)
 require('./products/create/index')(components)
 require('./products/create/product_picture')(components)
 require('./products/wardrobe/index')(components)
+require('./products/show_directive')(components)
+require('./products/list_directive')(components)
+
+// Search
+require('./search/index')(components)
 
 // component example
 // export default function(ngComponent) {

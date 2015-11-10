@@ -4,7 +4,8 @@
   "description": "Retiqueta: An Ionic project",
   "dependencies": {
     "array.observe": "0.0.1",
-    "object.observe": "^0.2.6"
+    "object.observe": "^0.2.6",
+    "tap-chain": "^0.2.3"
   },
   "devDependencies": {
     "angular": "^1.4.7",

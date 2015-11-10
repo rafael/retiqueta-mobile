@@ -1,0 +1,15 @@
+<section class="products">
+  <header>
+    <h1 ng-show="products.length > 0">
+      Numero de resultados: {{ products.length }}
+    </h1>
+    <h1 ng-hide="products.length > 0">
+      No hay resultados para tu busqueda
+    </h1>
+  </header>
+  <product-tag 
+    ng-repeat="product in products" 
+    product="product">
+  </product-tag>
+</section>
+

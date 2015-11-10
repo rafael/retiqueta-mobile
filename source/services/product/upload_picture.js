@@ -1,4 +1,4 @@
-import Createable from '../libs/creatable'
+import Createable from '../../libs/creatable'
 
 export default function UploadPictureProduct (ENV, $http, $q) {
   var factory = Createable(`${ENV.api.url}/v1/product_pictures`, 'product_pictures', $http, $q)

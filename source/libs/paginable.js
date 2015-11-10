@@ -1,9 +1,11 @@
 export default function paginableFactory(url, $http, $q) {
-  return function(page = 0) {
+  return function(query = null, page = 0, size = 10) {
     var deferred = $q.defer();
+    var finalUrl = `${url}?page_number=${page}&page_size=${size}`
+    finalUrl += (query === null) ? '' : `&q=${query}` 
     $http({
       method: 'GET',
-      url: `${url}&page=${page}`,
+      url: finalUrl,
     })
     .then(result => {
       if (result.data.hasOwnProperty('data')) {
