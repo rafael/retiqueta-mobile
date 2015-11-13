@@ -1,3 +1,5 @@
+import jsonapi from './jsonapi'
+
 export default function Geteable(url, $http, $q) {
   return function(id, extra = '') {
     var deferred = $q.defer();
@@ -5,11 +7,11 @@ export default function Geteable(url, $http, $q) {
       method: 'GET',
       url: `${url}/${id}${extra}`,
     })
-    .then((result) => {
+    .then(result => {
       if (result.data.hasOwnProperty('data')) {
-        deferred.resolve(result.data.data)
+        deferred.resolve(jsonapi(result.data).data)
       } else {
-        deferred.resolve(result.data)
+        deferred.resolve(result.data)    
       }
     })
     .catch((error) => {

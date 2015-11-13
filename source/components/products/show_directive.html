@@ -1,11 +1,38 @@
-<article class="product">
-  <h4> 
-    {{ product.attributes.title }}
-  </h4>
-  <h6>
-    {{ product.attributes.description }}
-  </h6>
-  <h6>
-    {{ product.attributes.original_price }}
-  </h6>
-</article>
+<div class="list card">
+
+  <div class="item item-title">
+    <h2>
+      {{ product.attributes.title }}
+    </h2>  
+  </div>
+
+  <div class="item item-body">
+    <picture ng-repeat="picture in product.relationships.product_pictures">
+      <img style="max-width: 100%" src="{{ picture.attributes.url }}" alt="">
+    </picture>
+    <p>
+      {{ product.attributes.description }}
+    </p>
+    <p>
+      <a href="#" class="subdued">
+        {{ product.attributes.original_price }}
+      </a>
+    </p>
+  </div>
+
+  <div class="item tabs tabs-secondary tabs-icon-left">
+    <a class="tab-item" href="#">
+      <i class="icon ion-thumbsup"></i>
+      Like
+    </a>
+    <a class="tab-item" href="#">
+      <i class="icon ion-chatbox"></i>
+      Comment
+    </a>
+    <a class="tab-item" href="#">
+      <i class="icon ion-share"></i>
+      Share
+    </a>
+  </div>
+
+</div>

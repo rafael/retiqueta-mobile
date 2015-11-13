@@ -8,7 +8,7 @@ export default function(ngComponent) {
       scope: {
         products: '='
       },
-      link(scope, element) {},
+      link(scope, element, attrs) {},
     }
   }
 }

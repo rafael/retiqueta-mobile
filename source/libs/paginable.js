@@ -1,17 +1,19 @@
+import _chain from './chainable'
+import jsonapi from './jsonapi'
+
 export default function paginableFactory(url, $http, $q) {
-  return function(query = null, page = 0, size = 10) {
+  return function(query) {
     var deferred = $q.defer();
-    var finalUrl = `${url}?page_number=${page}&page_size=${size}`
-    finalUrl += (query === null) ? '' : `&q=${query}` 
+    var queryString = UrlBuilder(query) 
     $http({
       method: 'GET',
-      url: finalUrl,
+      url: `${url}/${queryString}`,
     })
     .then(result => {
       if (result.data.hasOwnProperty('data')) {
-        deferred.resolve(result.data.data)
+        deferred.resolve(jsonapi(result.data).data)
       } else {
-        deferred.resolve(result.data)
+        deferred.resolve(result)
       }
     })
     .catch(error => {
@@ -19,5 +21,22 @@ export default function paginableFactory(url, $http, $q) {
     })
 
     return deferred.promise
+  }
+
+  function UrlBuilder(query = {}) {
+    return _chain(query)
+    .pipe(Object.assign, { page_number: 0, page_size: 10 })
+    .pipe(Object.keys)
+    .pipe(Array.map, (key) => {
+      return [key, query[key]]
+    })
+    .pipe((queries) => {
+      return Array.concat([''], queries)
+    })
+    .pipe(Array.reduce, (prev, current, index, array) => {
+      var start = (index === 1) ? '?' : '&'
+      return prev + `${start}${current[0]}=${current[1]}`
+    })
+    .result()
   }
 }

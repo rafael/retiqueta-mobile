@@ -1,3 +1,4 @@
+
 export default function Updateable (url, type, $http, $q) {
   return function (id, attrs) {
     var deferred = $q.defer()
@@ -15,7 +16,7 @@ export default function Updateable (url, type, $http, $q) {
       if (result.data.hasOwnProperty('data')) {
         deferred.resolve(result.data.data)
       } else {
-        deferred.resolve(result.data)
+        deferred.resolve(result.data)    
       }
     })
     .catch(error => {

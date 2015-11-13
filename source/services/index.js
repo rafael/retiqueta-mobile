@@ -23,8 +23,6 @@ require('./utils')(services)
 require('./stores/product_pictures')(services)
 require('./stores/product')(services)
 
-services.run((PictureStore) => {
-  PictureStore.get()
-})
+services.run((PictureStore, Product) => {})
 
 export default services

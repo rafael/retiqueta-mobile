@@ -8,7 +8,11 @@ export default function(ngComponent) {
       scope: {
         product: '='
       },
-      link(scope, element) {},
+      link(scope, element, attrs) {
+        if(attrs.singlePic) {
+          scope.product.relationships.product_pictures = scope.product.relationships.product_pictures.slice(0,1)
+        }
+      },
     }
   }
 }

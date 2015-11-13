@@ -29,7 +29,7 @@ export default function(ngComponent) {
           _.loadingPicture = true
           Product.uploadPicture(_.picture, base64picture)
           .then((result) => {
-            _.pictures = PictureStore.push(result)
+            PictureStore.push(result)
           })
           .catch((e) => {     
             console.log(e)
@@ -39,11 +39,12 @@ export default function(ngComponent) {
           })
         }
 
-        PictureStore.on('change', updatePictures)
-
-        function updatePictures() {
+        PictureStore.on('change', () => {
+          console.log(_.pictures)
+          console.log(PictureStore.get())
           _.pictures = PictureStore.get()
-        }
+        })
+
       }
     }
   } 

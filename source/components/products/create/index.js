@@ -3,7 +3,7 @@ import productForm from './product_form_fields'
 export default function(ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
 
-  function productCreateCtrl($scope, FormForConfiguration, Product, PictureStore, ProductStore) {
+  function productCreateCtrl($scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate) {
     var _ = this
     _.pictureStore = PictureStore
     _.product = ProductStore.get()

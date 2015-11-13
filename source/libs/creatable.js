@@ -1,3 +1,4 @@
+
 export default function Creatable (url, type, $http, $q) {
   return function(Obj) {
     var deferred = $q.defer()

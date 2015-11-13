@@ -1,16 +1,16 @@
 
-const _tap = function _tap(input) {  
-  return new Tap(input);
+const _chain = function _chain(input) {  
+  return new Chain(input);
 }
 
-class Tap {
+class Chain {
   constructor(value) {
     this.value = value
   }
   valueOf () {
     return this.value
   }
-  tap (fn) {
+  pipe (fn) {
     if ( arguments.length == 1 ) {
       this.value = fn(this.value)
     } else {
@@ -19,6 +19,9 @@ class Tap {
     } 
     return this
   }
+  result() {
+    return this.value
+  }
 }
 
-export default _tap
+export default _chain
