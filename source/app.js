@@ -3,8 +3,6 @@ require("babelify/polyfill");
 require('object.observe')
 require('array.observe')
 
-window.WorkerFactory = require('./libs/worker_factory')
-
 import configurations from './conf'
 import components from './components'
 import services from './services'

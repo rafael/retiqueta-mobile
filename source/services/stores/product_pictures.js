@@ -1,5 +1,5 @@
 import event from 'events'
-import _chain from '../../libs/chainable'
+import _chain from 'pipeable'
 
 export default function(ngComponent) {
   ngComponent.factory('PictureStore', PictureStore)
@@ -11,7 +11,7 @@ export default function(ngComponent) {
         this.emit('change')
       },
       get() {
-        var picturesLocal = window.localStorage.getItem('cacheProductPictures') 
+        var picturesLocal = window.localStorage.getItem('cacheProductPictures')
         return (picturesLocal != null) ? JSON.parse(picturesLocal) : []
       },
       push(picture) {
@@ -20,11 +20,11 @@ export default function(ngComponent) {
         .pipe((pictures) => {
           window.localStorage.setItem('cacheProductPictures', JSON.stringify(pictures))
         })
-        this.emit('change') 
+        this.emit('change')
       },
       set(newPictures) {
         if(newPictures.length > 0) {
-          window.localStorage.setItem('cacheProductPictures', JSON.stringify(newPictures)) 
+          window.localStorage.setItem('cacheProductPictures', JSON.stringify(newPictures))
         }
         this.emit('change')
       },

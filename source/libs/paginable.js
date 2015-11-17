@@ -1,10 +1,10 @@
-import _chain from './chainable'
+import _chain from 'pipeable'
 import jsonapi from './jsonapi'
 
 export default function paginableFactory(url, $http, $q) {
   return function(query) {
     var deferred = $q.defer();
-    var queryString = UrlBuilder(query) 
+    var queryString = UrlBuilder(query)
     $http({
       method: 'GET',
       url: `${url}/${queryString}`,

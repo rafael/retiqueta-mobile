@@ -1,4 +1,4 @@
-import _chain from './chainable'
+import _chain from 'pipeable'
 
 function WorkerWrapper() {
   var poster = function(data) {
@@ -15,8 +15,8 @@ function WorkerWrapper() {
 
 function FuncToString(code) {
   return _chain(code.toString())
-    .pipe(function (workerString) { 
-      var code = `var __code = ${workerString}; __code();` 
+    .pipe(function (workerString) {
+      var code = `var __code = ${workerString}; __code();`
       return code
     })
     .result()
@@ -40,8 +40,8 @@ function WorkerFactory(actorCode) {
       return new Worker(blobUrl)
     })
     .result()
-  
-  var actorCode = `var workerCallBack = ${actorCode.toString()}` 
+
+  var actorCode = `var workerCallBack = ${actorCode.toString()}`
 
   return function(params) {
     worker.postMessage({

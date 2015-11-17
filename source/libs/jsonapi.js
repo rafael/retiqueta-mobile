@@ -1,4 +1,4 @@
-import _chain from './chainable'
+import _chain from 'pipeable'
 
 function jsonapi (result) {
   if(result.data.length > 0) {
@@ -22,7 +22,7 @@ function ParseItem (item, index, array) {
       .pipe((newItem) => {
         item.relationships[relation] = newItem
       })
-    })    
+    })
   }
 
   return item

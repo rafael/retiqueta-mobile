@@ -18,11 +18,16 @@ require('./auth')(services)
 require('./user')(services)
 require('./products')(services)
 require('./utils')(services)
+// require('./worker')(services)
 
 // Stores (this objects save the state on localStorage)
 require('./stores/product_pictures')(services)
 require('./stores/product')(services)
 
-services.run((PictureStore, Product) => {})
+// services.run((PictureStore, Product, WKS, ENV) => {
+//   if (ENV.type === 'development') {
+//     window.Benchmark = require('benchmark')
+//   }
+// })
 
 export default services
