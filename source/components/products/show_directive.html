@@ -1,15 +1,12 @@
 <div class="list card">
 
-  <div class="item item-title">
-    <h2>
-      {{ product.attributes.title }}
-    </h2>  
-  </div>
-
   <div class="item item-body">
     <picture ng-repeat="picture in product.relationships.product_pictures">
       <img style="max-width: 100%" src="{{ picture.attributes.url }}" alt="">
     </picture>
+    <h2>
+      {{ product.attributes.title }}
+    </h2> 
     <p>
       {{ product.attributes.description }}
     </p>

@@ -17,7 +17,7 @@ function ParseItem (item, index, array) {
     .pipe(Array.forEach, (relation) => {
       _chain(item.relationships[relation].data)
       .pipe(Array.map, (x) => {
-        return FindInclude(array, x, relation)
+        return FindInclude(array.included, x, relation)
       })
       .pipe((newItem) => {
         item.relationships[relation] = newItem
@@ -28,8 +28,8 @@ function ParseItem (item, index, array) {
   return item
 }
 
-function FindInclude (data, item, type) {
-  return data.included.filter((x) => {
+function FindInclude (data = [], item, type) {
+  return data.filter((x) => {
     return x.id === item.id && x.type === item.type
   }).shift()
 }

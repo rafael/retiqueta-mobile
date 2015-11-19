@@ -12,8 +12,3 @@ contants.constant('ENV', {
   }
 })
 
-contants.run((ENV) => {
-  if(NODE_ENV === 'development') {
-    window.ENV = ENV
-  }
-})

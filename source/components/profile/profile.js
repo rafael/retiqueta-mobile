@@ -3,7 +3,16 @@ import profileForm from './profile_form_fields'
 export default function(ngComponent) {
   ngComponent.controller('profileCtrl', profileCtrl)
 
-  function profileCtrl(currentUser, User, FormForConfiguration) {
+  function profileCtrl(currentUser, User, FormForConfiguration, $scope, $ionicHistory) {
+    var history = $ionicHistory.backView();
+    $scope.root = false;
+    if(!history){ 
+      $scope.root = true;
+      $ionicHistory.nextViewOptions({
+        disableAnimate: true,
+        historyRoot : true
+      });
+    };
     var _ = this
     var defaultAttibutes = {
       first_name: '',
@@ -23,11 +32,8 @@ export default function(ngComponent) {
 
     _.submit = (attrs) => {
       _.sendingInfo = true
-      console.log(attrs)
       User.update(_.user.id, attrs)
       .then(result => {
-        console.info('success')
-        console.log(result)
       })
       .catch(error => {
         console.info('error')

@@ -85,19 +85,23 @@ routes.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('users.wardrobe', {
+      url: '/wardrobe',
+      views: {
+        'wardrobe-tab': {
+          templateUrl: 'wardrobe/index.html',
+          controller: 'wardrobeCtrl as wardrobe',
+        }
+      },
+    })
     .state('users.profile', {
       url: '/profile',
       views: {
-        'profile-tab': {
+        'wardrobe-tab' : {
           templateUrl: 'profile/profile.html',
           controller: 'profileCtrl as profile',
-        }
+        } 
       }
-    })
-    .state('users.wardrobe', {
-      url: '/wardrobe',
-      templateUrl: 'products/wardrobe/index.html',
-      controller: 'wardrobeCtrl as wardrobe',
     })
     .state('users.wardrobeNew', {
       url: '/wardrobe/new',

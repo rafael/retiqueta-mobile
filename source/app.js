@@ -18,8 +18,16 @@ angular.module('App', [
   'App.locales'
 ])
 
-angular.bootstrap(document.body, ['App'])
 
-// angular.module('App').run(function() {
-//   console.log('Running Angular with browserify')
-// })
+angular.module('App').run(function($rootScope, $state, $templateCache) {
+  $rootScope.$on('$stateChangeStart', function(event, toState){ 
+    console.log($templateCache)
+  })
+  console.log('Running Angular with browserify')
+})
+
+angular.module('App').config(function($ionicConfigProvider) {
+  $ionicConfigProvider.views.maxCache(0);
+})
+
+angular.bootstrap(document.body, ['App'])

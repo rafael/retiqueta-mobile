@@ -18,15 +18,16 @@ require('./auth/signup')(components)
 require('./auth/update_token')(components)
 require('./auth/logout')(components)
 
-// User controllers
+// User 
+require('./wardrobe')(components)
 require('./profile/profile')(components)
 require('./profile/profile_picture')(components)
+require('./user/profile_header')(components)
 
 // Products
 require('./products/dashboard/index')(components)
 require('./products/create/index')(components)
 require('./products/create/product_picture')(components)
-require('./products/wardrobe/index')(components)
 require('./products/show_directive')(components)
 require('./products/list_directive')(components)
 

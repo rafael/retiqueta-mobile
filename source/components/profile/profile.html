@@ -1,7 +1,5 @@
-<ion-view view-title="{{ 'PROFILE_TITLE' | translate }}">
+<ion-view name="editProfile" view-title="{{ 'PROFILE_TITLE' | translate }}">
   <ion-content padding="true">
-    <h1> {{ 'PROFILE_TITLE' | translate }} </h1>
-    <p>{{ profile.user.attributes.username }}</p>
     <profile-picture user='profile.user'></profile-picture>
     <form 
       form-for="profile.userAttributes"

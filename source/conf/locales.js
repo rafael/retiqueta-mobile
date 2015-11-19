@@ -21,6 +21,7 @@ locales.config(function ($translateProvider) {
     PRODUCT_SAVE_MESSAGE: 'Your product is save in your wardrobe',
     ADD_PRODUCT_TO_WARDROBE: 'Add new product to your wardrobe',
     SEARCH_PRODUCT: 'Search',
+    WARDROBE_TITLE: 'My wardrobe',
   });
   $translateProvider.translations('es', {
     DO_LOGIN: 'Ya poseo una cuenta',
@@ -37,7 +38,8 @@ locales.config(function ($translateProvider) {
     UPDATE_PROFILE: 'actualizar perfil',
     PRODUCT_SAVE_MESSAGE: 'Se ha guardado tu producto',
     ADD_PRODUCT_TO_WARDROBE: 'Crea tu nuevo producto',
-    SEARCH_PRODUCT: 'Buscar producto'
+    SEARCH_PRODUCT: 'Buscar producto',
+    WARDROBE_TITLE: 'Mi closet'
   });
   $translateProvider.useSanitizeValueStrategy('sanitize');
   $translateProvider.preferredLanguage('en');
