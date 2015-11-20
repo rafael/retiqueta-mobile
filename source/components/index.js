@@ -40,8 +40,9 @@ require('./search/index')(components)
 // }
 
 // Util
-require('./utils/file-model')(components)
-require('./utils/on-change-file')(components)
-require('./utils/picture-input')(components)
+require('./utils/file_model')(components)
+require('./utils/on_change_file')(components)
+require('./utils/picture_input')(components)
+require('./utils/linkify')(components)
 
 export default components

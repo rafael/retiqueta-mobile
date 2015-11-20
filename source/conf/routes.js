@@ -113,7 +113,7 @@ routes.config(function($stateProvider, $urlRouterProvider) {
       }
     })
     .state('users.productsSearch', {
-      url: '/search/product',
+      url: '/search/products/:word?',
       views: {
         'search-tab': {
           templateUrl: 'search/index.html',

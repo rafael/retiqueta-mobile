@@ -3,7 +3,7 @@ export default function(ngComponent) {
 
   function pictureInput() {
     return {
-      templateUrl: 'utils/picture-input.html',
+      templateUrl: 'utils/picture_input/picture-input.html',
       restrict: 'E',
       scope: {
         uploadText: "=text",
