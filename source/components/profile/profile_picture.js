@@ -19,7 +19,7 @@ export default function(ngComponent) {
         var reader = new FileReader();
     
         reader.onload = function(e) {
-        _.updatePicture(e.target.result.split(',')[1])
+          _.updatePicture(e.target.result.split(',')[1])
         }
           
         _.loadPicture = function(e) {

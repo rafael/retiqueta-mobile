@@ -1,4 +1,4 @@
-const NODE_ENV = process.env.NODE_ENV || 'development'
+const node_env = process.env.NODE_ENV || 'development'
 
 angular.module('App.contants', [])
 
