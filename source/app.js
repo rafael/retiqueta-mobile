@@ -15,7 +15,9 @@ angular.module('App', [
   'App.routes',
   'App.contants',
   'App.configurations',
-  'App.locales'
+  'App.locales',
+  'ionic.service.core', 
+  'ionic.service.analytics',
 ])
 
 

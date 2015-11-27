@@ -6,9 +6,9 @@ const contants = angular.module('App.contants')
 
 contants.constant('ENV', {
   app_name: 'Retiqueta',
-  type: NODE_ENV,
+  type: node_env,
   api: {
-    url: (NODE_ENV === 'production') ? 'https://api.retiqueta.com':'https://api.retiqueta.com'
+    url: (node_env === 'production') ? 'https://api.retiqueta.com':'https://api.retiqueta.com'
   }
 })
 

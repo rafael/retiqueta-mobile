@@ -129,7 +129,10 @@ gulp.task('copyFonts', function() {
 })
 
 gulp.task('copyIonic', function() {
-  gulp.src('./source/ionic.bundle.min.js')
+  gulp.src([
+    './source/ionic.bundle.min.js',
+    './source/ionic.io.bundle.min.js'
+  ])
   .pipe(gulp.dest('./www/'))
 })
 
