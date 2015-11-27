@@ -1,9 +1,11 @@
 export default function(ngComponent) {
   
-  ngComponent.run(function($ionicPlatform, $ionicAnalytics) {
+  ngComponent.run(function($ionicPlatform, $ionicAnalytics, ENV) {
     $ionicPlatform.ready(function() {
-
-      $ionicAnalytics.register()
+      
+      //if( ENV.type !== 'development' ) {
+        $ionicAnalytics.register()
+      //}
 
       if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
