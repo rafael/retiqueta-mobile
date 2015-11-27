@@ -18,9 +18,9 @@ require('./auth/signup')(components)
 require('./auth/update_token')(components)
 require('./auth/logout')(components)
 
-// User 
+// User
 require('./wardrobe')(components)
-require('./profile/profile')(components)
+require('./profile/edit')(components)
 require('./profile/profile_picture')(components)
 require('./user/profile_header')(components)
 

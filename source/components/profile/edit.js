@@ -1,19 +1,11 @@
 import profileForm from './profile_form_fields'
 
 export default function(ngComponent) {
-  ngComponent.controller('profileCtrl', profileCtrl)
+  ngComponent.controller('profileEditCtrl', profileEditCtrl)
 
-  function profileCtrl(currentUser, User, FormForConfiguration, $scope, $ionicHistory) {
-    var history = $ionicHistory.backView();
-    $scope.root = false;
-    if(!history){ 
-      $scope.root = true;
-      $ionicHistory.nextViewOptions({
-        disableAnimate: true,
-        historyRoot : true
-      });
-    };
+  function profileEditCtrl(currentUser, User, FormForConfiguration, Utils, $translate) {
     var _ = this
+
     var defaultAttibutes = {
       first_name: '',
       last_name: '',
@@ -34,10 +26,14 @@ export default function(ngComponent) {
       _.sendingInfo = true
       User.update(_.user.id, attrs)
       .then(result => {
+        console.log('Profile save')
+        console.log(result)
+        Utils.swalSuccess($translate.instant('UPDATE_PROFILE_SUCCESS'))
       })
       .catch(error => {
         console.info('error')
         console.log(error)
+        Utils.swalError(error)
       })
       .finally(() => {
         _.sendingInfo = false

@@ -85,31 +85,50 @@ routes.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-    .state('users.wardrobe', {
-      url: '/wardrobe',
+    .state('users.me', {
+      url: '/me',
       views: {
-        'wardrobe-tab': {
+        'me-tab': {
           templateUrl: 'wardrobe/index.html',
           controller: 'wardrobeCtrl as wardrobe',
         }
       },
+      resolve: {
+        user: function(currentUser) {
+          return currentUser
+        },
+      },
     })
-    .state('users.profile', {
-      url: '/profile',
+    .state('users.edit', {
+      url: '/edit',
       views: {
-        'wardrobe-tab' : {
-          templateUrl: 'profile/profile.html',
-          controller: 'profileCtrl as profile',
-        } 
+        'me-tab' : {
+          templateUrl: 'profile/form.html',
+          controller: 'profileEditCtrl as profile',
+        }
       }
     })
-    .state('users.wardrobeNew', {
-      url: '/wardrobe/new',
+    .state('users.profile', {
+      url: '/profile/{userID}',
+      views: {
+        'profile-tab': {
+          templateUrl: 'wardrobe/index.html',
+          controller: 'wardrobeCtrl as wardrobe',
+        }
+      },
+      resolve: {
+        user: function(User, $stateParams, currentUser) {
+          return ($stateParams.userID !== '') ? User.get($stateParams.userID) : currentUser
+        },
+      },
+    })
+    .state('users.productsNew', {
+      url: '/products/new',
       views: {
         'newproduct-tab': {
           templateUrl: 'products/create/index.html',
           controller: 'productCreateCtrl as create',
-        } 
+        }
       }
     })
     .state('users.productsSearch', {

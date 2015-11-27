@@ -14,5 +14,5 @@ export default function profileHeaderFactory (ngComponent) {
 
   function profileHeader() {
     return directive
-  }  
+  }
 }

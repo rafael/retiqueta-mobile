@@ -8,6 +8,7 @@ export default function Geteable(url, $http, $q) {
       url: `${url}/${id}${extra}`,
     })
     .then(result => {
+      // console.log(result)
       if (result.data.hasOwnProperty('data')) {
         deferred.resolve(jsonapi(result.data).data)
       } else {

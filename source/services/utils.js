@@ -19,8 +19,7 @@ export default function(ngComponent) {
       this.alert('Oops...', this.cleanErrors(error), 'error');
     };
 
-    this.swalSuccess = function(message, title) {
-      title = (typeof title === 'undefined') ? 'Great!' : title;
+    this.swalSuccess = function(message, title = 'Great!') {
       this.alert(title, message, 'success');
     };
 

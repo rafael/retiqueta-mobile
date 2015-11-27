@@ -1,11 +1,11 @@
-<ion-view name="wardrobeView" view-title="{{ 'WARDROBE_TITLE' | translate }}">
+<ion-view name="wardrobeView" view-title="{{ wardrobe.user.attributes.first_name}}'s {{ 'WARDROBE_TITLE' | translate }}">
   <ion-content padding="true">
     <ion-refresher
       pulling-text="Pull to refresh..."
       on-refresh="wardrobe.doRefresh()">
     </ion-refresher>
 
-    <profile-header user="wardrobe.user" owner='true'></profile-header>
+    <profile-header user="wardrobe.user" owner="{{wardrobe.isOwner}}"></profile-header>
     <products-tag products="wardrobe.products"></products-tag>
   </ion-content>
 </ion-view>

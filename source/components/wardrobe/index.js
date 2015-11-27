@@ -1,13 +1,14 @@
 export default function index (ngComponent) {
   ngComponent.controller('wardrobeCtrl', wardrobeCtrl)
 
-  function wardrobeCtrl(currentUser, Product, User, $scope) {
+  function wardrobeCtrl(user, currentUser, Product, User, $scope) {
     var _ = this
-    _.user = currentUser
+    _.user = user
+    _.isOwner = (user.id === currentUser.id)
     _.products = []
 
-    _.doRefresh = () => { 
-      Product.getByUser(currentUser.id, { include: 'product_pictures'})
+    _.doRefresh = () => {
+      Product.getByUser(user.id, { include: 'product_pictures'})
       .then(result => {
         _.products = result
       })
