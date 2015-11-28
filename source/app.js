@@ -16,13 +16,14 @@ angular.module('App', [
   'App.contants',
   'App.configurations',
   'App.locales',
-  'ionic.service.core', 
+  'ionic.service.core',
   'ionic.service.analytics',
+  'ionic.service.push'
 ])
 
 
 //angular.module('App').run(function($rootScope, $state, $templateCache) {
-//  $rootScope.$on('$stateChangeStart', function(event, toState){ 
+//  $rootScope.$on('$stateChangeStart', function(event, toState){
 //    console.log($templateCache)
 //  })
 //  console.log('Running Angular with browserify')
