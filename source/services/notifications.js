@@ -38,8 +38,13 @@ export default function notificationFactory (ngComponent) {
       });
     }
 
+    function register() {
+      $ionicPush.register()
+    }
+
     return {
-      init: init
+      init: init,
+      register: register,
     }
   }
 } 
