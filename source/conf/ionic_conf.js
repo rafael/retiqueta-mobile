@@ -1,23 +1,15 @@
 export default function(ngComponent) {
 
-  ngComponent.run(function($ionicPlatform, $ionicAnalytics, ENV, $ionicPush) {
+  ngComponent.run(function($ionicPlatform, $ionicAnalytics, ENV, AppPush) {
     $ionicPlatform.ready(function() {
-      var development = ENV.type !== 'development';
+      AppPush.init()
+      
+      var production = ENV.type !== 'development';
 
-      if(development) {
+      if(production) {
         $ionicAnalytics.register()
       }
 
-      $ionicPush.init({
-        "debug": ENV.type,
-        "onNotification": function(notification) {
-          var payload = notification.payload;
-          console.log(notification, payload);
-        },
-        "onRegister": function(data) {
-          console.log(data.token);
-        }
-      });
 
       if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
