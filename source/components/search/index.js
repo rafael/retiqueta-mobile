@@ -17,7 +17,7 @@ export default function(ngComponent) {
       Product.search({ 
         q: _.text,
         page_number: page,
-        include: 'product_pictures'
+        include: 'user,product_pictures'
       })
       .then(result => {
         _.setProducts(result)

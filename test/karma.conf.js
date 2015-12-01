@@ -16,7 +16,8 @@ module.exports = function(config) {
     // testing framework to use (jasmine/mocha/qunit/...)
     // as well as any additional frameworks (requirejs/chai/sinon/...)
     frameworks: [
-      "jasmine"
+      "jasmine",
+      "browserify",
     ],
 
     // list of files / patterns to load in the browser
@@ -47,11 +48,23 @@ module.exports = function(config) {
       "Chrome"
     ],
 
+    preprocessors: {
+      'test/spec/**/*.js': [ 'browserify' ] //Mention path as per your test js folder
+    },
+
+    browserify: {
+      debug: true,
+      transform: [
+        ['babelify']
+      ]
+    },
+
     // Which plugins to enable
     plugins: [
       "karma-phantomjs-launcher",
       "karma-chrome-launcher",
-      "karma-jasmine"
+      "karma-jasmine",
+      'karma-browserify',
     ],
 
     // Continuous Integration mode

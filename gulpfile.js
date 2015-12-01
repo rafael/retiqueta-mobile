@@ -173,7 +173,7 @@ gulp.task('serve:dist',function() {
 /**
 *  * Run test once and exit
 *   */
-gulp.task('test', ['build'] ,function (done) {
+gulp.task('test',function (done) {
   new Server({
     configFile: __dirname + '/test/karma.conf.js',
     singleRun: true
