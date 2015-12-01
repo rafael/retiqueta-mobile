@@ -27,9 +27,12 @@ describe('Libs: JSONAPI', function () {
 
   it('parse get multiple elements', function () {  
     var parsed_result = jsonapi(result_from_api)
-    result_from_api.data[0].relationships.user = result_from_api.data[0].relationships.user.data
-    result_from_api.data[0].relationships.product_pictures = result_from_api.data[0].relationships.user.data 
-    expect(parsed_result).toEqual(result_from_api)
+    
+    var result = clone(Object.assign({}, result_from_api))
+    result.data[0].relationships.user = result.data[0].relationships.user.data
+    result.data[0].relationships.product_pictures = result.data[0].relationships.product_pictures.data
+    
+    expect(parsed_result.data[0].relationships).toEqual(result.data[0].relationships)
   });
 
   it('parse multiple elements with include', function() {
@@ -39,7 +42,7 @@ describe('Libs: JSONAPI', function () {
     var result = clone(Object.assign({},
       result_from_api,
       { 
-        included: [processItemRelationData
+        included: [
           userInclude,
           pictureInclude,
         ]
@@ -52,7 +55,6 @@ describe('Libs: JSONAPI', function () {
     must_be.data[0].relationships.user = userInclude
     must_be.data[0].relationships.product_pictures = [pictureInclude]
     
-    expect(parsed_result.data[0].relationships).toEqual(must_be.data[0].relationshids)
     expect(parsed_result.data[0].relationships).toEqual(must_be.data[0].relationships)
   });
 
