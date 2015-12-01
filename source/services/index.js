@@ -18,6 +18,9 @@ require('./auth')(services)
 require('./user')(services)
 require('./products')(services)
 require('./utils')(services)
+require('./notifications')(services)
+
+
 // require('./worker')(services)
 
 // Stores (this objects save the state on localStorage)
