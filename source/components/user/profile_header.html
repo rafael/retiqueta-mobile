@@ -3,7 +3,7 @@
   <div class="item item-avatar">
     <img src="{{ user.attributes.profile_pic }}">
     <div class="row">
-      <div class="col col-90">
+      <div class="col" ng-class="{ 'col-90': isOwner, 'col-75': !isOwner }">
         <h2>
           {{ user.attributes.username }}
           <p>
@@ -11,20 +11,22 @@
             {{ user.attributes.last_name }}
           </p>
         </h2>
-
       </div>
-      <div class="col" ng-if="isOwner">
+      <div class="col" ng-show="isOwner">
         <a class="button button-icon icon ion-gear-a" href="#/users/edit"></a>
       </div>
+      <div class="col" ng-hide="isOwner">
+        <follow-button follow-handler="toggleFollowship" following="user.meta.followed_by_current_user"></follow-button>
+      </div>     
     </div>
   </div>
 
   <div ng-hide="isOwner" class="item tabs tabs-secondary tabs-icon-left">
     <a class="tab-item" >
-      Followers
+      Followers {{ user.attributes.followers_count }}
     </a>
     <a class="tab-item">
-      Following
+      Following {{ user.attributes.following_count }}
     </a>
   </div>
 

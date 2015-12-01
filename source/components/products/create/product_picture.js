@@ -40,8 +40,6 @@ export default function(ngComponent) {
         }
 
         PictureStore.on('change', () => {
-          console.log(_.pictures)
-          console.log(PictureStore.get())
           _.pictures = PictureStore.get()
         })
 

@@ -11,7 +11,8 @@ export default function(ngComponent) {
       require('./user/get')(ENV, $http, $q),
       require('./user/create')(ENV, $http, $q),
       require('./user/update')(ENV, $http, $q),
-      require('./user/upload_pic')(ENV, $http, $q)
+      require('./user/upload_pic')(ENV, $http, $q),
+      require('./user/follow_toggle')(ENV, $http, $q)
     )
 
     if(ENV.type === 'development') {

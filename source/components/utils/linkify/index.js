@@ -1,23 +1,13 @@
 export default function linkifyFactory (ngComponent) {
 
-  //  ngComponent.directive('nglinkify', linkify)
-  ngComponent.filter('linkify', function($sce) {
+  ngComponent.filter('linkify', linkify)
+
+  function linkify($sce) {
     return function(value, type) {
       return $sce.trustAsHtml(formatAnchor(value, '#/users/search/products'));
     }
-  })
+  }
 
-//   function linkify () {
-//     return {
-//       restrict: 'A',
-//       require: 'ngModel',
-//       link(scope, element, attrs) {
-//         ngModel.$setViewValue(formatAnchor(ngModel.$viewValue));
-//         ngModel.$render();
-//       },
-//     }
-//   }
-// 
   function formatAnchor(text, uiTarget) {
     var replacedText = '' 
 

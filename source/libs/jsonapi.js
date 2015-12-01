@@ -8,6 +8,8 @@ function jsonapi (data) {
     result.data = result.data.map((item, index) => {
       return ParseItem(item, index, result)
     })
+  } else {
+    result.data = ParseItem(result.data, 0, result)
   }
 
   return result
@@ -40,6 +42,10 @@ function ParseItem (item, index, array) {
         }  
       })
     })
+  } 
+
+  if(array.hasOwnProperty('meta')) {
+    item.meta = array.meta   
   }
 
   return item
@@ -64,7 +70,6 @@ function selectData( newItem, relationIsArray ) {
 
 function processItemRelationData (relationItem, relationIsArray, array, relation) {
   if (relationItem === null ) { return []}
-
 
   if (relationIsArray) {
     return relationItem.map( x => {
