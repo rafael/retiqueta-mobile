@@ -4,9 +4,13 @@ export default function(ngComponent) {
   function OnFileChange() {
     return {
       restrict: 'A',
-      link: function (scope, element, attrs) {
-        var onChangeHandler = scope.$eval(attrs.onFileChange);
-        element.bind('change', onChangeHandler);
+      scope: {
+        handler: '=onFileChangeHandler'
+      },
+      link(scope, element, attrs) {
+        scope.$watch('handler', function(value) {
+          element.bind('change', scope.handler)
+        })
       }
     };
   }

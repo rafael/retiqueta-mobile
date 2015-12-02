@@ -1,8 +1,9 @@
 <input 
   type="file" 
   style="height:0px;width:0px;display:block;"
-  on-file-change="loadPicture" 
-  accept="image/*;capture=camera" capture="camera">
+  on-file-change
+  on-file-change-handler="extractPicture"
+  accept="image/*">
   
 <div class="button-bar">
   <a href="#" ng-click="uploadPic()" class="button">

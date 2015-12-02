@@ -12,14 +12,14 @@ export default function(ngComponent) {
       },
       link: function(scope, element, attrs, controllers) {
         var fileInput = element.find('input')[0]
-        var reader = new FileReader();   
-       
-        reader.onload = function(e) {
+        scope.reader = new FileReader();
+     
+        scope.reader.onload = function(e) {
           scope.onChangeHandler(e.target.result)
         }
 
-        scope.loadPicture = function(e) {
-          reader.readAsDataURL(scope.picture)
+        scope.extractPicture = function(e) {
+          scope.reader.readAsDataURL(e.target.files[0])
         } 
 
         scope.uploadPic = function() {
