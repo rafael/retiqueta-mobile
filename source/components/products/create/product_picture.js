@@ -1,7 +1,7 @@
 export default function(ngComponent) {
   ngComponent.directive('productPicture', productPicture)
 
-  function productPicture(Product, PictureStore) {
+  function productPicture(Product, PictureStore, CameraService) {
     return {
       templateUrl: 'products/create/product_picture.html',
       retrict: 'E',
@@ -14,20 +14,9 @@ export default function(ngComponent) {
         _.pictures = PictureStore.get()
         _.loadingPicture = false
 
-        var reader = new FileReader();   
-       
-        reader.onload = function(e) {
-          _.updatePicture(e.target.result.split(',')[1])
-        }
-
-        _.loadPicture = function(e) {
-          _.picture = e.target.files[0]
-          reader.readAsDataURL(_.picture)
-        }
-
         _.updatePicture = function(base64picture) {
           _.loadingPicture = true
-          Product.uploadPicture(_.picture, base64picture)
+          Product.uploadPicture(base64picture)
           .then((result) => {
             PictureStore.push(result)
           })

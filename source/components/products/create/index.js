@@ -35,6 +35,11 @@ export default function(ngComponent) {
       ProductStore.set(product)
     }
 
+    _.removeDraft = () => {
+      ProductStore.clear()
+      PictureStore.clear()
+    }
+
     ProductStore.on('change', function() {
       _.product = ProductStore.get()
     })

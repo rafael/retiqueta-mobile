@@ -1,6 +1,8 @@
+import GetPictureData from '../../libs/get_picture_data'
+
 export default function(ENV, $http, $q) {
   return {
-    updatePicture(id, picture, encodedPicture) {
+    updatePicture(id, encodedPicture) {
       return $http({
         method: 'PUT',
         url: `${ENV.api.url}/v1/users/${id}/upload-profile-pic`,
@@ -8,11 +10,7 @@ export default function(ENV, $http, $q) {
           data: {
             "type": "users",
             "attributes": {
-              "pic": {
-                "filename": picture.name,
-                "content": encodedPicture,
-                "content_type": picture.type,
-              }
+              "pic": GetPictureData(encodedPicture)            
             }
           }
         }
