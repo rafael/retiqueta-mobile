@@ -1,0 +1,21 @@
+<ion-view name="SettingsView" view-title="{{ 'SETTINGS' | translate }}">
+  <ion-content padding="true">
+    <div class="list">
+
+      <a class="item item-icon-left" ui-sref="users.edit">
+        <i class="icon ion-person"></i>
+        {{ 'EDIT_PROFILE' |  translate }}        
+      </a>
+
+      <div class="item item-divider">
+        {{ 'SYSTEM_OPTIONS' | translate }}
+      </div>
+
+      <a class="item item-icon-right" ui-sref="logout">
+        {{ 'SIGNOUT' | translate }}
+        <i class="icon ion-arrow-right-c"></i>
+      </a>
+
+    </div>
+  </ion-content>
+</ion-view>
