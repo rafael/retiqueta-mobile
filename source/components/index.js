@@ -24,6 +24,7 @@ require('./profile/edit')(components)
 require('./profile/profile_picture')(components)
 require('./user/profile_header')(components)
 require('./user/follow_button')(components)
+require('./settings')(components)
 
 // Products
 require('./products/dashboard/index')(components)

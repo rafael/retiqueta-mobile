@@ -99,6 +99,15 @@ routes.config(function($stateProvider, $urlRouterProvider) {
         },
       },
     })
+    .state('users.settings', {
+      url: '/settings',
+      views: {
+        'me-tab' : {
+          templateUrl: 'settings/index.html',
+          controller: 'settingsCtrl as settings',
+        }
+      }
+    })
     .state('users.edit', {
       url: '/edit',
       views: {

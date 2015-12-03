@@ -26,6 +26,9 @@ locales.config(function ($translateProvider) {
     WARDROBE_TITLE: 'wardrobe',
     NOT_RESULT_FOR_SEARCH: 'None result for your search',
     SEARCHING: 'Searching ...',
+    EDIT_PROFILE: 'Edit my profile',
+    SYSTEM_OPTIONS: 'System options',
+    SIGNOUT: 'Take me out',
   });
   $translateProvider.translations('es', {
     DO_LOGIN: 'Ya poseo una cuenta',
@@ -48,6 +51,9 @@ locales.config(function ($translateProvider) {
     WARDROBE_TITLE: 'closet',
     NOT_RESULT_FOR_SEARCH: 'Ningun reltado para tu busqueda',
     SEARCHING: 'Buscado ...',
+    EDIT_PROFILE: 'Editar mi perfil',
+    SYSTEM_OPTIONS: 'Opciones del sistema',
+    SIGNOUT: 'Salir de retiqueta',
   });
   $translateProvider.useSanitizeValueStrategy('sanitize');
   $translateProvider.preferredLanguage('en');
