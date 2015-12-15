@@ -1,37 +1,38 @@
 import event from 'events'
 
-export default function(ngComponent) {
+export default function productStoreFacotry (ngComponent) {
   ngComponent.factory('ProductStore', ProductStore)
 
-  function ProductStore(ENV) {
+  function ProductStore (ENV) {
     var defaultProduct = {
       category: '',
       title: '',
       description: '',
       original_price: '',
       price: '',
-      pictures: '',
+      pictures: ''
     }
+
     var Model = {
-      clear() {
+      clear () {
         window.localStorage.removeItem('cacheProductStore')
         this.emit('change')
       },
-      get() {
-        var productLocal = window.localStorage.getItem('cacheProductStore') 
+      get () {
+        var productLocal = window.localStorage.getItem('cacheProductStore')
         return (productLocal != null) ? JSON.parse(productLocal) : Object.assign({}, defaultProduct)
       },
-      set(newProduct) {
-        if(Object.keys(newProduct).length > 0) {
+      set (newProduct) {
+        if (Object.keys(newProduct).length > 0) {
           window.localStorage.setItem('cacheProductStore', JSON.stringify(newProduct))
         }
-        this.emit('change')  
-      },
+        this.emit('change')
+      }
     }
 
     Object.assign(Model, event.EventEmitter.prototype)
-    
-    if(ENV.type == 'development') {
+
+    if (ENV.type === 'development') {
       window.ProductStore = Model
     }
 

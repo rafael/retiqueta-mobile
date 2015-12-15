@@ -1,6 +1,5 @@
-
 export default function Creatable (url, type, $http, $q) {
-  return function(Obj) {
+  return function (Obj) {
     var deferred = $q.defer()
     $http({
       method: 'POST',
@@ -12,16 +11,16 @@ export default function Creatable (url, type, $http, $q) {
         }
       }
     })
-    .then(result => {
-      if (result.data.hasOwnProperty('data')) {
-        deferred.resolve(result.data.data)
-      } else {
-        deferred.resolve(result.data)
-      }
-    })
-    .catch(error => {
-      deferred.reject(error)
-    })
+      .then(result => {
+        if (result.data.hasOwnProperty('data')) {
+          deferred.resolve(result.data.data)
+        } else {
+          deferred.resolve(result.data)
+        }
+      })
+      .catch(error => {
+        deferred.reject(error)
+      })
 
     return deferred.promise
   }

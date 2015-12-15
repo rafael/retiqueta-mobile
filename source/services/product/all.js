@@ -1,4 +1,3 @@
-export default function(ENV, $http, $q) {
-  return {
-  }
+export default function allProductsFacotry (ENV, $http, $q) {
+  return {}
 }

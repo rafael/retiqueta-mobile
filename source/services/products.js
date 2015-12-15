@@ -1,8 +1,7 @@
-export default function(ngComponent) {
-
+export default function ProductFactory (ngComponent) {
   ngComponent.factory('Product', Product)
 
-  function Product(ENV, $http, $q) {
+  function Product (ENV, $http, $q) {
     var Model = {}
 
     Object.assign(
@@ -14,8 +13,8 @@ export default function(ngComponent) {
       require('./product/search')(ENV, $http, $q),
       require('./product/upload_picture')(ENV, $http, $q)
     )
-    
-    if(ENV.type === 'development') {
+
+    if (ENV.type === 'development') {
       console.info('Saving Product model on window')
       window.Product = Model
     }

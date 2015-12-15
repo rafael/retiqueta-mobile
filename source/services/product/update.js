@@ -1,3 +1,3 @@
-export default function(ENV, $http, $q) {
+export default function updateProductFactory (ENV, $http, $q) {
   return {}
 }

@@ -1,4 +1,3 @@
-
 export default function Updateable (url, type, $http, $q) {
   return function (id, attrs) {
     var deferred = $q.defer()
@@ -8,22 +7,21 @@ export default function Updateable (url, type, $http, $q) {
       data: {
         data: {
           type: type,
-          attributes: attrs,
+          attributes: attrs
         }
       }
     })
-    .then(result => {
-      if (result.data.hasOwnProperty('data')) {
-        deferred.resolve(result.data.data)
-      } else {
-        deferred.resolve(result.data)    
-      }
-    })
-    .catch(error => {
-      deferred.reject(error)
-    })
+      .then(result => {
+        if (result.data.hasOwnProperty('data')) {
+          deferred.resolve(result.data.data)
+        } else {
+          deferred.resolve(result.data)
+        }
+      })
+      .catch(error => {
+        deferred.reject(error)
+      })
 
     return deferred.promise
   }
-
 }

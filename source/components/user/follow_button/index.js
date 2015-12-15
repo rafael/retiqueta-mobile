@@ -1,9 +1,7 @@
-
 export default function FollowButtonFactory (ngComponent) {
-
   ngComponent.directive('followButton', followButton)
 
-  function followButton(User, $translate) {
+  function followButton (User, $translate) {
     return {
       templateUrl: 'user/follow_button/index.html',
       restrict: 'E',
@@ -11,11 +9,11 @@ export default function FollowButtonFactory (ngComponent) {
         following: '=',
         followHandler: '='
       },
-      link(scope, element, attrs) {
+      link (scope, element, attrs) {
         scope.toggleFollowship = (following) => {
           scope.followHandler(following)
-        }   
-        
+        }
+
         scope.followButtonText = () => {
           if (scope.following) {
             return $translate.instant('UNFOLLOW')

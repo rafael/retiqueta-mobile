@@ -1,5 +1,5 @@
 // Polyfills
-require("babelify/polyfill");
+require('babelify/polyfill')
 require('object.observe')
 require('array.observe')
 
@@ -16,20 +16,19 @@ angular.module('App', [
   'App.contants',
   'App.configurations',
   'App.locales',
-  'ionic.service.core', 
-  'ionic.service.analytics',
+  'ionic.service.core',
+  'ionic.service.analytics'
 ])
 
-
-//angular.module('App').run(function($rootScope, $state, $templateCache) {
-//  $rootScope.$on('$stateChangeStart', function(event, toState){ 
-//    console.log($templateCache)
-//  })
-//  console.log('Running Angular with browserify')
-//})
+// angular.module('App').run(function($rootScope, $state, $templateCache) {
+//   $rootScope.$on('$stateChangeStart', function (event, toState) {
+//     console.log($templateCache)
+//   })
+//   console.log('Running Angular with browserify')
+// })
 //
-//angular.module('App').config(function($ionicConfigProvider) {
-//  $ionicConfigProvider.views.maxCache(0);
-//})
+// angular.module('App').config(function($ionicConfigProvider) {
+//   $ionicConfigProvider.views.maxCache(0)
+// })
 
 angular.bootstrap(document.body, ['App'])

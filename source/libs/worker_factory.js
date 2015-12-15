@@ -1,19 +1,17 @@
 import _chain from 'pipeable'
 
-function WorkerWrapper() {
-  var poster = function(data) {
-    console.info('Processing data on Worker')
+function WorkerWrapper () {
+  var poster = function (data) {
     importScripts(data.funcFileUrl)
     data.params.length = Object.keys(data.params).length
-    postMessage( workerCallBack.apply(null, Array.from(data.params)) )
+    postMessage(workerCallBack.apply(null, Array.from(data.params)))
   }
-  onmessage = function(e) {
-    console.info('Reciving data on  worker')
+  onmessage = function (e) {
     poster(e.data)
   }
 }
 
-function FuncToString(code) {
+function FuncToString (code) {
   return _chain(code.toString())
     .pipe(function (workerString) {
       var code = `var __code = ${workerString}; __code();`
@@ -22,7 +20,7 @@ function FuncToString(code) {
     .result()
 }
 
-function FuncToBlobUrl(funcString) {
+function FuncToBlobUrl (funcString) {
   return _chain(funcString)
     .pipe(function (code) {
       return new Blob([code])
@@ -31,7 +29,7 @@ function FuncToBlobUrl(funcString) {
     .result()
 }
 
-function WorkerFactory(actorCode) {
+function WorkerFactory (actorCode) {
   var worker = _chain(WorkerWrapper)
     .pipe(FuncToString)
     .pipe(FuncToBlobUrl)
@@ -43,18 +41,18 @@ function WorkerFactory(actorCode) {
 
   var actorCode = `var workerCallBack = ${actorCode.toString()}`
 
-  return function(params) {
+  return function (params) {
     worker.postMessage({
       funcFileUrl: FuncToBlobUrl(actorCode),
-      params: arguments,
+      params: arguments
     })
     return new Promise((resolve, reject) => {
       worker.onmessage = e => {
-        worker.terminate();
+        worker.terminate()
         resolve(e.data)
       }
       worker.onerror = e => {
-        worker.terminate();
+        worker.terminate()
         reject(e)
       }
     })

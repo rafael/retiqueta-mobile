@@ -21,7 +21,8 @@ var gulp = require('gulp'),
     sh = require('shelljs'),
     gutil = require('gulp-util'),
     envify = require('envify'),
-    protractor = require("gulp-protractor").protractor,
+    protractor = require('gulp-protractor').protractor,
+    standard = require('gulp-standard'),  
     sass = require('gulp-sass');
 
 var source_paths = {
@@ -105,7 +106,16 @@ tasks = {
     var name = "app-" + uuid.v1() + "." + type;
     return name
   },
+  lint: function() {
+    return gulp.src(source_paths.all_js)
+      .pipe(standard())
+      .pipe(standard.reporter('default', {
+        breakOnError: false
+      }))
+  }
 }
+
+gulp.task('lint', tasks.lint);
 
 gulp.task('clean', function() {
   var deferred = Q.defer();
@@ -117,7 +127,7 @@ gulp.task('clean', function() {
 
 gulp.task('sass', function() { tasks.devCss() })
 
-gulp.task('browserify', function() { tasks.devBrowserify()})
+gulp.task('browserify', function() { tasks.devBrowserify() })
 
 gulp.task('ngHtml', function() {
   tasks.BaseNgHtml(source_paths.partials_dest)

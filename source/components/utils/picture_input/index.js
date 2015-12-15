@@ -1,38 +1,39 @@
-export default function(ngComponent) {
-  ngComponent.directive('pictureInput', pictureInput);
+export default function pictureInputDirectiveFactory (ngComponent) {
+  ngComponent.directive('pictureInput', pictureInput)
 
-  function pictureInput(CameraService) {
+  function pictureInput (CameraService) {
     return {
       templateUrl: 'utils/picture_input/picture-input.html',
       restrict: 'E',
       scope: {
-        uploadText: "=",
-        takeText: "=",
-        onChangeHandler: "=onChange",
+        uploadText: '=',
+        takeText: '=',
+        onChangeHandler: '=onChange'
       },
-      link: function(scope, element, attrs, controllers) {
+      link (scope, element, attrs, controllers) {
         var fileInput = element.find('input')[0]
-        scope.reader = new FileReader();
-     
-        scope.reader.onload = function(e) {
+
+        scope.reader = new window.FileReader()
+
+        scope.reader.onload = (e) => {
           scope.onChangeHandler(e.target.result)
         }
 
-        scope.extractPicture = function(e) {
+        scope.extractPicture = (e) => {
           scope.reader.readAsDataURL(e.target.files[0])
-        } 
+        }
 
-        scope.uploadPic = function() {
+        scope.uploadPic = () => {
           fileInput.click()
         }
 
-        scope.takePic = function() {
+        scope.takePic = () => {
           CameraService.take()
-          .then(result => {
-            scope.onChangeHandler("data:image/jpeg;base64," + result)
-          })
+            .then(result => {
+              scope.onChangeHandler('data:image/jpeg;base64,' + result)
+            })
         }
       }
-    };
+    }
   }
 }

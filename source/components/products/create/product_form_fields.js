@@ -10,7 +10,7 @@ export default {
   description: {
     inputType: 'text',
     required: true,
-    multiline: true,
+    multiline: true
   },
   original_price: {
     inputType: 'text',
@@ -19,5 +19,5 @@ export default {
   price: {
     inputType: 'text',
     required: true
-  },
-};
+  }
+}

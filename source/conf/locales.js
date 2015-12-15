@@ -28,8 +28,8 @@ locales.config(function ($translateProvider) {
     SEARCHING: 'Searching ...',
     EDIT_PROFILE: 'Edit my profile',
     SYSTEM_OPTIONS: 'System options',
-    SIGNOUT: 'Take me out',
-  });
+    SIGNOUT: 'Take me out'
+  })
   $translateProvider.translations('es', {
     DO_LOGIN: 'Ya poseo una cuenta',
     DO_SIGNUP: 'Quiero crearme una cuenta',
@@ -53,8 +53,8 @@ locales.config(function ($translateProvider) {
     SEARCHING: 'Buscado ...',
     EDIT_PROFILE: 'Editar mi perfil',
     SYSTEM_OPTIONS: 'Opciones del sistema',
-    SIGNOUT: 'Salir de retiqueta',
-  });
-  $translateProvider.useSanitizeValueStrategy('sanitize');
-  $translateProvider.preferredLanguage('en');
-});
+    SIGNOUT: 'Salir de retiqueta'
+  })
+  $translateProvider.useSanitizeValueStrategy('sanitize')
+  $translateProvider.preferredLanguage('en')
+})
