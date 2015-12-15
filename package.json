@@ -65,5 +65,12 @@
   "cordovaPlatforms": [
     "ios",
     "android"
-  ]
+  ],
+  "standard": {
+    "ignore": [
+      "source/ionic*",
+      "source/partials/**/*.js"
+    ]
+    "globals": [ "angular", "cordova" ]
+  }
 }

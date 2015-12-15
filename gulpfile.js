@@ -22,7 +22,7 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     envify = require('envify'),
     protractor = require('gulp-protractor').protractor,
-    standard = require('gulp-standard'),  
+    standard = require('gulp-standard'),
     sass = require('gulp-sass');
 
 var source_paths = {
@@ -107,11 +107,16 @@ tasks = {
     return name
   },
   lint: function() {
-    return gulp.src(source_paths.all_js)
-      .pipe(standard())
-      .pipe(standard.reporter('default', {
-        breakOnError: false
-      }))
+    return gulp.src("./source/*/**/*.js")
+    .pipe(standard({
+      ignore: [
+        "**/partials/**/*.js"
+      ],
+      globals: [ "angular", "cordova", "Camera", "StatusBar" ]
+    }))
+    .pipe(standard.reporter('default', {
+      breakOnError: false
+    }))
   }
 }
 
