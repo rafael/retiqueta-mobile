@@ -2,7 +2,7 @@ export default function(ngComponent) {
 
   ngComponent.service('Auth', AuthFactory)
 
-  function AuthFactory($rootScope, ENV, User, $q, $http) {
+  function AuthFactory($rootScope, ENV, User, $q, $http, $ionicPush) {
 
     if(ENV.type === 'development') {
       window.Auth = this;
@@ -34,6 +34,7 @@ export default function(ngComponent) {
       })
       .success((result) => {
         this.loginToken(result);
+        $ionicPush.register()
         deferred.resolve(result);
       })
       .error((err) => {
@@ -115,7 +116,7 @@ export default function(ngComponent) {
       if(this.isLogin()) {
         User.get(this.getToken().user_id)
           .then((result) => {
-            this.user = result            
+            this.user = result
             deferred.resolve(this.user);
           })
           .catch((error) => {

@@ -9,6 +9,12 @@ contants.constant('ENV', {
   type: node_env,
   api: {
     url: (node_env === 'production') ? 'https://api.retiqueta.com':'https://api.retiqueta.com'
+  },
+  isDevelopment () {
+    return this.type === 'development'
+  },
+  isProduction () {
+    return this.type === 'production'
   }
 })
 
