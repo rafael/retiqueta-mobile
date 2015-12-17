@@ -2,7 +2,6 @@ import onNotification from './onnotification'
 import RegisterToken from './register_token'
 
 export default function InitPushFactory (ioPush, Auth, User, $q, ENV) {
-  console.log(ENV)
   return function init () {
     ioPush.init({
       "debug": ENV.isDevelopment(),

@@ -9,8 +9,7 @@ function registerForIonicUser(user_id, token) {
 
     ionicUser.addPushToken(token);
     ionicUser.save();
-    console.log(ionicUser)
-    resolve()
+    resolve(ionicUser)
   })
 }
 
@@ -37,10 +36,16 @@ export default function RegisterToken (Auth, User, $q, ENV) {
         user = current_user
         return registerForIonicUser(user.id, token)
       })
-      .then(() => {
+      .then((ionicUser) => {
         return User.createToken(user.id, data)
       })
-      .then(deferred.resolve)
+      .then((result) => {
+        if (ENV.isDevelopment) {
+          console.info('The User device token has been updated')
+          console.log(result)
+        }
+        deferred.resolve(result)
+      })
       .catch(deferred.reject)
 
       return deferred.promise
