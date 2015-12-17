@@ -8,6 +8,7 @@ export default function UtilsFactory (ngComponent) {
       if (typeof error === 'undefined' || error === null) {
         return 'Error in the server'
       }
+
       if (error.hasOwnProperty('data')) {
         return JSON.stringify(error.data.detail).replace(/[{}\[\]\"]/g, '').replace(/error\:/g, '')
       } else {
