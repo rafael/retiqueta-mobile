@@ -8,5 +8,7 @@ export default function InitPushFactory (ioPush, Auth, User, $q, ENV) {
       "onNotification": onNotification(ENV),
       "onRegister": RegisterToken(Auth, User, $q, ENV)
     })
+
+    return ioPush
   }
 }

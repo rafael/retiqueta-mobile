@@ -71,9 +71,12 @@ routes.config(function($stateProvider, $urlRouterProvider) {
         },
       },
       resolve: {
-        currentUser: function(Auth) {
+        currentUser: function (Auth) {
           return Auth.getCurrentUser()
         },
+        deviceToken: function ($ionicPush) {
+          return $ionicPush.register()
+        }
       },
     })
     .state('users.dashboard', {

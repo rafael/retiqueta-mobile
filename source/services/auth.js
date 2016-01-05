@@ -33,9 +33,8 @@ export default function(ngComponent) {
         }
       })
       .success((result) => {
-        this.loginToken(result);
-        $ionicPush.register()
-        deferred.resolve(result);
+        this.loginToken(result)
+        deferred.resolve(result)
       })
       .error((err) => {
         this.logout();

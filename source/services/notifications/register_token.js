@@ -1,14 +1,17 @@
 function registerForIonicUser(user_id, token) {
   return new Promise(function(resolve, reject) {
-    Ionic.io();
-    var ionicUser = Ionic.User.current();
+    Ionic.io()
+    var ionicUser = Ionic.User.current()
+
+    console.log("Why is not enter in the IF")
+    console.log(ionicUser.id)
 
     if (!ionicUser.id) {
-      ionicUser.id = user_id;
+      ionicUser.id = user_id
     }
 
-    ionicUser.addPushToken(token);
-    ionicUser.save();
+    ionicUser.addPushToken(token)
+    ionicUser.save()
     resolve(ionicUser)
   })
 }
@@ -27,20 +30,20 @@ export default function RegisterToken (Auth, User, $q, ENV) {
       }
 
       if (ENV.isDevelopment()) {
-        console.log("Token assigned for ionic Push is")
+        console.log("Token assigned for ionic Push")
         console.log(data)
       }
 
       Auth.getUser()
-      .then((current_user) => {
+      .then(current_user => {
         user = current_user
         return registerForIonicUser(user.id, token)
       })
-      .then((ionicUser) => {
+      .then(ionicUser => {
         return User.createToken(user.id, data)
       })
       .then((result) => {
-        if (ENV.isDevelopment) {
+        if (ENV.isDevelopment()) {
           console.info('The User device token has been updated')
           console.log(result)
         }
