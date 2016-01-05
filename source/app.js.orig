@@ -17,6 +17,7 @@ angular.module('App', [
   'App.configurations',
   'App.locales',
   'ionic.service.core',
+<<<<<<< HEAD
   'ionic.service.analytics',
   'ionic.service.push'
 ])
@@ -28,9 +29,20 @@ angular.module('App', [
 //  })
 //  console.log('Running Angular with browserify')
 //})
+=======
+  'ionic.service.analytics'
+])
+
+// angular.module('App').run(function($rootScope, $state, $templateCache) {
+//   $rootScope.$on('$stateChangeStart', function (event, toState) {
+//     console.log($templateCache)
+//   })
+//   console.log('Running Angular with browserify')
+// })
+>>>>>>> develop
 //
-//angular.module('App').config(function($ionicConfigProvider) {
-//  $ionicConfigProvider.views.maxCache(0);
-//})
+// angular.module('App').config(function($ionicConfigProvider) {
+//   $ionicConfigProvider.views.maxCache(0)
+// })
 
 angular.bootstrap(document.body, ['App'])

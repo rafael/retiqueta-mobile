@@ -18,8 +18,13 @@ require('./auth')(services)
 require('./user')(services)
 require('./product')(services)
 require('./utils')(services)
+<<<<<<< HEAD
 require('./notifications')(services)
+
+
+=======
 require('./camera')(services)
+>>>>>>> develop
 // require('./worker')(services)
 
 // Stores (this objects save the state on localStorage)

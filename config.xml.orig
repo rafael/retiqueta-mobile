@@ -69,6 +69,7 @@
     <splash src="resources/android/splash/drawable-port-xxhdpi-screen.png" density="port-xxhdpi"/>
     <splash src="resources/android/splash/drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi"/>
   </platform>
+<<<<<<< HEAD
   <platform name="wp8">
     <icon src="resources/wp8/icon/ApplicationIcon.png" width="99" height="99"/>
     <icon src="resources/wp8/icon/Background.png" width="159" height="159"/>
@@ -76,3 +77,6 @@
   </platform>
   <icon src="resources/android/icon/drawable-xhdpi-icon.png"/>
 </widget>
+=======
+</widget>
+>>>>>>> develop

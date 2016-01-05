@@ -1,4 +1,5 @@
 export default function(ngComponent) {
+<<<<<<< HEAD
 
   ngComponent.run(function($ionicPlatform, $ionicAnalytics, ENV, AppPush, Auth) {
     $ionicPlatform.ready(function() {
@@ -8,17 +9,22 @@ export default function(ngComponent) {
       var production = ENV.type !== 'development';
 
       if(production) {
+=======
+  ngComponent.run(function ($ionicPlatform, $ionicAnalytics, ENV) {
+    $ionicPlatform.ready(function () {
+      if (ENV.type !== 'development') {
+>>>>>>> develop
         $ionicAnalytics.register()
       }
 
 
       if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-        cordova.plugins.Keyboard.disableScroll(true);
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true)
+        cordova.plugins.Keyboard.disableScroll(true)
       }
       if (window.StatusBar) {
-        StatusBar.styleLightContent();
+        StatusBar.styleLightContent()
       }
-    });
+    })
   })
 }

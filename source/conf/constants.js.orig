@@ -8,6 +8,7 @@ contants.constant('ENV', {
   app_name: 'Retiqueta',
   type: node_env,
   api: {
+<<<<<<< HEAD
     url: (node_env === 'production') ? 'https://api.retiqueta.com':'https://api.retiqueta.com'
   },
   isDevelopment () {
@@ -15,6 +16,8 @@ contants.constant('ENV', {
   },
   isProduction () {
     return this.type === 'production'
+=======
+    url: (node_env === 'production') ? 'https://api.retiqueta.com' : 'https://api.retiqueta.com'
+>>>>>>> develop
   }
 })
-
