@@ -2,7 +2,10 @@
   <img style="max-width: 100%" src="{{profilePicture.user.attributes.profile_pic}}" alt="">
 </p>
 <p ng-hide="profilePicture.loadingPicture">
-  <picture-input text="'UPLOAD_PICTURE' | translate" on-change="profilePicture.loadPicture">
+  <picture-input 
+    upload-text="'UPLOAD_PICTURE' | translate" 
+    take-text="'TAKE_PICTURE' | translate"
+    on-change="profilePicture.updatePicture">
 </p>
 <p ng-show="profilePicture.loadingPicture">
   <span class="button button-block button-positive">{{ 'UPLOADING_PICTURE' | translate }}</span>

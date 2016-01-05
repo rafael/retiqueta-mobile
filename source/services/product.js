@@ -1,4 +1,5 @@
 export default function(ngComponent) {
+
   ngComponent.factory('Product', Product)
 
   function Product(ENV, $http, $q) {
@@ -14,7 +15,7 @@ export default function(ngComponent) {
       require('./product/upload_picture')(ENV, $http, $q)
     )
 
-    if(ENV.type === 'development') {
+    if (ENV.type === 'development') {
       console.info('Saving Product model on window')
       window.Product = Model
     }

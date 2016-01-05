@@ -1,5 +1,5 @@
 // Polyfills
-require("babelify/polyfill");
+require('babelify/polyfill')
 require('object.observe')
 require('array.observe')
 

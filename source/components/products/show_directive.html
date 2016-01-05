@@ -1,4 +1,15 @@
 <div class="list card">
+  <div ng-show="{{ product.relationships.user.attributes }}" class="item item-avatar">
+    <img src="{{ product.relationships.user.attributes.profile_pic }}">
+    <h2>
+      <a ui-sref="users.profile({ userID: product.relationships.user.id })">
+        {{ product.relationships.user.attributes.username }}
+      </a>
+    </h2>
+    <p>
+      {{ product.relationships.user.attributes.first_name }}
+    </p>
+  </div>
 
   <div class="item item-body">
     <picture ng-repeat="picture in product.relationships.product_pictures">

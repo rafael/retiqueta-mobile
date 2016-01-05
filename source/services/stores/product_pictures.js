@@ -1,35 +1,35 @@
 import event from 'events'
 import _chain from 'pipeable'
 
-export default function(ngComponent) {
+export default function PictureStoreFactory (ngComponent) {
   ngComponent.factory('PictureStore', PictureStore)
 
-  function PictureStore(ENV) {
+  function PictureStore (ENV) {
     var Model = {
-      clear() {
+      clear () {
         window.localStorage.removeItem('cacheProductPictures')
         this.emit('change')
       },
-      get() {
+      get () {
         var picturesLocal = window.localStorage.getItem('cacheProductPictures')
         return (picturesLocal != null) ? JSON.parse(picturesLocal) : []
       },
-      push(picture) {
+      push (picture) {
         _chain(this.get())
-        .pipe(Array.concat, picture)
-        .pipe((pictures) => {
-          window.localStorage.setItem('cacheProductPictures', JSON.stringify(pictures))
-        })
+          .pipe(Array.concat, picture)
+          .pipe((pictures) => {
+            window.localStorage.setItem('cacheProductPictures', JSON.stringify(pictures))
+          })
         this.emit('change')
       },
-      set(newPictures) {
-        if(newPictures.length > 0) {
+      set (newPictures) {
+        if (newPictures.length > 0) {
           window.localStorage.setItem('cacheProductPictures', JSON.stringify(newPictures))
         }
         this.emit('change')
       },
-      ids() {
-        return this.get().map((value) => {
+      ids () {
+        return this.get().map(value => {
           return value.id
         })
       }
@@ -37,11 +37,10 @@ export default function(ngComponent) {
 
     Object.assign(Model, event.EventEmitter.prototype)
 
-    if(ENV.type == 'development') {
+    if (ENV.type === 'development') {
       window.PictureStore = Model
     }
 
     return Model
   }
-
 }

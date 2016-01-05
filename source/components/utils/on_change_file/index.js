@@ -1,13 +1,17 @@
-export default function(ngComponent) {
+export default function onChangeDirectiveFactory (ngComponent) {
   ngComponent.directive('onFileChange', OnFileChange)
-  
-  function OnFileChange() {
+
+  function OnFileChange () {
     return {
       restrict: 'A',
-      link: function (scope, element, attrs) {
-        var onChangeHandler = scope.$eval(attrs.onFileChange);
-        element.bind('change', onChangeHandler);
+      scope: {
+        handler: '=onFileChangeHandler'
+      },
+      link (scope, element, attrs) {
+        scope.$watch('handler', (value) => {
+          element.bind('change', scope.handler)
+        })
       }
-    };
+    }
   }
 }

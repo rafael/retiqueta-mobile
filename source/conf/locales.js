@@ -16,7 +16,8 @@ locales.config(function ($translateProvider) {
     DASHBOARD_TITLE: 'Dashboard',
     PROFILE_TITLE: 'Profile',
     UPDATE_PROFILE_SUCCESS: 'Your profile has been updated!',
-    UPLOAD_PICTURE: 'Select new picture',
+    UPLOAD_PICTURE: 'Select from gallery',
+    TAKE_PICTURE: 'Take from camara',
     UPLOADING_PICTURE: 'Uploading your picture ...',
     UPDATE_PROFILE: 'Update profile',
     PRODUCT_SAVE_MESSAGE: 'Your product is save in your wardrobe',
@@ -25,7 +26,10 @@ locales.config(function ($translateProvider) {
     WARDROBE_TITLE: 'wardrobe',
     NOT_RESULT_FOR_SEARCH: 'None result for your search',
     SEARCHING: 'Searching ...',
-  });
+    EDIT_PROFILE: 'Edit my profile',
+    SYSTEM_OPTIONS: 'System options',
+    SIGNOUT: 'Take me out'
+  })
   $translateProvider.translations('es', {
     DO_LOGIN: 'Ya poseo una cuenta',
     DO_SIGNUP: 'Quiero crearme una cuenta',
@@ -37,7 +41,8 @@ locales.config(function ($translateProvider) {
     DASHBOARD_TITLE: 'Dashboard',
     PROFILE_TITLE: 'Profile',
     UPDATE_PROFILE_SUCCESS: 'Tu perfil ha sido actualizado',
-    UPLOAD_PICTURE: 'Seleccionar nueva imagen',
+    UPLOAD_PICTURE: 'Seleccionar de la galeria',
+    TAKE_PICTURE: 'Tomar foto',
     UPLOADING_PICTURE: 'Actualizando tu imagen ...',
     UPDATE_PROFILE: 'actualizar perfil',
     PRODUCT_SAVE_MESSAGE: 'Se ha guardado tu producto',
@@ -46,7 +51,10 @@ locales.config(function ($translateProvider) {
     WARDROBE_TITLE: 'closet',
     NOT_RESULT_FOR_SEARCH: 'Ningun reltado para tu busqueda',
     SEARCHING: 'Buscado ...',
-  });
-  $translateProvider.useSanitizeValueStrategy('sanitize');
-  $translateProvider.preferredLanguage('en');
-});
+    EDIT_PROFILE: 'Editar mi perfil',
+    SYSTEM_OPTIONS: 'Opciones del sistema',
+    SIGNOUT: 'Salir de retiqueta'
+  })
+  $translateProvider.useSanitizeValueStrategy('sanitize')
+  $translateProvider.preferredLanguage('en')
+})

@@ -6,8 +6,9 @@
 </p>
 <p ng-hide="ctrl.loadingPicture">
   <picture-input 
-    text="'UPLOAD_PICTURE' | translate" 
-    on-change="ctrl.loadPicture">
+    upload-text="'UPLOAD_PICTURE' | translate"
+    take-text="'TAKE_PICTURE' | translate"
+    on-change="ctrl.updatePicture">
 </p>
 <p ng-show="ctrl.loadingPicture">
   <span class="button button-block button-positive">{{ 'UPLOADING_PICTURE' | translate }}</span>

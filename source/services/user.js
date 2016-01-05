@@ -1,4 +1,4 @@
-export default function(ngComponent) {
+export default function UserFactory (ngComponent) {
   ngComponent.factory('User', UserFactory)
 
   function UserFactory(ENV, $http, $q) {
@@ -11,11 +11,12 @@ export default function(ngComponent) {
       require('./user/create')(...dependecies),
       require('./user/update')(...dependecies),
       require('./user/upload_pic')(...dependecies),
-      require('./user/create_token')(...dependecies)
+      require('./user/create_token')(...dependecies),
+      require('./user/follow_toggle')(...dependecies)
      )
 
-    if(ENV.type === 'development') {
-      window.User = Model;
+    if (ENV.type === 'development') {
+      window.User = Model
     }
 
     return Model

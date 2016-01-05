@@ -16,11 +16,10 @@ let services = angular.module('App.services')
 
 require('./auth')(services)
 require('./user')(services)
-require('./products')(services)
+require('./product')(services)
 require('./utils')(services)
 require('./notifications')(services)
-
-
+require('./camera')(services)
 // require('./worker')(services)
 
 // Stores (this objects save the state on localStorage)

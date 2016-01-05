@@ -1,12 +1,12 @@
-export default function(ngComponent) {
+export default function loginCtrlFactory (ngComponent) {
   ngComponent.controller('loginCtrl', loginCtrl)
 
-  function loginCtrl($state, FormForConfiguration, Auth, Utils, $translate) {
-    var _ =  this
+  function loginCtrl ($state, FormForConfiguration, Auth, Utils, $translate) {
+    var _ = this
 
-    FormForConfiguration.enableAutoLabels();
-    _.user = {};
-    _.sendingInfo = false;
+    FormForConfiguration.enableAutoLabels()
+    _.user = {}
+    _.sendingInfo = false
 
     _.validationRules = {
       username: {
@@ -19,23 +19,23 @@ export default function(ngComponent) {
         minlength: 8,
         required: true
       }
-    };
+    }
 
-    _.submit = function(user) {
-      _.sendingInfo = true;
-      user.username = user.username.toLowerCase();
+    _.submit = (user) => {
+      _.sendingInfo = true
+      user.username = user.username.toLowerCase()
       Auth.login(user)
-      .then(function(token) {
-        // UI stuff
-        Utils.swalSuccess($translate.instant('WELCOME_MESSAGE'));
-        $state.go('users.dashboard');
-        _.sendingInfo = false;
-      })
-      .catch(function(error) {
-        _.sendingInfo = false;
-        console.log(error)
-        Utils.swalError(error);
-      });
-    };
+        .then(token => {
+          Utils.swalSuccess($translate.instant('WELCOME_MESSAGE'))
+          $state.go('users.dashboard')
+        })
+        .catch(error => {
+          console.log(error)
+          Utils.swalError(error)
+        })
+        .finally(() => {
+          _.sendingInfo = false
+        })
+    }
   }
 }

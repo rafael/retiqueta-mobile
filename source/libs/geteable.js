@@ -1,24 +1,23 @@
 import jsonapi from './jsonapi'
 
-export default function Geteable(url, $http, $q) {
-  return function(id, extra = '') {
-    var deferred = $q.defer();
+export default function Geteable (url, $http, $q) {
+  return function (id, extra = '') {
+    var deferred = $q.defer()
     $http({
       method: 'GET',
-      url: `${url}/${id}${extra}`,
+      url: `${url}/${id}${extra}`
     })
-    .then(result => {
-      // console.log(result)
-      if (result.data.hasOwnProperty('data')) {
-        deferred.resolve(jsonapi(result.data).data)
-      } else {
-        deferred.resolve(result.data)    
-      }
-    })
-    .catch((error) => {
-      deferred.reject(error)
-    })
+      .then(result => {
+        // console.log(result)
+        if (result.data.hasOwnProperty('data')) {
+          deferred.resolve(jsonapi(result.data).data)
+        } else {
+          deferred.resolve(result.data)
+        }
+      })
+      .catch((error) => {
+        deferred.reject(error)
+      })
     return deferred.promise
   }
 }
-

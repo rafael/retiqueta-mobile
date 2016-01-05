@@ -13,3 +13,12 @@
 submit-button[label="Submit"] {
   display: none;
 }
+
+.tabs-not-absolute {
+	.tabs {
+		position: relative;
+		top: 3em;
+		margin-top: 2em;
+		margin-bottom: 2em;
+	}
+}
