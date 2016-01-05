@@ -1,5 +1,5 @@
 export default function ProductsDirectiveFactory (ngComponent) {
-  ngComponent.directive('products', productsTag)
+  ngComponent.directive('productsList', productsTag)
 
   function productsTag () {
     return {
