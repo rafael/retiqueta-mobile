@@ -2,3 +2,16 @@
   line-height: 10em;
   text-align: center;
 }
+
+.home-buttons {
+	position: fixed;
+	bottom: -10px;
+	right: 0px;
+	width: 100%;
+}
+
+.home-bg {
+	background-image: url(../images/bg-launch.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+}

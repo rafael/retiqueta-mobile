@@ -1,11 +1,12 @@
-<ion-view view-title="Bienvenida">
-  <ion-content padding="true">
-    <h1 class="Appname-center"> {{ home.Appname }} </h1>
-    <a ui-sref="auth.login" class="button button-block button-positive">
-      {{ 'DO_LOGIN' | translate }}
-    </a>
-    <a ui-sref="auth.signup" class="button button-block button-positive">
-      {{ 'DO_SIGNUP' | translate }}
-    </a>
+<ion-view view-title="Bienvenida" hide-nav-bar="true">
+  <ion-content padding="false" class="home-bg">
+      <div class="home-buttons button-bar">
+      <a ui-sref="auth.signup" class="button button-block button-large button-assertive">
+        {{ 'DO_SIGNUP' | translate }}
+      </a>
+      <a ui-sref="auth.login" class="button button-block button-large button-assertive">
+        {{ 'DO_LOGIN' | translate }}
+      </a>
+    </div>
   </ion-content>
 </ion-view>

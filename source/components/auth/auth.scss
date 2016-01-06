@@ -1,17 +1,16 @@
-
 .form-for-field {
-  margin-bottom: 2em;
-  input {
-    border: none;
-    padding: 2em 0.5em;
-  }
-  label {
-    margin-bottom: 1em;
-  }
+	margin-bottom: 2em;
+	input {
+		border: none;
+		padding: 2em 0.5em;
+	}
+	label {
+		margin-bottom: 1em;
+	}
 }
 
 submit-button[label="Submit"] {
-  display: none;
+	display: none;
 }
 
 .tabs-not-absolute {
@@ -19,6 +18,59 @@ submit-button[label="Submit"] {
 		position: relative;
 		top: 3em;
 		margin-top: 2em;
-		margin-bottom: 2em;
+		margin-bottom: 3em;
+	}
+}
+
+.auth {
+	position: relative;
+	.auth-header {
+		color: $assertive;
+		padding: 2em 6em 0em 6em;
+		h1 {
+			font-weight: 100;
+		}
+	}
+	.auth-back-button {
+		a {
+			background-image: url(../images/btn-back.png);
+			background-size: cover;
+			background-repeat: no-repeat;
+			height: 30px;
+			width: 30px;
+			display: block;
+			position: absolute;
+			top: 1em;
+			left: 1em;
+		}
+	}
+	&.pane,
+	.pane {
+		background: none;
+		background-color: transparent;
+		background-image: url(../images/bg-all.jpg);
+	}
+	.field-label {
+		display: none;
+	}
+	.auth-form {
+		.padding {
+			position: relative;
+			background-color: white;
+			padding-top: 2em;
+			padding-bottom: 6em;
+		}
+		.submit-button {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			border-radius: 0;
+			padding-top: 1em;
+			padding-bottom: 1em;
+			&:hover {
+				background-color: darken(#ee4d5c, 10%);
+			}
+		}
 	}
 }

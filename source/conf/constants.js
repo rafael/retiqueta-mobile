@@ -1,4 +1,6 @@
-const node_env = process.env.NODE_ENV || 'development'
+const DEVELOPMENT = 'development'
+const PRODUCTION = 'production'
+const node_env = process.env.NODE_ENV || DEVELOPMENT
 
 angular.module('App.contants', [])
 
@@ -11,10 +13,10 @@ contants.constant('ENV', {
     url: (node_env === 'production') ? 'https://api.retiqueta.com':'https://api.retiqueta.com'
   },
   isDevelopment () {
-    return this.type === 'development'
+    return this.type === DEVELOPMENT
   },
   isProduction () {
-    return this.type === 'production'
+    return this.type === PRODUCTION
   }
 })
 

@@ -143,6 +143,11 @@ gulp.task('copyFonts', function() {
   .pipe(gulp.dest('./www/fonts/'))
 })
 
+gulp.task('copyImages', function() {
+  gulp.src('./source/images/**/*')
+  .pipe(gulp.dest('./www/images/'))
+})
+
 gulp.task('copyIonic', function() {
   gulp.src([
     './source/ionic.bundle.min.js',
@@ -151,14 +156,14 @@ gulp.task('copyIonic', function() {
   .pipe(gulp.dest('./www/'))
 })
 
-gulp.task('inject', ['ngHtml', 'copyFonts', 'copyIonic'], function() {
+gulp.task('inject', ['ngHtml', 'copyFonts', 'copyIonic', 'copyImages'], function() {
   tasks.injectHtml(
     source_paths.dev_html,
     es.merge(tasks.devCss(), tasks.devBrowserify())
   )
 })
 
-gulp.task('inject:prod',['ngHtml', 'copyFonts', 'copyIonic'], function() {
+gulp.task('inject:prod',['ngHtml', 'copyFonts', 'copyIonic' , 'copyImages'], function() {
   tasks.injectHtml(
     source_paths.prod_html,
     es.merge(tasks.prodCss(), tasks.prodBrowserify())

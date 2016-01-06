@@ -13,6 +13,7 @@ export default {
   },
   password: {
     inputType: 'password',
+    placeholder: 'Password',
     minlength: 8,
     required: true
   }

@@ -1,11 +1,24 @@
-<ion-tabs class="tabs-assertive tabs-not-absolute">
-
-  <ion-tab title="My retiqueta" ui-sref="auth.login">
-    <ion-nav-view name="login-tab"></ion-nav-view>
-  </ion-tab>
-
-  <ion-tab title="signup" ui-sref="auth.signup">
-    <ion-nav-view name="signup-tab"></ion-nav-view>
- </ion-tab>
-
-</ion-tabs>
+<div class="auth auth-bg">
+  <div class="auth-header">
+    <div class="auth-back-button">
+      <a ui-sref="home"></a>
+    </div>
+    <header class="auth-header">
+      <h1>
+        {{ 'AUTH_CREATE' | translate }}
+        <br>
+        {{ 'AUTH_DRESS' | translate }}
+        <br>
+        {{ 'AUTH_SHARE' | translate }}
+      </h1>
+    </header>
+  </div>
+  <ion-tabs class="tabs-assertive tabs-not-absolute">
+    <ion-tab title="My retiqueta" ui-sref="auth.login">
+      <ion-nav-view name="login-tab"></ion-nav-view>
+    </ion-tab>
+    <ion-tab title="Signup" ui-sref="auth.signup">
+      <ion-nav-view name="signup-tab"></ion-nav-view>
+    </ion-tab>
+  </ion-tabs>
+</div>

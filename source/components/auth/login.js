@@ -11,11 +11,12 @@ export default function loginCtrlFactory (ngComponent) {
     _.validationRules = {
       username: {
         inputType: 'text',
-        placeholder: 'vendedor5000',
+        placeholder: 'Username or email',
         required: true
       },
       password: {
         inputType: 'password',
+        placeholder: 'Password',
         minlength: 8,
         required: true
       }

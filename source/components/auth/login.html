@@ -1,5 +1,5 @@
-<ion-view view-title="{{ 'DO_LOGIN' | translate }}">
-  <ion-content padding="true">
+<ion-view view-title="{{ 'DO_LOGIN' | translate }}" hide-nav-bar="true">
+  <ion-content padding="true" class="auth-form">
     <form
       form-for="login.user"
       form-for-builder
@@ -7,7 +7,7 @@
       submit-with="login.submit(login.user)">
       <submit-button
         disable="login.sendingInfo"
-        label="{{ 'SUBMIT' | translate }}" >
+        label="{{ 'SIGNIN' | translate }}" >
       </submit-button>
     </form>
   </ion-content>

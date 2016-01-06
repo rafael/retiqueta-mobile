@@ -6,10 +6,11 @@ const locales = angular.module('App.locales')
 
 locales.config(function ($translateProvider) {
   $translateProvider.translations('en', {
-    DO_LOGIN: 'I have account',
-    DO_SIGNUP: 'I want a new account',
+    DO_LOGIN: 'My Retiqueta',
+    DO_SIGNUP: 'Sign up',
     CREATE_ACCOUNT: 'Create account',
     SUBMIT: 'Save',
+    SIGNIN: 'Get my inside',
     SAVE_DRAFT: 'Save draft',
     SIGNUP_SUCCESS: 'Your account has been created',
     WELCOME_MESSAGE: 'Hi!, Welcome to Retiqueta',
@@ -28,13 +29,17 @@ locales.config(function ($translateProvider) {
     SEARCHING: 'Searching ...',
     EDIT_PROFILE: 'Edit my profile',
     SYSTEM_OPTIONS: 'System options',
-    SIGNOUT: 'Take me out'
+    SIGNOUT: 'Take me out',
+    AUTH_CREATE: 'Create',
+    AUTH_DRESS: 'Dress',
+    AUTH_SHARE: 'Share'
   })
   $translateProvider.translations('es', {
-    DO_LOGIN: 'Ya poseo una cuenta',
-    DO_SIGNUP: 'Quiero crearme una cuenta',
+    DO_LOGIN: 'Mi retiqueta',
+    DO_SIGNUP: 'Registrate',
     CREATE_ACCOUNT: 'Crear cuenta',
     SUBMIT: 'Guardar',
+    SIGNIN: 'Ingresar',
     SAVE_DRAFT: 'Guardar como borrador',
     SIGNUP_SUCCESS: 'Tu cuenta ha sido creado con exito',
     WELCOME_MESSAGE: 'Bienvenido a Retiqueta',
@@ -53,7 +58,11 @@ locales.config(function ($translateProvider) {
     SEARCHING: 'Buscado ...',
     EDIT_PROFILE: 'Editar mi perfil',
     SYSTEM_OPTIONS: 'Opciones del sistema',
-    SIGNOUT: 'Salir de retiqueta'
+    SIGNOUT: 'Salir de retiqueta',
+    AUTH_CREATE: 'Create',
+    AUTH_DRESS: 'Dress',
+    AUTH_SHARE: 'Share'
+
   })
   $translateProvider.useSanitizeValueStrategy('sanitize')
   $translateProvider.preferredLanguage('en')
