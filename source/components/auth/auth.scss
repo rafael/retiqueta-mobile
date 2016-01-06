@@ -24,6 +24,66 @@ submit-button[label="Submit"] {
 
 .auth {
 	position: relative;
+	form {
+		.form-for-field {
+			position: relative;
+			&::before {
+				position: absolute;
+				content: "\f405";
+				top: 0.5em;
+				right: 0.5em;
+				font-size: 2em;
+				display: inline-block;
+				opacity: 0.3;
+				font-family: "Ionicons";
+				speak: none;
+				font-style: normal;
+				font-weight: normal;
+				font-variant: normal;
+				text-transform: none;
+				text-rendering: auto;
+				line-height: 1;
+				-webkit-font-smoothing: antialiased;
+			}
+
+		}
+		&.ng-dirty {
+			.form-for-field {
+				&::before {
+					content: "\f3fe";
+					opacity: 1;
+					color: $balanced;
+				}
+				&.invalid {
+					&::before {
+						content: "\f405";
+						opacity: 1;
+						color: $assertive
+					}
+				}
+			}
+		}
+	}
+	.tab-item {
+		text-transform: uppercase;
+	}
+	.tab-item-active {
+		position: relative;
+		overflow: visible;
+		&:before {
+			display: block;
+			content: "";
+			position: absolute;
+			left: 50%;
+			top: 100%;
+			margin-left: -7px;
+			width: 0;
+			height: 0;
+			border-left: 7px solid transparent;
+			border-right: 7px solid transparent;
+			border-top: 7px solid $assertive;
+		}
+	}
 	.auth-header {
 		color: $assertive;
 		padding: 2em 6em 0em 6em;
@@ -68,8 +128,9 @@ submit-button[label="Submit"] {
 			border-radius: 0;
 			padding-top: 1em;
 			padding-bottom: 1em;
+			text-transform: uppercase;
 			&:hover {
-				background-color: darken(#ee4d5c, 10%);
+				background-color: darken($assertive, 10%);
 			}
 		}
 	}

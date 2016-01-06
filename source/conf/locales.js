@@ -8,7 +8,7 @@ locales.config(function ($translateProvider) {
   $translateProvider.translations('en', {
     DO_LOGIN: 'My Retiqueta',
     DO_SIGNUP: 'Sign up',
-    CREATE_ACCOUNT: 'Create account',
+    CREATE_ACCOUNT: 'Start on Retiqueta!',
     SUBMIT: 'Save',
     SIGNIN: 'Get my inside',
     SAVE_DRAFT: 'Save draft',
@@ -37,7 +37,7 @@ locales.config(function ($translateProvider) {
   $translateProvider.translations('es', {
     DO_LOGIN: 'Mi retiqueta',
     DO_SIGNUP: 'Registrate',
-    CREATE_ACCOUNT: 'Crear cuenta',
+    CREATE_ACCOUNT: '¡A Retiqueta!',
     SUBMIT: 'Guardar',
     SIGNIN: 'Ingresar',
     SAVE_DRAFT: 'Guardar como borrador',
@@ -62,7 +62,6 @@ locales.config(function ($translateProvider) {
     AUTH_CREATE: 'Create',
     AUTH_DRESS: 'Dress',
     AUTH_SHARE: 'Share'
-
   })
   $translateProvider.useSanitizeValueStrategy('sanitize')
   $translateProvider.preferredLanguage('en')
