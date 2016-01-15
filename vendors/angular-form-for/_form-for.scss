@@ -76,17 +76,20 @@ checkbox-field {
 }
 
 .field-error {
+	text-align: center;
   position: absolute;
+	width: 100%;
   top: 100%;
   border-radius: 4px;
-  background-color: #e35256;
-  background-color: rgba(227,82,86,0.95);
-  color: #fff;
+  background-color: transparent;
+  //background-color: rgba(227,82,86,0.95);
+  color: $assertive;
   padding: 7px 15px;
   z-index: 1000;
   margin: 0;
   pointer-events: none;
 }
+/*
 .field-error::before {
   content: '';
   border: 7px solid transparent;
@@ -95,6 +98,7 @@ checkbox-field {
   border-bottom-color: #e35256;
   border-bottom-color: rgba(227,82,86,0.95);
 }
+*/
 .field-error:not(.left-aligned) {
   right: 3px;
 }
@@ -128,12 +132,10 @@ field-label {
   font-style: italic;
   font-size: 0.8em;
 }
-
 .form-for-field {
   display: block;
   position: relative;
 }
-
 
 .form-for-field > label > input[type="radio"] {
   position: absolute;
@@ -374,6 +376,7 @@ submit-field {
 
 .form-for-field input,
 .form-for-field textarea {
+	text-align: center;
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -384,7 +387,7 @@ submit-field {
   text-align: left;
   color: inherit;
   border: 1px solid #aaa;
-  border-radius: 6px;
+  border-radius: 0px;
   -ms-appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -395,12 +398,12 @@ text-field {
 }
 .form-for-field input,
 .form-for-field textarea {
-  box-shadow: inset 0 1px 4px rgba(0,0,0,0.15);
+	border: none;
+  box-shadow: 0 1px 0px rgba(0,0,0,0.15);
 }
 .form-for-field input:focus,
 .form-for-field textarea:focus {
-  border-color: #66afe9;
-  box-shadow: 0 0 4px #66afe9;
+  box-shadow: 0 1px 0 rgba($balanced, 0.45);
 }
 .form-for-field input:disabled,
 .form-for-field textarea:disabled {
@@ -411,13 +414,13 @@ text-field {
 .form-for-field.invalid textarea,
 .form-for-field input:invalid,
 .form-for-field textarea:invalid {
-  border-color: #e35256;
+	box-shadow: 0 1px 0px rgba($assertive, 0.45);
 }
 .form-for-field.invalid input:focus,
 .form-for-field.invalid textarea:focus,
 .form-for-field input:invalid:focus,
 .form-for-field textarea:invalid:focus {
-  box-shadow: 0 0 4px #e35256;
+  /* box-shadow: 0 0 4px #e35256; */
 }
 .form-for-field.with-icon-before input,
 .form-for-field.with-icon-before textarea {

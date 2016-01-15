@@ -1,7 +1,6 @@
 .form-for-field {
 	margin-bottom: 2em;
 	input {
-		border: none;
 		padding: 2em 0.5em;
 	}
 	label {
@@ -45,7 +44,6 @@ submit-button[label="Submit"] {
 				line-height: 1;
 				-webkit-font-smoothing: antialiased;
 			}
-
 		}
 		&.ng-dirty {
 			.form-for-field {
@@ -86,7 +84,7 @@ submit-button[label="Submit"] {
 	}
 	.auth-header {
 		color: $assertive;
-		padding: 2em 6em 0em 6em;
+		padding: 2em 1em 0em 3em;
 		h1 {
 			font-weight: 100;
 		}
