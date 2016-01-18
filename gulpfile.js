@@ -182,7 +182,11 @@ gulp.task('dist', ['clean','inject:prod']);
 
 gulp.task('serve', ['build:watch'],function() {
   gulp.src('www')
-    .pipe(webserver({open: true, livereload: true}));
+  .pipe(webserver({
+    host: '192.168.1.178',
+    open: true,
+    livereload: true
+  }));
 });
 
 gulp.task('serve:dist',function() {
