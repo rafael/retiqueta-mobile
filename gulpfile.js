@@ -62,7 +62,7 @@ tasks = {
       .pipe(gulp.dest(source_paths.prod_js))
   },
   devBrowserify: function() {
-    return this.baseBrowserify()
+    return tasks.baseBrowserify()
       .pipe(gulp.dest(source_paths.dev_js));
   },
   prodCss: function() {
@@ -130,26 +130,26 @@ gulp.task('clean', function() {
   return deferred.promise;
 });
 
-gulp.task('sass', function() { tasks.devCss() })
+gulp.task('sass', tasks.devCss)
 
-gulp.task('browserify', function() { tasks.devBrowserify() })
+gulp.task('browserify', tasks.devBrowserify)
 
 gulp.task('ngHtml', function() {
-  tasks.BaseNgHtml(source_paths.partials_dest)
+  return tasks.BaseNgHtml(source_paths.partials_dest)
 })
 
 gulp.task('copyFonts', function() {
-  gulp.src('./source/fonts/**/*')
+  return gulp.src('./source/fonts/**/*')
   .pipe(gulp.dest('./www/fonts/'))
 })
 
 gulp.task('copyImages', function() {
-  gulp.src('./source/images/**/*')
+  return gulp.src('./source/images/**/*')
   .pipe(gulp.dest('./www/images/'))
 })
 
 gulp.task('copyIonic', function() {
-  gulp.src([
+  return gulp.src([
     './source/ionic.bundle.min.js',
     './source/ionic.io.bundle.min.js'
   ])
@@ -157,14 +157,14 @@ gulp.task('copyIonic', function() {
 })
 
 gulp.task('inject', ['ngHtml', 'copyFonts', 'copyIonic', 'copyImages'], function() {
-  tasks.injectHtml(
+  return tasks.injectHtml(
     source_paths.dev_html,
     es.merge(tasks.devCss(), tasks.devBrowserify())
   )
 })
 
 gulp.task('inject:prod',['ngHtml', 'copyFonts', 'copyIonic' , 'copyImages'], function() {
-  tasks.injectHtml(
+  return tasks.injectHtml(
     source_paths.prod_html,
     es.merge(tasks.prodCss(), tasks.prodBrowserify())
   )
@@ -181,7 +181,7 @@ gulp.task('build:watch', ['build'], function() {
 gulp.task('dist', ['clean','inject:prod']);
 
 gulp.task('serve', ['build:watch'],function() {
-  gulp.src('www')
+  return gulp.src('www')
   .pipe(webserver({
     host: '192.168.1.178',
     open: true,
@@ -190,7 +190,7 @@ gulp.task('serve', ['build:watch'],function() {
 });
 
 gulp.task('serve:dist',function() {
-  gulp.src('www')
+  return gulp.src('www')
     .pipe(webserver({open: true}));
 });
 
@@ -198,7 +198,7 @@ gulp.task('serve:dist',function() {
 *  * Run test once and exit
 *   */
 gulp.task('test',function (done) {
-  new Server({
+  return new Server({
     configFile: __dirname + '/test/karma.conf.js',
     singleRun: true
   }, done).start();
@@ -208,13 +208,13 @@ gulp.task('test',function (done) {
 *  * Watch for file changes and re-run tests on each change
 *   */
 gulp.task('tdd', function (done) {
-  new Server({
+  return new Server({
     configFile: __dirname + '/test/karma.conf.js'
   }, done).start();
 });
 
 gulp.task('e2e', ['build'], function() {
-  gulp.src(["./test/e2e/*.js"])
+  return gulp.src(["./test/e2e/*.js"])
     .pipe(protractor({
         configFile: "test/protractor.conf.js",
         args: ['--baseUrl', 'http://127.0.0.1:8000']

@@ -3,6 +3,6 @@ export default function logoutCtrlFactory (ngComponent) {
 
   function logoutCtrl ($state, Auth) {
     Auth.logout()
-    $state.go('login')
+    $state.go('auth.login')
   }
 }

@@ -32,7 +32,8 @@ locales.config(function ($translateProvider) {
     SIGNOUT: 'Take me out',
     AUTH_CREATE: 'Create',
     AUTH_DRESS: 'Dress',
-    AUTH_SHARE: 'Share'
+    AUTH_SHARE: 'Share',
+    COMMENTS_TITLE: 'Comments'
   })
   $translateProvider.translations('es', {
     DO_LOGIN: 'Mi retiqueta',
@@ -61,7 +62,8 @@ locales.config(function ($translateProvider) {
     SIGNOUT: 'Salir de retiqueta',
     AUTH_CREATE: 'Create',
     AUTH_DRESS: 'Dress',
-    AUTH_SHARE: 'Share'
+    AUTH_SHARE: 'Share',
+    COMMENTS_TITLE: 'Comments'
   })
   $translateProvider.useSanitizeValueStrategy('sanitize')
   $translateProvider.preferredLanguage('en')

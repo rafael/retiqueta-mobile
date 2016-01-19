@@ -20,11 +20,13 @@ require('./product')(services)
 require('./utils')(services)
 require('./notifications')(services)
 require('./camera')(services)
+require('./comment')(services)
 // require('./worker')(services)
 
 // Stores (this objects save the state on localStorage)
 require('./stores/product_pictures')(services)
 require('./stores/product')(services)
+require('./stores/comment')(services)
 
 // services.run((PictureStore, Product, WKS, ENV) => {
 //   if (ENV.type === 'development') {

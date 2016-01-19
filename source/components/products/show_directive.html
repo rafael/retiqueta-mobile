@@ -16,7 +16,7 @@
       <img style="max-width: 100%" src="{{ picture.attributes.url }}" alt="">
     </picture>
     <h2 ng-bind-html="product.attributes.title | linkify">
-    </h2> 
+    </h2>
     <p ng-bind-html="product.attributes.description | linkify">
     </p>
     <p>
@@ -31,7 +31,11 @@
       <i class="icon ion-thumbsup"></i>
       Like
     </a>
-    <a class="tab-item" href="#">
+    <a ng-hide="detail" class="tab-item" ui-sref="productDetails({ productID: product.id })">
+      <i class="icon ion-chatbox"></i>
+      Comments
+    </a>
+    <a ng-show="detail" class="tab-item" ng-click="ToggleCommentForm()">
       <i class="icon ion-chatbox"></i>
       Comment
     </a>
@@ -41,4 +45,8 @@
     </a>
   </div>
 
+</div>
+
+<div class="pt1 pb1 pl1 pr1" ng-show="showCommentForm">
+  <comment-form product-id="product.id"></comment-form>
 </div>
