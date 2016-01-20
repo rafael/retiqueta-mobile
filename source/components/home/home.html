@@ -1,5 +1,5 @@
 <ion-view view-title="Bienvenida" hide-nav-bar="true">
-  <ion-content padding="false" class="home-bg" scroll="false">
+  <ion-content padding="false" class="home-bg has-bar-footer" scroll="false">
     <div class="tabs tabs-assertive">
       <a ui-sref="auth.signup" class="tab-item">
         {{ 'DO_SIGNUP' | translate }}
@@ -8,5 +8,6 @@
         {{ 'DO_LOGIN' | translate }}
       </a>
     </div>
+    <div ng-include="'auth/tour.html'"></div>
   </ion-content>
 </ion-view>

@@ -12,6 +12,25 @@ submit-button[label="Submit"] {
 	display: none;
 }
 
+.button.button-assertive.button-clear.button-connect {
+	.icon::before {
+		background-color: $facebook;
+		color: white;
+		border-radius: 0.1em;
+		width: 26px;
+		height: 26px;
+		display: inline-block;
+		text-align: left;
+		text-indent: 0.4em;
+		line-height: 26px;
+		position: relative;
+		top: 0.2em;
+	}
+	&.connect-with-facebook {
+		color: $facebook;
+	}
+}
+
 .tabs-top.tabs-striped .tab-item.tab-item-active {
 	border: none;
 }
@@ -24,7 +43,7 @@ submit-button[label="Submit"] {
 }
 
 .white-padding-form {
-	padding: 2em 0.6em 2em 0.6em;
+	padding: 2em 1.4em 0em 1.4em;
 	background-color: white;
 }
 
@@ -34,16 +53,31 @@ submit-button[label="Submit"] {
 		.tabs {
 			position: relative;
 			margin-bottom: 0;
-			top: 190px
+			top: 170px;
 		}
 		.tab-content {
-			margin-top: 190px;
+			margin-top: 170px;
 			.scroll {
-				height: 100%;
+				padding-bottom: 190px;
+				height: auto;
 			}
 		}
-		.pane {
+		.tab-nav.tabs {
+			display: table;
+			width: 100%;
+			table-layout: fixed;
+			border-collapse: separate;
+			.tab-item {
+				display: table-cell;
+				float: none;
+				width: 50%;
+				border-left: 1px solid darken($assertive, 10);
+			}
+			.tab-item:nth-child(3) {
+				border-left: 0px solid $assertive;
+			}
 		}
+		.pane {}
 	}
 	.auth-header {
 		z-index: 4;
@@ -53,14 +87,17 @@ submit-button[label="Submit"] {
 		width: 100%;
 		height: 190px;
 		color: $assertive;
-		padding: 0.5em 1em 0em 6em;
+		padding: 0.5em 1em 0em 8em;
 		h1 {
-			font-weight: 100;
+			color: $assertive;
+			font-size: 2.2em;
+			font-weight: 300;
+			text-transform: uppercase;
+			letter-spacing: 0.1em;
 		}
 		header {}
 	}
 	.auth-form.has-tabs {
-		overflow: hidden;
 	}
 	form {
 		.form-for-field {
@@ -106,7 +143,6 @@ submit-button[label="Submit"] {
 	}
 	.tab-item-active {
 		position: relative;
-		overflow: visible;
 		&:before {
 			display: block;
 			content: "";
@@ -134,6 +170,9 @@ submit-button[label="Submit"] {
 			left: 1em;
 		}
 	}
+	.pane {
+		padding-bottom: 2em;
+	}
 	&.pane,
 	.pane,
 	&.auth-bg {
@@ -145,22 +184,34 @@ submit-button[label="Submit"] {
 	.field-label {
 		display: none;
 	}
+	ion-content {
+		display: block;
+	}
+	.auth-terms {
+		font-size: 0.9em;
+		opacity: 0.9;
+	}
 	.auth-form {
-		.padding {
-			position: relative;
-			background-color: white;
-			padding-top: 2em;
-			padding-bottom: 6em;
+		.form-for-field {
+			input {
+				text-align: center;
+				font-size: 1.2em;
+			}
 		}
 		.submit-button {
-			margin-top: 1em;
+			margin-top: 1.8em;
 			width: 100%;
 			border-radius: 0;
 			padding-top: 1em;
 			padding-bottom: 1em;
 			text-transform: uppercase;
+			position: relative;
+			left: -1.4em;
+			padding-left: 1.4em;
+			padding-right: 1.4em;
+			box-sizing: content-box;
 			&:hover {
-				background-color: darken($assertive, 10%);
+				background-color: darken($assertive, 5);
 			}
 		}
 	}
