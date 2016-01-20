@@ -32,6 +32,11 @@ require('./products/create/index')(components)
 require('./products/create/product_picture')(components)
 require('./products/show_directive')(components)
 require('./products/list_directive')(components)
+require('./products/details/index')(components)
+
+// Comments
+require('./comments/list')(components)
+require('./comments/create')(components)
 
 // Search
 require('./search/index')(components)

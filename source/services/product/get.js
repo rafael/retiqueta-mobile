@@ -1,13 +1,8 @@
-import geteable from '../../libs/geteable'
-import UrlBuilder from '../../libs/paginable_query_builder'
+import geteableRelation from '../../libs/geteable_relation'
 
 export default function getProductFactory (ENV, $http, $q) {
-  var userProductGet = geteable(`${ENV.api.url}/v1/users`, $http, $q)
   return {
-    get: geteable(`${ENV.api.url}/v1/products`, $http, $q),
-    getByUser (userId, query = {}) {
-      var buildQuery = UrlBuilder(query)
-      return userProductGet(userId, `/relationships/products/${buildQuery}`)
-    }
+    get: geteableRelation(`${ENV.api.url}/v1/products`, '', $http, $q),
+    getByUser: geteableRelation(`${ENV.api.url}/v1/users`, '/relationships/products', $http, $q)
   }
 }

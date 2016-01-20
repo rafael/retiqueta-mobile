@@ -1,7 +1,6 @@
 .form-for-field {
 	margin-bottom: 2em;
 	input {
-		border: none;
 		padding: 2em 0.5em;
 	}
 	label {
@@ -13,13 +12,28 @@ submit-button[label="Submit"] {
 	display: none;
 }
 
+.tabs-top.tabs-striped .tab-item.tab-item-active {
+	border: none;
+}
+.tabs-top.tabs-striped .tab-item.tab-item-active, .tabs-top.tabs-striped .tab-item.active, .tabs-top.tabs-striped .tab-item.activated {
+	border: none;
+}
+
+.pane[hide-nav-bar="true"] .has-tabs-top {
+	top: 0;
+}
+
 .tabs-not-absolute {
 	.tabs {
 		position: relative;
-		top: 3em;
-		margin-top: 2em;
-		margin-bottom: 3em;
+		top: 0em;
+		margin-bottom: 0;
 	}
+}
+
+.white-padding-form {
+	padding: 2em 0.6em 2em 0.6em;
+	background-color: white;
 }
 
 .auth {
@@ -45,7 +59,6 @@ submit-button[label="Submit"] {
 				line-height: 1;
 				-webkit-font-smoothing: antialiased;
 			}
-
 		}
 		&.ng-dirty {
 			.form-for-field {
@@ -76,7 +89,7 @@ submit-button[label="Submit"] {
 			position: absolute;
 			left: 50%;
 			top: 100%;
-			margin-left: -7px;
+			margin-left: -8px;
 			width: 0;
 			height: 0;
 			border-left: 7px solid transparent;
@@ -86,7 +99,7 @@ submit-button[label="Submit"] {
 	}
 	.auth-header {
 		color: $assertive;
-		padding: 2em 6em 0em 6em;
+		padding: 2em 1em 0em 3em;
 		h1 {
 			font-weight: 100;
 		}
@@ -121,9 +134,7 @@ submit-button[label="Submit"] {
 			padding-bottom: 6em;
 		}
 		.submit-button {
-			position: absolute;
-			bottom: 0;
-			left: 0;
+			margin-top: 1em;
 			width: 100%;
 			border-radius: 0;
 			padding-top: 1em;

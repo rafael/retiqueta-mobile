@@ -17,4 +17,9 @@ export default function(ngComponent) {
       }
     });
   })
+
+  ngComponent.config(function ($ionicConfigProvider) {
+    $ionicConfigProvider.tabs.style('standard')
+    $ionicConfigProvider.tabs.position('bottom')
+  })
 }

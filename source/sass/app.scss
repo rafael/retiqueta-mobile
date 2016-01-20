@@ -13,7 +13,7 @@ $energized:                       #ffc900 !default;
 $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
-*/
+ */
 
 $assertive: #ee4d5c !default;
 
@@ -27,11 +27,12 @@ $ionicons-font-path: "../fonts" !default;
 // Must vendors css have to be converted to scss file manualy in order to be imported here
 @import "../../vendors/angular-form-for/form-for";
 @import "../../vendors/sweetalert/sweetalert";
-
 @import "helpers";
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-  display: none !important;
+	display: none !important;
 }
 
 @import "../components/**/*.scss";
+
+
