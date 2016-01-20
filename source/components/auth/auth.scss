@@ -72,6 +72,7 @@ submit-button[label="Submit"] {
 				float: none;
 				width: 50%;
 				border-left: 1px solid darken($assertive, 10);
+				overflow: visible;
 			}
 			.tab-item:nth-child(3) {
 				border-left: 0px solid $assertive;
