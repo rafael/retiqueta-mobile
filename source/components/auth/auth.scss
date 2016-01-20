@@ -23,14 +23,6 @@ submit-button[label="Submit"] {
 	top: 0;
 }
 
-.tabs-not-absolute {
-	.tabs {
-		position: relative;
-		top: 0em;
-		margin-bottom: 0;
-	}
-}
-
 .white-padding-form {
 	padding: 2em 0.6em 2em 0.6em;
 	background-color: white;
@@ -38,6 +30,38 @@ submit-button[label="Submit"] {
 
 .auth {
 	position: relative;
+	.tabs-not-absolute.has-big-header {
+		.tabs {
+			position: relative;
+			margin-bottom: 0;
+			top: 190px
+		}
+		.tab-content {
+			margin-top: 190px;
+			.scroll {
+				height: 100%;
+			}
+		}
+		.pane {
+		}
+	}
+	.auth-header {
+		z-index: 4;
+		position: absolute;
+		top: 1em;
+		left: 0;
+		width: 100%;
+		height: 190px;
+		color: $assertive;
+		padding: 0.5em 1em 0em 6em;
+		h1 {
+			font-weight: 100;
+		}
+		header {}
+	}
+	.auth-form.has-tabs {
+		overflow: hidden;
+	}
 	form {
 		.form-for-field {
 			position: relative;
@@ -97,13 +121,6 @@ submit-button[label="Submit"] {
 			border-top: 7px solid $assertive;
 		}
 	}
-	.auth-header {
-		color: $assertive;
-		padding: 2em 1em 0em 3em;
-		h1 {
-			font-weight: 100;
-		}
-	}
 	.auth-back-button {
 		a {
 			background-image: url(../images/btn-back.png);
@@ -118,10 +135,12 @@ submit-button[label="Submit"] {
 		}
 	}
 	&.pane,
-	.pane {
+	.pane,
+	&.auth-bg {
 		background: none;
 		background-color: transparent;
 		background-image: url(../images/bg-all.jpg);
+		height: 100%;
 	}
 	.field-label {
 		display: none;
