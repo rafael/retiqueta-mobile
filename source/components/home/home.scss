@@ -1,17 +1,55 @@
 .Appname-center {
-  line-height: 10em;
-  text-align: center;
+	line-height: 10em;
+	text-align: center;
 }
 
-.home-buttons {
-	position: fixed;
-	bottom: -10px;
-	right: 0px;
-	width: 100%;
+.bar-transparent {
+	&.bar-assertive {
+		background-color: rgba($assertive, 0.6);
+	}
+	.button-tour {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
 }
 
 .home-bg {
-	background-image: url(../images/bg-launch.jpg);
-	background-repeat: no-repeat;
-	background-size: cover;
+	.tabs {
+		display: table;
+		width: 100%;
+		table-layout: fixed;
+		border-collapse: separate;
+		.tab-item {
+			display: table-cell;
+			float: none;
+			width: 50%;
+			border-left: 1px solid darken($assertive, 10);
+		}
+		.tab-item:nth-child(3) {
+			border-left: 0px solid $assertive;
+		}
+	}
+
 }
+
+.has-bar-footer {
+	.tabs {
+		margin-bottom: 44px;
+	}
+}
+/*
+.home-buttons {
+position: fixed;
+bottom: -10px;
+right: 0px;
+width: 100%;
+}
+ */
+	.home-bg {
+		background-image: url(../images/bg-launch.jpg);
+		background-repeat: no-repeat;
+		background-size: cover;
+		.scroll {
+			height: 100%;
+		}
+	}

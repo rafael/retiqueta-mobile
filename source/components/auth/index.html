@@ -1,24 +1,14 @@
-<div class="auth auth-bg">
-  <div class="auth-header">
-    <div class="auth-back-button">
-      <a ui-sref="home"></a>
-    </div>
-    <header class="auth-header">
-      <h1>
-        {{ 'AUTH_CREATE' | translate }}
-        <br>
-        {{ 'AUTH_DRESS' | translate }}
-        <br>
-        {{ 'AUTH_SHARE' | translate }}
-      </h1>
-    </header>
+<ion-view view-title="Ingresa/Registrate" hide-nav-bar="true">
+  <div class="auth auth-bg">
+    <div ng-include="'auth/header.html'"></div>
+    <ion-tabs class="tabs-assertive tabs-not-absolute has-big-header">
+      <ion-tab title="Registrate" ui-sref="auth.signup">
+        <ion-nav-view name="signup-tab"></ion-nav-view>
+      </ion-tab>
+      <ion-tab title="Mi retiqueta" ui-sref="auth.login">
+        <ion-nav-view name="login-tab"></ion-nav-view>
+      </ion-tab>
+    </ion-tabs>
+    <div ng-include="'auth/tour.html'"></div>
   </div>
-  <ion-tabs class="tabs-assertive tabs-not-absolute">
-    <ion-tab title="My retiqueta" ui-sref="auth.login">
-      <ion-nav-view name="login-tab"></ion-nav-view>
-    </ion-tab>
-    <ion-tab title="Signup" ui-sref="auth.signup">
-      <ion-nav-view name="signup-tab"></ion-nav-view>
-    </ion-tab>
-  </ion-tabs>
-</div>
+</ion-view>
