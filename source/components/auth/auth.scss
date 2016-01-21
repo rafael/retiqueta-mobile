@@ -1,7 +1,10 @@
+$error-margin: 2em;
+$error-message-top: 100%;
+
 .form-for-field {
 	margin-bottom: 2em;
 	input {
-		padding: 2em 0.5em;
+		padding: 1em 0.5em;
 	}
 	label {
 		margin-bottom: 1em;
@@ -43,7 +46,7 @@ submit-button[label="Submit"] {
 }
 
 .white-padding-form {
-	padding: 2em 1.4em 0em 1.4em;
+	padding: 0.7em 1.4em 0em 1.4em;
 	background-color: white;
 }
 
@@ -101,12 +104,25 @@ submit-button[label="Submit"] {
 	.auth-form.has-tabs {
 	}
 	form {
+		text-field[attribute='password'] {
+			.form-for-field {
+				margin-bottom: 0;
+				&.invalid {
+					margin-bottom: $error-margin + 1em;
+				}
+			}
+		}
 		.form-for-field {
 			position: relative;
+			margin-bottom: 1.5em;
+			input {
+				padding-top: 1.5em;
+				padding-bottom: 1.5em;
+			}
 			&::before {
 				position: absolute;
 				content: "\f405";
-				top: 0.5em;
+				top: 0.4em;
 				right: 0.5em;
 				font-size: 2em;
 				display: inline-block;
@@ -120,6 +136,9 @@ submit-button[label="Submit"] {
 				text-rendering: auto;
 				line-height: 1;
 				-webkit-font-smoothing: antialiased;
+			}
+			&.invalid {
+				margin-bottom: $error-margin;
 			}
 		}
 		&.ng-dirty {
@@ -200,7 +219,7 @@ submit-button[label="Submit"] {
 			}
 		}
 		.submit-button {
-			margin-top: 1.8em;
+			margin-top: 0;
 			width: 100%;
 			border-radius: 0;
 			padding-top: 1em;
