@@ -2,10 +2,10 @@
   <div class="auth auth-bg">
     <div ng-include="'auth/header.html'"></div>
     <ion-tabs class="tabs-assertive tabs-not-absolute has-big-header">
-      <ion-tab title="Registrate" ui-sref="auth.signup">
+      <ion-tab title="{{ 'DO_SIGNUP' | translate }}" ui-sref="auth.signup">
         <ion-nav-view name="signup-tab"></ion-nav-view>
       </ion-tab>
-      <ion-tab title="Mi retiqueta" ui-sref="auth.login">
+      <ion-tab title="{{ 'DO_LOGIN' | translate }}" ui-sref="auth.login">
         <ion-nav-view name="login-tab"></ion-nav-view>
       </ion-tab>
     </ion-tabs>
