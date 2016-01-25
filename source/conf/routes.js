@@ -88,7 +88,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     data: {
       permissions: {
         only: ['client'],
-        redirectTo: 'login'
+        redirectTo: 'auth.login'
       }
     },
     resolve: {
@@ -170,6 +170,18 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       'search-tab': {
         templateUrl: 'search/index.html',
         controller: 'SearchProductCtrl as search'
+      }
+    }
+  })
+  .state('productDetails', {
+    url: '/products/{productID}',
+    templateUrl: 'products/details/index.html',
+    controller: 'productDetail as detail',
+    resolve: {
+      ProductData: function (Product, $stateParams) {
+        return Product.get($stateParams.productID,  {
+          include: 'user,product_pictures'
+        })
       }
     }
   })

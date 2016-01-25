@@ -3,7 +3,7 @@ export default function updateTokenCtrlFactory (ngComponent) {
 
   function updateTokenCtrl (Auth, $state) {
     if (Auth.refreshToken()) {
-      $state.go('login')
+      $state.go('auth.login')
     }
   }
 }

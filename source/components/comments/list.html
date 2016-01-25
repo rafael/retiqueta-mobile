@@ -1,0 +1,21 @@
+<section class="list card">
+  <header class="card-list-header pl1 pt1 pb1 pr1">
+    <h3>
+      {{ 'COMMENTS_TITLE' | translate }}
+    </h3>
+  </header>
+  <div ng-repeat="comment in comments" class="list">
+    <a class="item item-avatar" ui-sref="user.profile({userID: comment.attributes.user_id})">
+      <img src="{{ comment.attributes.user_pic }}">
+      <p ng-bind-html="comment.attributes.text | linkify"></p>
+    </a>
+  </div>
+  <div ng-show="loading">
+    <h3>Searching comments ...</h3>
+  </div>
+  <div ng-hide="loading">
+    <div ng-show="comments.length == 0 ">
+      <h3>No comments</h3>
+    </div>
+  </div>
+</section>
