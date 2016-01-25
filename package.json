@@ -61,10 +61,10 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
-    "phonegap-plugin-push"
+    "phonegap-plugin-push@1.4.5"
   ],
   "cordovaPlatforms": [
-    "ios",
+    "ios@3.9.1",
     "android"
   ]
 }

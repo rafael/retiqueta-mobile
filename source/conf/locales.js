@@ -33,7 +33,7 @@ locales.config(function ($translateProvider) {
     AUTH_CREATE: 'Create',
     AUTH_DRESS: 'Dress',
     AUTH_SHARE: 'Share',
-    COMMENTS_TITLE: 'Comments'
+    CONNECT_WITH_FACEBOOK: 'Connect using facebook'
   })
   $translateProvider.translations('es', {
     DO_LOGIN: 'Mi retiqueta',
@@ -63,7 +63,7 @@ locales.config(function ($translateProvider) {
     AUTH_CREATE: 'Create',
     AUTH_DRESS: 'Dress',
     AUTH_SHARE: 'Share',
-    COMMENTS_TITLE: 'Comments'
+    CONNECT_WITH_FACEBOOK: 'Conectar con Facebook'
   })
   $translateProvider.useSanitizeValueStrategy('sanitize')
   $translateProvider.preferredLanguage('en')

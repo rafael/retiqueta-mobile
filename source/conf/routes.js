@@ -18,7 +18,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('home', {
     url: '/',
-    controller: 'homeCtrl as home',
+    // controller: 'homeCtrl as home',
     templateUrl: 'home/home.html',
     data: {
       permissions: {
@@ -30,7 +30,13 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
   .state('auth', {
     url: '/auth',
     abstract: true,
-    templateUrl: 'auth/index.html'
+    templateUrl: 'auth/index.html',
+    data: {
+      permissions: {
+        only: ['anonymous'],
+        redirectTo: 'users.dashboard'
+      }
+    }
   })
   .state('auth.login', {
     url: '/login',
