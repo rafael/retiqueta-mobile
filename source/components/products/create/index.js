@@ -3,7 +3,7 @@ import productForm from './product_form_fields'
 export default function ProductCreateFactory (ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
 
-  function productCreateCtrl ($scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate) {
+  function productCreateCtrl ($state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate) {
     var _ = this
     _.pictureStore = PictureStore
     _.product = ProductStore.get()
@@ -21,6 +21,7 @@ export default function ProductCreateFactory (ngComponent) {
           ProductStore.clear()
           _.pictureStore.clear()
           Utils.swalSuccess($translate.instant('PRODUCT_SAVE_MESSAGE'))
+          $state.go('productDetails', {productID: result.id})
         })
         .catch(error => {
           console.warn(error)
