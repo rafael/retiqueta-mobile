@@ -7,7 +7,10 @@ export default function GetPictureData (base64image) {
 }
 
 function extractType (base64image) {
-  return base64image.split('')[0].replace(/data\:/, '')
+  console.log(base64image)
+  var type = base64image.split(',')[0].replace(/data\:/, '')
+  console.log(type)
+  return type
 }
 
 function createName () {
