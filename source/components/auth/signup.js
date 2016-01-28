@@ -1,14 +1,28 @@
+import { extractErrorByField, validationFactory, baseErrorObj } from '../../libs/merge_validations'
 import userForm from './user_form_fields'
+
+const baseErrorsObject = {
+  username: Object.assign({}, baseErrorObj),
+  password: Object.assign({}, baseErrorObj),
+  email: Object.assign({}, baseErrorObj)
+}
 
 export default function signupCtrlFactory (ngComponent) {
   ngComponent.controller('signupCtrl', signupCtrl)
 
-  function signupCtrl ($state, User, FormForConfiguration, Auth, Utils, $translate) {
+  function signupCtrl ($state, User, FormForConfiguration, Auth, Utils, $translate, $q) {
     var _ = this
-    FormForConfiguration.enableAutoLabels()
+    FormForConfiguration.disableAutoLabels()
     _.user = {}
+    _.errors = baseErrorsObject
+    _.formController = {}
     _.sendingInfo = false
     _.validationRules = userForm
+    _.validationRules.username.custom = validationFactory('username', $q).bind(_)
+    _.validationRules.email.custom = validationFactory('email', $q).bind(_)
+    _.validationRules.password.custom = validationFactory('password', $q).bind(_)
+
+    console.log(this.validationRules)
 
     _.submit = (user) => {
       _.sendingInfo = true
@@ -23,7 +37,9 @@ export default function signupCtrlFactory (ngComponent) {
           $state.go('users.dashboard')
         })
         .catch(error => {
-          Utils.swalError(error)
+          console.log(error)
+          _.errors = extractErrorByField(error.data, user, Object.keys(_.errors))
+          _.formController.validateForm()
         })
         .finally(() => {
           _.sendingInfo = false

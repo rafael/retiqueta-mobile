@@ -11,18 +11,20 @@ export default function(ngComponent) {
         return config
       },
       responseError: function (response) {
-        if (response.status === 401) {
-          var string_token = window.localStorage.getItem('token')
-          if (typeof token !== 'undefined' && token !== 'null' && token !== null) {
-            $location.path('/update-token')
+        var string_token = window.localStorage.getItem('token')
+        switch (response.status) {
+          case 400:
+            if (typeof token !== 'undefined' && token !== 'null' && token !== null) {
+              $location.path('/update-token')
+            }
             return $q.reject(response)
-          } else {
+            brake;
+          case 401:
             window.localStorage.removeItem('token')
-            $location.path('/login')
+            $location.path('/auth/login')
             return $q.reject(response)
-          }
-        } else {
-          return $q.reject(response)
+          default:
+            return $q.reject(response)
         }
       }
     }
@@ -35,3 +37,4 @@ export default function(ngComponent) {
     delete $httpProvider.defaults.headers.common['X-Requested-With']
   })
 }
+

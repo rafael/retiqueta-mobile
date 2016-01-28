@@ -4,6 +4,7 @@
       <form
         form-for="signup.user"
         form-for-builder
+        controller="signup.formController"
         validation-rules="signup.validationRules"
         submit-with="signup.submit(signup.user)">
         <submit-button  disable="signup.sendingInfo" label="{{ 'CREATE_ACCOUNT' | translate }}" ></submit-button>

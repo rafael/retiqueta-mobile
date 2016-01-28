@@ -46,7 +46,7 @@ submit-button[label="Submit"] {
 }
 
 .white-padding-form {
-	padding: 0.7em 1.4em 0em 1.4em;
+	padding: 0.1em 1.4em 0em 1.4em;
 	background-color: white;
 }
 
@@ -114,7 +114,8 @@ submit-button[label="Submit"] {
 		}
 		.form-for-field {
 			position: relative;
-			margin-bottom: 1.5em;
+			margin-bottom: 0.7em;
+			margin-top: 0.7em;
 			input {
 				padding-top: 1.5em;
 				padding-bottom: 1.5em;

@@ -30,23 +30,23 @@ export default function AuthFactory (ngComponent) {
           password: user.password
         }
       })
-        .success((result) => {
-          this.loginToken(result)
-          deferred.resolve(result)
-        })
-        .error((err) => {
-          this.logout()
-          $rootScope.$broadcast('session:finish')
-          deferred.reject(err)
-        })
+      .success((result) => {
+        this.loginToken(result)
+        deferred.resolve(result)
+      })
+      .error((err) => {
+        this.logout()
+        $rootScope.$broadcast('session:finish')
+        deferred.reject(err)
+      })
 
       return deferred.promise
     }
 
     this.refreshToken = () => {
+      let deferred = $q.defer()
       if (this.updateTokenIntent === 0) {
         this.updateTokenIntent += 1
-        let deferred = $q.defer()
         $http({
           method: 'POST',
           url: `${ENV.api.url}/v1/authenticate/token`,
@@ -54,18 +54,18 @@ export default function AuthFactory (ngComponent) {
             refresh_token: this.getToken().refresh_token
           }
         })
-          .then((result) => {
-            this.updateToken(result.data)
-            deferred.resolve(result)
-          })
-          .catch((e) => {
-            deferred.reject(e)
-          })
-        return deferred.promise
+        .then((result) => {
+          this.updateToken(result.data)
+          deferred.resolve(result)
+        })
+        .catch((e) => {
+          deferred.reject(e)
+        })
       } else {
         this.logout()
-        return false
+        deferred.reject({ data: { code: 100, detail: "refresh token dont work", status: 400, title: "failed-validation" }})
       }
+      return deferred.promise
     }
 
     // Login token
@@ -112,15 +112,15 @@ export default function AuthFactory (ngComponent) {
       var deferred = $q.defer()
       if (this.isLogin()) {
         User.get(this.getToken().user_id)
-          .then((result) => {
-            this.user = result
-            deferred.resolve(this.user)
-          })
-          .catch((error) => {
-            this.user = {}
-            this.logout()
-            deferred.reject(error)
-          })
+        .then((result) => {
+          this.user = result
+          deferred.resolve(this.user)
+        })
+        .catch((error) => {
+          this.user = {}
+          this.logout()
+          deferred.reject(error)
+        })
       } else {
         deferred.reject({
           data: 'your are not login'
