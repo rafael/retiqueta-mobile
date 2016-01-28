@@ -47,7 +47,7 @@ tasks = {
    return browserify([source_paths.js], {
           transform: [
             'envify',
-            ['babelify', { compact: false }]
+            ['babelify', { compact: false , plugins: ["object-assign"]}]
           ]
       })
       .bundle()
