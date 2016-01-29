@@ -33,6 +33,7 @@ locales.config(function ($translateProvider) {
     AUTH_CREATE: 'Create',
     AUTH_DRESS: 'Dress',
     AUTH_SHARE: 'Share',
+    PRODUCT_DETAIL: 'Product detail',
     CONNECT_WITH_FACEBOOK: 'Connect using facebook'
   })
   $translateProvider.translations('es', {
@@ -63,6 +64,7 @@ locales.config(function ($translateProvider) {
     AUTH_CREATE: 'Create',
     AUTH_DRESS: 'Dress',
     AUTH_SHARE: 'Share',
+    PRODUCT_DETAIL: 'Detalle del producto',
     CONNECT_WITH_FACEBOOK: 'Conectar con Facebook'
   })
   $translateProvider.useSanitizeValueStrategy('sanitize')

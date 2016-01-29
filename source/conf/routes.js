@@ -76,7 +76,6 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     }
   })
-
   .state('update-token', {
     url: '/update-token',
     controller: 'updateTokenCtrl'
@@ -92,13 +91,13 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     },
     resolve: {
-        currentUser: function (Auth) {
-          return Auth.getCurrentUser()
-        },
-        deviceToken: function ($ionicPush) {
-          return $ionicPush.register()
-        }
+      currentUser: function (Auth) {
+        return Auth.getCurrentUser()
       },
+      deviceToken: function ($ionicPush) {
+        return $ionicPush.register()
+      }
+    },
   })
   .state('users.dashboard', {
     url: '/dashboard',
@@ -173,10 +172,14 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     }
   })
-  .state('productDetails', {
+  .state('users.productDetails', {
     url: '/products/{productID}',
-    templateUrl: 'products/details/index.html',
-    controller: 'productDetail as detail',
+    views: {
+      'productDetail-tab': {
+        templateUrl: 'products/details/index.html',
+        controller: 'productDetail as detail',
+      }
+    },
     resolve: {
       ProductData: function (Product, $stateParams) {
         return Product.get($stateParams.productID,  {
