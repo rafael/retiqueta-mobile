@@ -7,6 +7,7 @@ export default function updateTokenCtrlFactory (ngComponent) {
       $state.go('users.dashboard')
     })
     .catch(error => {
+      console.log(error)
       $state.go('auth.login')
     })
   }

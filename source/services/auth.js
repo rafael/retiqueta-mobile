@@ -51,7 +51,8 @@ export default function AuthFactory (ngComponent) {
           method: 'POST',
           url: `${ENV.api.url}/v1/authenticate/token`,
           data: {
-            refresh_token: this.getToken().refresh_token
+            refresh_token: this.getToken().refresh_token,
+            client_id: 'ret-mobile-ios'
           }
         })
         .then((result) => {
