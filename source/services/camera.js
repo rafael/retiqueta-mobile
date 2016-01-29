@@ -3,17 +3,18 @@ export default function CameraServiceFactory (ngComponent) {
 
   function CameraService ($q) {
     return {
-      take (options) {
+      take (options = {}) {
         var q = $q.defer()
 
-        if ( typeof Camara === 'undefined') {
-          q.reject('there is none Camara module')
-        }
-
         options = Object.assign({
-          destinationType: Camera.DestinationType.DATA_URL
+          destinationType: Camera.DestinationType.DATA_URL,
+          sourceType: Camera.PictureSourceType.CAMERA,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 1024,
+          targetHeight: 1024,
+          allowEdit: true,
+          saveToPhotoAlbum: true
         }, options)
-
 
         navigator.camera.getPicture(function (result) {
           q.resolve(result)

@@ -23,15 +23,24 @@ export default function pictureInputDirectiveFactory (ngComponent) {
           scope.reader.readAsDataURL(e.target.files[0])
         }
 
+        // scope.uploadPic = () => {
+        //  fileInput.click()
+        // }
+
         scope.uploadPic = () => {
-          fileInput.click()
+          CameraService.take({
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+          })
+          .then(result => {
+            scope.onChangeHandler('data:image/jpeg;base64,' + result)
+          })
         }
 
         scope.takePic = () => {
           CameraService.take()
-            .then(result => {
-              scope.onChangeHandler('data:image/jpeg;base64,' + result)
-            })
+          .then(result => {
+            scope.onChangeHandler('data:image/jpeg;base64,' + result)
+          })
         }
       }
     }
