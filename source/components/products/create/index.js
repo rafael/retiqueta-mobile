@@ -21,7 +21,7 @@ export default function ProductCreateFactory (ngComponent) {
           ProductStore.clear()
           _.pictureStore.clear()
           Utils.swalSuccess($translate.instant('PRODUCT_SAVE_MESSAGE'))
-          $state.go('productDetails', {productID: result.id})
+          $state.go('users.productDetails', {productID: result.id})
         })
         .catch(error => {
           console.warn(error)
