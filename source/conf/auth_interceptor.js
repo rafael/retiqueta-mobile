@@ -1,5 +1,5 @@
 export default function(ngComponent) {
-  ngComponent.factory('authInterceptor', function ($rootScope, $q, $location) {
+  ngComponent.factory('authInterceptor', function ($rootScope, $q, $location, ENV) {
     return {
       request: function (config) {
         config.headers = config.headers || {}
@@ -12,9 +12,16 @@ export default function(ngComponent) {
       },
       responseError: function (response) {
         var string_token = window.localStorage.getItem('token')
+        console.log('Some error on HTTP protocol')
+        console.log(response)
         switch (response.status) {
           case 400:
-            if (typeof token !== 'undefined' && token !== 'null' && token !== null) {
+            if (ENV.isDevelopment()) {
+              console.log('Token expired')
+              console.log(string_token)
+            }
+            if (response.data.data.code === 100) {
+              console.log('redirect')
               $location.path('/update-token')
             }
             return $q.reject(response)
@@ -37,4 +44,3 @@ export default function(ngComponent) {
     delete $httpProvider.defaults.headers.common['X-Requested-With']
   })
 }
-

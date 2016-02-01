@@ -3,9 +3,6 @@ function registerForIonicUser(user_id, token) {
     Ionic.io()
     var ionicUser = Ionic.User.current()
 
-    console.log("Why is not enter in the IF")
-    console.log(ionicUser.id)
-
     if (!ionicUser.id) {
       ionicUser.id = user_id
     }
