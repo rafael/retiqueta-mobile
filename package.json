@@ -9,7 +9,7 @@
     "angular-mocks": "^1.4.7",
     "angular-permission": "^1.0.6",
     "angular-translate": "^2.8.1",
-    "angular-ui-router": "^0.2.15",
+    "angular-ui-router": "^0.2.17",
     "array.observe": "0.0.1",
     "babel-core": "^6.4.5",
     "babel-plugin-object-assign": "^1.2.1",

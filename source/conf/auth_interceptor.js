@@ -1,5 +1,5 @@
 export default function(ngComponent) {
-  ngComponent.factory('authInterceptor', function ($rootScope, $q, $location, ENV) {
+  ngComponent.factory('authInterceptor', function ($rootScope, $q, ENV) {
     return {
       request: function (config) {
         config.headers = config.headers || {}
@@ -20,15 +20,19 @@ export default function(ngComponent) {
               console.log('Token expired')
               console.log(string_token)
             }
-            if (response.data.data.code === 100) {
+            if (response.data.error_description === "access_token expired" ) {
               console.log('redirect')
-              $location.path('/update-token')
+              location.replace('#/update-token')
             }
             return $q.reject(response)
             brake;
           case 401:
             window.localStorage.removeItem('token')
-            $location.path('/auth/login')
+            location.replace('#/auth/login')
+            return $q.reject(response)
+          case 403:
+            window.localStorage.removeItem('token')
+            location.replace('#/auth/login')
             return $q.reject(response)
           default:
             return $q.reject(response)

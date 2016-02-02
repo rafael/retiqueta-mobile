@@ -1,6 +1,8 @@
 export default function(ngComponent) {
 
-  ngComponent.run(function($ionicPlatform, $ionicAnalytics, ENV, AppPush, Auth) {
+  ngComponent.run(function($ionicConfig, $ionicPlatform, $ionicAnalytics, ENV, AppPush, Auth) {
+    $ionicConfig.views.maxCache(0);
+
     $ionicPlatform.ready(function() {
       AppPush.init()
 

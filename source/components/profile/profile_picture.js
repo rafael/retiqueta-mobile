@@ -1,7 +1,7 @@
 export default function profilePictureFactory (ngComponent) {
   ngComponent.directive('profilePicture', profilePicture)
 
-  function profilePicture (User) {
+  function profilePicture (User, Auth) {
     return {
       templateUrl: 'profile/profile_picture.html',
       retrict: 'E',
@@ -20,6 +20,7 @@ export default function profilePictureFactory (ngComponent) {
           User.updatePicture(_.user.id, base64picture)
             .then((result) => {
               _.user = result.data.data
+              Auth.user.attributes.profile_pic = _.user.attributes.profile_pic
             })
             .catch((e) => {
               console.log(e)

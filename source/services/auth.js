@@ -55,11 +55,12 @@ export default function AuthFactory (ngComponent) {
             client_id: 'ret-mobile-ios'
           }
         })
-        .then((result) => {
-          this.updateToken(result.data)
+        .then(result => {
+          console.log(result)
+          this.loginToken(result.data)
           deferred.resolve(result)
         })
-        .catch((e) => {
+        .catch(e => {
           deferred.reject(e)
         })
       } else {
@@ -109,7 +110,7 @@ export default function AuthFactory (ngComponent) {
     }
 
     // Get user data
-    this.getUser = () => {
+    this.getUser = (force = false) => {
       var deferred = $q.defer()
       if (this.isLogin()) {
         User.get(this.getToken().user_id)

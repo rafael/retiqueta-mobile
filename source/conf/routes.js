@@ -91,9 +91,6 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     },
     resolve: {
-      currentUser: function (Auth) {
-        return Auth.getCurrentUser()
-      },
       deviceToken: function ($ionicPush) {
         return $ionicPush.register()
       }
@@ -106,6 +103,11 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         templateUrl: 'products/dashboard/index.html',
         controller: 'dashboardCtrl as dash'
       }
+    },
+    resolve: {
+     currentUser: function(Auth) {
+      return Auth.getCurrentUser()
+     }
     }
   })
   .state('users.me', {
@@ -117,6 +119,9 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     },
     resolve: {
+      currentUser: function (Auth) {
+        return Auth.getCurrentUser()
+      },
       user: function (currentUser) {
         return currentUser
       }
@@ -138,6 +143,11 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         templateUrl: 'profile/form.html',
         controller: 'profileEditCtrl as profile'
       }
+    },
+    resolve: {
+      currentUser: function (Auth) {
+        return Auth.getCurrentUser()
+      }
     }
   })
   .state('users.profile', {
@@ -149,6 +159,9 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     },
     resolve: {
+      currentUser: function (Auth) {
+        return Auth.getCurrentUser()
+      },
       user: function (User, $stateParams, currentUser) {
         return ($stateParams.userID !== '') ? User.get($stateParams.userID) : currentUser
       }

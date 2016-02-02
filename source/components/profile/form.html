@@ -1,10 +1,10 @@
 <ion-view name="editProfile" view-title="{{ 'PROFILE_TITLE' | translate }}">
   <ion-content padding="true">
     <profile-picture user='profile.user'></profile-picture>
-    <form 
-      form-for="profile.userAttributes"
+    <form
+      form-for="profile.user.attributes"
       validation-rules="profile.schema"
-      submit-with="profile.submit(profile.userAttributes)">
+      submit-with="profile.submit(profile.user.attributes)">
       <text-field label="Username"
         attribute="username"
         placeholder="set your username">
@@ -27,8 +27,8 @@
         rows="4"
         placeholder="About you">
       </text-field>
-      <submit-button  
-        disable="profile.sendingInfo" 
+      <submit-button
+        disable="profile.sendingInfo"
         label="{{ 'UPDATE_PROFILE' | translate }}" >
       </submit-button>
     </form>
