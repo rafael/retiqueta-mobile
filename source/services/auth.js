@@ -45,7 +45,10 @@ export default function AuthFactory (ngComponent) {
 
     this.refreshToken = () => {
       let deferred = $q.defer()
-      if (this.updateTokenIntent === 0) {
+      console.log('Iniciando refresh_token process')
+      console.log(this.getToken())
+      console.log(this.updateTokenIntent)
+      if (this.updateTokenIntent <= 1) {
         this.updateTokenIntent += 1
         $http({
           method: 'POST',
@@ -56,16 +59,20 @@ export default function AuthFactory (ngComponent) {
           }
         })
         .then(result => {
+          console.log("resultado del refresh token")
           console.log(result)
-          this.loginToken(result.data)
+          this.updateToken(result.data)
+          this.updateTokenIntent = 0
           deferred.resolve(result)
         })
         .catch(e => {
+          console.log("Error al envio de refreshToken")
+          console.log(e)
           deferred.reject(e)
         })
       } else {
         this.logout()
-        deferred.reject({ data: { code: 100, detail: "refresh token dont work", status: 400, title: "failed-validation" }})
+        deferred.reject({ data: { code: 100, detail: `refresh token dont work (try to update: ${this.updateTokenIntent}) `, status: 400, title: "failed-validation" }})
       }
       return deferred.promise
     }
