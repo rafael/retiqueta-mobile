@@ -34,6 +34,12 @@ export default function(ngComponent) {
             window.localStorage.removeItem('token')
             location.replace('#/auth/login')
             return $q.reject(response)
+          case 0:
+            alert('No internet conection')
+            return $q.reject(response)
+          case 500:
+            alert('Server Error')
+            return $q.reject(response)
           default:
             return $q.reject(response)
         }
