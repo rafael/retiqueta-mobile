@@ -1,5 +1,5 @@
 export default function(ngComponent) {
-  ngComponent.factory('authInterceptor', function ($rootScope, $q, ENV) {
+  ngComponent.factory('authInterceptor', function ($rootScope, $q, ENV, Utils) {
     return {
       request: function (config) {
         config.headers = config.headers || {}
@@ -35,10 +35,10 @@ export default function(ngComponent) {
             location.replace('#/auth/login')
             return $q.reject(response)
           case 0:
-            alert('No internet conection')
+            Utils.swalError('No connection with the server')
             return $q.reject(response)
           case 500:
-            alert('Server Error')
+            Utils.swalError('Error on the server, if the error persist contact retiqueta team')
             return $q.reject(response)
           default:
             return $q.reject(response)
