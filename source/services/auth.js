@@ -45,8 +45,9 @@ export default function AuthFactory (ngComponent) {
 
     this.refreshToken = () => {
       let deferred = $q.defer()
+      var refresh_token = this.getToken().refresh_token
       console.log('Iniciando refresh_token process')
-      console.log(this.getToken())
+      console.log(refresh_token)
       console.log(this.updateTokenIntent)
       if (this.updateTokenIntent <= 1) {
         this.updateTokenIntent += 1
@@ -54,7 +55,7 @@ export default function AuthFactory (ngComponent) {
           method: 'POST',
           url: `${ENV.api.url}/v1/authenticate/token`,
           data: {
-            refresh_token: this.getToken().refresh_token,
+            refresh_token: refresh_token,
             client_id: 'ret-mobile-ios'
           }
         })

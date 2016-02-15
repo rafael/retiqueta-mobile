@@ -20,11 +20,9 @@ export default function(ngComponent) {
               console.log('Token expired')
               console.log(string_token)
             }
-            if (response.data.error_description === "access_token expired" ) {
-              console.log('redirect')
-              response.status = 404
-              location.replace('#/update-token')
-            }
+            console.log('redirect')
+            response.status = 404
+            location.replace('#/update-token')
             return $q.reject(response)
           case 401:
             window.localStorage.removeItem('token')
