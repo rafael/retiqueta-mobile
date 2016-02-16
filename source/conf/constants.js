@@ -18,5 +18,6 @@ contants.constant('ENV', {
   },
   isProduction () {
     return this.type === PRODUCTION
-  }
+  },
+  auth: {}
 })

@@ -1,3 +1,6 @@
+function extractToken (string_token) {
+  return JSON.parse(string_token || "{}")
+}
 export default function(ngComponent) {
   ngComponent.factory('authInterceptor', function ($rootScope, $q, ENV) {
     return {
@@ -20,9 +23,11 @@ export default function(ngComponent) {
               console.log('Token expired')
               console.log(string_token)
             }
+            // The token is erased from localStorage without reason, this is why i save in memory until refresh_token finish
+            ENV.auth.token = extractToken(string_token)
             console.log('redirect')
             response.status = 404
-            location.replace('#/update-token')
+            location.replace(`#/update-token`)
             return $q.reject(response)
           case 401:
             window.localStorage.removeItem('token')
