@@ -1,8 +1,5 @@
 export function extractErrorByField (httpError, values, errorsTypes) {
   let result = {}
-  console.log(httpError)
-  console.log(values)
-  console.log(errorsTypes)
   errorsTypes.forEach(errorType => {
     result[errorType] = Object.assign({}, baseErrorObj)
     let errorTypeRegex = new RegExp(errorType, 'i')
@@ -16,7 +13,6 @@ export function extractErrorByField (httpError, values, errorsTypes) {
       })
     }
   })
-  console.log(result)
   return result
 }
 

@@ -11,8 +11,8 @@ export default function signupCtrlFactory (ngComponent) {
   ngComponent.controller('signupCtrl', signupCtrl)
 
   function signupCtrl ($state, User, FormForConfiguration, Auth, Utils, $translate, $q) {
-    var _ = this
     FormForConfiguration.disableAutoLabels()
+    var _ = this
     _.user = {}
     _.errors = baseErrorsObject
     _.formController = {}
@@ -21,8 +21,6 @@ export default function signupCtrlFactory (ngComponent) {
     _.validationRules.username.custom = validationFactory('username', $q).bind(_)
     _.validationRules.email.custom = validationFactory('email', $q).bind(_)
     _.validationRules.password.custom = validationFactory('password', $q).bind(_)
-
-    console.log(this.validationRules)
 
     _.submit = (user) => {
       _.sendingInfo = true

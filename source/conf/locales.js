@@ -34,7 +34,8 @@ locales.config(function ($translateProvider) {
     AUTH_DRESS: 'Dress',
     AUTH_SHARE: 'Share',
     PRODUCT_DETAIL: 'Product detail',
-    CONNECT_WITH_FACEBOOK: 'Connect using facebook'
+    CONNECT_WITH_FACEBOOK: 'Connect using facebook',
+    REMOVE_DRAFT: 'Delete draft'
   })
   $translateProvider.translations('es', {
     DO_LOGIN: 'Mi retiqueta',
@@ -65,7 +66,8 @@ locales.config(function ($translateProvider) {
     AUTH_DRESS: 'Dress',
     AUTH_SHARE: 'Share',
     PRODUCT_DETAIL: 'Detalle del producto',
-    CONNECT_WITH_FACEBOOK: 'Conectar con Facebook'
+    CONNECT_WITH_FACEBOOK: 'Conectar con Facebook',
+    REMOVE_DRAFT: 'Limpiar'
   })
   $translateProvider.useSanitizeValueStrategy('sanitize')
   $translateProvider.preferredLanguage('en')

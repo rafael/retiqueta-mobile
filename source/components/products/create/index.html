@@ -1,15 +1,16 @@
 <ion-view view-title="{{ 'ADD_PRODUCT_TO_WARDROBE' | translate }}">
-  <ion-content padding="true">
+  <ion-content padding="true" class="auth">
     <product-picture></product-picture>
-    <form 
-      form-for="create.product" 
-      form-for-builder 
-      validation-rules="create.validationRules" 
+    <p ng-if="create.pictureHasErrors()" class="pictures-errors">
+      {{ create.pictureErrors.message }}
+    </p>
+    <form
+      form-for="create.product"
+      form-for-builder
+      controller="create.formController"
+      validation-rules="create.validationRules"
       submit-with="create.submit(create.product)">
       <submit-button  disable="create.sendingInfo" label="{{ 'SUBMIT' | translate }}" ></submit-button>
-      <span class="submit-button" ng-click="create.draft(create.product)">
-        {{ 'SAVE_DRAFT' | translate }}
-      </span>
       <span class="submit-button" ng-click="create.removeDraft()">
         {{ 'REMOVE_DRAFT' | translate }}
       </span>

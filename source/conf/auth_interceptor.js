@@ -29,7 +29,7 @@ export default function(ngComponent) {
               ENV.auth.token = extractToken(string_token)
               console.log('redirect')
               response.status = 404
-              location.replace(`#/update-token`)
+              location.replace('#/update-token')
             }
             return $q.reject(response)
           case 401:

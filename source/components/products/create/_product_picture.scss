@@ -1,0 +1,81 @@
+
+.auth {
+	form {
+		select-field {
+			.form-for-field::before {
+				display: block;
+			}
+		}
+		.form-for-field {
+			.form-for-select-arrows:after {
+				display: none;
+			}
+			select {
+				background: none;
+				border: none;
+				box-shadow: 0 1px 0px rgba(0, 0, 0, 0.15);
+				border-radius: 0;
+				padding: 0.8em 0.6em;
+			}
+			input,
+			select,
+			textarea {
+				color: lighten($dark, 0.3);
+				font-size: 1.2em;
+			}
+		}
+	}
+}
+
+.pictures-scroll {
+	margin-bottom: 1em;
+	.scroll {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+	}
+	.pictures-scroll-item {
+		flex: 1 0 30%;
+		margin-right: 2%;
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+		.add-picture {
+			width: 100%;
+			padding: 36% 0;
+			font-size: 1.7em;
+			background: #E0E0E0;
+			border: none;
+		}
+	}
+}
+
+.modal {
+	padding-right: 1.4em;
+	.modal-content {
+		height: 100vh;
+		.modal-body {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-content: center;
+			height: 74%;
+			.button {
+				flex: 1 0 100%;
+				-webkit-flex: 1 0 100%;
+			}
+		}
+	}
+	.modal-header {
+		.modal-close {
+			color: $dark;
+			position: relative;
+			top: 0.4em;
+			left: 0.2em;
+			font-size: 2em;
+			cursor: pointer;
+		}
+	}
+}
+
