@@ -21,6 +21,11 @@ angular.module('App', [
   'ionic.service.push'
 ])
 
+angular.module('App').run((ENV) => {
+  if(ENV.isDevelopment()) {
+    window.ENV = ENV
+  }
+})
 
 //angular.module('App').run(function($rootScope, $state, $templateCache) {
 //  $rootScope.$on('$stateChangeStart', function(event, toState){

@@ -1,5 +1,8 @@
+function extractToken (string_token) {
+  return JSON.parse(string_token || "{}")
+}
 export default function(ngComponent) {
-  ngComponent.factory('authInterceptor', function ($rootScope, $q, ENV) {
+  ngComponent.factory('authInterceptor', function ($rootScope, $q, ENV, Utils) {
     return {
       request: function (config) {
         config.headers = config.headers || {}
@@ -20,10 +23,13 @@ export default function(ngComponent) {
               console.log('Token expired')
               console.log(string_token)
             }
+            // The token is erased from localStorage without reason, this is why i save in memory until refresh_token finish
+
             if (response.data.error_description === "access_token expired" ) {
+              ENV.auth.token = extractToken(string_token)
               console.log('redirect')
               response.status = 404
-              location.replace('#/update-token')
+              location.replace(`#/update-token`)
             }
             return $q.reject(response)
           case 401:
@@ -35,10 +41,10 @@ export default function(ngComponent) {
             location.replace('#/auth/login')
             return $q.reject(response)
           case 0:
-            alert('No internet conection')
+            Utils.swalError('No connection with the server')
             return $q.reject(response)
           case 500:
-            alert('Server Error')
+            Utils.swalError('Error on the server, if the error persist contact retiqueta team')
             return $q.reject(response)
           default:
             return $q.reject(response)
