@@ -43,37 +43,48 @@ export default function AuthFactory (ngComponent) {
       return deferred.promise
     }
 
-    this.refreshToken = () => {
+    this.refreshToken = (token = {}) => {
       let deferred = $q.defer()
-      var refresh_token = this.getToken().refresh_token
-      console.log('Iniciando refresh_token process')
-      console.log(refresh_token)
-      console.log(this.updateTokenIntent)
-      if (this.updateTokenIntent <= 1) {
+      if(!token.hasOwnProperty('refresh_token') && ENV.auth.hasOwnProperty('token')) {
+        token = ENV.auth.token
+      }
+      if(ENV.isDevelopment()) {
+        console.log('Iniciando refresh_token process')
+        console.log(window.localStorage)
+        console.log('Este es el refresh_token')
+        console.log(token)
+        console.log('Este es el numero de veces que a intentando')
+        console.log(this.updateTokenIntent)
+      }
+      if (this.updateTokenIntent <= 1 && token.hasOwnProperty('refresh_token')) {
         this.updateTokenIntent += 1
         $http({
           method: 'POST',
           url: `${ENV.api.url}/v1/authenticate/token`,
           data: {
-            refresh_token: refresh_token,
+            refresh_token: token.refresh_token,
             client_id: 'ret-mobile-ios'
           }
         })
         .then(result => {
-          console.log("resultado del refresh token")
-          console.log(result)
-          this.updateToken(result.data)
+          if(ENV.isDevelopment()) {
+            console.log("resultado del refresh token")
+            console.log(result)
+          }
+          this.updateToken(Object.assign({}, token, result.data))
           this.updateTokenIntent = 0
           deferred.resolve(result)
         })
         .catch(e => {
-          console.log("Error al envio de refreshToken")
-          console.log(e)
+          if(ENV.isDevelopment()) {
+            console.log("Error al envio de refreshToken")
+            console.log(e)
+          }
+          this.logout()
           deferred.reject(e)
         })
       } else {
-        this.logout()
-        deferred.reject({ data: { code: 100, detail: `refresh token dont work (try to update: ${this.updateTokenIntent}) `, status: 400, title: "failed-validation" }})
+        deferred.reject({ data: { code: 100, detail: `refresh token dont work (try to update: ${this.updateTokenIntent})`, status: 400, title: "failed-validation" }})
       }
       return deferred.promise
     }
@@ -121,7 +132,7 @@ export default function AuthFactory (ngComponent) {
     this.getUser = (force = false) => {
       var deferred = $q.defer()
       if (this.isLogin()) {
-        User.get(this.getToken().user_id)
+        User.get(this.user.user_id || this.getToken().user_id)
         .then((result) => {
           this.user = result
           deferred.resolve(this.user)
@@ -183,6 +194,7 @@ export default function AuthFactory (ngComponent) {
     }
 
     this.getToken = () => {
+      console.log(window.localStorage)
       if (this.isLogin()) {
         return JSON.parse(window.localStorage.getItem('token'))
       } else {
