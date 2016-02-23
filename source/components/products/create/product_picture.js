@@ -6,7 +6,7 @@ export default function productPictureDirectiveFactory (ngComponent) {
   function productPicture (Product, PictureStore, CameraService) {
     return {
       templateUrl: 'products/create/product_picture.html',
-      retrict: 'E',
+      restrict: 'E',
       controllerAs: 'ctrl',
       bindToController: true,
       controller () {

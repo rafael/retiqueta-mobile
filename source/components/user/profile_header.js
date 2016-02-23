@@ -4,7 +4,7 @@ export default function profileHeaderFactory (ngComponent) {
   function profileHeader (User) {
     return {
       templateUrl: 'user/profile_header.html',
-      retrict: 'E',
+      restrict: 'E',
       scope: {
         user: '='
       },

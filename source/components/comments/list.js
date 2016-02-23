@@ -4,7 +4,7 @@ export default function CommentListDirectiveFactory (ngComponent) {
   function CommentsTag (CommentStore) {
     return {
       templateUrl: 'comments/list.html',
-      retrict: 'E',
+      restrict: 'E',
       link (scope, element, attrs) {
         scope.loading = true
         scope.comments = []

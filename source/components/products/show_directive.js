@@ -4,7 +4,7 @@ export default function ProductDirective (ngComponent) {
   function productTag () {
     return {
       templateUrl: 'products/show_directive.html',
-      retrict: 'E',
+      restrict: 'E',
       scope: {
         product: '=',
         commentToggleFunc: '&'
