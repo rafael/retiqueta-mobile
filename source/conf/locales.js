@@ -35,7 +35,8 @@ locales.config(function ($translateProvider) {
     AUTH_SHARE: 'Share',
     PRODUCT_DETAIL: 'Product detail',
     CONNECT_WITH_FACEBOOK: 'Connect using facebook',
-    REMOVE_DRAFT: 'Delete draft'
+    REMOVE_DRAFT: 'Delete draft',
+    LETS_RETIQUETA: 'Lets go to resell',
   })
   $translateProvider.translations('es', {
     DO_LOGIN: 'Mi retiqueta',
@@ -67,8 +68,9 @@ locales.config(function ($translateProvider) {
     AUTH_SHARE: 'Share',
     PRODUCT_DETAIL: 'Detalle del producto',
     CONNECT_WITH_FACEBOOK: 'Conectar con Facebook',
-    REMOVE_DRAFT: 'Limpiar'
+    REMOVE_DRAFT: 'Limpiar',
+    LETS_RETIQUETA: '¡A Retiquetar!'
   })
   $translateProvider.useSanitizeValueStrategy('sanitize')
-  $translateProvider.preferredLanguage('en')
+  $translateProvider.preferredLanguage('es')
 })

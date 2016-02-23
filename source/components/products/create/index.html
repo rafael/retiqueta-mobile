@@ -1,5 +1,12 @@
-<ion-view view-title="{{ 'ADD_PRODUCT_TO_WARDROBE' | translate }}">
-  <ion-content padding="true" class="auth">
+<ion-view view-title="{{ 'LETS_RETIQUETA' | translate }}">
+  <ion-nav-bar class="bar-assertive">
+    <ion-nav-buttons side="left">
+      <button class="button back-button buttons button-clear header-item" ng-click="create.goBack()">
+        <i class="icon ion-ios-arrow-back"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content padding="true" class="form-basic form-with-labels new_product">
     <product-picture></product-picture>
     <p ng-if="create.pictureHasErrors()" class="pictures-errors">
       {{ create.pictureErrors.message }}

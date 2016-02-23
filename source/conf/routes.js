@@ -105,9 +105,9 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     },
     resolve: {
-     currentUser: function(Auth) {
-      return Auth.getCurrentUser()
-     }
+      currentUser: function(Auth) {
+        return Auth.getCurrentUser()
+      }
     }
   })
   .state('users.me', {
@@ -167,12 +167,16 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     }
   })
-  .state('users.productsNew', {
+  .state('productsNew', {
     url: '/products/new',
-    views: {
-      'newproduct-tab': {
-        templateUrl: 'products/create/index.html',
-        controller: 'productCreateCtrl as create'
+    templateUrl: 'products/create/index.html',
+    controller: 'productCreateCtrl as create',
+    resolve: {
+      currentUser: function (Auth) {
+        return Auth.getCurrentUser()
+      },
+      user: function (currentUser) {
+        return currentUser
       }
     }
   })

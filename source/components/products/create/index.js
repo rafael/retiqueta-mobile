@@ -4,8 +4,16 @@ import { extractErrorByField, validationFactory } from '../../../libs/merge_vali
 export default function ProductCreateFactory (ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
 
-  function productCreateCtrl ($q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate) {
-    FormForConfiguration.disableAutoLabels()
+  function productCreateCtrl ($q,
+                              $state,
+                              $scope,
+                              FormForConfiguration,
+                              Product,
+                              PictureStore,
+                              ProductStore,
+                              Utils,
+                              $translate) {
+    FormForConfiguration.enableAutoLabels()
     var _ = this
     _.pictureStore = PictureStore
     _.product = ProductStore.get()
@@ -19,6 +27,11 @@ export default function ProductCreateFactory (ngComponent) {
     _.validationRules.description.custom = validationFactory('description', $q).bind(_)
     _.validationRules.original_price.custom = validationFactory('original_price', $q).bind(_)
     _.validationRules.price.custom = validationFactory('price', $q).bind(_)
+
+    _.goBack = () => {
+      console.log("GoingBack")
+      $state.go('users.dashboard', {}, { location: 'replace', reload: true })
+    }
 
     _.submit = (product) => {
       _.sendingInfo = true
