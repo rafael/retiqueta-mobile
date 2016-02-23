@@ -1,0 +1,44 @@
+<div class="form-for-field with-icon-after" ng-class="{'invalid': model.error}">
+  <field-label  ng-if="label"
+    input-uid="{{model.uid}}"
+    iud="{{model.uid}}-label"
+    label="{{label}}"
+    label-class="{{labelClass}}"
+    help="{{help}}"
+    required="{{model.required}}">
+  </field-label>
+
+  <field-error uid="{{model.uid}}-error" error="model.error"></field-error>
+  <div class="select-category-toggler">
+    <input  aria-manager
+    id="{{model.uid}}"
+    name="{{attribute}}"
+    type="text"
+    placeholder="{{placeholder}}"
+    ng-model="model.bindable"
+    ng-disabled="disable || model.disabled"
+    form-for-debounce="{{debounce}}"
+    ng-click="toggleModal()"
+    ng-blur="onBlur()"/>
+  </div>
+
+</div>
+
+<div ng-if="showModal" class="modal modal-outside modal-vertical">
+  <section class="modal-content">
+    <section class="modal-body">
+      <div class="flex-item" ng-repeat="option in options">
+        <article class="select-category-option" ng-click="$parent.setOption(option.value)">
+          <div class="content">
+            <div class="header">
+              {{ option.icon }}
+            </div>
+            <div class="label">
+              {{ option.label }}
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </section>
+</div>

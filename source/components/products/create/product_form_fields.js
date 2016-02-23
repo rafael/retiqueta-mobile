@@ -2,7 +2,6 @@ import { baseErrorObj } from '../../../libs/merge_validations'
 
 export const Rules = {
   category: {
-    inputType: 'select',
     required: true,
     placeholder: 'Select a Category',
     values: [

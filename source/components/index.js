@@ -51,5 +51,6 @@ require('./utils/file_model')(components)
 require('./utils/on_change_file')(components)
 require('./utils/picture_input')(components)
 require('./utils/linkify')(components)
+require('./utils/select_category')(components)
 
 export default components

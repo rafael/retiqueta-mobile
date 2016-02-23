@@ -3,7 +3,7 @@ const numberOfPhotosPerProduct = 4
 export default function productPictureDirectiveFactory (ngComponent) {
   ngComponent.directive('productPicture', productPicture)
 
-  function productPicture (Product, PictureStore, CameraService) {
+  function productPicture (Product, PictureStore, CameraService, $ionicScrollDelegate) {
     return {
       templateUrl: 'products/create/product_picture.html',
       restrict: 'E',
@@ -24,6 +24,7 @@ export default function productPictureDirectiveFactory (ngComponent) {
         _.setSelectSource = (index, value = true) => {
           _.pictureIndex = index
           _.selectSource = value
+          $ionicScrollDelegate.scrollTop()
         }
 
         _.updatePicture = (base64picture) => {
