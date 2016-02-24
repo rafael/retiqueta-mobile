@@ -1,4 +1,4 @@
-// import swal from 'sweetalert'
+import swal from 'sweetalert'
 
 export default function UtilsFactory (ngComponent) {
   ngComponent.service('Utils', UtilsFactory)
@@ -30,9 +30,11 @@ export default function UtilsFactory (ngComponent) {
         console.info(message)
       }
       $rootScope.$evalAsync(function () {
-        console.log(ionic.Platform.isWebView())
-        navigator.notification.alert(message, alertCallback, title, buttonName)
-        // swal(title, message, type)
+        if (navigator.hasOwnProperty('notification')) {
+          navigator.notification.alert(message, alertCallback, title, buttonName)
+        } else {
+          swal(title, message, type)
+        }
       })
     }
 
