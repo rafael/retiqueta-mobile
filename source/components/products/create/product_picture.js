@@ -14,7 +14,7 @@ export default function productPictureDirectiveFactory (ngComponent) {
         _.picture = ''
         _.pictures = PictureStore.getExactNumber(numberOfPhotosPerProduct)
         _.loadingPicture = false
-        _.selectSource = true
+        _.selectSource = false
         _.pictureIndex = 0
 
         _.hasUrl = (picture) => {

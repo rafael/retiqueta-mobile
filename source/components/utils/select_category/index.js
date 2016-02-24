@@ -19,8 +19,7 @@ export default function SelectCateroryFactory (ngComponent) {
         $scope.setOption = setOption
         $scope.showModal = false
         $scope.toggleModal = toggleModal
-
-        console.log($scope.placeholder)
+        $scope.modelHasValue = modelHasValue
 
         FieldHelper.manageFieldRegistration($scope, $attributes, formForController);
 
@@ -33,6 +32,14 @@ export default function SelectCateroryFactory (ngComponent) {
           $scope.model.bindable = value
           formForController.validateForm()
           toggleModal()
+        }
+
+        function modelHasValue () {
+          if ($scope.hasOwnProperty('model')) {
+            return typeof $scope.model.bindable !== 'undefined' && $scope.model.bindable !== null && $scope.model.bindable !== ''
+          } else {
+            return false
+          }
         }
       }
     }

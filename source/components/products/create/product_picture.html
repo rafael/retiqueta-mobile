@@ -10,7 +10,7 @@
   </div>
 </ion-scroll>
 
-<div ng-show="ctrl.selectSource" class="modal">
+<div ng-if="ctrl.selectSource" class="modal ng-cloak">
   <section class="modal-content">
     <header class="modal-header">
       <i ng-click="ctrl.setSelectSource(ctrl.pictureIndex, false)" class="modal-close ion-close"></i>
@@ -28,11 +28,11 @@
         class="button button-block button-positive">
         {{ 'TAKE_PICTURE' | translate }}
       </button>
-      <span
+      <button
         ng-show="ctrl.loadingPicture"
         class="button button-block button-positive">
         {{ 'UPLOADING_PICTURE' | translate }}
-      </span>
+      </button>
     </section>
   </section>
 </div>

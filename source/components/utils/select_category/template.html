@@ -9,17 +9,15 @@
   </field-label>
 
   <field-error uid="{{model.uid}}-error" error="model.error"></field-error>
-  <div class="select-category-toggler">
+  <div class="select-category-toggler" ng-click="toggleModal()">
     <input  aria-manager
-    id="{{model.uid}}"
-    name="{{attribute}}"
-    type="text"
-    placeholder="{{placeholder}}"
-    ng-model="model.bindable"
-    ng-disabled="disable || model.disabled"
-    form-for-debounce="{{debounce}}"
-    ng-click="toggleModal()"
-    ng-blur="onBlur()"/>
+      id="{{model.uid}}"
+      name="{{attribute}}"
+      type="text"
+      placeholder="{{placeholder}}"
+      ng-model="model.bindable"
+      ng-disabled="true"
+      form-for-debounce="{{debounce}}"/>
   </div>
 
 </div>

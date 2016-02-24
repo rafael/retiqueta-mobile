@@ -30,12 +30,12 @@ export default function UtilsFactory (ngComponent) {
         console.info(message)
       }
       $rootScope.$evalAsync(function () {
-        if (navigator.hasOwnProperty('notification')) {
-          navigator.notification.alert(message, alertCallback, title, buttonName)
-        } else {
-          swal(title, message, type)
-        }
+        navigator.notification.alert(message, alertCallback, title, buttonName)
       })
+    }
+
+    this.confirm = (title, message, confirmCallback, buttonOptions = "Yes, No") => {
+      navigator.notification.confirm(message, confirmCallback, title, buttonOptions)
     }
 
     this.alertCallback = () => {

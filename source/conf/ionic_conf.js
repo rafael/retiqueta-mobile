@@ -1,6 +1,9 @@
 export default function(ngComponent) {
 
-  ngComponent.run(function($ionicConfig, $ionicPlatform, $ionicAnalytics, ENV, AppPush, Auth) {
+  ngComponent.config(configIonic)
+  ngComponent.run(onRunningConfiguration)
+
+  function onRunningConfiguration ($ionicConfig, $ionicPlatform, $ionicAnalytics, ENV, AppPush, Auth) {
     $ionicConfig.views.maxCache(0);
 
     $ionicPlatform.ready(function() {
@@ -17,11 +20,13 @@ export default function(ngComponent) {
       if (window.StatusBar) {
         StatusBar.styleLightContent();
       }
-    });
-  })
+    })
+  }
 
-  ngComponent.config(function ($ionicConfigProvider) {
+  function configIonic ($ionicConfigProvider) {
     $ionicConfigProvider.tabs.style('standard')
     $ionicConfigProvider.tabs.position('bottom')
-  })
+    $ionicConfigProvider.scrolling.jsScrolling(false)
+  }
+
 }

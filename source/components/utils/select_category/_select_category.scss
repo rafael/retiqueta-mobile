@@ -1,11 +1,16 @@
 .modal.modal-outside {
+	position: fixed;
 	z-index: 10000;
 	top: 0%;
 	left: 0;
+	height: calc(100vh - 64px);
 	padding-right: 0;
 	.modal-content {
+		height: 100%;
+		z-index: 10000;
 		.modal-body {
-			height: 91vh;
+			z-index: 10000;
+			height: 100%;
 			align-content: stretch;
 			.flex-item {
 				flex: 1 0 100%;
@@ -23,12 +28,10 @@
 	cursor: pointer;
 	flex: 1 0 100%;
 	width: 100%;
-	position: relative;
 	padding: 1em;
 	box-sizing: border-box;
 	background: #000;
 	color: white;
-	vertical-align: middle;
 	border-bottom: 1px solid white;
 	display: flex;
 	flex-direction: row;
@@ -37,5 +40,17 @@
 	align-content: center;
 	.content {
 		flex: 1 0 100%;
+	}
+	&:active {
+		background: $assertive;
+	}
+}
+
+.select-category-toggler {
+	input:disabled,
+	textarea:disabled {
+		opacity: 1;
+		background: none;
+		cursor: pointer;
 	}
 }

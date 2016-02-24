@@ -4,15 +4,7 @@ import { extractErrorByField, validationFactory } from '../../../libs/merge_vali
 export default function ProductCreateFactory (ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
 
-  function productCreateCtrl ($q,
-                              $state,
-                              $scope,
-                              FormForConfiguration,
-                              Product,
-                              PictureStore,
-                              ProductStore,
-                              Utils,
-                              $translate) {
+  function productCreateCtrl ($q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate) {
     FormForConfiguration.enableAutoLabels()
     var _ = this
     _.pictureStore = PictureStore
@@ -29,8 +21,20 @@ export default function ProductCreateFactory (ngComponent) {
     _.validationRules.price.custom = validationFactory('price', $q).bind(_)
 
     _.goBack = () => {
-      console.log("GoingBack")
-      $state.go('users.dashboard', {}, { location: 'replace', reload: true })
+      try {
+        Utils.confirm('Save this product','Do you what save this product information has a draft?', (buttonIndex) => {
+          console.log(buttonIndex)
+          if (buttonIndex == 1) {
+            _.draft(_.product)
+          } else if(buttonIndex == 2) {
+            _.removeDraft()
+          }
+          $state.go('users.dashboard', {}, { location: 'replace', reload: true })
+        })
+      }
+      catch (e) {
+        $state.go('users.dashboard', {}, { location: 'replace', reload: true })
+      }
     }
 
     _.submit = (product) => {

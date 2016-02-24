@@ -12,22 +12,50 @@
       {{ create.pictureErrors.message }}
     </p>
     <form form-for="create.product"
-          form-for-builder
-          controller="create.formController"
-          validation-rules="create.validationRules"
-          submit-with="create.submit(create.product)">
+      controller="create.formController"
+      validation-rules="create.validationRules"
+      submit-with="create.submit(create.product)">
+
+      <text-field attribute="title"
+        label="{{ 'PRODUCT_FORM_TITLE' | translate }}"
+        placeholder="{{ create.validationRules.title.placeholder}}"
+        type="text">
+      </text-field>
+
+      <text-field attribute="description"
+        label="{{ 'PRODUCT_FORM_DESCRIPTION' | translate }}"
+        placeholder="{{ create.validationRules.description.placeholder}}"
+        type="text">
+      </text-field>
 
       <select-category-field
         attribute="category"
-        label="Category"
+        label="{{ 'PRODUCT_FORM_CATEGORY' | translate }}"
         placeholder="{{ create.validationRules.category.placeholder }}"
         options="create.validationRules.category.values">
       </select-category-field>
-      <submit-button  disable="create.sendingInfo" label="{{ 'SUBMIT' | translate }}" ></submit-button>
-      <span class="submit-button" ng-click="create.removeDraft()">
-        {{ 'REMOVE_DRAFT' | translate }}
-      </span>
 
+      <text-field attribute="original_price"
+        label="{{ 'PRODUCT_FORM_ORIGINAL_PRICE' | translate }}"
+        placeholder="{{ create.validationRules.original_price.placeholder}}"
+        type="text">
+      </text-field>
+
+       <text-field attribute="price"
+        label="{{ 'PRODUCT_FORM_PRICE' | translate }}"
+        placeholder="{{ create.validationRules.price.placeholder}}"
+        type="text">
+      </text-field>
+
+      <div class="pt2"></div>
+      <div class="submit-area">
+        <submit-button  disable="create.sendingInfo" label="{{ 'SUBMIT' | translate }}" ></submit-button>
+        <!--
+        <span class="submit-button" ng-click="create.removeDraft()">
+          {{ 'REMOVE_DRAFT' | translate }}
+        </span>
+        -->
+      </div>
     </form>
   </ion-content>
 </ion-view>
