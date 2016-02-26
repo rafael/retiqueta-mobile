@@ -65,7 +65,15 @@
         </div>
       </div>
 
-      <div class="pt2"></div>
+      <div class="submit-area bg-stable">
+        <div class="label">
+          {{ 'PRODUCT_FORM_COMITION' | translate }}
+        </div>
+        <div class="comition">
+          {{ create.comitionCalculate(create.product) }}
+        </div>
+      </div>
+
       <div class="submit-area">
         <span class="polis">
           <a href="#">

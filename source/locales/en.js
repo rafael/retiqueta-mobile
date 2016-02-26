@@ -36,6 +36,7 @@ var enTranslation = {
   PRODUCT_FORM_ORIGINAL_PRICE: 'Original price',
   PRODUCT_FORM_PRICE: 'Your retiqueta price',
   PRODUCT_FORM_SIZE: 'Size',
+  PRODUCT_FORM_COMITION: 'Your winning',
   COMISION_POLITICS: 'Politica de comisión de Retiqueta'
 }
 

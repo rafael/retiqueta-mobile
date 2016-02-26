@@ -12,10 +12,28 @@
 			position: relative;
 			margin-bottom: 0.7em;
 			margin-top: 0.7em;
+			label {
+				font-weight: normal;
+			}
+			input,
+			.input,
+			select,
+			textarea {
+				&:focus {
+				}
+				&::-webkit-input-placeholder ,
+				&::-moz-placeholder ,
+				&:-ms-input-placeholder ,
+				&:-moz-placeholder,
+				&:placeholder {
+					color: #000;
+				}
+			}
 			input,
 			.input {
 				padding-top: 1.5em;
 				padding-bottom: 1.5em;
+				color: $dark;
 			}
 			&::before {
 				position: absolute;

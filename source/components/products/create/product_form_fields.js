@@ -5,10 +5,10 @@ export const Rules = {
     required: true,
     placeholder: 'Select',
     values: [
-      { value: 'Ropa', label: 'Ropa' },
-      { value: 'Zapatos', label: 'Zapatos' },
-      { value: 'Carteras', label: 'Carteras' },
-      { value: 'Accesorios', label: 'Accesorios' }
+      { value: 'Ropa', label: '#Ropa' },
+      { value: 'Zapatos', label: '#Zapatos' },
+      { value: 'Carteras', label: '#Carteras' },
+      { value: 'Accesorios', label: '#Accesorios' }
     ]
   },
   title: {

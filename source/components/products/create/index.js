@@ -1,6 +1,8 @@
 import { Rules as FormRules, baseErrorsObject } from './product_form_fields'
 import { extractErrorByField, validationFactory } from '../../../libs/merge_validations'
 
+const comitionRate = 0.2
+
 export default function ProductCreateFactory (ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
 
@@ -25,6 +27,11 @@ export default function ProductCreateFactory (ngComponent) {
     _.draft = saveDraft
     _.removeDraft = removeDraft
     _.pictureHasErrors = hasError
+    _.comitionCalculate = ComitionCalculate
+
+    function ComitionCalculate (product) {
+      return product.price * (1 - comitionRate) || 0
+    }
 
     function goToSelect () {
       $state.go('productsNewSelectCategory', {}, { location: 'replace', reload: true })
