@@ -3,7 +3,7 @@ import { baseErrorObj } from '../../../libs/merge_validations'
 export const Rules = {
   category: {
     required: true,
-    placeholder: 'Select a Category',
+    placeholder: 'Select',
     values: [
       { value: 'Ropa', label: 'Ropa' },
       { value: 'Zapatos', label: 'Zapatos' },
@@ -15,6 +15,11 @@ export const Rules = {
     inputType: 'text',
     required: true,
     placeholder: 'Title of your product'
+  },
+  size: {
+    inputType: 'text',
+    required: true,
+    placeholder: 'Size'
   },
   description: {
     inputType: 'text',

@@ -12,12 +12,13 @@ export default function SelectCateroryFactory (ngComponent) {
         help: '@?',
         multiple: '=?',
         options: '=',
-        placeholder: '@?'
+        placeholder: '@?',
+        autoToggleModal: "@"
       },
       link: function($scope, $element, $attributes, formForController) {
         $scope.label = $attributes['label'] || 'label'
         $scope.setOption = setOption
-        $scope.showModal = false
+        $scope.showModal = true
         $scope.toggleModal = toggleModal
         $scope.modelHasValue = modelHasValue
 
@@ -31,7 +32,9 @@ export default function SelectCateroryFactory (ngComponent) {
         function setOption (value) {
           $scope.model.bindable = value
           formForController.validateForm()
-          toggleModal()
+          if ($scope.autoToggleModal !== 'false') {
+            toggleModal()
+          }
         }
 
         function modelHasValue () {

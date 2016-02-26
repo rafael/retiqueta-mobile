@@ -7,6 +7,7 @@ import configurations from './conf'
 import components from './components'
 import services from './services'
 import partials from './partials'
+import locales from './locales'
 
 angular.module('App', [
   'App.components',

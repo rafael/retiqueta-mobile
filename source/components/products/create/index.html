@@ -28,27 +28,50 @@
         type="text">
       </text-field>
 
-      <select-category-field
-        attribute="category"
-        label="{{ 'PRODUCT_FORM_CATEGORY' | translate }}"
-        placeholder="{{ create.validationRules.category.placeholder }}"
-        options="create.validationRules.category.values">
-      </select-category-field>
+      <div class="row">
+        <div class="col-50">
+          <text-field attribute="category"
+            label="{{ 'PRODUCT_FORM_CATEGORY' | translate }}"
+            placeholder="{{ create.validationRules.category.placeholder}}"
+            type="text"
+            ng-click="create.goToSelect()"
+            ng-disabled="true">
+          </text-field>
+        </div>
+        <div class="col-50">
+          <text-field attribute="size"
+            label="{{ 'PRODUCT_FORM_SIZE' | translate }}"
+            placeholder="{{ create.validationRules.size.placeholder}}"
+            type="text"
+            ng-disabled="true">
+          </text-field>
+        </div>
+      </div>
 
-      <text-field attribute="original_price"
-        label="{{ 'PRODUCT_FORM_ORIGINAL_PRICE' | translate }}"
-        placeholder="{{ create.validationRules.original_price.placeholder}}"
-        type="text">
-      </text-field>
-
-       <text-field attribute="price"
-        label="{{ 'PRODUCT_FORM_PRICE' | translate }}"
-        placeholder="{{ create.validationRules.price.placeholder}}"
-        type="text">
-      </text-field>
+      <div class="row">
+        <div class="col-50">
+          <text-field attribute="original_price"
+            label="{{ 'PRODUCT_FORM_ORIGINAL_PRICE' | translate }}"
+            placeholder="{{ create.validationRules.original_price.placeholder}}"
+            type="text">
+          </text-field>
+        </div>
+        <div class="col-50">
+          <text-field attribute="price"
+            label="{{ 'PRODUCT_FORM_PRICE' | translate }}"
+            placeholder="{{ create.validationRules.price.placeholder}}"
+            type="text">
+          </text-field>
+        </div>
+      </div>
 
       <div class="pt2"></div>
       <div class="submit-area">
+        <span class="polis">
+          <a href="#">
+            {{ 'COMISION_POLITICS' | translate }}
+          </a>
+        </span>
         <submit-button  disable="create.sendingInfo" label="{{ 'SUBMIT' | translate }}" ></submit-button>
         <!--
         <span class="submit-button" ng-click="create.removeDraft()">
