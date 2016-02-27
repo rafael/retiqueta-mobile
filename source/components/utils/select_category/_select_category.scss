@@ -38,11 +38,26 @@
 	flex-wrap: wrap;
 	align-items: center;
 	align-content: center;
+
 	.content {
+		font-size: 2em;
 		flex: 1 0 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-content: center;
+		align-items: center;
+		.label {
+			padding-left: 0.8em;
+		}
+		.icon {
+			padding-right: 0.5em;
+			font-size: 1.8em;
+		}
 	}
 	&:active {
-		background: $assertive;
+		background: $assertive !important;
 	}
 }
 

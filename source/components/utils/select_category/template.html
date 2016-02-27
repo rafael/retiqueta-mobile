@@ -26,13 +26,13 @@
   <section class="modal-content">
     <section class="modal-body">
       <div class="flex-item" ng-repeat="option in options">
-        <article class="select-category-option" ng-click="$parent.setOption(option.value)">
+        <article class="select-category-option" style="background-color:{{ option.bg }}" ng-click="$parent.setOption(option.value)">
           <div class="content">
-            <div class="header">
-              {{ option.icon }}
-            </div>
             <div class="label">
               {{ option.label }}
+            </div>
+            <div class="icon">
+              <span class="{{option.icon}}"></span>
             </div>
           </div>
         </article>
