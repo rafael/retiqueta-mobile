@@ -172,6 +172,7 @@ submit-button[label="Submit"] {
 			padding-left: 1.4em;
 			padding-right: 1.4em;
 			box-sizing: content-box;
+			background-color: $assertive;
 			&:hover {
 				background-color: darken($assertive, 5);
 			}

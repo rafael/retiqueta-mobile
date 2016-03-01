@@ -3,14 +3,13 @@ export default function profileHeaderFactory (ngComponent) {
 
   function profileHeader (User, Utils) {
     return {
-      templateUrl: 'user/profile_header.html',
+      templateUrl: 'user/profile_header/template.html',
       restrict: 'E',
       scope: {
         user: '='
       },
       link (scope, element, attrs) {
         scope.isOwner = attrs.owner === 'true'
-
         scope.toggleFollowship = (following) => {
           User.followToggle(scope.user.id, following)
             .then(result => {

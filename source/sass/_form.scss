@@ -8,11 +8,13 @@
 				}
 			}
 		}
+		.simulated-field,
 		.form-for-field {
 			position: relative;
 			margin-bottom: 0.7em;
 			margin-top: 0.7em;
-			label {
+			label,
+			.label {
 				font-weight: normal;
 			}
 			input,
@@ -75,3 +77,19 @@
 		}
 	}
 }
+
+.simulated-field {
+	.label {
+		color: darken($stable, 40%);
+		margin-top: -0.8em;
+	}
+	.placeholder {
+		color: $dark;
+	}
+	.placeholder,
+	.input {
+		padding: 1em;
+		box-shadow: 0 1px 0px rgba(0, 0, 0, 0.15);
+	}
+}
+

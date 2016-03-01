@@ -1,5 +1,5 @@
 <ion-view view-title="{{ 'SEARCH_PRODUCT' | translate }}" hide-back-button="true">
-  <ion-content padding="true">
+  <ion-content padding="false">
     <form  class="bar bar-header item-input-inset" ng-submit="search.search()">
       <label class="item-input-wrapper">
         <i class="icon ion-ios-search placeholder-icon"></i>
@@ -14,16 +14,18 @@
         Cancel
       </button>
     </form>
-    <div ng-show="search.noResult">
-      <h4>
-        {{ 'NOT_RESULT_FOR_SEARCH' | translate }}
-      </h4>
+    <div class="padding">
+      <div ng-show="search.noResult">
+        <h4>
+          {{ 'NOT_RESULT_FOR_SEARCH' | translate }}
+        </h4>
+      </div>
+      <div ng-show="search.loading">
+        <h4>
+          {{ 'SEARCHING' | translate }}
+        </h4>
+      </div>
+      <products-list products="search.products"></products-list>
     </div>
-    <div ng-show="search.loading">
-      <h4>
-        {{ 'SEARCHING' | translate }}
-      </h4>
-    </div>
-    <products-list products="search.products"></products-list>
   </ion-content>
 </ion-view>

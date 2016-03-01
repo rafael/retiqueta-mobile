@@ -34,16 +34,14 @@
             label="{{ 'PRODUCT_FORM_CATEGORY' | translate }}"
             placeholder="{{ create.validationRules.category.placeholder}}"
             type="text"
-            ng-click="create.goToSelect()"
-            ng-disabled="true">
+            ng-click="create.goToSelect()">
           </text-field>
         </div>
         <div class="col-50">
           <text-field attribute="size"
             label="{{ 'PRODUCT_FORM_SIZE' | translate }}"
             placeholder="{{ create.validationRules.size.placeholder}}"
-            type="text"
-            ng-disabled="true">
+            type="text">
           </text-field>
         </div>
       </div>

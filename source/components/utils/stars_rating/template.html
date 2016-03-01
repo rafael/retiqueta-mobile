@@ -1,0 +1,7 @@
+<div class="stars-rating">
+  <span class="stars-icon" ng-repeat="star in starsArray track by $index">
+    <i class="ion-android-star-outline" ng-if="star === 0"></i>
+    <i class="ion-android-star-half" ng-if="star === 0.5"></i>
+    <i class="ion-android-star" ng-if="star === 1"></i>
+  </span>
+</div>

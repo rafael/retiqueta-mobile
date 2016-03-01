@@ -6,7 +6,7 @@ const comitionRate = 0.2
 export default function ProductCreateFactory (ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
 
-  function productCreateCtrl ($q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate) {
+  function productCreateCtrl ($ionicHistory, $ionicPlatform, $q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate) {
     FormForConfiguration.enableAutoLabels()
     var _ = this
     _.pictureStore = PictureStore
@@ -28,6 +28,14 @@ export default function ProductCreateFactory (ngComponent) {
     _.removeDraft = removeDraft
     _.pictureHasErrors = hasError
     _.comitionCalculate = ComitionCalculate
+
+    var action = $ionicPlatform.registerBackButtonAction(() => {
+      if($state.is('productsNew')) {
+        goBack()
+      } else {
+        $ionicHistory.goBack()
+      }
+    }, 101)
 
     function ComitionCalculate (product) {
       return product.price * (1 - comitionRate) || 0
@@ -88,16 +96,16 @@ export default function ProductCreateFactory (ngComponent) {
       }
     }
 
-
     Object.observe(_.product, function(changes) {
       changes.forEach((change) => {
         _.draft(_.product)
       })
     })
 
-    // ProductStore.on('change', () => {
-    //  _.product = ProductStore.get()
-    // })
+    ProductStore.on('change', () => {
+      console.log('Change Product')
+      _.product = ProductStore.get()
+    })
   }
 }
 
