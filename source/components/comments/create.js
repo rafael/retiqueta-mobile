@@ -19,7 +19,6 @@ export default function CommentCreateDirectiveFactory (ngComponent) {
           })
           .catch(error => {
             console.warn('Error creating new comment for, ', scope.productId)
-            console.log(error)
             Utils.swalError(error)
           })
           .finally(() => {

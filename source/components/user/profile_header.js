@@ -1,7 +1,7 @@
 export default function profileHeaderFactory (ngComponent) {
   ngComponent.directive('profileHeader', profileHeader)
 
-  function profileHeader (User) {
+  function profileHeader (User, Utils) {
     return {
       templateUrl: 'user/profile_header.html',
       restrict: 'E',
@@ -18,7 +18,7 @@ export default function profileHeaderFactory (ngComponent) {
               scope.user.meta.followed_by_current_user = result.following
             })
             .catch(error => {
-              console.log(error)
+              Utils.swalError(error)
             })
         }
       }

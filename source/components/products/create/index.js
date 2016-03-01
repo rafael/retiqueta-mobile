@@ -75,7 +75,6 @@ export default function ProductCreateFactory (ngComponent) {
     function goBack ()  {
       try {
         Utils.confirm('Save this product','Do you what save this product information has a draft?', (buttonIndex) => {
-          console.log(buttonIndex)
           if (buttonIndex == 1) {
             _.draft(_.product)
           } else if(buttonIndex == 2) {

@@ -1,7 +1,7 @@
 export default function searchFactory (ngComponent) {
   ngComponent.controller('SearchProductCtrl', SearchProductCtrl)
 
-  function SearchProductCtrl (Product, $stateParams) {
+  function SearchProductCtrl (Product, $stateParams, Utils) {
     // Initial state
     var _ = this
     _.text = ''
@@ -24,7 +24,7 @@ export default function searchFactory (ngComponent) {
           _.setProducts(result)
         })
         .catch(error => {
-          console.log(error)
+          Utils.swalError(error)
         })
         .finally(() => {
           _.loading = false
