@@ -1,6 +1,5 @@
 import routes from './routes'
 import constans from './constants'
-import locales from './locales'
 
 angular.module('App.configurations', ['ionic'])
 

@@ -4,6 +4,13 @@ angular.module('App.routes', ['ui.router', 'permission'])
 
 let routes = angular.module('App.routes')
 
+const ResolveUser = {
+  currentUser: function(Auth) {
+    return Auth.getCurrentUser()
+  }
+}
+
+
 routes.run(function (Permission, Auth) {
   Permission
   .defineRole('anonymous', function () {
@@ -104,11 +111,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         controller: 'dashboardCtrl as dash'
       }
     },
-    resolve: {
-     currentUser: function(Auth) {
-      return Auth.getCurrentUser()
-     }
-    }
+    resolve: ResolveUser
   })
   .state('users.me', {
     url: '/me',
@@ -144,11 +147,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         controller: 'profileEditCtrl as profile'
       }
     },
-    resolve: {
-      currentUser: function (Auth) {
-        return Auth.getCurrentUser()
-      }
-    }
+    resolve: ResolveUser
   })
   .state('users.profile', {
     url: '/profile/{userID}',
@@ -167,14 +166,15 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     }
   })
-  .state('users.productsNew', {
+  .state('productsNew', {
     url: '/products/new',
-    views: {
-      'newproduct-tab': {
-        templateUrl: 'products/create/index.html',
-        controller: 'productCreateCtrl as create'
-      }
-    }
+    templateUrl: 'products/create/index.html',
+    controller: 'productCreateCtrl as create',
+  })
+  .state('productsNewSelectCategory', {
+    url: '/product/new/select-category',
+    templateUrl: 'products/create/select_category.html',
+    controller: 'SelectCategoryCtrl as ctrl'
   })
   .state('users.productsSearch', {
     url: '/search/products/:word?',

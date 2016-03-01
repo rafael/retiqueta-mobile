@@ -4,7 +4,7 @@ export default function profilePictureFactory (ngComponent) {
   function profilePicture (User, Auth) {
     return {
       templateUrl: 'profile/profile_picture.html',
-      retrict: 'E',
+      restrict: 'E',
       scope: {
         user: '='
       },

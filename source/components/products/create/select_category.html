@@ -1,0 +1,19 @@
+<ion-view view-title="{{ 'PRODUCT_FORM_CATEGORY' | translate }}">
+  <ion-nav-bar class="bar-assertive">
+    <ion-nav-buttons side="left">
+      <a class="button back-button buttons button-clear header-item" ui-sref="productsNew">
+        <i class="icon ion-ios-arrow-back"></i>
+      </a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content padding="true" class="form-basic form-with-labels new_product">
+
+    <form form-for="ctrl.product"
+      validation-rules="ctrl.validationRules">
+      <select-category-field attribute="category"
+        options="ctrl.validationRules.category.values"
+        auto-toggle-modal="false">
+      </select-category-field>
+    </form>
+  </ion-content>
+</ion-view>

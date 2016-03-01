@@ -1,16 +1,40 @@
-<p ng-repeat="picture in ctrl.pictures">
-  <img 
-  style="max-width: 100%" 
-  src="{{ picture.attributes.url }}" 
-  alt="">
-</p>
-<p ng-hide="ctrl.loadingPicture">
-  <picture-input 
-    upload-text="'UPLOAD_PICTURE' | translate"
-    take-text="'TAKE_PICTURE' | translate"
-    on-change="ctrl.updatePicture">
-</p>
-<p ng-show="ctrl.loadingPicture">
-  <span class="button button-block button-positive">{{ 'UPLOADING_PICTURE' | translate }}</span>
-</p>
+<ion-scroll direction="x"  class="pictures-scroll">
+  <div class="pictures-scroll-item" ng-repeat="picture in ctrl.pictures">
+    <img ng-if="ctrl.hasUrl(picture)" src="{{picture.attributes.url}}" alt="">
+    <button
+      ng-if="!ctrl.hasUrl(picture)"
+      class="add-picture"
+      ng-click="ctrl.setSelectSource($index)">
+      <i class="ion-plus"></i>
+    </button>
+  </div>
+</ion-scroll>
+
+<div ng-if="ctrl.selectSource" class="modal ng-cloak">
+  <section class="modal-content">
+    <header class="modal-header">
+      <i ng-click="ctrl.setSelectSource(ctrl.pictureIndex, false)" class="modal-close ion-close"></i>
+    </header>
+    <section class="modal-body">
+      <button
+        ng-hide="ctrl.loadingPicture"
+        ng-click="ctrl.uploadPic()"
+        class="button button-block button-positive">
+        {{ 'UPLOAD_PICTURE' | translate }}
+      </button>
+      <button
+        ng-hide="ctrl.loadingPicture"
+        ng-click="ctrl.takePic()"
+        class="button button-block button-positive">
+        {{ 'TAKE_PICTURE' | translate }}
+      </button>
+      <button
+        ng-show="ctrl.loadingPicture"
+        class="button button-block button-positive">
+        {{ 'UPLOADING_PICTURE' | translate }}
+      </button>
+    </section>
+  </section>
+</div>
+
 

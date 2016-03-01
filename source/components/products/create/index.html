@@ -1,18 +1,92 @@
-<ion-view view-title="{{ 'ADD_PRODUCT_TO_WARDROBE' | translate }}">
-  <ion-content padding="true">
+<ion-view view-title="{{ 'LETS_RETIQUETA' | translate }}">
+  <ion-nav-bar class="bar-assertive">
+    <ion-nav-buttons side="left">
+      <button class="button back-button buttons button-clear header-item" ng-click="create.goBack()">
+        <i class="icon ion-ios-arrow-back"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content padding="true" class="form-basic form-with-labels new_product">
     <product-picture></product-picture>
-    <form 
-      form-for="create.product" 
-      form-for-builder 
-      validation-rules="create.validationRules" 
+    <p ng-if="create.pictureHasErrors()" class="pictures-errors">
+      {{ create.pictureErrors.message }}
+    </p>
+    <form form-for="create.product"
+      controller="create.formController"
+      validation-rules="create.validationRules"
       submit-with="create.submit(create.product)">
-      <submit-button  disable="create.sendingInfo" label="{{ 'SUBMIT' | translate }}" ></submit-button>
-      <span class="submit-button" ng-click="create.draft(create.product)">
-        {{ 'SAVE_DRAFT' | translate }}
-      </span>
-      <span class="submit-button" ng-click="create.removeDraft()">
-        {{ 'REMOVE_DRAFT' | translate }}
-      </span>
+
+      <text-field attribute="title"
+        label="{{ 'PRODUCT_FORM_TITLE' | translate }}"
+        placeholder="{{ create.validationRules.title.placeholder}}"
+        type="text">
+      </text-field>
+
+      <text-field attribute="description"
+        label="{{ 'PRODUCT_FORM_DESCRIPTION' | translate }}"
+        placeholder="{{ create.validationRules.description.placeholder}}"
+        type="text">
+      </text-field>
+
+      <div class="row">
+        <div class="col-50">
+          <text-field attribute="category"
+            label="{{ 'PRODUCT_FORM_CATEGORY' | translate }}"
+            placeholder="{{ create.validationRules.category.placeholder}}"
+            type="text"
+            ng-click="create.goToSelect()"
+            ng-disabled="true">
+          </text-field>
+        </div>
+        <div class="col-50">
+          <text-field attribute="size"
+            label="{{ 'PRODUCT_FORM_SIZE' | translate }}"
+            placeholder="{{ create.validationRules.size.placeholder}}"
+            type="text"
+            ng-disabled="true">
+          </text-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-50">
+          <text-field attribute="original_price"
+            label="{{ 'PRODUCT_FORM_ORIGINAL_PRICE' | translate }}"
+            placeholder="{{ create.validationRules.original_price.placeholder}}"
+            type="text">
+          </text-field>
+        </div>
+        <div class="col-50">
+          <text-field attribute="price"
+            label="{{ 'PRODUCT_FORM_PRICE' | translate }}"
+            placeholder="{{ create.validationRules.price.placeholder}}"
+            type="text">
+          </text-field>
+        </div>
+      </div>
+
+      <div class="submit-area bg-stable">
+        <div class="label">
+          {{ 'PRODUCT_FORM_COMITION' | translate }}
+        </div>
+        <div class="comition">
+          {{ create.comitionCalculate(create.product) }}
+        </div>
+      </div>
+
+      <div class="submit-area">
+        <span class="polis">
+          <a href="#">
+            {{ 'COMISION_POLITICS' | translate }}
+          </a>
+        </span>
+        <submit-button  disable="create.sendingInfo" label="{{ 'SUBMIT' | translate }}" ></submit-button>
+        <!--
+        <span class="submit-button" ng-click="create.removeDraft()">
+          {{ 'REMOVE_DRAFT' | translate }}
+        </span>
+        -->
+      </div>
     </form>
   </ion-content>
 </ion-view>

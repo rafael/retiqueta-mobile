@@ -24,6 +24,8 @@ var gulp = require('gulp'),
     protractor = require('gulp-protractor').protractor,
     standard = require('gulp-standard'),
     sass = require('gulp-sass');
+var autoprefixer = require('gulp-autoprefixer');
+
 
 var source_paths = {
   sass: './source/sass/app.scss',
@@ -69,6 +71,7 @@ tasks = {
     return gulp.src(source_paths.sass)
       .pipe(globbing({extensions: ['.scss']}))
       .pipe(sass.sync().on('error', sass.logError))
+      .pipe(autoprefixer({ browsers: ['> 1%','iOS 7'], flexbox: true }))
       .pipe(minifyCss({compatibility: 'ie8'}))
       .pipe(rename(tasks.assetProdName('css')))
       .pipe(gulp.dest(source_paths.prod_css));
@@ -77,6 +80,7 @@ tasks = {
     return gulp.src(source_paths.sass)
       .pipe(globbing({extensions: ['.scss']}))
       .pipe(sass.sync().on('error', sass.logError))
+      .pipe(autoprefixer({ browsers: ['> 1%','iOS 7'], flexbox: true }))
       .pipe(gulp.dest(source_paths.dev_css));
   },
   injectHtml: function(dest, injected_files) {

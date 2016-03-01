@@ -1,0 +1,144 @@
+.form-basic.new_product {
+	form {
+		select-field {
+			.form-for-field::before {
+				display: block;
+			}
+		}
+		.row {
+			padding: 0;
+			.form-for-field {
+				margin-top: 0;
+			}
+		}
+		.form-for-field {
+			margin: 1.5em 0;
+			&:before {
+				top: 1.1em;
+			}
+			input:disabled,
+			textarea:disabled {
+				opacity: 1;
+				background: none;
+				cursor: pointer;
+			}
+			&.invalid {
+				margin-bottom: 2.8em;
+			}
+			.form-for-select-arrows:after {
+				display: none;
+			}
+			label {
+				margin-bottom: 0;
+				padding-bottom: 0;
+				color: darken($dark,10%);
+			}
+			select {
+				background: none;
+				border: none;
+				box-shadow: 0 1px 0px rgba(0, 0, 0, 0.15);
+				border-radius: 0;
+				padding: 0.8em 0.6em;
+			}
+			input,
+			select,
+			textarea {
+				color: darken($dark, 50%);
+				font-size: 1.1em;
+			}
+		}
+		.submit-area {
+			background-color: white;
+			width: calc( 100% + 20px);
+			position: relative;
+			left: -10px;
+			padding: 0.8em 0.8em;
+			&.bg-stable {
+				background: $stable;
+				.label {
+					color: $dark;
+				}
+				.comition {
+					color: $assertive;
+					font-weight: bold;
+					font-size: 1.2em;
+				}
+			}
+			&:before,
+			&:after {
+				content: "";
+				display: block;
+				clear: both;
+			}
+			.polis {
+				font-size: 0.9em;
+				padding-top: 0.6em;
+				display: inline-block;
+				color: $dark;
+			}
+			.submit-button {
+				@extend .button-clear;
+				@extend .button-assertive;
+				color: $assertive;
+				float: right;
+				padding-right: 0.5em;
+				padding-left: 0.5em;
+				border-radius: 0;
+			}
+		}
+	}
+}
+
+.pictures-scroll {
+	margin-bottom: 1em;
+	.scroll {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+	}
+	.pictures-scroll-item {
+		flex: 1 0 30%;
+		margin-right: 2%;
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+		.add-picture {
+			width: 100%;
+			padding: 36% 0;
+			font-size: 1.7em;
+			background: #E0E0E0;
+			border: none;
+		}
+	}
+}
+
+.modal {
+	position: fixed;
+	padding-right: 1.4em;
+	z-index: 10000;
+	.modal-content {
+		height: 100vh;
+		.modal-body {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-content: center;
+			height: 80vh;
+			.button {
+				flex: 1 0 100%;
+			}
+		}
+	}
+	.modal-header {
+		.modal-close {
+			color: $dark;
+			position: relative;
+			top: 0.4em;
+			left: 0.2em;
+			font-size: 2em;
+			cursor: pointer;
+		}
+	}
+}
+
