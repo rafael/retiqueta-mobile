@@ -5,6 +5,9 @@
 				display: block;
 			}
 		}
+		input[name="category"] {
+			pointer-events:none;
+		}
 		.row {
 			padding: 0;
 			.form-for-field {
@@ -117,6 +120,7 @@
 	position: fixed;
 	padding-right: 1.4em;
 	z-index: 10000;
+	background-color: rgba($light, 0.8);
 	.modal-content {
 		height: 100vh;
 		.modal-body {
@@ -124,9 +128,42 @@
 			flex-direction: row;
 			flex-wrap: wrap;
 			align-content: center;
+			justify-content: center;
+			align-items: center;
 			height: 80vh;
+			.actions {
+				flex: 0 1 80%;
+				border: 1px solid $dark;
+				border-radius: 0.5em;
+				overflow: hidden;
+				position: relative;
+				&:before {
+					position: absolute;
+					top: 50%;
+					left: 5%;
+					width: 90%;
+					content: "";
+					display: block;
+					height: 1px;
+					background-color: rgba($dark, 0.7);
+					z-index: 1;
+				}
+			}
 			.button {
-				flex: 1 0 100%;
+				margin-top: 0;
+				margin-bottom: 0;
+				border-radius: 0;
+				text-align: left;
+				padding: 1em 1em;
+				width: 100%;
+				&:before {
+					color: $assertive;
+					margin-right: 0.4em;
+					font-size: 2em;
+				}
+				&.ion-ios-camera-outline:before {
+					font-size: 2.4em;
+				}
 			}
 		}
 	}
@@ -141,4 +178,3 @@
 		}
 	}
 }
-

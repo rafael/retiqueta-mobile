@@ -41,7 +41,6 @@ export default function loginCtrlFactory (ngComponent) {
         $state.go('users.dashboard')
       })
       .catch(error => {
-        console.log(error)
         _.errors = extractErrorByField(error, user, Object.keys(_.errors))
         _.formController.validateForm()
       })
@@ -51,4 +50,3 @@ export default function loginCtrlFactory (ngComponent) {
     }
   }
 }
-

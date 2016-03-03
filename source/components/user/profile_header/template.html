@@ -1,0 +1,49 @@
+<div class="wardrobe profile">
+  <header class="profile-header">
+    <div class="profile-followers row">
+      <div class="col col-33 follow-count followers" >
+        <div class="count">
+          {{ user.attributes.followers_count }}
+        </div>
+        <div class="label">
+          {{ 'FOLLOWERS_COUNT' | translate }}
+        </div>
+      </div>
+      <div class="col col-33 col-offset-33 follow-count following">
+        <div class="count">
+          {{ user.attributes.following_count }}
+        </div>
+        <div class="label">
+          {{ 'FOLLOWING_COUNT' | translate }}
+        </div>
+      </div>
+    </div>
+    <section class="profile-description">
+      <div class="profile-picture row">
+        <div class="col ranking">
+          <stars-rating count="3.5"></stars-rating>
+        </div>
+        <div class="col picture">
+          <img src="{{ user.attributes.profile_pic }}">
+        </div>
+        <div class="col follow_button">
+          <div ng-hide="isOwner">
+            <follow-button follow-handler="toggleFollowship" following="user.meta.followed_by_current_user"></follow-button>
+          </div>
+        </div>
+      </div>
+      <div class="profile-about">
+        <h2 class="profile-name">
+          {{ user.attributes.first_name }}
+          {{ user.attributes.last_name }}
+        </h2>
+        <p class="profile-about">
+          {{ user.attributes.bio }}
+        </p>
+        <p class="profile-url">
+          {{ user.attributes.url }}
+        </p>
+      </div>
+    </section>
+  </header>
+</div>

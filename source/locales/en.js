@@ -37,7 +37,10 @@ var enTranslation = {
   PRODUCT_FORM_PRICE: 'Your retiqueta price',
   PRODUCT_FORM_SIZE: 'Size',
   PRODUCT_FORM_COMITION: 'Your winning',
-  COMISION_POLITICS: 'Politica de comisión de Retiqueta'
+  COMISION_POLITICS: 'Politica de comisión de Retiqueta',
+  FOLLOWERS_COUNT: 'Followers',
+  FOLLOWING_COUNT: 'Following',
+  PROFILE_PRODUCT_COUNT: 'Retiquetas on my wardrobe'
 }
 
 export default enTranslation

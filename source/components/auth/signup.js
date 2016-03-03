@@ -35,7 +35,6 @@ export default function signupCtrlFactory (ngComponent) {
           $state.go('users.dashboard')
         })
         .catch(error => {
-          console.log(error)
           _.errors = extractErrorByField(error.data, user, Object.keys(_.errors))
           _.formController.validateForm()
         })
