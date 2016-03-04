@@ -1,16 +1,15 @@
 export default function profileHeaderFactory (ngComponent) {
   ngComponent.directive('profileHeader', profileHeader)
 
-  function profileHeader (User) {
+  function profileHeader (User, Utils) {
     return {
-      templateUrl: 'user/profile_header.html',
+      templateUrl: 'user/profile_header/template.html',
       restrict: 'E',
       scope: {
         user: '='
       },
       link (scope, element, attrs) {
         scope.isOwner = attrs.owner === 'true'
-
         scope.toggleFollowship = (following) => {
           User.followToggle(scope.user.id, following)
             .then(result => {
@@ -18,7 +17,7 @@ export default function profileHeaderFactory (ngComponent) {
               scope.user.meta.followed_by_current_user = result.following
             })
             .catch(error => {
-              console.log(error)
+              Utils.swalError(error)
             })
         }
       }

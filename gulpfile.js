@@ -25,7 +25,7 @@ var gulp = require('gulp'),
     standard = require('gulp-standard'),
     sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
-
+var webkitAssign = require('webkit-assign/gulp');
 
 var source_paths = {
   sass: './source/sass/app.scss',
@@ -160,6 +160,28 @@ gulp.task('copyIonic', function() {
   .pipe(gulp.dest('./www/'))
 })
 
+gulp.task('cleanIonic', function() {
+  var deferred = Q.defer();
+  del(['./www/ionic.bundle.min.js', './www/ionic.io.bundle.min.js'], function() {
+    deferred.resolve();
+  });
+  return deferred.promise;
+});
+
+
+gulp.task('ionicBundleWebkitAssign', function() {
+  return gulp.src('./source/ionic.bundle.min.js')
+      .pipe(webkitAssign())
+      .pipe(gulp.dest('./www/'));
+})
+
+gulp.task('ionicIOWebkitAssign', function() {
+  return gulp.src('./source/ionic.io.bundle.min.js')
+      .pipe(webkitAssign())
+      .pipe(gulp.dest('./www/'));
+})
+
+
 gulp.task('inject', ['ngHtml', 'copyFonts', 'copyIonic', 'copyImages'], function() {
   return tasks.injectHtml(
     source_paths.dev_html,
@@ -167,7 +189,7 @@ gulp.task('inject', ['ngHtml', 'copyFonts', 'copyIonic', 'copyImages'], function
   )
 })
 
-gulp.task('inject:prod',['ngHtml', 'copyFonts', 'copyIonic' , 'copyImages'], function() {
+gulp.task('inject:prod',['ngHtml', 'copyFonts', 'ionicWebkitAssign', 'copyImages'], function() {
   return tasks.injectHtml(
     source_paths.prod_html,
     es.merge(tasks.prodCss(), tasks.prodBrowserify())

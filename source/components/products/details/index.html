@@ -1,4 +1,11 @@
 <ion-view view-title="{{ 'PRODUCT_DETAIL' | translate }}">
+  <ion-nav-bar class="bar-assertive">
+    <ion-nav-buttons side="left">
+      <button class="button back-button buttons button-clear header-item" ng-click="detail.goBack()">
+        <i class="icon ion-ios-arrow-back"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
   <ion-content padding="true">
     <show-product product="detail.product" detail="true"></show-product>
     <comments-list product-id="{{detail.product.id}}"></comments-list>

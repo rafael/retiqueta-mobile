@@ -1,18 +1,18 @@
 import event from 'events'
+const defaultProduct = {
+  category: '',
+  title: '',
+  description: '',
+  original_price: '',
+  size: '',
+  price: '',
+  pictures: ''
+}
 
 export default function productStoreFacotry (ngComponent) {
   ngComponent.factory('ProductStore', ProductStore)
 
   function ProductStore (ENV) {
-    var defaultProduct = {
-      category: '',
-      title: '',
-      description: '',
-      original_price: '',
-      price: '',
-      pictures: ''
-    }
-
     var Model = {
       clear () {
         window.localStorage.removeItem('cacheProductStore')

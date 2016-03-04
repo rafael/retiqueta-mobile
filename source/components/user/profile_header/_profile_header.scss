@@ -1,0 +1,55 @@
+.wardrobe-count {
+	background-color: $dark;
+	color: white;
+	text-align: center;
+	padding: 0.4em 0.4em;
+}
+.profile {
+	.profile-header {
+		.profile-followers {
+			background-image: url(../images/bg_profile_color.png);
+			color: white;
+			padding: 1em 0 1.4em 0;
+			.follow-count {
+				text-align: center;
+				.count {
+					font-weight: bold;
+				}
+				.label {
+
+				}
+			}
+		}
+		.profile-description {
+			background-color: $stable;
+			text-align: center;
+			padding-bottom: 1em;
+			padding-top: 0.5em;
+			background-image: url(../images/bg_profile.png);
+			.profile-picture {
+				.ranking {
+					font-size: 1.5em;
+					letter-spacing: -0.1em;
+				}
+				.picture {
+					margin-top: -5.5em;
+					img {
+						max-width: 100%;
+						border-radius: 100%;
+					}
+				}
+				.follow_button {}
+			}
+			.profile-about {
+				.profile-name {
+					color: $dark;
+					font-size: 1.2em;
+				}
+				.profile-about {
+					color: darken($dark, 30%);
+				}
+				.profile-url {}
+			}
+		}
+	}
+}
