@@ -25,6 +25,6 @@ export default function(ngComponent) {
     $ionicConfigProvider.tabs.style('standard')
     $ionicConfigProvider.tabs.position('bottom')
     $ionicConfigProvider.scrolling.jsScrolling(false)
-    $ionicConfigProvider.backButton.previousTitleText(false).text('');
+    $ionicConfigProvider.backButton.previousTitleText(false).text('').icon('ion-ios-arrow-back');
   }
 }

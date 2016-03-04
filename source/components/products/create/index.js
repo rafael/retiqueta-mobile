@@ -42,6 +42,7 @@ export default function ProductCreateFactory (ngComponent) {
     }
 
     function goToSelect () {
+      saveDraft(_.product)
       $state.go('productsNewSelectCategory', {}, { location: 'replace', reload: true })
     }
 
@@ -85,7 +86,7 @@ export default function ProductCreateFactory (ngComponent) {
         Utils.confirm('Save this product','Do you what save this product information has a draft?', (buttonIndex) => {
           if (buttonIndex == 1) {
             _.draft(_.product)
-          } else if(buttonIndex == 2) {
+          } else if (buttonIndex == 2) {
             _.removeDraft()
           }
           $state.go('users.dashboard', {}, { location: 'replace', reload: true })
@@ -98,7 +99,7 @@ export default function ProductCreateFactory (ngComponent) {
 
     Object.observe(_.product, function(changes) {
       changes.forEach((change) => {
-        _.draft(_.product)
+        // saveDraft(_.product)
       })
     })
 
