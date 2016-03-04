@@ -21,6 +21,8 @@ require('./utils')(services)
 require('./notifications')(services)
 require('./camera')(services)
 require('./comment')(services)
+require('./mercadopago')(services)
+require('./order')(services)
 // require('./worker')(services)
 
 // Stores (this objects save the state on localStorage)

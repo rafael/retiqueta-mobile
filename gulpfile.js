@@ -181,6 +181,7 @@ gulp.task('ionicIOWebkitAssign', function() {
       .pipe(gulp.dest('./www/'));
 })
 
+gulp.task('ionicWebkitAssign', ['cleanIonic', 'ionicBundleWebkitAssign', 'ionicIOWebkitAssign'])
 
 gulp.task('inject', ['ngHtml', 'copyFonts', 'copyIonic', 'copyImages'], function() {
   return tasks.injectHtml(
@@ -204,7 +205,7 @@ gulp.task('build:watch', ['build'], function() {
   gulp.watch(source_paths.all_html, ['inject'])
 });
 
-gulp.task('dist', ['clean','inject:prod']);
+gulp.task('dist', ['inject:prod']);
 
 gulp.task('serve', ['build:watch'],function() {
   return gulp.src('www')

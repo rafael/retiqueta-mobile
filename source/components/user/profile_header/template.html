@@ -41,7 +41,9 @@
           {{ user.attributes.bio }}
         </p>
         <p class="profile-url">
-          {{ user.attributes.website }}
+          <a href="{{user.attributes.website}}" target="_blank">
+            {{ user.attributes.website }}
+          </a>
         </p>
       </div>
     </section>

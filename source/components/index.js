@@ -36,17 +36,16 @@ require('./products/list_directive')(components)
 require('./products/resume_directive')(components)
 require('./products/details/index')(components)
 
+// Checkout
+require('./checkout/create')(components)
+require('./checkout/creditcard_token')(components)
+
 // Comments
 require('./comments/list')(components)
 require('./comments/create')(components)
 
 // Search
 require('./search/index')(components)
-
-// component example
-// export default function(ngComponent) {
-//   ngComponent.controllers('Example', Example)
-// }
 
 // Util
 require('./utils/file_model')(components)
@@ -55,5 +54,10 @@ require('./utils/picture_input')(components)
 require('./utils/linkify')(components)
 require('./utils/select_category')(components)
 require('./utils/stars_rating')(components)
+
+// component example
+// export default function(ngComponent) {
+//   ngComponent.controllers('Example', Example)
+// }
 
 export default components

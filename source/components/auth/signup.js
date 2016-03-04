@@ -20,7 +20,7 @@ export default function signupCtrlFactory (ngComponent) {
     _.validationRules = userForm
     _.validationRules.username.custom = validationFactory('username', $q).bind(_)
     _.validationRules.email.custom = validationFactory('email', $q).bind(_)
-    _.validationRules.password.custom = validationFactory('password', $q).bind(_)
+    _.validationRules.password.acustom = validationFactory('password', $q).bind(_)
 
     _.submit = (user) => {
       _.sendingInfo = true
@@ -44,3 +44,5 @@ export default function signupCtrlFactory (ngComponent) {
     }
   }
 }
+
+

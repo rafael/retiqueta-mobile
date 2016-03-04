@@ -29,6 +29,14 @@ export function validationFactory (field, $q) {
   }
 }
 
+export function baseErrorsFactory (obj) {
+  let result = {}
+  Object.keys(obj).forEach(key => {
+    result[key] = Object.assign({}, baseErrorObj)
+  })
+  return result
+}
+
 export const baseErrorObj = {
   detail: "",
   last_time_value: ""

@@ -33,7 +33,7 @@ export default function ProductCreateFactory (ngComponent) {
       if($state.is('productsNew')) {
         goBack()
       } else {
-        $ionicHistory.goBack()
+        $ionicHistory.backView()
       }
     }, 101)
 
@@ -89,10 +89,12 @@ export default function ProductCreateFactory (ngComponent) {
           } else if (buttonIndex == 2) {
             _.removeDraft()
           }
+          action()
           $state.go('users.dashboard', {}, { location: 'replace', reload: true })
         })
       }
       catch (e) {
+        action()
         $state.go('users.dashboard', {}, { location: 'replace', reload: true })
       }
     }
@@ -106,6 +108,10 @@ export default function ProductCreateFactory (ngComponent) {
     ProductStore.on('change', () => {
       console.log('Change Product')
       _.product = ProductStore.get()
+    })
+
+    $scope.$on("$destroy", function() {
+      action()
     })
   }
 }

@@ -10,7 +10,6 @@ const ResolveUser = {
   }
 }
 
-
 routes.run(function (Permission, Auth) {
   Permission
   .defineRole('anonymous', function () {
@@ -77,11 +76,6 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
   .state('logout', {
     url: '/logout',
     controller: 'logoutCtrl',
-    data: {
-      permissions: {
-        only: ['client']
-      }
-    }
   })
   .state('update-token', {
     url: '/update-token',
@@ -198,6 +192,15 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         return Product.get($stateParams.productID,  {
           include: 'user,product_pictures'
         })
+      }
+    }
+  })
+  .state('users.productDetails.checkout', {
+    url: '/checkout',
+    views: {
+      'productDetail-tab@users': {
+        templateUrl: 'checkout/create/template.html',
+        controller: 'productCheckout as ctrl'
       }
     }
   })

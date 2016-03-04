@@ -1,0 +1,34 @@
+<ion-view view-title="{{ 'BUY_NOW' | translate }}">
+  <ion-content padding="true">
+    <h1 class="view-title">{{ 'BUY_MESSAGE' | translate  }}</h1>
+    <div class="product-info">
+      <h4>
+        {{ ctrl.product.attributes.title }}
+      </h4>
+      <p>
+        {{ ctrl.product.attributes.description }}
+      </p>
+      <p>
+        {{ ctrl.product.attributes.price }}
+      </p>
+    </div>
+    <div class="form-basic form-with-labels">
+      <form
+        id="address-form"
+        form-for="ctrl.order"
+        controller="ctrl.formController"
+        validation-rules="ctrl.validationRules"
+        submit-with="ctrl.submitCreditForm">
+        <text-field attribute="address"
+          label="{{ 'ORDER_ADDRESS' | translate }}"
+          placeholder="{{ ctrl.validationRules.address.placeholder}}"
+          type="text">
+        </text-field>
+      </form>
+    </div>
+    <credit-card-token
+      on-submit-handler="ctrl.submitCreditForm"
+      on-token-handler="ctrl.PayOrder"
+      saving-order="ctrl.savingOrder"></credit-card-token>
+  </ion-content>
+</ion-view>
