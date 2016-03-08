@@ -55,7 +55,8 @@
     "shelljs": "^0.3.0",
     "sweetalert": "^1.1.0",
     "uglifyify": "^3.0.1",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "webkit-assign": "^1.4.0"
   },
   "cordovaPlugins": [
     "cordova-plugin-device",

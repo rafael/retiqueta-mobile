@@ -6,7 +6,7 @@ const comitionRate = 0.2
 export default function ProductCreateFactory (ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
 
-  function productCreateCtrl ($q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate) {
+  function productCreateCtrl ($ionicHistory, $ionicPlatform, $q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate) {
     FormForConfiguration.enableAutoLabels()
     var _ = this
     _.pictureStore = PictureStore
@@ -29,11 +29,20 @@ export default function ProductCreateFactory (ngComponent) {
     _.pictureHasErrors = hasError
     _.comitionCalculate = ComitionCalculate
 
+    var action = $ionicPlatform.registerBackButtonAction(() => {
+      if($state.is('productsNew')) {
+        goBack()
+      } else {
+        $ionicHistory.goBack()
+      }
+    }, 101)
+
     function ComitionCalculate (product) {
       return product.price * (1 - comitionRate) || 0
     }
 
     function goToSelect () {
+      saveDraft(_.product)
       $state.go('productsNewSelectCategory', {}, { location: 'replace', reload: true })
     }
 
@@ -75,10 +84,9 @@ export default function ProductCreateFactory (ngComponent) {
     function goBack ()  {
       try {
         Utils.confirm('Save this product','Do you what save this product information has a draft?', (buttonIndex) => {
-          console.log(buttonIndex)
           if (buttonIndex == 1) {
             _.draft(_.product)
-          } else if(buttonIndex == 2) {
+          } else if (buttonIndex == 2) {
             _.removeDraft()
           }
           $state.go('users.dashboard', {}, { location: 'replace', reload: true })
@@ -89,16 +97,16 @@ export default function ProductCreateFactory (ngComponent) {
       }
     }
 
-
     Object.observe(_.product, function(changes) {
       changes.forEach((change) => {
-        _.draft(_.product)
+        // saveDraft(_.product)
       })
     })
 
-    // ProductStore.on('change', () => {
-    //  _.product = ProductStore.get()
-    // })
+    ProductStore.on('change', () => {
+      console.log('Change Product')
+      _.product = ProductStore.get()
+    })
   }
 }
 

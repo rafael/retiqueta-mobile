@@ -3,7 +3,7 @@ export default function ProductsDirectiveFactory (ngComponent) {
 
   function productsTag () {
     return {
-      templateUrl: 'products/list_directive.html',
+      templateUrl: 'products/list_directive/template.html',
       restrict: 'E',
       scope: {
         products: '='

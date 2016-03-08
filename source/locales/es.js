@@ -18,8 +18,8 @@ var esTranslation = {
   ADD_PRODUCT_TO_WARDROBE: 'Crea tu nuevo producto',
   SEARCH_PRODUCT: 'Buscar producto',
   WARDROBE_TITLE: 'closet',
-  NOT_RESULT_FOR_SEARCH: 'Ningun reltado para tu busqueda',
-  SEARCHING: 'Buscado ...',
+  NOT_RESULT_FOR_SEARCH: 'No hemos encontrado resultados para tu busqueda',
+  SEARCHING: 'Buscando ...',
   EDIT_PROFILE: 'Editar mi perfil',
   SYSTEM_OPTIONS: 'Opciones del sistema',
   SIGNOUT: 'Salir de retiqueta',
@@ -37,7 +37,10 @@ var esTranslation = {
   PRODUCT_FORM_PRICE: 'Precio Retiqueta',
   PRODUCT_FORM_SIZE: 'Talla',
   PRODUCT_FORM_COMITION: 'Tu ganancia',
-  COMISION_POLITICS: 'Politica de comisi\ón de Retiqueta'
+  COMISION_POLITICS: 'Politica de comisi\ón de Retiqueta',
+  FOLLOWERS_COUNT: 'Seguidores',
+  FOLLOWING_COUNT: 'Siguidos',
+  PROFILE_PRODUCT_COUNT: 'Retiquetas en mi closet'
 }
 
 export default esTranslation

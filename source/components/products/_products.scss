@@ -1,7 +1,18 @@
-
-
 .item-avatar {
 	.avatar {
 		&.avatar-small {}
+	}
+}
+
+.products {
+	@extend .flex-container;
+	@extend .flex-start;
+	justify-content: space-between;
+	padding-bottom: 2em;
+	.product-resume {
+		flex: 0 1 32%;
+		img {
+			max-width: 100%;
+		}
 	}
 }

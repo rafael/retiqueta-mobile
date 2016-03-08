@@ -3,9 +3,7 @@ export default function(ngComponent) {
   ngComponent.config(configIonic)
   ngComponent.run(onRunningConfiguration)
 
-  function onRunningConfiguration ($ionicConfig, $ionicPlatform, $ionicAnalytics, ENV, AppPush, Auth) {
-    $ionicConfig.views.maxCache(0);
-
+  function onRunningConfiguration($ionicPlatform, $ionicAnalytics, ENV, AppPush, Auth) {
     $ionicPlatform.ready(function() {
       AppPush.init()
 
@@ -27,6 +25,6 @@ export default function(ngComponent) {
     $ionicConfigProvider.tabs.style('standard')
     $ionicConfigProvider.tabs.position('bottom')
     $ionicConfigProvider.scrolling.jsScrolling(false)
+    $ionicConfigProvider.backButton.previousTitleText(false).text('').icon('ion-ios-arrow-back');
   }
-
 }
