@@ -168,7 +168,6 @@ gulp.task('cleanIonic', function() {
   return deferred.promise;
 });
 
-
 gulp.task('ionicBundleWebkitAssign', function() {
   return gulp.src('./source/ionic.bundle.min.js')
       .pipe(webkitAssign())

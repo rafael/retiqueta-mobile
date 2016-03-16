@@ -76,6 +76,11 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
   .state('logout', {
     url: '/logout',
     controller: 'logoutCtrl',
+    data: {
+      permissions: {
+        only: ['client']
+      }
+    }
   })
   .state('update-token', {
     url: '/update-token',

@@ -16,6 +16,28 @@ export default function productCheckoutFactory (ngComponent) {
     }
     _.PayOrder = PayOrder
     _.submitCreditForm = submitCreditForm
+    _.creditcard = {}
+    _.cardioReader = cardioReader
+
+    function cardioReader (responsePromise) {
+      _.savingOrder = true
+      responsePromise
+      .then((response) => {
+        Object.assign(_.creditcard, {
+          cardNumber: response.card_number,
+          cardExpirationMonth: response.expiry_month,
+          cardExpirationYear: response.expiry_year,
+          securityCode: response.cvv
+        })
+        console.log(_.creditcard)
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+      .finally(() => {
+        _.savingOrder = false
+      })
+    }
 
     function submitCreditForm () {
       _.formController.validateForm(true)
