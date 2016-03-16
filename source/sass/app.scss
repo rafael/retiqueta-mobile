@@ -1,5 +1,6 @@
 @import "vars";
 @import "../../vendors/ionic/scss/ionic";
+@import "./ionicicons";
 
 // Vendors
 // Must vendors css have to be converted to scss file manualy in order to be imported here
@@ -17,6 +18,27 @@
 
 a {
 	color: $dark;
+}
+
+.tabs-light > .tabs, .tabs.tabs-light {
+	background-color: $stable;
+}
+
+.tabs-icon-only > .tabs .tab-item  {
+	.icon.ion-retiqueta {
+		color: $assertive;
+		position: relative;
+		top: 0.05em;
+	}
+	.icon.ion-ios-pricetags-outline {
+		position: relative;
+		top: 0.08em;
+	}
+	&.tabs-item-active {
+		.icon.ion-retiqueta {
+			color: white;
+		}
+	}
 }
 
 .text-stable { color: $stable; }

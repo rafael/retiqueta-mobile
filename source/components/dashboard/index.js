@@ -1,8 +1,8 @@
 export default function DashboardFactory (ngComponent) {
   ngComponent.controller('dashboardCtrl', dashCtrl)
 
-  function dashCtrl (currentUser, Product) {
+  function dashCtrl (productsArray) {
     var _ = this
-    _.current_user = currentUser
+    _.products = productsArray
   }
 }

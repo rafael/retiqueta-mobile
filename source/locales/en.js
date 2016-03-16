@@ -7,7 +7,7 @@ var enTranslation = {
   SAVE_DRAFT: 'Save draft',
   SIGNUP_SUCCESS: 'Your account has been created',
   WELCOME_MESSAGE: 'Hi!, Welcome to Retiqueta',
-  DASHBOARD_TITLE: 'Dashboard',
+  DASHBOARD_TITLE: 'Retiqueta',
   PROFILE_TITLE: 'Profile',
   UPDATE_PROFILE_SUCCESS: 'Your profile has been updated!',
   UPLOAD_PICTURE: 'Select from gallery',
