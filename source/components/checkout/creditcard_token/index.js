@@ -21,7 +21,7 @@ export default function CreditCardTokenFactory (ngComponent) {
         onTokenHandler: '=',
         onSubmitHandler: '=',
         savingOrder: '=',
-        creditcard: "@"
+        creditcard: "="
       },
       link: {
         pre (scope) {
@@ -36,6 +36,15 @@ export default function CreditCardTokenFactory (ngComponent) {
           scope.changeCredictCard = changeCredictCard
           scope.hasError = hasError
           MercadopagoFactory.getIdentificationTypes()
+
+          Object.observe(scope.creditcard, function(changes) {
+            changes.forEach(function(change) {
+              if (change.name === 'cardNumber' && change.type === 'update') {
+                console.log('change on credicard')
+                changeCredictCard()
+              }
+            })
+          })
 
           function changeCredictCard () {
             if (scope.creditcard.cardNumber.length >= 6) {

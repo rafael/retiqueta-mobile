@@ -26,7 +26,16 @@
         </text-field>
       </form>
     </div>
+    <div class="scan-cardio">
+      <button
+        cardio-reader
+        class="button button-block button-positive"
+        handler="ctrl.cardioReader">
+        Scan your credict card to extract card info
+      </button>
+    </div>
     <credit-card-token
+      creditcard="ctrl.creditcard"
       on-submit-handler="ctrl.submitCreditForm"
       on-token-handler="ctrl.PayOrder"
       saving-order="ctrl.savingOrder"></credit-card-token>

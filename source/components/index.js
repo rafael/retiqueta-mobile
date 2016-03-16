@@ -54,6 +54,7 @@ require('./utils/picture_input')(components)
 require('./utils/linkify')(components)
 require('./utils/select_category')(components)
 require('./utils/stars_rating')(components)
+require('./utils/cardio-reader')(components)
 
 // component example
 // export default function(ngComponent) {
