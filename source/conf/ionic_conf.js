@@ -1,4 +1,4 @@
-export default function(ngComponent) {
+export default function (ngComponent) {
 
   ngComponent.config(configIonic)
   ngComponent.run(onRunningConfiguration)

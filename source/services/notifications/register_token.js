@@ -1,59 +1,34 @@
-function registerForIonicUser(user_id, token) {
-  return new Promise(function(resolve, reject) {
-    Ionic.io()
-    var ionicUser = Ionic.User.current()
-
-    if (!ionicUser.id) {
-      ionicUser.id = user_id
+import uuid from 'node-uuid'
+export default function saveTokenOnApi (Auth, User, $q, ENV) {
+  
+  if (typeof device === 'undefined') {
+    var device = {
+      uuid: uuid.v4(),
+      platform: 'browser'
     }
+  }  
 
-    ionicUser.addPushToken(token)
-    ionicUser.save()
-    resolve(ionicUser)
-  })
-}
-
-export default function RegisterToken (Auth, User, $q, ENV) {
-  return function saveToken (token) {
-    try {
-      let deferred = $q.defer()
-      var user = {}
-      let device = ionic.Platform.device()
-      let data = {
-        token: token._token,
-        device_id: device.uuid,
+  return function(token) {
+    if (ENV.isDevelopment()) {
+      console.info('Saving token on retiqeuta API')
+    }
+    Auth.getUser()
+    .then(current_user => {
+      return User.createToken(current_user.id, {
         environment: ENV.type,
-        platform: ionic.Platform.platform()
-      }
-
+        token: token,
+        device_id: device.uuid,
+        platform: device.platform.toLowerCase()
+      })
+    })
+    .then((result) => {
       if (ENV.isDevelopment()) {
-        console.log("Token assigned for ionic Push")
-        console.log(data)
+        console.info('The User device token has been updated')
+        console.log(result)
       }
-
-      Auth.getUser()
-      .then(current_user => {
-        user = current_user
-        return registerForIonicUser(user.id, token)
-      })
-      .then(ionicUser => {
-        return User.createToken(user.id, data)
-      })
-      .then((result) => {
-        if (ENV.isDevelopment()) {
-          console.info('The User device token has been updated')
-          console.log(result)
-        }
-        deferred.resolve(result)
-      })
-      .catch(deferred.reject)
-
-      return deferred.promise
-    }
-    catch (e){
+    })
+    .catch((e) => {
       console.log(e)
-    }
+    })
   }
 }
-
-
