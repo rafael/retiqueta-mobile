@@ -21,7 +21,15 @@
     </p>
     <p>
       <a href="#" class="subdued">
-        {{ product.attributes.original_price }}
+        {{ product.attributes.price }}
+      </a>
+    </p>
+    <p>
+      <a
+        class="button button-block button-assertive"
+        ui-sref="users.productDetails.checkout({ productID: product.id})">
+        {{ product.price | currency : 'Bs' }}
+        {{ 'BUY_NOW' | translate }}
       </a>
     </p>
   </div>

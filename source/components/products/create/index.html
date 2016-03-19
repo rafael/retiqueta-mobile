@@ -68,7 +68,7 @@
           {{ 'PRODUCT_FORM_COMITION' | translate }}
         </div>
         <div class="comition">
-          {{ create.comitionCalculate(create.product) }}
+          {{ create.comitionCalculate(create.product) | currency:create.currentUser.attributes.currency.code }}
         </div>
       </div>
 

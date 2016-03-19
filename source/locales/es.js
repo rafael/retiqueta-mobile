@@ -7,7 +7,7 @@ var esTranslation = {
   SAVE_DRAFT: 'Guardar como borrador',
   SIGNUP_SUCCESS: 'Tu cuenta ha sido creado con exito',
   WELCOME_MESSAGE: 'Bienvenido a Retiqueta',
-  DASHBOARD_TITLE: 'Dashboard',
+  DASHBOARD_TITLE: 'Retiqueta',
   PROFILE_TITLE: 'Profile',
   UPDATE_PROFILE_SUCCESS: 'Tu perfil ha sido actualizado',
   UPLOAD_PICTURE: 'Seleccionar de la galeria',
@@ -40,7 +40,19 @@ var esTranslation = {
   COMISION_POLITICS: 'Politica de comisi\ón de Retiqueta',
   FOLLOWERS_COUNT: 'Seguidores',
   FOLLOWING_COUNT: 'Siguidos',
-  PROFILE_PRODUCT_COUNT: 'Retiquetas en mi closet'
+  PROFILE_PRODUCT_COUNT: 'Retiquetas en mi closet',
+  BUY_NOW: 'Comprar ahora',
+  ORDER_ADDRESS: 'Direcci\ón de envio',
+  ORDER_PAY: 'Realizar pago',
+  CARD_NUMBER: 'Numero de tarjeta',
+  CARD_SECURITY_CODE: 'Numero de seguridad (CSV)',
+  CARD_EXPIRATION_MONTH: 'Mes de vencimiento',
+  CARD_EXPIRATION_YEAR: 'A\ño de vencimiento',
+  CARD_HOLDER_NAME: 'Titular de la tarjeta',
+  CARD_DOCUMENT_TYPE: 'Tipo de documento de identificaci\ón',
+  CARD_DOCUMENT_NUMBER: 'Numero de documento de identificaci\ón',
+UY_NOW: 'Comprar ahora',
+  BUY_MESSAGE: 'Ya estas a un paso de comprar, necesitamos esta informaci\ón.'
 }
 
 export default esTranslation

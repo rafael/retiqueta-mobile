@@ -1,0 +1,8 @@
+.icon {
+	@extend .ion
+}
+
+.ion-retiqueta:before {
+    content: "\e900";
+}
+

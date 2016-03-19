@@ -7,7 +7,7 @@ var enTranslation = {
   SAVE_DRAFT: 'Save draft',
   SIGNUP_SUCCESS: 'Your account has been created',
   WELCOME_MESSAGE: 'Hi!, Welcome to Retiqueta',
-  DASHBOARD_TITLE: 'Dashboard',
+  DASHBOARD_TITLE: 'Retiqueta',
   PROFILE_TITLE: 'Profile',
   UPDATE_PROFILE_SUCCESS: 'Your profile has been updated!',
   UPLOAD_PICTURE: 'Select from gallery',
@@ -37,10 +37,21 @@ var enTranslation = {
   PRODUCT_FORM_PRICE: 'Your retiqueta price',
   PRODUCT_FORM_SIZE: 'Size',
   PRODUCT_FORM_COMITION: 'Your winning',
-  COMISION_POLITICS: 'Politica de comisión de Retiqueta',
+  COMISION_POLITICS: 'Politica de comisi\ón de Retiqueta',
   FOLLOWERS_COUNT: 'Followers',
   FOLLOWING_COUNT: 'Following',
-  PROFILE_PRODUCT_COUNT: 'Retiquetas on my wardrobe'
+  PROFILE_PRODUCT_COUNT: 'Retiquetas on my wardrobe',
+  BUY_NOW: 'Buy now',
+  ORDER_ADDRESS: 'Shipping Address',
+  ORDER_PAY: 'Process your payment now',
+  CARD_NUMBER: 'Card number',
+  CARD_SECURITY_CODE: 'Security code (CSV)',
+  CARD_EXPIRATION_MONTH: 'Expiration month',
+  CARD_EXPIRATION_YEAR: 'Expiration Year',
+  CARD_HOLDER_NAME: 'Card holder name',
+  CARD_DOCUMENT_TYPE: 'Identification type',
+  CARD_DOCUMENT_NUMBER: 'Identification number',
+  BUY_MESSAGE: ' Your are one step away of your new item, just fill this information'
 }
 
 export default enTranslation

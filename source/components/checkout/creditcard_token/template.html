@@ -1,0 +1,118 @@
+<div class="form-basic form-with-labels">
+  <form
+    name="creditcardinfo"
+    ng-submit="createToken()">
+    <ul>
+      <input ng-if="creditcard.methodID" type="hidden" name="paymentMethodId" value="{{creditcard.methodID}}">
+      <li class="form-for-field"  ng-class="{'invalid': hasError('cardNumber')}">
+        <label class="field-label" for="cardNumber">
+          {{ 'CARD_NUMBER' | translate }}
+        </label>
+        <input
+        type="text"
+        id="cardNumber"
+        data-checkout="cardNumber"
+        ng-model="creditcard.cardNumber"
+        placeholder="4509953566233704" />
+        <p ng-if="hasError('cardNumber')" class="field-error">
+          {{ errors.cardNumber.detail }}
+        </p>
+      </li>
+      <div class="row">
+        <div class="col col-33">
+          <li class="form-for-field"  ng-class="{'invalid': hasError('securityCode')}">
+            <label class="field-label" for="securityCode">
+              {{ 'CARD_SECURITY_CODE' | translate }}
+            </label>
+            <input
+            type="text"
+            id="securityCode"
+            ng-model="creditcard.securityCode"
+            data-checkout="securityCode"
+            placeholder="123"
+            ng-disable="true"/>
+            <p ng-if="hasError('securityCode')" class="field-error">
+              {{ errors.securityCode.detail }}
+            </p>
+          </li>
+        </div>
+        <div class="col col-33">
+          <li class="form-for-field"  ng-class="{'invalid': hasError('cardExpirationMonth')}">
+            <label class="field-label" for="cardExpirationMonth">
+              {{ 'CARD_EXPIRATION_MONTH' | translate }}
+            </label>
+            <input
+            type="text"
+            id="cardExpirationMonth"
+            ng-model="creditcard.cardExpirationMonth"
+            data-checkout="cardExpirationMonth"
+            ng-disable="true"
+            placeholder="12" />
+            <p ng-if="hasError('cardExpirationMonth')" class="field-error">
+              {{ errors.cardExpirationMonth.detail }}
+            </p>
+          </li>
+        </div>
+        <div class="col col-33">
+          <li class="form-for-field"  ng-class="{'invalid': hasError('cardExpirationYear')}">
+            <label class="field-label" for="cardExpirationYear">
+              {{ 'CARD_EXPIRATION_YEAR' | translate }}
+            </label>
+            <input
+            type="text"
+            id="cardExpirationYear"
+            ng-model="creditcard.cardExpirationYear"
+            data-checkout="cardExpirationYear"
+            ng-disable="true"
+            placeholder="2016" />
+            <p ng-if="hasError('cardExpirationYear')" class="field-error">
+              {{ errors.cardExpirationYear.detail }}
+            </p>
+          </li>
+        </div>
+      </div>
+      <li class="form-for-field mt0"  ng-class="{'invalid': hasError('cardholderName')}">
+        <label class="field-label" for="cardholderName">
+          {{ 'CARD_HOLDER_NAME' | translate }}
+        </label>
+        <input
+        type="text"
+        id="cardholderName"
+        ng-model="creditcard.cardholderName"
+        data-checkout="cardholderName"
+        placeholder="Pedro Perez" />
+        <p ng-if="hasError('cardholderName')" class="field-error">
+          {{ errors.cardholderName.detail }}
+        </p>
+      </li>
+      <li class="form-for-field">
+        <label class="field-label" for="docType">
+          {{ 'CARD_DOCUMENT_TYPE' | translate }}
+        </label>
+        <select
+          id="docType"
+          data-checkout="docType">
+        </select>
+      </li>
+      <li class="form-for-field" ng-class="{'invalid': hasError('docNumber')}">
+        <label class="field-label" for="docNumber">
+          {{ 'CARD_DOCUMENT_NUMBER' | translate }}
+        </label>
+        <input
+        type="text"
+        id="docNumber"
+        ng-model="creditcard.docNumber"
+        data-checkout="docNumber"
+        placeholder="12345678" />
+        <p ng-if="hasError('docNumber')" class="field-error">
+          {{ errors.docNumber.detail }}
+        </p>
+      </li>
+    </ul>
+    <input
+      class="button button-block button-assertive"
+      ng-disabled="savingOrder"
+      type="submit"
+      value="{{ 'ORDER_PAY' | translate }}" />
+  </form>
+</div>

@@ -97,6 +97,7 @@ export default function AuthFactory (ngComponent) {
 
     // Logout user
     this.logout = () => {
+      ENV.auth = {}
       window.localStorage.clear()
       $rootScope.$broadcast('session:finish')
     }

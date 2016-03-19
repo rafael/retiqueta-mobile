@@ -7,7 +7,7 @@ export default function ProductDetailFactory (ngComponent) {
     _.goBack = goBack
 
     function goBack () {
-      history.go(-1)
+      $ionicHistory.goBack()
     }
   }
 }

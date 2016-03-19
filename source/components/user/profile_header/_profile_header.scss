@@ -48,7 +48,11 @@
 				.profile-about {
 					color: darken($dark, 30%);
 				}
-				.profile-url {}
+				.profile-url {
+					a {
+						color: $assertive;
+					}
+				}
 			}
 		}
 	}

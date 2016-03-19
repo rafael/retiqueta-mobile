@@ -13,7 +13,7 @@ export default function(ngComponent) {
 
     if (ENV.isDevelopment()) {
       console.info('Saving Comment model on window')
-      window.Product = Model
+      window.Comment = Model
     }
     return Model
   }

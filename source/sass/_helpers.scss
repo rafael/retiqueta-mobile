@@ -1,8 +1,8 @@
 @for $i from 0 through 10 {
-	.mt#{$i} { margin-top: $i * 1em; }
-	.mb#{$i} { margin-bottom: $i * 1em; }
-	.mr#{$i} { margin-right: $i * 1em; }
-	.ml#{$i} { margin-left: $i * 1em; }
+	.mt#{$i} { margin-top: $i * 1em !important; }
+	.mb#{$i} { margin-bottom: $i * 1em !important; }
+	.mr#{$i} { margin-right: $i * 1em !important; }
+	.ml#{$i} { margin-left: $i * 1em !important; }
 }
 
 @for $i from 0 through 10 {
@@ -12,16 +12,26 @@
 	.pl#{$i} { padding-left: $i * 1em; }
 }
 
-.flex-container {
-	display: flex;
+.view-title {
+	font-size: 1.8em;
+}
+
+@mixin flex-container {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 }
 
-.flex-start {
+@mixin flex-start {
 	align-items: flex-start;
 	justify-content: flex-start;
 	align-content: flex-start;
 }
 
+.flex-container {
+	@include flex-container;
+}
+
+.flex-start {
+	@include flex-start;
+}

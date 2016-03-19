@@ -6,9 +6,11 @@ const comitionRate = 0.2
 export default function ProductCreateFactory (ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
 
-  function productCreateCtrl ($ionicHistory, $ionicPlatform, $q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate) {
+  function productCreateCtrl ($ionicHistory, $ionicPlatform, $q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate, currentUser) {
     FormForConfiguration.enableAutoLabels()
     var _ = this
+    _.currentUser = currentUser
+    console.log(_.currentUser)
     _.pictureStore = PictureStore
     _.product = ProductStore.get()
     _.sendingInfo = false
@@ -33,7 +35,7 @@ export default function ProductCreateFactory (ngComponent) {
       if($state.is('productsNew')) {
         goBack()
       } else {
-        $ionicHistory.goBack()
+        $ionicHistory.backView()
       }
     }, 101)
 
@@ -89,10 +91,12 @@ export default function ProductCreateFactory (ngComponent) {
           } else if (buttonIndex == 2) {
             _.removeDraft()
           }
+          action()
           $state.go('users.dashboard', {}, { location: 'replace', reload: true })
         })
       }
       catch (e) {
+        action()
         $state.go('users.dashboard', {}, { location: 'replace', reload: true })
       }
     }
@@ -106,6 +110,10 @@ export default function ProductCreateFactory (ngComponent) {
     ProductStore.on('change', () => {
       console.log('Change Product')
       _.product = ProductStore.get()
+    })
+
+    $scope.$on("$destroy", function() {
+      action()
     })
   }
 }
