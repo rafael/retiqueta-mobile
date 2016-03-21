@@ -5,6 +5,7 @@ var enTranslation = {
   SUBMIT: 'Save',
   SIGNIN: 'Get my inside',
   SAVE_DRAFT: 'Save draft',
+  SETTINGS: 'Configuration',
   SIGNUP_SUCCESS: 'Your account has been created',
   WELCOME_MESSAGE: 'Hi!, Welcome to Retiqueta',
   DASHBOARD_TITLE: 'Retiqueta',
@@ -51,7 +52,13 @@ var enTranslation = {
   CARD_HOLDER_NAME: 'Card holder name',
   CARD_DOCUMENT_TYPE: 'Identification type',
   CARD_DOCUMENT_NUMBER: 'Identification number',
-  BUY_MESSAGE: ' Your are one step away of your new item, just fill this information'
+  BUY_MESSAGE: ' Your are one step away of your new item, just fill this information',
+  MY_FAVORITE: 'My favorites',
+  MY_ORDERS: 'My orders',
+  MY_SALES: 'My sales',
+  MY_BALANCE: 'My balance',
+  EDIT_PROFILE: 'Edit profile',
+  FAQ: 'FAQ'
 }
 
 export default enTranslation

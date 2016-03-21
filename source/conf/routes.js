@@ -158,6 +158,56 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     },
     resolve: ResolveUser
   })
+  .state('users.favorites', {
+    url: '/favorites',
+    views: {
+      'me-tab': {
+        templateUrl: 'favorites/template.html',
+        controller: 'favoritesCtrl as ctrl'
+      }
+    },
+    resolve: ResolveUser
+  })
+  .state('users.orders', {
+    url: '/orders',
+    views: {
+      'me-tab': {
+        templateUrl: 'orders/template.html',
+        controller: 'ordersCtrl as ctrl'
+      }
+    },
+    resolve: ResolveUser
+  })
+  .state('users.sales', {
+    url: '/sales',
+    views: {
+      'me-tab': {
+        templateUrl: 'sales/template.html',
+        controller: 'salesCtrl as ctrl'
+      }
+    },
+    resolve: ResolveUser
+  })
+  .state('users.balance', {
+    url: '/balance',
+    views: {
+      'me-tab': {
+        templateUrl: 'balance/template.html',
+        controller: 'balanceCtrl as ctrl'
+      }
+    },
+    resolve: ResolveUser
+  })
+  .state('users.faq', {
+    url: '/faq',
+    views: {
+      'me-tab': {
+        templateUrl: 'faq/template.html',
+        controller: 'faqCtrl as ctrl'
+      }
+    },
+    resolve: ResolveUser
+  })
   .state('users.profile', {
     url: '/profile/{userID}',
     views: {

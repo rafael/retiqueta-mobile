@@ -4,6 +4,7 @@ var esTranslation = {
   CREATE_ACCOUNT: '\¡A Retiqueta!',
   SUBMIT: 'Publicar',
   SIGNIN: 'Ingresar',
+  SETTINGS: 'Opciones',
   SAVE_DRAFT: 'Guardar como borrador',
   SIGNUP_SUCCESS: 'Tu cuenta ha sido creado con exito',
   WELCOME_MESSAGE: 'Bienvenido a Retiqueta',
@@ -51,8 +52,14 @@ var esTranslation = {
   CARD_HOLDER_NAME: 'Titular de la tarjeta',
   CARD_DOCUMENT_TYPE: 'Tipo de documento de identificaci\ón',
   CARD_DOCUMENT_NUMBER: 'Numero de documento de identificaci\ón',
-UY_NOW: 'Comprar ahora',
-  BUY_MESSAGE: 'Ya estas a un paso de comprar, necesitamos esta informaci\ón.'
+  BUY_NOW: 'Comprar ahora',
+  BUY_MESSAGE: 'Ya estas a un paso de comprar, necesitamos esta informaci\ón.',
+  MY_FAVORITE: 'Mis favoritos',
+  MY_ORDERS: 'Mis ordenes',
+  MY_SALES: 'Mis ventas',
+  MY_BALANCE: 'Mi Balance',
+  EDIT_PROFILE: 'Editar perfil',
+  FAQ: 'Preguntas frecuentes'
 }
 
 export default esTranslation
