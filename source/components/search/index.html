@@ -8,9 +8,8 @@
         placeholder="Search"
         ng-model='search.text'
         ng-keypress='search.enterHandle($event)'/>
-
       </label>
-      <button class="button button-clear" type="reset">
+      <button class="button button-clear" type="button" ng-click="search.clear()">
         Cancel
       </button>
     </form>
