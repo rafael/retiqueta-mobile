@@ -6,7 +6,7 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content padding="true" class="form-basic form-with-labels new_product">
+  <ion-content padding="true" scroll="true" class="form-basic form-with-labels new_product">
     <product-picture></product-picture>
     <p ng-if="create.pictureHasErrors()" class="pictures-errors">
       {{ create.pictureErrors.message }}
