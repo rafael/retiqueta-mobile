@@ -10,6 +10,10 @@ const ResolveUser = {
   }
 }
 
+const ResolveMerge = (base, extend) => {
+  return Object.assign({}, base, extend)
+}
+
 routes.run(function (Permission, Auth) {
   Permission
   .defineRole('anonymous', function () {
@@ -106,11 +110,17 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     url: '/dashboard',
     views: {
       'dashboard-tab': {
-        templateUrl: 'products/dashboard/index.html',
-        controller: 'dashboardCtrl as dash'
+        templateUrl: 'dashboard/index.html',
+        controller: 'dashboardCtrl as ctrl'
       }
     },
-    resolve: ResolveUser
+    resolve: ResolveMerge(ResolveUser, {
+      productsArray (Product) {
+        return Product.getFeatured({
+          include: 'product_pictures'
+        })
+      }
+    })
   })
   .state('users.me', {
     url: '/me',
@@ -169,6 +179,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     url: '/products/new',
     templateUrl: 'products/create/index.html',
     controller: 'productCreateCtrl as create',
+    resolve: ResolveUser
   })
   .state('productsNewSelectCategory', {
     url: '/product/new/select-category',

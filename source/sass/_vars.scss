@@ -17,12 +17,13 @@ $assertive-dark: #DC6D55;
 $dark: #A8A8A8;
 $stable: #F2F2F2;
 $facebook: #0571b9;
+$stable-dark: darken($stable, 30%);
 
 
 // Base
 // -------------------------------
 
-$font-family-sans-serif:           '-apple-system', "Helvetica Neue", "Roboto", "Segoe UI", sans-serif !default;
+$font-family-sans-serif:          '-apple-system', "Helvetica Neue", "Roboto", "Segoe UI", sans-serif !default;
 
 $font-family-light-sans-serif:    '-apple-system', "HelveticaNeue-Light", "Roboto-Light", "Segoe UI-Light", sans-serif-light !default;
 $font-family-serif:               serif !default;

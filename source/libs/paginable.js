@@ -5,9 +5,10 @@ export default function paginableFactory (url, $http, $q) {
   return function (query) {
     var deferred = $q.defer()
     var queryString = UrlBuilder(query)
+    var fullUrl = `${url}/${queryString}`
     $http({
       method: 'GET',
-      url: `${url}/${queryString}`
+      url: fullUrl
     })
       .then(result => {
         if (result.data.hasOwnProperty('data')) {

@@ -16,16 +16,22 @@
 	font-size: 1.8em;
 }
 
-.flex-container {
-	display: flex;
+@mixin flex-container {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 }
 
-.flex-start {
+@mixin flex-start {
 	align-items: flex-start;
 	justify-content: flex-start;
 	align-content: flex-start;
 }
 
+.flex-container {
+	@include flex-container;
+}
+
+.flex-start {
+	@include flex-start;
+}

@@ -6,9 +6,11 @@ const comitionRate = 0.2
 export default function ProductCreateFactory (ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
 
-  function productCreateCtrl ($ionicHistory, $ionicPlatform, $q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate) {
+  function productCreateCtrl ($ionicHistory, $ionicPlatform, $q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate, currentUser) {
     FormForConfiguration.enableAutoLabels()
     var _ = this
+    _.currentUser = currentUser
+    console.log(_.currentUser)
     _.pictureStore = PictureStore
     _.product = ProductStore.get()
     _.sendingInfo = false

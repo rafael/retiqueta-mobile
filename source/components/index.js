@@ -1,7 +1,11 @@
 import formFor from '../../node_modules/angular-form-for/dist/form-for'
 import formForTemplate from '../../node_modules/angular-form-for/dist/form-for.default-templates'
 
-angular.module('App.components', ['formFor', 'formFor.defaultTemplates'])
+angular.module('App.components', [
+  'formFor',
+  'formFor.defaultTemplates',
+  'currencyFilter'
+])
 
 const components = angular.module('App.components')
 
@@ -11,6 +15,7 @@ const components = angular.module('App.components')
 
 // How to add controller to the components module
 require('./home/controller')(components)
+require('./dashboard/index')(components)
 
 // Auth controllers
 require('./auth/login')(components)
@@ -27,7 +32,6 @@ require('./user/follow_button')(components)
 require('./settings')(components)
 
 // Products
-require('./products/dashboard/index')(components)
 require('./products/create/index')(components)
 require('./products/create/product_picture')(components)
 require('./products/create/select_category')(components)
@@ -35,6 +39,7 @@ require('./products/show_directive')(components)
 require('./products/list_directive')(components)
 require('./products/resume_directive')(components)
 require('./products/details/index')(components)
+require('./products/featured')(components)
 
 // Checkout
 require('./checkout/create')(components)
@@ -43,6 +48,9 @@ require('./checkout/creditcard_token')(components)
 // Comments
 require('./comments/list')(components)
 require('./comments/create')(components)
+
+// Likes
+require('./like_this')(components)
 
 // Search
 require('./search/index')(components)
@@ -54,6 +62,7 @@ require('./utils/picture_input')(components)
 require('./utils/linkify')(components)
 require('./utils/select_category')(components)
 require('./utils/stars_rating')(components)
+require('./utils/currency_filter')
 require('./utils/cardio-reader')(components)
 
 // component example

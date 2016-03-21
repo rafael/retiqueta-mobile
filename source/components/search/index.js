@@ -15,6 +15,14 @@ export default function searchFactory (ngComponent) {
     if ($stateParams.hasOwnProperty('word') && typeof $stateParams.word !== 'undefined' && $stateParams.word !== '') {
       _.text = $stateParams.word
       _.search()
+    } else {
+      prePopulate()
+    }
+
+    function prePopulate () {
+      Product.getFeatured({include: 'product_pictures'})
+      .then(setProducts)
+      .catch(Utils.swalError)
     }
 
     function searchProducts (page = 0) {
@@ -27,16 +35,12 @@ export default function searchFactory (ngComponent) {
         page_number: page,
         include: 'user,product_pictures'
       })
-        .then(result => {
-          setProducts(result)
-        })
-        .catch(error => {
-          Utils.swalError(error)
-        })
-        .finally(() => {
-          _.loading = false
-          console.log('Search complete')
-        })
+      .then(setProducts)
+      .catch(Utils.swalError)
+      .finally(() => {
+        _.loading = false
+        console.log('Search complete')
+      })
     }
 
     function setProducts (newProducts) {
