@@ -13,14 +13,15 @@ export default function FeaturedDirective (ngComponent) {
         scope.hasPicture = hasPicture
 
         function hasPicture (productPictures) {
-          return productPictures.length> 0
+          return productPictures.length > 0
         }
 
         function loadFeatured () {
           Product.getFeatured({
-            include: 'user,product_pictures'
+            include: 'user,product_pictures,likes'
           })
           .then(resullt => {
+            console.log(result)
             scope.products = result
           })
           .catch(e => {

@@ -23,14 +23,22 @@
       </div>
       <footer>
         <div class="item tabs tabs-secondary tabs-icon-left">
-          <span class="tab-item" like-this product-id="product.id">
+          <span
+            class="tab-item"
+            like-this
+            product="product">
             <i class="icon ion-heart"></i>
-            <span class="count">4</span>
+            <span class="count">
+              {{ product.attributes.likes_count }}
+            </span>
           </span>
-          <span class="tab-item">
+          <a class="tab-item"
+            ui-sref="users.productDetails({productID: product.id})">
             <i class="icon ion-chatbox"></i>
-            <span class="count">10</span>
-          </span>
+            <span class="count">
+              {{ product.attributes.comments_count }}
+            </span>
+          </a>
         </a>
       </div>
     </footer>
