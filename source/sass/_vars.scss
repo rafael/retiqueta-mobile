@@ -315,8 +315,8 @@ $item-thumbnail-width:            80px !default;
 $item-thumbnail-height:           80px !default;
 $item-thumbnail-margin:           10px !default;
 
-$item-divider-bg:                 #f5f5f5 !default;
-$item-divider-color:              #222 !default;
+$item-divider-bg:                 #FFF !default;
+$item-divider-color:              #FFF !default;
 $item-divider-padding:            5px 15px !default;
 
 $item-light-bg:                   $button-light-bg !default;
@@ -373,11 +373,11 @@ $item-dark-text:                  $button-dark-text !default;
 $item-dark-active-bg:             $button-dark-active-bg !default;
 $item-dark-active-border:         $button-dark-active-border !default;
 
-$item-default-bg:                 $item-light-bg !default;
-$item-default-border:             $item-light-border !default;
-$item-default-text:               $item-light-text !default;
-$item-default-active-bg:          #D9D9D9 !default;
-$item-default-active-border:      $item-light-active-border !default;
+$item-default-bg:                 $item-stable-bg !default;
+$item-default-border:             $item-stable-bg !default;
+$item-default-text:               $item-stable-text !default;
+$item-default-active-bg:          $item-stable-active-bg !default;
+$item-default-active-border:      $item-stable-active-bg !default;
 
 
 // Item Editing

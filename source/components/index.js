@@ -30,6 +30,11 @@ require('./profile/profile_picture')(components)
 require('./user/profile_header')(components)
 require('./user/follow_button')(components)
 require('./settings')(components)
+require('./favorites')(components)
+require('./balance')(components)
+require('./orders')(components)
+require('./sales')(components)
+require('./faq')(components)
 
 // Products
 require('./products/create/index')(components)
