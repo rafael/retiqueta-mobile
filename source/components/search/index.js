@@ -11,6 +11,7 @@ export default function searchFactory (ngComponent) {
 
     // Search function
     _.search = searchProducts
+    _.clear = clear
 
     if ($stateParams.hasOwnProperty('word') && typeof $stateParams.word !== 'undefined' && $stateParams.word !== '') {
       _.text = $stateParams.word
@@ -19,17 +20,27 @@ export default function searchFactory (ngComponent) {
       prePopulate()
     }
 
+    function clear () {
+      _.text = ''
+      prePopulate()
+    }
+
     function prePopulate () {
-      Product.getFeatured({include: 'product_pictures'})
+      return Product.getFeatured({include: 'product_pictures'})
       .then(setProducts)
       .catch(Utils.swalError)
     }
 
     function searchProducts (page = 0) {
-      _.loading = true
-      _.noResult = false
-      console.log('Searching: ', _.text)
+      if (_.text === '') { return }
 
+      _.noResult = false
+      _.loading = true
+      console.log('Searching: ', _.text)
+      populateWithProduct(page)
+    }
+
+    function populateWithProduct (page) {
       Product.search({
         q: _.text,
         page_number: page,
@@ -41,12 +52,21 @@ export default function searchFactory (ngComponent) {
         _.loading = false
         console.log('Search complete')
       })
+
     }
 
     function setProducts (newProducts) {
       _.products = newProducts
       _.noResult = _.products.length === 0 && _.text !== ''
     }
+
+    Object.observe(_, (changes) => {
+      changes.forEach((change) => {
+        if (change.name === 'text' && _.text === '') {
+          prePopulate()
+        }
+      })
+    })
 
   }
 }
