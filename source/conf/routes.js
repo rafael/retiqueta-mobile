@@ -117,7 +117,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     resolve: ResolveMerge(ResolveUser, {
       productsArray (Product) {
         return Product.getFeatured({
-          include: 'product_pictures'
+          include: 'product_pictures, likes'
         })
       }
     })
