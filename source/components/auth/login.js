@@ -37,7 +37,7 @@ export default function loginCtrlFactory (ngComponent) {
       user.username = user.username.toLowerCase()
       Auth.login(user)
       .then(token => {
-        Utils.swalSuccess($translate.instant('WELCOME_MESSAGE'))
+        // Utils.swalSuccess($translate.instant('WELCOME_MESSAGE'))
         $state.go('users.dashboard')
       })
       .catch(error => {

@@ -2,10 +2,10 @@ import service from './service'
 
 let today = new Date()
 const creditCardObj = {
-  cardNumber: 0,
-  securityCode: 123,
-  cardExpirationMonth: today.getMonth(),
-  cardExpirationYear: today.getFullYear(),
+  cardNumber: '',
+  securityCode: '',
+  cardExpirationMonth: '',
+  cardExpirationYear: '',
   cardholderName: '',
   docNumber: ''
 }
@@ -40,7 +40,6 @@ export default function CreditCardTokenFactory (ngComponent) {
           Object.observe(scope.creditcard, function(changes) {
             changes.forEach(function(change) {
               if (change.name === 'cardNumber' && change.type === 'update') {
-                console.log('change on credicard')
                 changeCredictCard()
               }
             })
@@ -66,24 +65,24 @@ export default function CreditCardTokenFactory (ngComponent) {
           }
 
           function onGuess (response) {
-            console.info("Success on guess")
+            //console.info("Success on guess")
             scope.creditcard.methodID = response.response[0].id
           }
 
           function errorOnGuess (response) {
-            console.info("Error Guess")
-            console.log(response)
+            //console.info("Error Guess")
+            //console.log(response)
           }
 
           function onCreateToken (response) {
-            console.info("Success on create token")
+            //console.info("Success on create token")
             scope.onTokenHandler(response.response.id, scope.creditcard.methodID)
           }
 
           function errorOnCreateToken (response) {
-            console.info('Error on create token')
+            //console.info('Error on create token')
             scope.errors = helpersFunctions.extractErrors(response.response.cause)
-            console.log(scope.errors)
+            //console.log(scope.errors)
           }
         }
       }

@@ -31,7 +31,7 @@ export default function signupCtrlFactory (ngComponent) {
           return Auth.login(user)
         })
         .then(user => {
-          Utils.swalSuccess($translate.instant('SIGNUP_SUCCESS'))
+          // Utils.swalSuccess($translate.instant('SIGNUP_SUCCESS'))
           $state.go('users.dashboard')
         })
         .catch(error => {

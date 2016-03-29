@@ -10,7 +10,6 @@ export default function ProductCreateFactory (ngComponent) {
     FormForConfiguration.enableAutoLabels()
     var _ = this
     _.currentUser = currentUser
-    console.log(_.currentUser)
     _.pictureStore = PictureStore
     _.product = ProductStore.get()
     _.sendingInfo = false

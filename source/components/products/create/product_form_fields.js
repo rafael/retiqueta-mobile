@@ -30,12 +30,16 @@ export const Rules = {
   original_price: {
     inputType: 'text',
     required: true,
-    placeholder: 'Original price'
+    placeholder: 'Original price',
+    pattern: /[0-9]*/,
+    inputPattern: '[0-9]*',
   },
   price: {
     inputType: 'text',
     required: true,
-    placeholder: 'Your price'
+    placeholder: 'Your price',
+    pattern: /[0-9]*/,
+    inputPattern: '[0-9]*',
   }
 }
 
