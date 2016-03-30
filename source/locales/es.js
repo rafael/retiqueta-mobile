@@ -42,7 +42,6 @@ var esTranslation = {
   FOLLOWERS_COUNT: 'Seguidores',
   FOLLOWING_COUNT: 'Siguidos',
   PROFILE_PRODUCT_COUNT: 'Retiquetas en mi closet',
-  BUY_NOW: 'Comprar ahora',
   ORDER_ADDRESS: 'Direcci\ón de envio',
   ORDER_PAY: 'Realizar pago',
   CARD_NUMBER: 'Numero de tarjeta',
@@ -58,7 +57,6 @@ var esTranslation = {
   MY_ORDERS: 'Mis ordenes',
   MY_SALES: 'Mis ventas',
   MY_BALANCE: 'Mi Balance',
-  EDIT_PROFILE: 'Editar perfil',
   FAQ: 'Preguntas frecuentes'
 }
 

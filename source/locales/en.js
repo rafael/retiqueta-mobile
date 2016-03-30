@@ -57,7 +57,6 @@ var enTranslation = {
   MY_ORDERS: 'My orders',
   MY_SALES: 'My sales',
   MY_BALANCE: 'My balance',
-  EDIT_PROFILE: 'Edit profile',
   FAQ: 'FAQ'
 }
 
