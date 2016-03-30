@@ -10,8 +10,6 @@ export default function cardioReaderDirectiveFactory (ngComponent) {
         handler: '='
       },
       link (scope, element, attrs) {
-        console.log('directive load')
-
         if (scope.always !== true) {
           CardIOService.canScan()
           .then(isScanable)

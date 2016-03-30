@@ -75,7 +75,11 @@
     }
   ],
   "cordovaPlatforms": [
-    "ios@3.9.1",
-    "android"
+    "android",
+    {
+      "platform": "ios",
+      "version": "4.1.0",
+      "locator": "ios@4.1.0"
+    }
   ]
 }

@@ -16,50 +16,52 @@
       validation-rules="create.validationRules"
       submit-with="create.submit(create.product)">
 
-      <text-field attribute="title"
+      <text-plus-field attribute="title"
         label="{{ 'PRODUCT_FORM_TITLE' | translate }}"
         placeholder="{{ create.validationRules.title.placeholder}}"
         type="text">
-      </text-field>
+      </text-plus-field>
 
-      <text-field attribute="description"
+      <text-plus-field attribute="description"
         label="{{ 'PRODUCT_FORM_DESCRIPTION' | translate }}"
         placeholder="{{ create.validationRules.description.placeholder}}"
         type="text">
-      </text-field>
+      </text-plus-field>
 
       <div class="row">
         <div class="col-50">
-          <text-field attribute="category"
+          <text-plus-field attribute="category"
             label="{{ 'PRODUCT_FORM_CATEGORY' | translate }}"
             placeholder="{{ create.validationRules.category.placeholder}}"
             type="text"
             ng-click="create.goToSelect()">
-          </text-field>
+          </text-plus-field>
         </div>
         <div class="col-50">
-          <text-field attribute="size"
+          <text-plus-field attribute="size"
             label="{{ 'PRODUCT_FORM_SIZE' | translate }}"
             placeholder="{{ create.validationRules.size.placeholder}}"
             type="text">
-          </text-field>
+          </text-plus-field>
         </div>
       </div>
 
       <div class="row">
         <div class="col-50">
-          <text-field attribute="original_price"
+          <text-plus-field attribute="original_price"
+            type="tel"
             label="{{ 'PRODUCT_FORM_ORIGINAL_PRICE' | translate }}"
             placeholder="{{ create.validationRules.original_price.placeholder}}"
             type="text">
-          </text-field>
+          </text-plus-field>
         </div>
         <div class="col-50">
-          <text-field attribute="price"
+          <text-plus-field attribute="price"
+            type="tel"
             label="{{ 'PRODUCT_FORM_PRICE' | translate }}"
             placeholder="{{ create.validationRules.price.placeholder}}"
             type="text">
-          </text-field>
+          </text-plus-field>
         </div>
       </div>
 

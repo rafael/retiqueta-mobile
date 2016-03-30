@@ -2,15 +2,17 @@
   <form
     name="creditcardinfo"
     ng-submit="createToken()">
-    <ul>
+    <ul auto-next-field>
       <input ng-if="creditcard.methodID" type="hidden" name="paymentMethodId" value="{{creditcard.methodID}}">
       <li class="form-for-field"  ng-class="{'invalid': hasError('cardNumber')}">
         <label class="field-label" for="cardNumber">
           {{ 'CARD_NUMBER' | translate }}
         </label>
         <input
-        type="text"
+        type="tel"
+        pattern="[0-9]*"
         id="cardNumber"
+        maxlength="16"
         data-checkout="cardNumber"
         ng-model="creditcard.cardNumber"
         placeholder="4509953566233704" />
@@ -25,7 +27,9 @@
               {{ 'CARD_SECURITY_CODE' | translate }}
             </label>
             <input
-            type="text"
+            type="tel"
+            pattern="[0-9]*"
+            maxlength="3"
             id="securityCode"
             ng-model="creditcard.securityCode"
             data-checkout="securityCode"
@@ -42,7 +46,9 @@
               {{ 'CARD_EXPIRATION_MONTH' | translate }}
             </label>
             <input
-            type="text"
+            type="tel"
+            pattern="[0-9]*"
+            maxlength="2"
             id="cardExpirationMonth"
             ng-model="creditcard.cardExpirationMonth"
             data-checkout="cardExpirationMonth"
@@ -59,7 +65,9 @@
               {{ 'CARD_EXPIRATION_YEAR' | translate }}
             </label>
             <input
-            type="text"
+            type="tel"
+            pattern="[0-9]*"
+            maxlength="4"
             id="cardExpirationYear"
             ng-model="creditcard.cardExpirationYear"
             data-checkout="cardExpirationYear"
