@@ -14,7 +14,6 @@ submit-button[label="Submit"] {
 
 .button.button-assertive.button-clear.button-connect {
 	.icon::before {
-		background-color: $facebook;
 		color: white;
 		border-radius: 0.1em;
 		width: 26px;
@@ -27,8 +26,18 @@ submit-button[label="Submit"] {
 		top: 0.2em;
 	}
 	&.connect-with-facebook {
+		background-color: white;
 		color: $facebook;
+		.icon::before {
+			background-color: $facebook;
+		}
 	}
+}
+
+.button-connect.connect-with-facebook.button.button-full.button-clear.button-assertive {
+	margin-top: 0;
+	margin-bottom: 0;
+	padding: 0.5em 0 3em;
 }
 
 .tabs-top.tabs-striped .tab-item.tab-item-active {

@@ -72,10 +72,22 @@
     {
       "locator": "https://github.com/highercomve/card.io.git",
       "id": "com.keepe.cardio"
+    },
+    {
+      "variables": {
+        "APP_ID": "830345867092501",
+        "APP_NAME": "RetiquetaDummyApp"
+      },
+      "locator": "https://github.com/Telerik-Verified-Plugins/Facebook.git",
+      "id": "phonegap-plugin-push"
     }
   ],
   "cordovaPlatforms": [
-    "android",
+    {
+      "platform": "android",
+      "version": "5.1.1",
+      "locator": "android@5.1.1"
+    },
     {
       "platform": "ios",
       "version": "4.1.0",
