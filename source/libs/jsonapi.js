@@ -1,53 +1,76 @@
 import _chain from 'pipeable'
 import clone from 'clone'
 
-function jsonapi (data) {
+function jsonapi (data, included = data.included) {
+  if ( data === null || typeof data === 'undefined') {
+    return data
+  }
+
   let result = clone(data)
 
-  if (result.data.length > 0) {
-    result.data = result.data.map((item, index) => {
-      return ParseItem(item, index, result)
-    })
-  } else {
-    result.data = ParseItem(result.data, 0, result)
+  try {
+    if (result.hasOwnProperty('data')) {
+      result = extractJsonApi(result.data, included)
+    } else {
+      result = extractJsonApi(result, included)
+    }
+  } catch(e) {
+    console.log(e)
+    console.log(result)
   }
 
   return result
 }
 
-function ParseItem (item, index, array) {
-  var relationTypes = (item.hasOwnProperty('relationships')) ? Object.keys(item.relationships) : null
+function extractJsonApi (data, included) {
+  if (Array.isArray(data)) {
+    return data.map((item, index) => {
+      return ParseItem(item, index, data, included)
+    })
+  } else {
+    return ParseItem(data, 0, data, included)
+  }
+}
+
+function ParseItem (item, index, array, included) {
+  var relationTypes = (item.hasOwnProperty('relationships')) ? Object.keys(item.relationships) : []
   var relationIsArray = false
 
-  if (relationTypes !== null) {
-    _chain(relationTypes)
-      .pipe(Array.forEach, (relation) => {
-        _chain(item.relationships[relation].data)
-          .pipe(relationItem => {
-            relationIsArray = Array.isArray(relationItem)
-            return processItemRelationData(relationItem, relationIsArray, array, relation)
-          })
-          .pipe(Array.filter, x => {
-            return typeof x !== 'undefined'
-          })
-          .pipe(data => {
-            return selectData(data, relationIsArray)
-          })
-          .pipe(newItem => {
-            if (newItem !== null) {
-              item.relationships[relation] = newItem
-            } else {
-              item.relationships[relation] = item.relationships[relation].data
-            }
-          })
-      })
-  }
+  relationTypes.forEach(relation => {
+    _chain(item.relationships[relation])
+    .pipe(relationItem => {
+      relationItem = (relationItem.hasOwnProperty('data')) ? relationItem.data : relationItem
+      relationIsArray = Array.isArray(relationItem)
+      return processItemRelationData(relationItem, relationIsArray, included, relation)
+    })
+    .pipe(Array.filter, x => {
+      return typeof x !== 'undefined'
+    })
+    .pipe(selectData, relationIsArray)
+    .pipe(newItem => {
+      if (newItem !== null) {
+        item.relationships[relation] = jsonapi(newItem, included)
+      } else {
+        item.relationships[relation] = item.relationships[relation].data
+      }
+    })
+  })
 
   if (array.hasOwnProperty('meta')) {
     item.meta = array.meta
   }
 
   return item
+}
+
+function hasRelationship (relation) {
+  if (Array.isArray(relation)) {
+    return relation.reduce((result, item) => {
+      return result && hasRelationship(item)
+    }, false)
+  } else {
+    return relation.hasOwnProperty('relationships')
+  }
 }
 
 function FindInclude (data = [], item, type) {
@@ -57,10 +80,6 @@ function FindInclude (data = [], item, type) {
 }
 
 function selectData (newItem, relationIsArray) {
-  if (newItem.length === 0) {
-    return null
-  }
-
   if (relationIsArray) {
     return (newItem.length > 0) ? newItem : null
   } else {
@@ -68,17 +87,16 @@ function selectData (newItem, relationIsArray) {
   }
 }
 
-function processItemRelationData (relationItem, relationIsArray, array, relation) {
+function processItemRelationData (relationItem, relationIsArray, included, relation) {
   if (relationItem === null) {
     return []
   }
-
   if (relationIsArray) {
     return relationItem.map(x => {
-      return FindInclude(array.included, x, relation)
+      return FindInclude(included, x, relation)
     })
   } else {
-    return [FindInclude(array.included, relationItem, relation)]
+    return [FindInclude(included, relationItem, relation)]
   }
 }
 

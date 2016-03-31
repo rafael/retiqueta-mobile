@@ -100,11 +100,11 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         redirectTo: 'auth.login'
       }
     },
-    resolve: {
+    resolve: ResolveMerge(ResolveUser, {
       deviceToken: function ($ionicPush) {
         return $ionicPush.register()
       }
-    },
+    })
   })
   .state('users.dashboard', {
     url: '/dashboard',
@@ -113,14 +113,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         templateUrl: 'dashboard/index.html',
         controller: 'dashboardCtrl as ctrl'
       }
-    },
-    resolve: ResolveMerge(ResolveUser, {
-      productsArray (Product) {
-        return Product.getFeatured({
-          include: 'product_pictures, likes'
-        })
-      }
-    })
+    }
   })
   .state('users.me', {
     url: '/me',
@@ -131,10 +124,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     },
     resolve: {
-      currentUser: function (Auth) {
-        return Auth.getCurrentUser()
-      },
-      user: function (currentUser) {
+      user: function(currentUser) {
         return currentUser
       }
     }
@@ -156,7 +146,6 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         controller: 'profileEditCtrl as profile'
       }
     },
-    resolve: ResolveUser
   })
   .state('users.favorites', {
     url: '/favorites',
@@ -166,17 +155,24 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         controller: 'favoritesCtrl as ctrl'
       }
     },
-    resolve: ResolveUser
   })
   .state('users.orders', {
     url: '/orders',
     views: {
       'me-tab': {
-        templateUrl: 'orders/template.html',
+        templateUrl: 'orders/list/template.html',
         controller: 'ordersCtrl as ctrl'
       }
     },
-    resolve: ResolveUser
+  })
+  .state('users.ordersDetail', {
+    url: '/orders/{id}',
+    views: {
+      'order-detail-tab': {
+        templateUrl: 'orders/detail/template.html',
+        controller: 'orderCtrl as ctrl'
+      }
+    },
   })
   .state('users.sales', {
     url: '/sales',
@@ -186,7 +182,6 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         controller: 'salesCtrl as ctrl'
       }
     },
-    resolve: ResolveUser
   })
   .state('users.balance', {
     url: '/balance',
@@ -196,7 +191,6 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         controller: 'balanceCtrl as ctrl'
       }
     },
-    resolve: ResolveUser
   })
   .state('users.faq', {
     url: '/faq',
@@ -206,7 +200,6 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         controller: 'faqCtrl as ctrl'
       }
     },
-    resolve: ResolveUser
   })
   .state('users.profile', {
     url: '/profile/{userID}',
@@ -217,24 +210,10 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     },
     resolve: {
-      currentUser: function (Auth) {
-        return Auth.getCurrentUser()
-      },
       user: function (User, $stateParams, currentUser) {
         return ($stateParams.userID !== '') ? User.get($stateParams.userID) : currentUser
       }
     }
-  })
-  .state('productsNew', {
-    url: '/products/new',
-    templateUrl: 'products/create/index.html',
-    controller: 'productCreateCtrl as create',
-    resolve: ResolveUser
-  })
-  .state('productsNewSelectCategory', {
-    url: '/product/new/select-category',
-    templateUrl: 'products/create/select_category.html',
-    controller: 'SelectCategoryCtrl as ctrl'
   })
   .state('users.productsSearch', {
     url: '/search/products/:word?',
@@ -270,6 +249,45 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     }
   })
+  .state('users.activities', {
+    abstract: true,
+    url: '/activities',
+    views: {
+      'activities-tab': {
+        templateUrl: 'activities/template.html'
+      }
+    }
+  })
+  .state('users.activities.orders', {
+    url: '/orders',
+    views: {
+      'orders-tab': {
+        templateUrl: 'orders/list/template.html',
+        controller: 'ordersCtrl as ctrl'
+      }
+    }
+  })
+  .state('users.activities.sales', {
+    url: '/sales',
+    views: {
+      'sales-tab': {
+        templateUrl: 'sales/template.html',
+        controller: 'salesCtrl as ctrl'
+      }
+    }
+  })
+  .state('productsNew', {
+    url: '/products/new',
+    templateUrl: 'products/create/index.html',
+    controller: 'productCreateCtrl as create',
+    resolve: ResolveUser
+  })
+  .state('productsNewSelectCategory', {
+    url: '/product/new/select-category',
+    templateUrl: 'products/create/select_category.html',
+    controller: 'SelectCategoryCtrl as ctrl'
+  })
+
 
   $urlRouterProvider.otherwise('/')
 })

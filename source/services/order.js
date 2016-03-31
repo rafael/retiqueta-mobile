@@ -8,7 +8,9 @@ export default function OrderFactory (ngComponent) {
     Object.assign(
       Model,
       require('./order/create')(...dependecies),
-      require('./order/build_order')(...dependecies)
+      require('./order/build_order')(...dependecies),
+      require('./order/list')(...dependecies),
+      require('./order/get')(...dependecies)
      )
 
     if (ENV.isDevelopment()) {

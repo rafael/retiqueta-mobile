@@ -9,11 +9,9 @@ export default function FacebookButtonDirectiveFactory (ngComponent) {
         scope.loginWithFacebook = loginWithFacebook
 
         function loginWithFacebook () {
-          $ionicLoading.show()
           FacebookAuth.loginWithFacebook()
           .then(successOnFacebook)
           .catch(errorOnFacebook)
-          .finally($ionicLoading.hide)
         }
 
         function successOnFacebook (result) {

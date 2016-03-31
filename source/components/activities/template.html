@@ -1,0 +1,15 @@
+<ion-tabs class="tabs-icon-left tabs-top tabs-background-light tabs-color-dark">
+	<ion-tab 
+		title="{{ 'MY_ORDERS' | translate }}"	
+		icon="ion-ios-download-outline"
+		ui-sref="users.activities.orders">
+		<ion-nav-view name="orders-tab"></ion-nav-view>
+	</ion-tab>
+
+	<ion-tab 
+		title="{{ 'MY_SALES' | translate }}" 
+		icon="ion-ios-upload-outline"
+		ui-sref="users.activities.sales">
+		<ion-nav-view name="sales-tab"></ion-nav-view>
+	</ion-tab>
+</ion-tabs>

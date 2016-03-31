@@ -1,0 +1,49 @@
+<div class="order list">
+	<header class="order-header">
+		<a class="item" ui-sref="users.ordersDetail({ id: order.id})">
+			{{ 'ORDER_NUMBER' | translate }}
+			<br>
+			<small>{{ ::order.id }}</small>
+			<span class="badge badge-assertive text-right">
+				{{ ::order.attributes.financial_status }}
+			</span>
+		</a>
+	</header>
+	<section class="order-body">
+		<header class="items-header row">
+			<div class="col">
+				{{ 'ORDER_ITEM_CATEGORY' | translate }}
+			</div>
+			<div class="col col-50">
+				{{ 'ORDER_ITEM_TYPE' | translate }}
+			</div>
+			<div class="col text-right">
+				{{ 'ORDER_ITEM_PRICE' | translate }}
+			</div>
+		</header>
+		<div class="item-content row" ng-repeat="line_item in order.relationships.line_items track by $index">
+			<div class="col">
+				<p>
+					{{ ::line_item.relationships.product.attributes.category }}
+				</p>
+			</div>
+			<div class="col col-50">
+				<p>
+					{{ ::line_item.relationships.product.attributes.title }}
+				</p>
+			</div>
+			<div class="col text-right">
+				<p>
+					{{ ::line_item.relationships.product.attributes.price | currency }}
+				</p>
+			</div>
+		</div>
+		<div class="items-footer row text-right">
+			<p class="col col-12">
+				{{ 'ORDER_TOTAL_AMOUNT' | translate }}: 
+				{{ ::order.attributes.total_amount | currency }}
+			</p>
+		</div>
+	</section>
+</div>
+

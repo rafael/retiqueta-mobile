@@ -24,30 +24,28 @@ export default function(ngComponent) {
               console.log(string_token)
             }
             // The token is erased from localStorage without reason, this is why i save in memory until refresh_token finish
-
             if (response.data.error_description === "access_token expired" ) {
               ENV.auth.token = extractToken(string_token)
-              console.log('redirect')
               response.status = 404
               location.replace('#/update-token')
             }
-            return $q.reject(response)
+            return response
           case 401:
             window.localStorage.removeItem('token')
             location.replace('#/auth/login')
-            return $q.reject(response)
+            return response
           case 403:
             window.localStorage.removeItem('token')
             location.replace('#/auth/login')
-            return $q.reject(response)
+            return response
           case 0:
             Utils.swalError('No connection with the server')
-            return $q.reject(response)
+            return response
           case 500:
             Utils.swalError('Error on the server, if the error persist contact retiqueta team')
-            return $q.reject(response)
+            return response
           default:
-            return $q.reject(response)
+            return response        
         }
       }
     }

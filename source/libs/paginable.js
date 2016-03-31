@@ -12,7 +12,7 @@ export default function paginableFactory (url, $http, $q) {
     })
       .then(result => {
         if (result.data.hasOwnProperty('data')) {
-          deferred.resolve(jsonapi(result.data).data)
+          deferred.resolve(jsonapi(result.data))
         } else {
           deferred.resolve(result)
         }

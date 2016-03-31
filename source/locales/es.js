@@ -57,7 +57,12 @@ var esTranslation = {
   MY_ORDERS: 'Mis ordenes',
   MY_SALES: 'Mis ventas',
   MY_BALANCE: 'Mi Balance',
-  FAQ: 'Preguntas frecuentes'
+  FAQ: 'Preguntas frecuentes',
+  ORDER_NUMBER: 'Order Nº',
+  ORDER_TOTAL_AMOUNT: 'Total a pagar',
+  ORDER_ITEM_CATEGORY: 'Category',
+  ORDER_ITEM_TYPE: 'Product',
+  ORDER_ITEM_PRICE: 'Price'
 }
 
 export default esTranslation

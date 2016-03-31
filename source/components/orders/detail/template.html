@@ -1,0 +1,30 @@
+<ion-view view-title="{{ 'ORDER_DETAIL' | translate }}">
+	<ion-nav-bar class="bar-assertive">
+		<ion-nav-buttons side="left">
+			<button 
+				class="button back-button buttons button-clear header-item" 
+				ng-click="ctrl.goBack()">
+				<i class="icon ion-ios-arrow-back"></i>
+			</button>
+		</ion-nav-buttons>
+	</ion-nav-bar>
+	<ion-content padding="true">
+		<header class="order-detail-header row">
+			<img 
+			class="thumbnail col col-25" 
+			src="{{ ::ctrl.order.relationships.line_items[0].relationships.product.relationships.product_pictures[0].attributes.small_url}}" 
+			alt="">
+			<section class="content col col-75">
+				<h6 class="text-assertive">
+					{{ ::ctrl.order.attributes.total_amount }}
+				</h6>
+				<div 
+					class="items-description">
+					<p ng-repeat="item in ctrl.order.relationships.line_items track by $index">
+						{{ ::item.relationships.product.attributes.description }}
+					</p>
+				</div>
+			</section>
+		</header>
+	</ion-content>
+</ion-view>

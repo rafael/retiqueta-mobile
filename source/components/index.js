@@ -33,10 +33,18 @@ require('./user/profile_resume')(components)
 require('./user/follow_button')(components)
 require('./settings')(components)
 require('./favorites')(components)
-require('./balance')(components)
-require('./orders')(components)
-require('./sales')(components)
 require('./faq')(components)
+
+// Sales
+require('./sales')(components)
+
+// Balance
+require('./balance')(components)
+
+// Orders
+require('./orders/list')(components)
+require('./orders/resume')(components)
+require('./orders/detail')(components)
 
 // Products
 require('./products/create/index')(components)

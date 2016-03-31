@@ -38,6 +38,14 @@ export default function UtilsFactory (ngComponent) {
       navigator.notification.confirm(message, confirmCallback, title, buttonOptions)
     }
 
+    this.populate = (promise, destiny) => {
+      return promise
+      .then(result => {
+        destiny = result
+      })
+      .catch(this.swalError)
+    }
+
     this.alertCallback = () => {
       // do something
     }

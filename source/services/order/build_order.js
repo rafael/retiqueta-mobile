@@ -1,7 +1,7 @@
 function buildLineItems (products) {
   return products.map(product => {
     return {
-      product_type: 'product',
+      product_type: 'products',
       product_id: product.id
     }
   })
@@ -15,7 +15,7 @@ function buildLineItems (products) {
  *    "payment_method_id": "visa"
  *  },
  *  "shipping_address": "2930 Lyon Street - Apt 2A, San Francisco, CA, 94123",
- *  "line_items": [{"product_type": "product", "product_id": "fa8375cf-1b4a-40d1-b9d4-fa0935c69bb5" }]
+ *  "line_items": [{"product_type": "products", "product_id": "fa8375cf-1b4a-40d1-b9d4-fa0935c69bb5" }]
  *
  */
 

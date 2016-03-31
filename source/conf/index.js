@@ -7,3 +7,4 @@ const confs = angular.module('App.configurations')
 
 require('./ionic_conf')(confs)
 require('./auth_interceptor')(confs)
+require('./loader_interceptor')(confs)
