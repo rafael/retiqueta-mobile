@@ -22,6 +22,7 @@ require('./auth/login')(components)
 require('./auth/signup')(components)
 require('./auth/update_token')(components)
 require('./auth/logout')(components)
+require('./auth/facebook_login')(components)
 
 // User
 require('./wardrobe')(components)

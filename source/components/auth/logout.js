@@ -3,8 +3,10 @@ export default function logoutCtrlFactory (ngComponent) {
 
   function logoutCtrl ($state, Auth) {
     Auth.logout()
-    window.location.replace('/#')
-    window.location.reload()
-    ionic.Platform.exitApp()
+    function init() {
+      window.location.replace('/#')
+      window.location.reload()
+    }
+    init()
   }
 }

@@ -10,7 +10,7 @@ const baseErrorsObject = {
 export default function signupCtrlFactory (ngComponent) {
   ngComponent.controller('signupCtrl', signupCtrl)
 
-  function signupCtrl ($state, User, FormForConfiguration, Auth, Utils, $translate, $q) {
+  function signupCtrl ($state, User, FormForConfiguration, Auth, Utils, $translate, $q, FacebookAuth) {
     FormForConfiguration.disableAutoLabels()
     var _ = this
     _.user = {}
@@ -22,7 +22,13 @@ export default function signupCtrlFactory (ngComponent) {
     _.validationRules.email.custom = validationFactory('email', $q).bind(_)
     _.validationRules.password.acustom = validationFactory('password', $q).bind(_)
 
-    _.submit = (user) => {
+    _.submit = submit
+
+    function redirectToDashboard() {
+      $state.go('users.dashboard')
+    }
+
+    function submit (user) {
       _.sendingInfo = true
       user.email = user.email.toLowerCase()
       user.username = user.username.toLowerCase()
@@ -30,10 +36,7 @@ export default function signupCtrlFactory (ngComponent) {
         .then(result => {
           return Auth.login(user)
         })
-        .then(user => {
-          // Utils.swalSuccess($translate.instant('SIGNUP_SUCCESS'))
-          $state.go('users.dashboard')
-        })
+        .then(redirectToDashboard)
         .catch(error => {
           _.errors = extractErrorByField(error.data, user, Object.keys(_.errors))
           _.formController.validateForm()
