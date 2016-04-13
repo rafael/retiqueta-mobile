@@ -3,7 +3,7 @@ export default function CommentCreateDirectiveFactory (ngComponent) {
 
   function CommentForm (CommentStore, Utils) {
     return {
-      templateUrl: 'comments/create.html',
+      templateUrl: 'comments/create/template.html',
       restrict: 'E',
       scope: {
         productId: '='

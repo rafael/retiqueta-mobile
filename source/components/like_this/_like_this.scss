@@ -3,3 +3,10 @@
 		color: $assertive;
 	}
 }
+.not-like-it {
+	.icon {
+		color: white;
+		text-stroke: 1px $dark;
+		-webkit-text-stroke: 1px $dark;
+	}
+}

@@ -44,5 +44,8 @@ a {
 .text-stable { color: $stable; }
 .text-balanced { color: $balanced; }
 .text-dark { color: $dark; }
+.text-assertive { color: $assertive }
 
-
+.item.item-white {
+	background-color: white;
+} 
