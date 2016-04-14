@@ -1,0 +1,25 @@
+follow-button {
+	display: block;
+	.button.following {
+		background-color: white;
+		border: 2px solid $dark;
+		color: $dark;
+		&:hover {
+			color: $dark;
+		}
+		&:active {
+			color: white;
+		}
+	}
+	.button.not-following {
+		background-color: white;
+		border: 2px solid $assertive;
+		color: $assertive;
+		&:hover {
+			color: $assertive;
+		}
+		&:active {
+			color: white;
+		}
+	}
+}

@@ -1,0 +1,38 @@
+.product-show {
+	.product-details-row {
+		height: 30px;
+	}
+	.item-body {
+		border: none;
+		padding-top: 0;
+	}
+	.tabs-no-border {
+		border: none;
+		margin-left: -1em;
+		margin-top: -0.8em;
+		padding: 0;
+		height: 42px;
+		line-height: 42px;
+	}
+	.product-price {
+		text-align: right;
+		margin-top: -0.2em;
+		.original-price {
+			display: inline-block;
+			color: $stable-dark;
+			.price {
+				text-decoration: line-through;
+			}
+			.divisor {
+				display: inline-block;
+				margin-left: 0.3em;
+			}
+		}
+		.retiqueta-price {
+			display: inline-block;
+			font-size: 1.4em;
+			color: $assertive;
+			font-weight: 500;
+		}
+	}
+}

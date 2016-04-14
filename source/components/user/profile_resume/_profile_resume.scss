@@ -1,0 +1,30 @@
+.profile-resume {
+	.item {
+		border: none;
+	}
+	.perfil-image {
+		text-align: center;
+		img {
+			max-width: 80%;
+			border-radius: 100%;
+		}
+	}
+	follow-button {
+		margin-top: 0.5em;
+	}
+	.user-details {
+		.username {
+			font-size: 1.1em;
+			a {
+				text-decoration: none;
+				color: $assertive;
+			}
+		}
+		.fullname {
+			color: $dark;
+			font-weight: normal;
+		}
+	}
+}
+
+

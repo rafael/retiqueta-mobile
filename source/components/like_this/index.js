@@ -21,8 +21,9 @@ export default function likeThisFactory (ngComponent) {
           addToLikeCount()
 
           // Like on the api
-          Like.toggle(productId, scope.product.meta.liked_by_current_user)
+          Like.toggle(productId, !scope.product.meta.liked_by_current_user)
           .catch(error => {
+            console.log(error)
             // If fails return the like button to unlike state
             toggleClass(!scope.product.meta.liked_by_current_user)
             addToLikeCount()
@@ -42,9 +43,13 @@ export default function likeThisFactory (ngComponent) {
             alreadyLike = alreadyLike === 'true'
           }
           scope.product.meta.liked_by_current_user = alreadyLike
-          return (alreadyLike) ?
-            element.addClass('already-like-it') :
+          if (alreadyLike) {
+            element.addClass('already-like-it') 
+            element.removeClass('not-like-it') 
+          } else {
             element.removeClass('already-like-it')
+            element.addClass('not-like-it') 
+          }
         }
 
         function toggleElem() {
