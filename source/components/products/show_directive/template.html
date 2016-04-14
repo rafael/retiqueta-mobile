@@ -1,8 +1,8 @@
 <div class="product-show">
 	<div class="item item-white item-body">
-		<picture ng-repeat="picture in product.relationships.product_pictures">
-			<img style="max-width: 100%" src="{{ picture.attributes.url }}" alt="">
-		</picture>
+		<picture-slide 
+			pictures="product.relationships.product_pictures">
+		</picture-slide>
 		<!--
 		<h2 ng-bind-html="product.attributes.title | linkify"></h2>
 		<p ng-bind-html="product.attributes.description | linkify"></p>

@@ -32,6 +32,15 @@
 	align-content: flex-start;
 }
 
+@mixin clear-float { 
+	&:after, 
+	&:before {
+		content: "";
+		display: block;
+		clear: both;
+	}
+}
+
 .flex-container {
 	@include flex-container;
 }

@@ -14,7 +14,6 @@ export default function CommentListDirectiveFactory (ngComponent) {
         function fetchComments() {
           CommentStore.getByProduct(attrs.productId)
           .then(result => {
-            console.log(result)
             scope.comments = result
           })
           .catch(error => {
