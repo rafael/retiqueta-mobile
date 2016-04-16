@@ -1,0 +1,19 @@
+<section class="comments-list list pl1 pr1">
+	<div class="item item-white" ng-repeat="comment in comments" class="list">
+		<p>
+			<a class="text-assertive" 
+				ui-sref="user.profile({userID: comment.attributes.user_id})">
+				{{ ::comment.attributes.username }}:
+			</a>
+			<span ng-bind-html="comment.attributes.text | linkify"></span>
+		</p>
+	</div>
+	<div ng-show="loading">
+		<h3>Searching comments ...</h3>
+	</div>
+	<div ng-hide="loading">
+		<div ng-show="comments.length == 0 ">
+			<h3>No comments</h3>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,23 @@
+<div class="pictures-slide">
+	<div class="picture-slide-container">
+		<picture
+			class="picture-slide"
+			ng-repeat="picture in pictures track by $index">
+			<img
+			on-swipe-left="nextSlide($index)"
+			on-swipe-right="previusSlide($index)"
+			src="{{ picture.attributes.url }}" 
+			alt="">
+		</picture>		
+	</div>
+	<div class="picture-slide-counter">
+		<span 
+			ng-repeat="picture in pictures track by $index"
+			class="counter" 
+			ng-click="moveTo($index)"
+			ng-class="{ 'active': isThisSlide($index) }">
+			<i class="icon ion-record"></i>
+		</span>
+	</div>
+</div>
+

@@ -1,0 +1,25 @@
+<div class="profile-resume">
+	<div class="item item-white row">
+		<div class="col col-20 perfil-image">
+			<img src="{{ ::user.attributes.profile_pic }}">
+		</div>
+		<div class="user-details col">
+			<h2 class="username">
+				<a ui-sref="users.profile({ userID: user.id })">
+					{{ ::user.attributes.username }}
+				</a>
+			</h2>
+			<h3 class="fullname">
+				{{ ::user.attributes.first_name }}
+				{{ ::user.attributes.last_name }}
+			</h3>
+		</div>
+		<div class="col col-25 text-right" ng-hide="isOwner">
+			<follow-button 
+				follow-handler="toggleFollowship" 
+				following="ownerFollowing">
+			</follow-button>
+		</div>
+	</div>
+</div>
+

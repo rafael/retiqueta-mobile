@@ -1,7 +1,7 @@
 export default function FeaturedDirective (ngComponent) {
   ngComponent.directive('featuredProducts', featuredProducts)
 
-  function featuredProducts (Product) {
+  function featuredProducts (Product, Utils) {
     return {
       templateUrl: 'products/featured/template.html',
       restrict: 'E',
@@ -20,13 +20,10 @@ export default function FeaturedDirective (ngComponent) {
           Product.getFeatured({
             include: 'user,product_pictures,likes'
           })
-          .then(resullt => {
-            console.log(result)
+          .then(result => {
             scope.products = result
           })
-          .catch(e => {
-            console.log(e)
-          })
+          .catch(Utils.swalError)
         }
 
         function render () {

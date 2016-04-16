@@ -1,60 +1,58 @@
-<div class="list card">
-  <div ng-show="{{ product.relationships.user.attributes }}" class="item item-avatar">
-    <img src="{{ product.relationships.user.attributes.profile_pic }}">
-    <h2>
-      <a ui-sref="users.profile({ userID: product.relationships.user.id })">
-        {{ product.relationships.user.attributes.username }}
-      </a>
-    </h2>
-    <p>
-      {{ product.relationships.user.attributes.first_name }}
-    </p>
-  </div>
-
-  <div class="item item-body">
-    <picture ng-repeat="picture in product.relationships.product_pictures">
-      <img style="max-width: 100%" src="{{ picture.attributes.url }}" alt="">
-    </picture>
-    <h2 ng-bind-html="product.attributes.title | linkify">
-    </h2>
-    <p ng-bind-html="product.attributes.description | linkify">
-    </p>
-    <p>
-      <a href="#" class="subdued">
-        {{ product.attributes.price }}
-      </a>
-    </p>
-    <p>
-      <a
-        class="button button-block button-assertive"
-        ui-sref="users.productDetails.checkout({ productID: product.id})">
-        {{ product.price | currency : 'Bs' }}
-        {{ 'BUY_NOW' | translate }}
-      </a>
-    </p>
-  </div>
-
-  <div class="item tabs tabs-secondary tabs-icon-left">
-    <a class="tab-item" href="#">
-      <i class="icon ion-thumbsup"></i>
-      Like
-    </a>
-    <a ng-hide="detail" class="tab-item" ui-sref="users.productDetails({ productID: product.id })">
-      <i class="icon ion-chatbox"></i>
-      Comments
-    </a>
-    <a ng-show="detail" class="tab-item" ng-click="ToggleCommentForm()">
-      <i class="icon ion-chatbox"></i>
-      Comment
-    </a>
-    <a class="tab-item" href="#">
-      <i class="icon ion-share"></i>
-      Share
-    </a>
-  </div>
-
+<div class="product-show">
+	<div class="item item-white item-body">
+		<picture-slide 
+			pictures="product.relationships.product_pictures">
+		</picture-slide>
+		<!--
+		<h2 ng-bind-html="product.attributes.title | linkify"></h2>
+		<p ng-bind-html="product.attributes.description | linkify"></p>
+		-->
+		<div class="product-details-row row">
+			<div class="col col-33">
+				<div class="tabs-no-border item item-white tabs tabs-secundary tabs-icon-left">
+					<span
+						class="tab-item"
+						like-this
+						product="product">
+						<i class="icon ion-heart"></i>
+						<span class="count">
+							{{ product.attributes.likes_count }}
+						</span>
+					</span>
+					<a 
+						class="tab-item" 
+						ng-click="ToggleCommentForm()">
+						<i class="icon ion-ios-chatbubble-outline"></i>
+						<span class="count">
+							{{ product.attributes.comments_count }}
+						</span>
+					</a>
+				</div>
+			</div>
+			<div class="product-price col col-67">
+				<div class="original-price">
+					<span class="price">
+						{{ ::product.attributes.original_price | currency : product.attributes.currency  }}
+					</span>
+					<span class="divisor">
+						/
+					</span>
+				</div>
+				<div class="retiqueta-price">
+					{{ ::product.attributes.price | currency : products.attributes.currency }}
+				</div>
+			</div>
+		</div>
+		<div>
+			<a
+				class="button button-block button-assertive"
+				ui-sref="users.productDetails.checkout({ productID: product.id})">
+				{{ product.price | currency : 'Bs' }}
+				{{ 'BUY_NOW' | translate }}
+			</a>
+		</div>
+	</div>
 </div>
-
-<div class="pt1 pb1 pl1 pr1" ng-show="showCommentForm">
-  <comment-form product-id="product.id"></comment-form>
+<div class="pl1 pr1" ng-show="showCommentForm">
+	<comment-form product-id="product.id"></comment-form>
 </div>

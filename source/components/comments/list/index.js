@@ -3,7 +3,7 @@ export default function CommentListDirectiveFactory (ngComponent) {
 
   function CommentsTag (CommentStore) {
     return {
-      templateUrl: 'comments/list.html',
+      templateUrl: 'comments/list/template.html',
       restrict: 'E',
       link (scope, element, attrs) {
         scope.loading = true

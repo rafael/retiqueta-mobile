@@ -6,7 +6,11 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content padding="true">
+	<ion-content padding="false">
+		<profile-resume 
+			user="detail.product.relationships.user" 
+			owner-following="detail.product.meta.followed_by_current_user">
+		</profile-resume>
     <show-product product="detail.product" detail="true"></show-product>
     <comments-list product-id="{{detail.product.id}}"></comments-list>
   </ion-content>

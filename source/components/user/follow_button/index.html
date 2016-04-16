@@ -1,4 +1,7 @@
-<button class="button button-small" ng-click="toggleFollowship(following)">
+<button 
+	class="follow-button button button-small button-assertive" 
+	ng-class="{ 'following': following, 'not-following': !following }"
+	ng-click="toggleFollowship(following)">
   {{ followButtonText(following) }}
 </button>
 

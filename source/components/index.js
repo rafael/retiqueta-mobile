@@ -29,6 +29,7 @@ require('./wardrobe')(components)
 require('./profile/edit')(components)
 require('./profile/profile_picture')(components)
 require('./user/profile_header')(components)
+require('./user/profile_resume')(components)
 require('./user/follow_button')(components)
 require('./settings')(components)
 require('./favorites')(components)
@@ -72,6 +73,7 @@ require('./utils/currency_filter')
 require('./utils/cardio-reader')(components)
 require('./utils/text_field')(components)
 require('./utils/auto_next_input_when_full')(components)
+require('./utils/picture_slide')(components)
 
 // component example
 // export default function(ngComponent) {

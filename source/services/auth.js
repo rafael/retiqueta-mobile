@@ -190,13 +190,11 @@ export default function AuthFactory (ngComponent) {
     this.updateToken = (newtoken) => {
       var oldtoken = this.getToken()
       newtoken = Object.assign({}, oldtoken, newtoken)
-      console.log(newtoken)
       ENV.auth.token = newtoken
       return window.localStorage.setItem('token', JSON.stringify(newtoken))
     }
 
     this.getToken = () => {
-      console.log(window.localStorage)
       if (this.isLogin()) {
         return JSON.parse(window.localStorage.getItem('token'))
       } else {
