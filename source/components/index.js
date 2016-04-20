@@ -45,6 +45,7 @@ require('./balance')(components)
 require('./orders/list')(components)
 require('./orders/resume')(components)
 require('./orders/detail')(components)
+require('./orders/chat')(components)
 
 // Products
 require('./products/create/index')(components)

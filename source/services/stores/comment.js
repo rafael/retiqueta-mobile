@@ -5,11 +5,11 @@ export default function commentStoreFactory (ngComponent) {
 
   function CommentStore (ENV, Comment) {
     var Model = {
-      getByProduct (productID) {
-        return Comment.getByProduct(productID)
+      getBy (type, productID) {
+        return Comment.getByProduct(type, productID)
       },
-      create (productID, commentObj) {
-        return Comment.create(productID, commentObj)
+      create (productID, commentObj, type="products") {
+        return Comment.create(productID, commentObj, type)
       }
     }
 

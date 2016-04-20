@@ -5,14 +5,16 @@ export default function CommentListDirectiveFactory (ngComponent) {
     return {
       templateUrl: 'comments/list/template.html',
       restrict: 'E',
+      scope: {
+        parentId: '@',
+        parentType: '@'
+      }
       link (scope, element, attrs) {
         scope.loading = true
         scope.comments = []
 
-        CommentStore.on('new', fetchComments)
-
         function fetchComments() {
-          CommentStore.getByProduct(attrs.productId)
+          CommentStore.getBy(scope.type, scope.parentId)
           .then(result => {
             scope.comments = result
           })
@@ -24,6 +26,7 @@ export default function CommentListDirectiveFactory (ngComponent) {
           })
         }
 
+        CommentStore.on('new', fetchComments)
         fetchComments()
       }
     }

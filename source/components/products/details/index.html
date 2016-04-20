@@ -1,7 +1,7 @@
 <ion-view view-title="{{ 'PRODUCT_DETAIL' | translate }}">
   <ion-nav-bar class="bar-assertive">
     <ion-nav-buttons side="left">
-			<button 
+			<button
 				class="button back-button buttons button-clear header-item"
 				ng-click="detail.goBack()">
         <i class="icon ion-ios-arrow-back"></i>
@@ -14,6 +14,6 @@
 			owner-following="detail.product.meta.followed_by_current_user">
 		</profile-resume>
     <show-product product="detail.product" detail="true"></show-product>
-    <comments-list product-id="{{detail.product.id}}"></comments-list>
+    <comments-list parent-type="products" parent-id="{{detail.product.id}}"></comments-list>
   </ion-content>
 </ion-view>

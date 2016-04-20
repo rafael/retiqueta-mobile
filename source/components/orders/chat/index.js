@@ -6,10 +6,11 @@ const includes = [
   'fulfillment'
 ].join(',')
 
-export default function orderCtrlFactory (ngComponent) {
-  ngComponent.controller('orderCtrl', orderCtrl)
+export default function orderChatCtrlFactory (ngComponent) {
+  ngComponent.controller('orderChatCtrl', orderChatCtrl)
 
-  function orderCtrl (Order, Utils, $stateParams, $ionicHistory) {
+  function orderChatCtrl (Order, Utils, $stateParams, $ionicHistory) {
+    console.log('ChatCtrl is loaded')
     var _ = this
     _.order = {}
     _.goBack = goBack
@@ -21,6 +22,7 @@ export default function orderCtrlFactory (ngComponent) {
     function getorder () {
       Order.get($stateParams.id, { include: includes })
       .then(order => {
+        console.log('Get order')
         _.order = order
       })
       .catch(Utils.swalError)
