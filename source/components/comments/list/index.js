@@ -8,13 +8,18 @@ export default function CommentListDirectiveFactory (ngComponent) {
       scope: {
         parentId: '@',
         parentType: '@'
-      }
+      },
       link (scope, element, attrs) {
         scope.loading = true
         scope.comments = []
 
         function fetchComments() {
-          CommentStore.getBy(scope.type, scope.parentId)
+          if (scope.parentId === '' || scope.parentType === '') {
+            scope.loading = false
+            return
+          }
+
+          CommentStore.getBy(scope.parentType, scope.parentId)
           .then(result => {
             scope.comments = result
           })

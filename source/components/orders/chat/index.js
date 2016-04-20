@@ -10,7 +10,6 @@ export default function orderChatCtrlFactory (ngComponent) {
   ngComponent.controller('orderChatCtrl', orderChatCtrl)
 
   function orderChatCtrl (Order, Utils, $stateParams, $ionicHistory) {
-    console.log('ChatCtrl is loaded')
     var _ = this
     _.order = {}
     _.goBack = goBack
@@ -21,10 +20,7 @@ export default function orderChatCtrlFactory (ngComponent) {
 
     function getorder () {
       Order.get($stateParams.id, { include: includes })
-      .then(order => {
-        console.log('Get order')
-        _.order = order
-      })
+      .then(order => { _.order = order })
       .catch(Utils.swalError)
     }
     getorder()

@@ -166,7 +166,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     },
   })
   .state('users.ordersChat', {
-    url: '/orders/chat/{id}',
+    url: '/orders/{id}',
     views: {
       'order-detail-tab': {
         templateUrl: 'orders/chat/template.html',
@@ -175,10 +175,10 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     }
   })
   .state('users.ordersDetail', {
-    url: '/orders/{id}',
+    url: '/orders/{id}/detail',
     views: {
       'order-detail-tab': {
-        templateurl: 'orders/detail/template.html',
+        templateUrl: 'orders/detail/template.html',
         controller: 'orderCtrl as ctrl'
       }
     },
