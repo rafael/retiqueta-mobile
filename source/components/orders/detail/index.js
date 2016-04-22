@@ -12,19 +12,36 @@ export default function orderCtrlFactory (ngComponent) {
   function orderCtrl (Order, Utils, $stateParams, $ionicHistory) {
     var _ = this
     _.order = {}
+    _.firstProduct = {}
+    _.showOrderId = showOrderId
     _.goBack = goBack
 
     function goBack () {
       $ionicHistory.goBack()
     }
 
+    function showOrderId (id) {
+      Utils.swalSuccess(id, 'Order ID')
+    }
+
     function getorder () {
       Order.get($stateParams.id, { include: includes })
       .then(order => {
+        console.log(order)
         _.order = order
+        _.firstProduct = setFirstProduct(order)
       })
       .catch(Utils.swalError)
     }
+
+    function setFirstProduct (order) {
+      let line_item = order.relationships.line_items[0]
+      if (order.relationships.line_items.length > 0) {
+        return line_item.relationships.product
+      } else {
+        return {}
+      }
+    } 
     getorder()
   }
 }

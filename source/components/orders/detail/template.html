@@ -8,15 +8,15 @@
 			</button>
 		</ion-nav-buttons>
 	</ion-nav-bar>
-	<ion-content padding="true">
+	<ion-content padding="false">
 		<header class="order-detail-header row">
 			<img 
 			class="thumbnail col col-25" 
-			src="{{ ::ctrl.order.relationships.line_items[0].relationships.product.relationships.product_pictures[0].attributes.small_url}}" 
+			src="{{ ::ctrl.firstProduct.relationships.product_pictures[0].attributes.small_url}}" 
 			alt="">
 			<section class="content col col-75">
-				<h6 class="text-assertive">
-					{{ ::ctrl.order.attributes.total_amount }}
+				<h6 class="price text-assertive">
+					{{ ctrl.order.attributes.total_amount | currency : ctrl.order.attributes.currency }}
 				</h6>
 				<div 
 					class="items-description">
@@ -26,23 +26,46 @@
 				</div>
 			</section>
 		</header>
-		<section class="order-resume">
-			<div class="row">
+		<section class="order-detail-resume">
+			<div class="order-resume item row">
 				<div class="col col-50">
-					<span class="label">
+					<div class="label">
 						{{ 'ORDER_DATE' | translate }}
-					</span>
-					<span class="date">
-						01/01/2015
-					</span>
+					</div>
+					<div class="value date">
+						{{ ::ctrl.order.attributes.created_at | date : 'd/M/yy' }}
+					</div>
 				</div>
 				<div class="col col-50">
-					<span class="label">
+					<div class="label">
 						{{ 'ORDER_NUMBER' | translate }}
-					</span>
-					<span class="number">
+					</div>
+					<div class="value number" ng-click="ctrl.showOrderId(ctrl.order.id)">
 						{{ ::ctrl.order.id }}
-					</span>
+					</div>
+				</div>
+			</div>
+			<div class="order-resume item row">
+				<div class="col">
+					<div class="label">
+						{{ 'ORDER_PAYMENT_TYPE' | translate }}
+					</div>
+					<div class="value date">
+						<span class="text-uppercase">
+							{{ ::ctrl.order.attributes.payment_info.payment_method }}
+						</span>
+						XXXX-{{ ::ctrl.order.attributes.payment_info.last_four }}
+					</div>
+				</div>
+			</div>
+			<div class="order-resume item row">
+				<div class="col">
+					<div class="label">
+						{{ 'ORDER_CARD_HOLDER' | translate }}
+					</div>
+					<div class="value date">
+						{{ ::ctrl.order.attributes.payment_info.cardholder_name }}
+					</div>
 				</div>
 			</div>
 		</section>
