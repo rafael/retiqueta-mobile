@@ -2,11 +2,13 @@ export default function updateTokenCtrlFactory (ngComponent) {
   ngComponent.controller('updateTokenCtrl', updateTokenCtrl)
 
   function updateTokenCtrl (Auth, $state) {
+    console.log($state)
     Auth.refreshToken()
     .then(result => {
-      $state.go('users.dashboard')
+      $state.back()
     })
     .catch(error => {
+      console.log(error)
       $state.go('auth.login')
     })
   }

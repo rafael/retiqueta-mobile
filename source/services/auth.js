@@ -92,6 +92,7 @@ export default function AuthFactory (ngComponent) {
     // Login token
     this.loginToken = (token) => {
       this.updateToken(token)
+      ENV.auth.token = token
       $rootScope.$broadcast('session:start')
     }
 
@@ -195,11 +196,7 @@ export default function AuthFactory (ngComponent) {
     }
 
     this.getToken = () => {
-      if (this.isLogin()) {
-        return JSON.parse(window.localStorage.getItem('token'))
-      } else {
-        return {}
-      }
+      return JSON.parse(window.localStorage.getItem('token') || '{}')
     }
   }
 }

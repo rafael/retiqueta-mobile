@@ -57,7 +57,18 @@ var esTranslation = {
   MY_ORDERS: 'Mis ordenes',
   MY_SALES: 'Mis ventas',
   MY_BALANCE: 'Mi Balance',
-  FAQ: 'Preguntas frecuentes'
+  FAQ: 'Preguntas frecuentes',
+  ORDER_DETAIL: 'Detalle de la orden',
+  ORDER_DETAIL_CHAT: 'Chat con el vendedor',
+  ORDER_NUMBER: 'Order Nº',
+  ORDER_DATE: 'Fecha de la orden',
+  ORDER_PAYMENT_TYPE: 'Informaci\ón de pago',
+  ORDER_CARD_HOLDER: 'Tarjetahabiente',
+  ORDER_STATUS_DELIVERED: 'Entregado',
+  ORDER_TOTAL_AMOUNT: 'Total a pagar',
+  ORDER_ITEM_CATEGORY: 'Category',
+  ORDER_ITEM_TYPE: 'Product',
+  ORDER_ITEM_PRICE: 'Price'
 }
 
 export default esTranslation

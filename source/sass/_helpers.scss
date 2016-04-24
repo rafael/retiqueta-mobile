@@ -16,6 +16,11 @@
 	font-size: 1.8em;
 }
 
+.text-center { text-align: center }
+.text-left { text-align: left }
+.text-right { text-align: right }
+.text-justify { text-align: justify }
+
 @mixin flex-container {
 	display: flex;
 	flex-direction: row;

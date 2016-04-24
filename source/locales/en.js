@@ -57,7 +57,18 @@ var enTranslation = {
   MY_ORDERS: 'My orders',
   MY_SALES: 'My sales',
   MY_BALANCE: 'My balance',
-  FAQ: 'FAQ'
+  FAQ: 'FAQ',
+  ORDER_DETAIL: 'Order detail',
+  ORDER_DETAIL_CHAT: 'Chat with the seller',
+  ORDER_NUMBER: 'Order Nº',
+  ORDER_DATE: 'Order date',
+  ORDER_PAYMENT_TYPE: 'Payment information',
+  ORDER_CARD_HOLDER: 'Cardholder',
+  ORDER_STATUS_DELIVERED: 'Delivered',
+  ORDER_TOTAL_AMOUNT: 'Total amount',
+  ORDER_ITEM_CATEGORY: 'Category',
+  ORDER_ITEM_TYPE: 'Product',
+  ORDER_ITEM_PRICE: 'Price'
 }
 
 export default enTranslation

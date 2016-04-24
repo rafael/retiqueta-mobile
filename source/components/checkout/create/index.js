@@ -1,7 +1,7 @@
 export default function productCheckoutFactory (ngComponent) {
   ngComponent.controller('productCheckout', productCheckout)
 
-  function productCheckout ($scope, ProductData, Order, Utils) {
+  function productCheckout ($scope, ProductData, Order, Utils, $state) {
     var _ = this
     var form
     _.savingOrder = false
@@ -52,10 +52,11 @@ export default function productCheckoutFactory (ngComponent) {
       _.savingOrder = true
       var orderObj = Order.buildOrder(_.order, [_.product])
       Order.create(orderObj)
-      .then((result) => {
-        Utils.swalSuccess("Your order has been process")
+      .then(result => {
+        $state.go('users.orders')
       })
-      .catch((error) => {
+      .catch(error => {
+        console.log(error)
         Utils.swalError(error)
       })
       .finally(() => {

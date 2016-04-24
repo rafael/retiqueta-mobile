@@ -1,0 +1,37 @@
+.order-detail-header {
+	background-color: $stable;
+	padding-top: 0.6em;
+	padding-bottom: 0.6em;
+	.thumbnail {}
+	.content {
+		.price {
+			font-size: 1.1em;
+			margin-top: 0;
+		}
+		.items-description {
+			font-size: 1em;
+			color: darken($dark, 20%);
+		}
+	}
+}
+.order-detail-resume {
+	.order-resume {
+		padding-top: 0.6em;
+		padding-bottom: 0.6em;
+		background-color: $light;
+		.label {
+			color: $dark;
+			font-size: 0.8em;
+			margin-bottom: 0.6em;
+		}
+		.value {
+			display: block;
+			line-height: 1.4em;
+			color: $assertive;
+			font-size: 1.2em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
+}
+

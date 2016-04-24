@@ -92,7 +92,6 @@ export default function textPlusFieldFactory (ngComponent) {
         // Expose certain validation rules (such as min/max) so that the view layer can pass them along
         var validationRules = formForController.getValidationRulesForAttribute($scope.attribute);
         if (validationRules) {
-          console.log(validationRules)
           $scope.validationRules = {
             increment: validationRules.increment,
             maximum: validationRules.maximum,

@@ -24,7 +24,7 @@
         } else if (currencySymbol === 'USD') {
           currencySymbol = 'USD $'
         } else if (currencySymbol === 'VEF') {
-          currencySymbol = 'Bs'
+          currencySymbol = 'Bs '
           suffixSymbol = false
         }
 

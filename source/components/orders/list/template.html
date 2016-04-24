@@ -1,0 +1,11 @@
+<ion-view view-title="{{ 'MY_ORDERS' | translate }}">
+	<ion-content padding="true">
+		<h1 ng-if="ctrl.orders.length === 0" class="no-orders">
+			{{ 'ORDERS_NO_EXISTS' | translate }}
+		</h1>
+		<order-resume 
+			ng-repeat="order in ctrl.orders track by order.id"
+			order="order">
+		</order-resume>
+	</ion-content>
+</ion-view>
