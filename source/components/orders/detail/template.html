@@ -45,26 +45,28 @@
 					</div>
 				</div>
 			</div>
-			<div class="order-resume item row">
-				<div class="col">
-					<div class="label">
-						{{ 'ORDER_PAYMENT_TYPE' | translate }}
-					</div>
-					<div class="value date">
-						<span class="text-uppercase">
-							{{ ::ctrl.order.attributes.payment_info.payment_method }}
-						</span>
-						XXXX-{{ ::ctrl.order.attributes.payment_info.last_four }}
+			<div ng-if="ctrl.order.attributes.payment_info.type === 'credit_card'">
+				<div class="order-resume item row">
+					<div class="col">
+						<div class="label">
+							{{ 'ORDER_PAYMENT_TYPE' | translate }}
+						</div>
+						<div class="value date">
+							<span class="text-uppercase">
+								{{ ::ctrl.order.attributes.payment_info.payment_method }}
+							</span>
+							XXXX-{{ ::ctrl.order.attributes.payment_info.last_four }}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="order-resume item row">
-				<div class="col">
-					<div class="label">
-						{{ 'ORDER_CARD_HOLDER' | translate }}
-					</div>
-					<div class="value date">
-						{{ ::ctrl.order.attributes.payment_info.cardholder_name }}
+				<div class="order-resume item row">
+					<div class="col">
+						<div class="label">
+							{{ 'ORDER_CARD_HOLDER' | translate }}
+						</div>
+						<div class="value date">
+							{{ ::ctrl.order.attributes.payment_info.cardholder_name }}
+						</div>
 					</div>
 				</div>
 			</div>
