@@ -43,6 +43,7 @@ var enTranslation = {
   FOLLOWING_COUNT: 'Following',
   PROFILE_PRODUCT_COUNT: 'Retiquetas on my wardrobe',
   BUY_NOW: 'Buy now',
+  SCAN_CARD: 'Scan your credict card',
   ORDER_ADDRESS: 'Shipping Address',
   ORDER_PAY: 'Process your payment now',
   CARD_NUMBER: 'Card number',

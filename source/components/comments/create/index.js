@@ -15,11 +15,13 @@ export default function CommentCreateDirectiveFactory (ngComponent) {
         scope.comment = ''
         scope.save = function() {
           scope.loading = true
+
           CommentStore.create(scope.parentId, { text: scope.comment }, scope.parentType)
           .then(result => {
             CommentStore.emit('new')
           })
           .catch(error => {
+            console.log(error)
             console.warn('Error creating new comment for, ', scope.parentId)
             Utils.swalError(error)
           })

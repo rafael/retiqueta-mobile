@@ -26,13 +26,13 @@
 		</header>
 		<section class="comments">
 			<comments-list 
-				parent-type="fullfillment" 
-				parent-id="{{ ::ctrl.order.relationships.fulfillment.id }}"></comments-list>
+				parent-type="fulfillments" 
+				parent-id="{{ ctrl.order.relationships.fulfillment.id }}"></comments-list>
 		</section>
 		<section class="comment-form">
 			<comment-form
-				parent-type="fullfillment" 
-				parent-id="{{ ::ctrl.order.relationships.fulfillment.id }}"></comment-form>
+				parent-type="fulfillments" 
+				parent-id="{{ ctrl.order.relationships.fulfillment.id }}"></comment-form>
 		</section>
 	</ion-content>
 </ion-view>
