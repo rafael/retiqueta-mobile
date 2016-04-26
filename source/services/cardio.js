@@ -13,6 +13,16 @@ export default function CardIOServiceFactory (ngComponent) {
   ngComponent.factory('CardIOService', CardIOService)
 
   function CardIOService (ENV, $q) {
+    let CardIO = window.CardIO
+    if (ENV.isDevelopment()) {
+      if (typeof CardIO === 'undefined') {
+        CardIO = {
+          canScan() {},
+          scan() {}
+        }
+      }
+    }
+
     let Model = {
       canScan () {
         let defered = $q.defer()

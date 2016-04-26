@@ -12,10 +12,12 @@ export default function Creatable (url, type, $http, $q) {
       }
     })
       .then(result => {
-        if (result.data.hasOwnProperty('data')) {
+        if (result.hasOwnProperty('data') && result.data !== null && result.data.hasOwnProperty('data')) {
           deferred.resolve(result.data.data)
-        } else {
+        } else if (result.hasOwnProperty('data')) {
           deferred.resolve(result.data)
+        } else {
+          deferred.resolve(result)
         }
       })
       .catch(error => {
