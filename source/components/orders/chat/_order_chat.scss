@@ -1,6 +1,11 @@
 .order-chat {
+	.order-detail-header {
+		margin-bottom: 0;
+	}
 	.comments {
 		padding-bottom: 40px;
+		margin-left: -1em;
+		margin-right: -1em;
 	}
 	.comment-form {
 		position: absolute;
