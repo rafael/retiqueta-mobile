@@ -26,7 +26,9 @@
 		</header>
 		<section class="comments">
 			<comments-list 
+				as-chat="true"
 				parent-type="fulfillments" 
+				current-user-id="{{ ctrl.currentUser.id }}"
 				parent-id="{{ ctrl.order.relationships.fulfillment.id }}"></comments-list>
 		</section>
 		<section class="comment-form">

@@ -8,16 +8,26 @@ export default function CommentListDirectiveFactory (ngComponent) {
       scope: {
         parentId: '@',
         parentType: '@',
-        autoLoad: '@'
+        autoLoad: '@',
+        asChat: '@',
+        currentUserId: '@'
       },
       link (scope, element, attrs) {
+        scope.asChat = (scope.asChat === 'true') ? true : false
         scope.loading = (scope.autoLoad === 'false') ? false : true
         scope.autoLoad = (scope.autoLoad === 'false') ? false : true
         scope.comments = []
+        scope.authorIsCurrentUser = authorIsCurrentUser
+
+        function authorIsCurrentUser (comment) {
+          return comment.attributes.user_id === scope.currentUserId
+        }
 
         function fetchComments() {
+          scope.loading = true
+
           if (typeof scope.parentId === 'undefined' || scope.parentId === '' || scope.parentType === '') {
-            scope.loading = false
+            scope.loading = false            
             return
           }
 
@@ -34,6 +44,8 @@ export default function CommentListDirectiveFactory (ngComponent) {
         }
 
         CommentStore.on('new', fetchComments)
+        scope.$watch('parentId', fetchComments)
+
         if (scope.autoLoad) {
           fetchComments()
         }
