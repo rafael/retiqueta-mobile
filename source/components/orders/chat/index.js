@@ -3,16 +3,18 @@ const includes = [
   'line_items.product',
   'line_items.product.product_pictures',
   'user',
-  'fulfillment'
+  'fulfillment',
 ].join(',')
 
 export default function orderChatCtrlFactory (ngComponent) {
   ngComponent.controller('orderChatCtrl', orderChatCtrl)
 
-  function orderChatCtrl (Order, Utils, $stateParams, $ionicHistory) {
+  function orderChatCtrl (Order, Utils, $stateParams, $ionicHistory, CommentStore, currentUser) {
+    console.log(currentUser)
     var _ = this
     _.order = {}
     _.firstProduct = {}
+    _.currentUser = currentUser
     _.goBack = goBack
 
     function goBack () {
@@ -27,6 +29,7 @@ export default function orderChatCtrlFactory (ngComponent) {
       })
       .catch(Utils.swalError)
     }
+
     function setFirstProduct (order) {
       let line_item = order.relationships.line_items[0]
       if (order.relationships.line_items.length > 0) {
