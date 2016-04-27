@@ -8,6 +8,8 @@ export default function productCheckoutFactory (ngComponent) {
     _.product = ProductData
     _.order = {}
     _.formController = {}
+    _.creditcard = {}
+    _.creditcardCtrl = {}
     _.validationRules = {
       address: {
         required: true,
@@ -16,8 +18,12 @@ export default function productCheckoutFactory (ngComponent) {
     }
     _.PayOrder = PayOrder
     _.submitCreditForm = submitCreditForm
-    _.creditcard = {}
     _.cardioReader = cardioReader
+    _.submitOrder = submitOrder
+
+    function submitOrder () {
+      _.creditcardCtrl.submit()
+    }
 
     function cardioReader (responsePromise) {
       _.savingOrder = true
@@ -29,7 +35,6 @@ export default function productCheckoutFactory (ngComponent) {
           cardExpirationYear: response.expiry_year,
           securityCode: response.cvv
         })
-        console.log(_.creditcard)
       })
       .catch((e) => {
         console.log(e)
@@ -38,7 +43,7 @@ export default function productCheckoutFactory (ngComponent) {
         _.savingOrder = false
       })
     }
-
+    
     function submitCreditForm () {
       _.formController.validateForm(true)
       .then(() => {
@@ -52,24 +57,21 @@ export default function productCheckoutFactory (ngComponent) {
       _.savingOrder = true
       var orderObj = Order.buildOrder(_.order, [_.product])
       Order.create(orderObj)
-      .then(result => {
-        $state.go('users.orders')
-      })
-      .catch(error => {
-        console.log(error)
-        Utils.swalError(error)
-      })
+      .then(successOnSaveOrder)
+      .catch(errorOnSaveOrder)
       .finally(() => {
         _.savingOrder = false
       })
     }
 
     function successOnSaveOrder (result) {
-      console.log(result)
+      _.credit_card = {}
+      _.order = {}
+      $state.go('users.ordersChat', { id: result.id })
     }
 
     function errorOnSaveOrder (error) {
-      console.log(error)
+      Utils.swalError(error)
     }
 
     function PayOrder (token, payment_method_id) {

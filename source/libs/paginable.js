@@ -11,7 +11,7 @@ export default function paginableFactory (url, $http, $q) {
       url: fullUrl
     })
       .then(result => {
-        if (result.data.hasOwnProperty('data')) {
+        if (result.hasOwnProperty('data') && result.data !== null) {
           deferred.resolve(jsonapi(result.data))
         } else {
           deferred.resolve(result)

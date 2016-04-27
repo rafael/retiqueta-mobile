@@ -15,7 +15,7 @@ export default function(ngComponent) {
       require('./product/upload_picture')(ENV, $http, $q)
     )
 
-    if (ENV.type === 'development') {
+    if (ENV.isDevelopment()) {
       console.info('Saving Product model on window')
       window.Product = Model
     }

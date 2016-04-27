@@ -11,7 +11,44 @@ const creditCardObj = {
 }
 
 export default function CreditCardTokenFactory (ngComponent) {
+  ngComponent.directive('formatCredictCard', formatCredictCard)
   ngComponent.directive('creditCardToken', creditCardToken)
+
+
+  function formatOnWatch ($scope, ngModel) {
+    $scope.$watch(function() {
+      return ngModel.$modelValue;
+    }, function() {
+      ngModel.$setViewValue(formatNumber(ngModel.$modelValue));
+      ngModel.$render();
+    });
+  }
+
+  function formatNumber (number) {
+    return number.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim()
+  }
+
+  function formatCredictCard () {
+    return {
+      require: 'ngModel',
+      restrict: 'A',
+      link (scope, element, attrs, ctrl) {
+        ctrl.$parsers.push(value => {
+          if (typeof value === 'string') {
+            return value.replace(/\D/g, '')
+          }  else {
+            return value
+          }
+        })
+        ctrl.$formatters.push(value => {
+          if (typeof value === 'string') {
+            return value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim()
+          }
+        })
+        formatOnWatch(scope, ctrl)
+      }
+    }
+  }
 
   function creditCardToken (MercadopagoFactory) {
     return {
@@ -21,7 +58,9 @@ export default function CreditCardTokenFactory (ngComponent) {
         onTokenHandler: '=',
         onSubmitHandler: '=',
         savingOrder: '=',
-        creditcard: "="
+        creditcard: "=",
+        hideSubmit: "=",
+        formController: "="
       },
       link: {
         pre (scope) {
@@ -37,8 +76,13 @@ export default function CreditCardTokenFactory (ngComponent) {
           scope.hasError = hasError
           MercadopagoFactory.getIdentificationTypes()
 
-          Object.observe(scope.creditcard, function(changes) {
-            changes.forEach(function(change) {
+          if (scope.formController) {
+            Object.assign(scope.formController, { submit: createToken })
+          }
+
+          Object.observe(scope.creditcard, (changes) => {
+            changes.forEach((change) => { 
+              scope.errors[change.name].detail = ''
               if (change.name === 'cardNumber' && change.type === 'update') {
                 changeCredictCard()
               }
@@ -46,7 +90,7 @@ export default function CreditCardTokenFactory (ngComponent) {
           })
 
           function changeCredictCard () {
-            if (scope.creditcard.cardNumber.length >= 6) {
+            if (scope.creditcard.cardNumber.length >= 10) {
               MercadopagoFactory.guessPaymentMethod(scope.creditcard.cardNumber)
               .then(onGuess)
               .catch(errorOnGuess)
