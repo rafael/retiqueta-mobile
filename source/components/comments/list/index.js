@@ -7,14 +7,16 @@ export default function CommentListDirectiveFactory (ngComponent) {
       restrict: 'E',
       scope: {
         parentId: '@',
-        parentType: '@'
+        parentType: '@',
+        autoLoad: '@'
       },
       link (scope, element, attrs) {
-        scope.loading = true
+        scope.loading = (scope.autoLoad === 'false') ? false : true
+        scope.autoLoad = (scope.autoLoad === 'false') ? false : true
         scope.comments = []
 
         function fetchComments() {
-          if (scope.parentId === '' || scope.parentType === '') {
+          if (typeof scope.parentId === 'undefined' || scope.parentId === '' || scope.parentType === '') {
             scope.loading = false
             return
           }
@@ -32,7 +34,9 @@ export default function CommentListDirectiveFactory (ngComponent) {
         }
 
         CommentStore.on('new', fetchComments)
-        fetchComments()
+        if (scope.autoLoad) {
+          fetchComments()
+        }
       }
     }
   }

@@ -52,6 +52,7 @@ var esTranslation = {
   CARD_DOCUMENT_TYPE: 'Tipo de documento de identificaci\ón',
   CARD_DOCUMENT_NUMBER: 'Numero de documento de identificaci\ón',
   BUY_NOW: 'Comprar ahora',
+  SCAN_CARD: 'Escanea tu tarjeta de credito',
   BUY_MESSAGE: 'Ya estas a un paso de comprar, necesitamos esta informaci\ón.',
   MY_FAVORITE: 'Mis favoritos',
   MY_ORDERS: 'Mis ordenes',
