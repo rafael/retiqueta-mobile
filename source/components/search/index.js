@@ -2,7 +2,6 @@ export default function searchFactory (ngComponent) {
   ngComponent.controller('SearchProductCtrl', SearchProductCtrl)
 
   function SearchProductCtrl (Product, $stateParams, Utils) {
-    // Initial state
     var _ = this
     _.text = ''
     _.products = []
@@ -33,7 +32,6 @@ export default function searchFactory (ngComponent) {
 
     function searchProducts (page = 0) {
       if (_.text === '') { return }
-
       _.noResult = false
       _.loading = true
       console.log('Searching: ', _.text)

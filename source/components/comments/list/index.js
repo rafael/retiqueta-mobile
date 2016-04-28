@@ -18,6 +18,7 @@ export default function CommentListDirectiveFactory (ngComponent) {
         scope.autoLoad = (scope.autoLoad === 'false') ? false : true
         scope.comments = []
         scope.authorIsCurrentUser = authorIsCurrentUser
+        scope.refreshComment = fetchComments
 
         function authorIsCurrentUser (comment) {
           return comment.attributes.user_id === scope.currentUserId
@@ -31,19 +32,27 @@ export default function CommentListDirectiveFactory (ngComponent) {
             return
           }
 
-          CommentStore.getBy(scope.parentType, scope.parentId)
-          .then(result => {
+          return CommentStore.getBy(scope.parentType, scope.parentId).then(result => {
             scope.comments = result
-          })
-          .catch(error => {
+          }).catch(error => {
             console.warn('Error Fetching comments for ', attrs.productId)
-          })
-          .finally(() => {
+          }).finally(() => {
             scope.loading = false
           })
         }
 
-        CommentStore.on('new', fetchComments)
+        function addComment (comment) {
+          scope.comments.push(comment)
+        }
+
+        let reloading = setInterval(fetchComments, 10000)
+
+        scope.$on("$destroy", function handleDestroyEvent() {
+          removeInterval(reloading)
+        })
+
+        CommentStore.on('new', addComment)
+        CommentStore.on('refresh', fetchComments)
         scope.$watch('parentId', fetchComments)
 
         if (scope.autoLoad) {

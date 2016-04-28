@@ -10,15 +10,19 @@ export default function orderChatCtrlFactory (ngComponent) {
   ngComponent.controller('orderChatCtrl', orderChatCtrl)
 
   function orderChatCtrl (Order, Utils, $stateParams, $ionicHistory, CommentStore, currentUser) {
-    console.log(currentUser)
     var _ = this
     _.order = {}
     _.firstProduct = {}
     _.currentUser = currentUser
     _.goBack = goBack
+    _.refreshComment = refreshComment
 
     function goBack () {
       $ionicHistory.goBack()
+    }
+
+    function refreshComment () {
+      return CommentStore.emit('refresh')    
     }
 
     function getorder () {
@@ -37,7 +41,8 @@ export default function orderChatCtrlFactory (ngComponent) {
       } else {
         return {}
       }
-    } 
+    }
+
     getorder()
   }
 }

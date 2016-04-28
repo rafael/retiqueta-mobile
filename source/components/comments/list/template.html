@@ -1,5 +1,5 @@
 <section class="comments-list list pl1 pr1" ng-class="{ 'as-chat': asChat }">
-	<div ng-hide="loading">
+	<div>
 		<div 
 			class="item item-white" 
 			ng-repeat="comment in comments track by comment.id" class="list"
@@ -14,11 +14,8 @@
 			</p>
 		</div>
 	</div>
-	<div ng-show="loading" class="pl1 pr1 pt2 pb2">
-		<h3>loading comments ...</h3>
-	</div>
-	<div ng-hide="loading" class="pl1 pr1 pt2 pb2">
-		<div ng-show="comments.length == 0 ">
+	<div ng-hide="loading">
+		<div class="pl1 pr1 pt2 pb2" ng-show="comments.length == 0 ">
 			<h3>No comments</h3>
 		</div>
 	</div>

@@ -12,9 +12,11 @@ export default function salesCtrlFactory (ngComponent) {
 
   function salesCtrl (Sell, Utils) {
     var _ = this
+    _.loading = false
     _.sales = []
-
+    
     function getSales () {
+      _.loading = true
       Sell.getAll({
         include: `${includes}`
       })
@@ -22,6 +24,9 @@ export default function salesCtrlFactory (ngComponent) {
         _.sales = sales
       })
       .catch(Utils.swalError)
+      .finally(() => {
+        _.loading = false
+      })
     }
 
     getSales()
