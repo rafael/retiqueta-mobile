@@ -19,7 +19,7 @@ export default function CommentCreateDirectiveFactory (ngComponent) {
 
           CommentStore.create(scope.parentId, { text: scope.comment }, scope.parentType)
           .then(result => {
-            CommentStore.emit('new', result)
+            CommentStore.emit('refresh')
           })
           .catch(error => {
             console.warn('Error creating new comment for, ', scope.parentId)

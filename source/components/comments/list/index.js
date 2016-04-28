@@ -45,11 +45,11 @@ export default function CommentListDirectiveFactory (ngComponent) {
           scope.comments.push(comment)
         }
 
-        let reloading = setInterval(fetchComments, 10000)
-
-        scope.$on("$destroy", function handleDestroyEvent() {
-          removeInterval(reloading)
-        })
+        // let reloading = setInterval(fetchComments, 10000)
+ 
+        // scope.$on("$destroy", function handleDestroyEvent() {
+        //   removeInterval(reloading)
+        // })
 
         CommentStore.on('new', addComment)
         CommentStore.on('refresh', fetchComments)
