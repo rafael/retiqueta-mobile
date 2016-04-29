@@ -1,18 +1,18 @@
 import _chain from 'pipeable'
 import clone from 'clone'
 
-function jsonapi (data, included = data.included) {
+function jsonapi (data, included = data.included, meta = data.meta) {
   if ( data === null || typeof data === 'undefined') {
     return data
   }
-
+  
   let result = clone(data)
 
   try {
     if (result.hasOwnProperty('data')) {
-      result = extractJsonApi(result.data, included)
+      result = extractJsonApi(result.data, included, meta)
     } else {
-      result = extractJsonApi(result, included)
+      result = extractJsonApi(result, included, meta)
     }
   } catch(e) {
     console.log(e)
@@ -22,17 +22,17 @@ function jsonapi (data, included = data.included) {
   return result
 }
 
-function extractJsonApi (data, included) {
+function extractJsonApi (data, included, meta) {
   if (Array.isArray(data)) {
     return data.map((item, index) => {
-      return ParseItem(item, index, data, included)
+      return ParseItem(item, index, data, included, meta)
     })
   } else {
-    return ParseItem(data, 0, data, included)
+    return ParseItem(data, 0, data, included, meta)
   }
 }
 
-function ParseItem (item, index, array, included) {
+function ParseItem (item, index, array, included, meta) {
   var relationTypes = (item.hasOwnProperty('relationships')) ? Object.keys(item.relationships) : []
   var relationIsArray = false
 
@@ -55,9 +55,11 @@ function ParseItem (item, index, array, included) {
       }
     })
   })
-
-  if (array.hasOwnProperty('meta')) {
+  
+  if (array.hasOwnProperty('meta') && typeof item.meta === 'undefined') {
     item.meta = array.meta
+  } else if (typeof item.meta === 'undefined') {
+    item.meta = meta
   }
 
   return item

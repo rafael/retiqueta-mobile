@@ -4,13 +4,17 @@ export default function DashboardFactory (ngComponent) {
   function dashCtrl (Product, Utils) {
     var _ = this
     _.products = []
-    
-    Product.getFeatured({
-      include: 'product_pictures, likes'
-    })
-    .then(result => {
-      _.products = result
-    })
-    .catch(Utils.swalError)
+
+    function refreshFeatured () {
+      Product.getFeatured({
+        include: 'product_pictures, likes'
+      })
+      .then(result => {
+        _.products = result
+      })
+      .catch(Utils.swalError)
+    }
+
+    refreshFeatured()
   }
 }

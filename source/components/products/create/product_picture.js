@@ -3,7 +3,7 @@ const numberOfPhotosPerProduct = 4
 export default function productPictureDirectiveFactory (ngComponent) {
   ngComponent.directive('productPicture', productPicture)
 
-  function productPicture (Product, PictureStore, CameraService, $ionicScrollDelegate) {
+  function productPicture (Product, PictureStore, CameraService, $ionicScrollDelegate, Utils) {
     return {
       templateUrl: 'products/create/product_picture.html',
       restrict: 'E',
@@ -33,9 +33,7 @@ export default function productPictureDirectiveFactory (ngComponent) {
           .then(result => {
             PictureStore.setPicture(numberOfPhotosPerProduct, _.pictureIndex, result)
           })
-          .catch(e => {
-            console.log(e)
-          })
+          .catch(Utils.swalError)
           .finally(() => {
             _.loadingPicture = false
             _.selectSource = false
@@ -65,5 +63,3 @@ export default function productPictureDirectiveFactory (ngComponent) {
     }
   }
 }
-
-
