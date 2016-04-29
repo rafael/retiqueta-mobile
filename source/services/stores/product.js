@@ -1,4 +1,5 @@
 import event from 'events'
+
 const defaultProduct = {
   category: '',
   title: '',
@@ -20,8 +21,11 @@ export default function productStoreFacotry (ngComponent) {
       },
       get () {
         var productLocal = window.localStorage.getItem('cacheProductStore')
-        return (productLocal != null) ? JSON.parse(productLocal) : Object.assign({}, defaultProduct)
+        return (productLocal !== null) ? JSON.parse(productLocal) : this.defaultValue()
       },
+      defaultValue() {
+        return Object.assign({}, defaultProduct)
+      }, 
       set (newProduct) {
         if (Object.keys(newProduct).length > 0) {
           window.localStorage.setItem('cacheProductStore', JSON.stringify(newProduct))

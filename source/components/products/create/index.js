@@ -9,6 +9,7 @@ export default function ProductCreateFactory (ngComponent) {
   function productCreateCtrl ($ionicHistory, $ionicPlatform, $q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate, currentUser) {
     FormForConfiguration.enableAutoLabels()
     var _ = this
+    let picturesIds = PictureStore.ids()
     _.currentUser = currentUser
     _.pictureStore = PictureStore
     _.product = ProductStore.get()
@@ -57,7 +58,6 @@ export default function ProductCreateFactory (ngComponent) {
         $state.go('users.productDetails', { productID: result.id })
       })
       .catch(error => {
-        console.warn(error)
         _.errors = extractErrorByField(error.data, product, Object.keys(_.errors))
         _.formController.validateForm()
         Utils.swalError(ErrorIfFor('Picture', error.data))
@@ -68,13 +68,15 @@ export default function ProductCreateFactory (ngComponent) {
     }
 
     function saveDraft (product) {
+      picturesIds = PictureStore.ids()
       ProductStore.set(product)
     }
 
     function removeDraft () {
       ProductStore.clear()
       PictureStore.clear()
-      _.product = {}
+      picturesIds = PictureStore.ids()
+      _.product = ProductStore.defaultValue()
       _.formController.validateForm()
     }
 
@@ -84,15 +86,22 @@ export default function ProductCreateFactory (ngComponent) {
 
     function goBack ()  {
       try {
-        Utils.confirm('Save this product','Do you what save this product information has a draft?', (buttonIndex) => {
-          if (buttonIndex == 1) {
-            _.draft(_.product)
-          } else if (buttonIndex == 2) {
-            _.removeDraft()
-          }
+        if (hasChanges()) {
+          Utils.confirm(
+            'Save this product','Do you what save this product information has a draft?', 
+            (buttonIndex) => {
+              if (buttonIndex == 1) {
+                _.draft(_.product)
+              } else if (buttonIndex == 2) {
+                _.removeDraft()
+              }
+              action()
+              $state.go('users.dashboard', {}, { location: 'replace', reload: true })
+            })
+        } else {
           action()
           $state.go('users.dashboard', {}, { location: 'replace', reload: true })
-        })
+        }
       }
       catch (e) {
         action()
@@ -100,14 +109,20 @@ export default function ProductCreateFactory (ngComponent) {
       }
     }
 
-    Object.observe(_.product, function(changes) {
-      changes.forEach((change) => {
-        // saveDraft(_.product)
-      })
-    })
+    function hasChanges () {
+      const productEqualsToStore = angular.equals(_.product, ProductStore.get())
+      const isDefault = angular.equals(_.product, ProductStore.defaultValue())
+      const dontHaveNewPictures = (picturesIds.length === PictureStore.ids().length)
+      return !((productEqualsToStore && dontHaveNewPictures) || isDefault)
+    }
+
+    // Object.observe(_.product, function(changes) {
+    //   changes.forEach((change) => {
+    //     saveDraft(_.product)
+    //   })
+    // })
 
     ProductStore.on('change', () => {
-      console.log('Change Product')
       _.product = ProductStore.get()
     })
 
