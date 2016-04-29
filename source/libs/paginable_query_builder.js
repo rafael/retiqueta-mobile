@@ -17,6 +17,9 @@ function UrlBuilder (query = {}) {
       var start = (index === 1) ? '?' : '&'
       return prev + `${start}${current[0]}=${current[1]}`
     })
+    .pipe((value) => {
+      return value.replace(/\#/g,'')
+    })
     .result()
 
   return result
