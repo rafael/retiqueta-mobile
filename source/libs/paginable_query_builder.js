@@ -4,7 +4,7 @@ function UrlBuilder (query = {}) {
   var result = _chain(query)
     .pipe(Object.assign, {
       page_number: 0,
-      page_size: 10
+      page_size: 15
     })
     .pipe(Object.keys)
     .pipe(Array.map, (key) => {
