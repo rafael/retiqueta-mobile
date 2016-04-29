@@ -1,11 +1,16 @@
 .order-chat {
-	.comments {
-		padding-bottom: 40px;
+	.order-detail-header {
+		margin-bottom: 0;
 	}
-	.comment-form {
-		position: absolute;
-		bottom: 0;
-		left: 0;
+	.comments {
+		margin-left: -1em;
+		margin-right: -1em;
+	}
+}
+
+.comment-form {
+	height: 54px;
+	.form {
 		width: 100%;
 	}
 }

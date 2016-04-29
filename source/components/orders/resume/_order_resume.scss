@@ -1,0 +1,12 @@
+.order-resume {
+	.item {
+		p {
+			overflow: visible;
+			text-overflow: initial;
+			white-space: normal;
+		}
+		h2 {
+			color: $assertive;
+		}
+	}
+}

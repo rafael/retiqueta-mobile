@@ -1,4 +1,3 @@
-
 export default function CommentCreateDirectiveFactory (ngComponent) {
   ngComponent.directive('commentForm', CommentForm)
 
@@ -13,15 +12,16 @@ export default function CommentCreateDirectiveFactory (ngComponent) {
       link (scope, element, attrs) {
         scope.loading = false
         scope.comment = ''
-        scope.save = function() {
+        scope.save = saveComment
+
+        function saveComment () {
           scope.loading = true
 
           CommentStore.create(scope.parentId, { text: scope.comment }, scope.parentType)
           .then(result => {
-            CommentStore.emit('new')
+            CommentStore.emit('refresh')
           })
           .catch(error => {
-            console.log(error)
             console.warn('Error creating new comment for, ', scope.parentId)
             Utils.swalError(error)
           })

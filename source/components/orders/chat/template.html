@@ -9,6 +9,10 @@
 		</ion-nav-buttons>
 	</ion-nav-bar>
 	<ion-content class="order-chat" padding="false">
+		<ion-refresher
+			pulling-text="Pull to refresh..."
+			on-refresh="ctrl.refreshComment()">
+		</ion-refresher>
 		<header class="order-detail-header list">
 			<a class="item item-avatar item-icon-right"
 				ui-sref="users.ordersDetail({ id: ctrl.order.id})">
@@ -26,13 +30,18 @@
 		</header>
 		<section class="comments">
 			<comments-list 
+				as-chat="true"
 				parent-type="fulfillments" 
+				current-user-id="{{ ctrl.currentUser.id }}"
 				parent-id="{{ ctrl.order.relationships.fulfillment.id }}"></comments-list>
 		</section>
-		<section class="comment-form">
+	</ion-content>
+	<ion-footer-bar class="comment-form">
+		<section class="form">
 			<comment-form
 				parent-type="fulfillments" 
 				parent-id="{{ ctrl.order.relationships.fulfillment.id }}"></comment-form>
 		</section>
-	</ion-content>
+	</ion-footer-bar>
+
 </ion-view>
