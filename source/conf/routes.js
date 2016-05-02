@@ -118,7 +118,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
   .state('users.me', {
     url: '/me',
     views: {
-      'me-tab': {
+      'profile-tab': {
         templateUrl: 'wardrobe/index.html',
         controller: 'wardrobeCtrl as wardrobe'
       }
@@ -132,7 +132,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
   .state('users.settings', {
     url: '/settings',
     views: {
-      'me-tab': {
+      'profile-tab': {
         templateUrl: 'settings/index.html',
         controller: 'settingsCtrl as settings'
       }
@@ -141,7 +141,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
   .state('users.edit', {
     url: '/edit',
     views: {
-      'me-tab': {
+      'profile-tab': {
         templateUrl: 'profile/form.html',
         controller: 'profileEditCtrl as profile'
       }
@@ -150,7 +150,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
   .state('users.favorites', {
     url: '/favorites',
     views: {
-      'me-tab': {
+      'profile-tab': {
         templateUrl: 'favorites/template.html',
         controller: 'favoritesCtrl as ctrl'
       }
@@ -159,7 +159,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
   .state('users.orders', {
     url: '/orders',
     views: {
-      'me-tab': {
+      'profile-tab': {
         templateUrl: 'orders/list/template.html',
         controller: 'ordersCtrl as ctrl'
       }
@@ -186,7 +186,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
   .state('users.sales', {
     url: '/sales',
     views: {
-      'me-tab': {
+      'profile-tab': {
         templateUrl: 'sales/template.html',
         controller: 'salesCtrl as ctrl'
       }
@@ -195,7 +195,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
   .state('users.balance', {
     url: '/balance',
     views: {
-      'me-tab': {
+      'profile-tab': {
         templateUrl: 'balance/template.html',
         controller: 'balanceCtrl as ctrl'
       }
@@ -204,7 +204,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
   .state('users.faq', {
     url: '/faq',
     views: {
-      'me-tab': {
+      'profile-tab': {
         templateUrl: 'faq/template.html',
         controller: 'faqCtrl as ctrl'
       }
@@ -213,7 +213,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
   .state('users.profile', {
     url: '/profile/{userID}',
     views: {
-      'profile-tab': {
+      'profile-tab@users': {
         templateUrl: 'wardrobe/index.html',
         controller: 'wardrobeCtrl as wardrobe'
       }
@@ -221,6 +221,34 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     resolve: {
       user: function (User, $stateParams, currentUser) {
         return ($stateParams.userID !== '') ? User.get($stateParams.userID) : currentUser
+      }
+    }
+  })
+  .state('users.profile.followers', {
+    url: '/followers',
+    views: {
+      'profile-tab@users': {
+        templateUrl: 'fellowship/template.html',
+        controller: 'fellowshipCtrl as ctrl'
+      }
+    },
+    resolve: {
+      geter: function (User) {
+        return User.getFollowers
+      }
+    }
+  })
+  .state('users.profile.following', {
+    url: '/following',
+    views: {
+      'profile-tab@users': {
+        templateUrl: 'fellowship/template.html',
+        controller: 'fellowshipCtrl as ctrl'
+      }
+    },
+    resolve: {
+      geter: function (User) {
+        return User.getFollowing
       }
     }
   })

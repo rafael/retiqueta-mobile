@@ -27,7 +27,6 @@ export default function orderCtrlFactory (ngComponent) {
     function getorder () {
       Order.get($stateParams.id, { include: includes })
       .then(order => {
-        console.log(order)
         _.order = order
         _.firstProduct = setFirstProduct(order)
       })
