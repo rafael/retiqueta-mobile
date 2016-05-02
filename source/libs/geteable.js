@@ -7,16 +7,16 @@ export default function Geteable (url, $http, $q) {
       method: 'GET',
       url: `${url}/${id}${extra}`
     })
-      .then(result => {
-        if (result.hasOwnProperty('data') && result.data !== null && result.data.hasOwnProperty('data')) {
-          deferred.resolve(jsonapi(result.data))
-        } else {
-          deferred.resolve(result)
-        }
-      })
-      .catch((error) => {
-        deferred.reject(error)
-      })
+    .then(result => {
+      if (result.hasOwnProperty('data') && result.data !== null && result.data.hasOwnProperty('data')) {
+        deferred.resolve(jsonapi(result.data))
+      } else {
+        deferred.resolve(jsonapi(result))
+      }
+    })
+    .catch((error) => {
+      deferred.reject(error)
+    })
     return deferred.promise
   }
 }

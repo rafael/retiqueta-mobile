@@ -12,7 +12,8 @@ export default function UserFactory (ngComponent) {
       require('./user/update')(...dependecies),
       require('./user/upload_pic')(...dependecies),
       require('./user/create_token')(...dependecies),
-      require('./user/follow_toggle')(...dependecies)
+      require('./user/follow_toggle')(...dependecies),
+      require('./user/fellowship')(...dependecies)
      )
 
     if (ENV.type === 'development') {

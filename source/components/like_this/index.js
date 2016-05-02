@@ -23,7 +23,6 @@ export default function likeThisFactory (ngComponent) {
           // Like on the api
           Like.toggle(productId, !scope.product.meta.liked_by_current_user)
           .catch(error => {
-            console.log(error)
             // If fails return the like button to unlike state
             toggleClass(!scope.product.meta.liked_by_current_user)
             addToLikeCount()

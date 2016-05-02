@@ -7,7 +7,8 @@ export default function ProductDirective (ngComponent) {
       restrict: 'E',
       scope: {
         product: '=',
-        commentToggleFunc: '&'
+        commentToggleFunc: '&',
+        currentUser: '='
       },
       link (scope, element, attrs) {
         if (attrs.singlePic) {
@@ -17,6 +18,9 @@ export default function ProductDirective (ngComponent) {
         scope.showCommentForm = false
         scope.ToggleCommentForm = () => {
          scope.showCommentForm = !scope.showCommentForm
+        }
+        scope.isCurrentUser = () => {
+          return scope.product.relationships.user.id === scope.currentUser.id
         }
       }
     }

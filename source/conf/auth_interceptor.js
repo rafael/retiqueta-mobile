@@ -15,14 +15,14 @@ export default function(ngComponent) {
       },
       responseError: function (response) {
         var string_token = window.localStorage.getItem('token')
-        console.log('Some error on HTTP protocol')
-        console.log(response)
+        if (ENV.isDevelopment()) {
+          console.log('Some error on HTTP protocol')
+          console.log(response)
+          console.log('The actual token is')
+          console.log(string_token)
+        }
         switch (response.status) {
           case 400:
-            if (ENV.isDevelopment()) {
-              console.log('Token expired')
-              console.log(string_token)
-            }
             // The token is erased from localStorage without reason, this is why i save in memory until refresh_token finish
             if (response.data.error_description === "access_token expired" ) {
               ENV.auth.token = extractToken(string_token)

@@ -1,0 +1,14 @@
+<ion-view view-title="{{ 'USER_FRIENDSHIP' | translate }}">
+	<ion-content padding="false">
+		<ul class="list">
+			<li 
+				class="item item-white"
+				ng-repeat="user in ctrl.fellowship track by user.id">
+				<a 
+					ui-sref="users.profile({userID: user.id})">
+					{{ ::user.attributes.username }}
+				</a>
+			</li>
+		</ul>
+	</ion-content>
+</ion-view>

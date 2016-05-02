@@ -13,7 +13,10 @@
 			user="detail.product.relationships.user" 
 			owner-following="detail.product.meta.followed_by_current_user">
 		</profile-resume>
-    <show-product product="detail.product" detail="true"></show-product>
+		<show-product 
+			current-user="detail.currentUser"
+			product="detail.product" 
+			detail="true"></show-product>
 		<comments-list parent-type="products" parent-id="{{ ::detail.product.id }}"></comments-list>
   </ion-content>
 </ion-view>
