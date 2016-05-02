@@ -11,18 +11,17 @@ export default function Creatable (url, type, $http, $q) {
         }
       }
     })
-      .then(result => {
-        if (result.hasOwnProperty('data') && result.data !== null && result.data.hasOwnProperty('data')) {
-          deferred.resolve(result.data.data)
-        } else if (result.hasOwnProperty('data')) {
-          deferred.resolve(result.data)
-        } else {
-          deferred.resolve(result)
-        }
-      })
-      .catch(error => {
-        deferred.reject(error)
-      })
+    .then(result => {
+      if (result.status >= 400) { return deferred.reject(result) }
+      
+      if (result.hasOwnProperty('data') && result.data !== null && result.data.hasOwnProperty('data')) {
+        deferred.resolve(jsonapi(result.data))
+      } else {
+        deferred.resolve(result)
+      }
+    }, (error) => {
+      deferred.reject(error)
+    })
 
     return deferred.promise
   }

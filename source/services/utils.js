@@ -4,6 +4,17 @@ export default function UtilsFactory (ngComponent) {
   ngComponent.service('Utils', UtilsFactory)
 
   function UtilsFactory (ENV, $rootScope, $translate) {
+    if (typeof navigator.notification === 'undefined') {
+      navigator.notification = {
+        alert(message) { return window.alert(message) },
+        confirm(message, cb) {
+          if (window.confirm(message)) {
+            cb.call()  
+          } 
+        }
+      }
+    }
+
     this.cleanErrors = function (error) {
       if (typeof error === 'undefined' || error === null) {
         return 'Error in the server'
@@ -36,14 +47,6 @@ export default function UtilsFactory (ngComponent) {
 
     this.confirm = (title, message, confirmCallback, buttonOptions = "Yes, No") => {
       navigator.notification.confirm(message, confirmCallback, title, buttonOptions)
-    }
-
-    this.populate = (promise, destiny) => {
-      return promise
-      .then(result => {
-        destiny = result
-      })
-      .catch(this.swalError)
     }
 
     this.alertCallback = () => {
