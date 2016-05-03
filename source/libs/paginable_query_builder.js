@@ -4,7 +4,7 @@ function UrlBuilder (query = {}) {
   var result = _chain(query)
     .pipe(Object.assign, {
       page_number: 0,
-      page_size: 10
+      page_size: 15
     })
     .pipe(Object.keys)
     .pipe(Array.map, (key) => {
@@ -14,8 +14,9 @@ function UrlBuilder (query = {}) {
       return Array.concat([''], queries)
     })
     .pipe(Array.reduce, (prev, current, index, array) => {
-      var start = (index === 1) ? '?' : '&'
-      return prev + `${start}${current[0]}=${current[1]}`
+      const start = (index === 1) ? '?' : '&'
+      const encodeValues = current.map((value) => { return encodeURIComponent(value)})
+      return prev + `${start}${encodeValues[0]}=${encodeValues[1]}`
     })
     .result()
 

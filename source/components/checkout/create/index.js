@@ -36,14 +36,12 @@ export default function productCheckoutFactory (ngComponent) {
           securityCode: response.cvv
         })
       })
-      .catch((e) => {
-        console.log(e)
-      })
+      .catch(Utils.swalError)
       .finally(() => {
         _.savingOrder = false
       })
     }
-    
+
     function submitCreditForm () {
       _.formController.validateForm(true)
       .then(() => {

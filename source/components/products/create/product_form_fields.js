@@ -5,10 +5,10 @@ export const Rules = {
     required: true,
     placeholder: 'Select',
     values: [
-      { value: 'Ropa', label: '#Ropa', bg: '#777', icon: 'ion-tshirt-outline' },
-      { value: 'Zapatos', label: '#Zapatos', bg: '#888', icon: 'ion-android-walk' },
-      { value: 'Carteras', label: '#Carteras', bg: '#999', icon: 'ion-bag' },
-      { value: 'Accesorios', label: '#Accesorios', bg: '#AAA', icon: 'ion-bowtie' }
+      { value: '#ropa', label: '#Ropa', bg: '#777', icon: 'ion-tshirt-outline' },
+      { value: '#zapatos', label: '#Zapatos', bg: '#888', icon: 'ion-android-walk' },
+      { value: '#carteras', label: '#Carteras', bg: '#999', icon: 'ion-bag' },
+      { value: '#accesorios', label: '#Accesorios', bg: '#AAA', icon: 'ion-bowtie' }
     ]
   },
   title: {

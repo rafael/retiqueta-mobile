@@ -11,6 +11,8 @@
 			color: white;
 			padding: 1em 0 1.4em 0;
 			.follow-count {
+				color: $light;
+				text-decoration: none;
 				text-align: center;
 				.count {
 					font-weight: bold;

@@ -1,7 +1,7 @@
 export default function profilePictureFactory (ngComponent) {
   ngComponent.directive('profilePicture', profilePicture)
 
-  function profilePicture (User, Auth) {
+  function profilePicture (User, Auth, Utils) {
     return {
       templateUrl: 'profile/profile_picture.html',
       restrict: 'E',
@@ -22,9 +22,7 @@ export default function profilePictureFactory (ngComponent) {
               _.user = result.data.data
               Auth.user.attributes.profile_pic = _.user.attributes.profile_pic
             })
-            .catch((e) => {
-              console.log(e)
-            })
+            .catch(Utils.swalError)
             .finally(() => {
               _.loadingPicture = false
             })
