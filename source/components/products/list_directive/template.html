@@ -1,7 +1,16 @@
 <section class="products">
-  <resume-product
-    ng-repeat="product in products"
-    product="product"
-    single-pic="true">
-  </resume-product>
+  <ion-list >
+    <ion-item ng-repeat="product in products">
+      <resume-product
+        product="product"
+        single-pic="true">
+      </resume-product>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll
+    ng-if="moreDataCanBeLoaded()"
+    on-infinite="loadMore()"
+    distance="1%"
+    immediate-check="false">
+  </ion-infinite-scroll>
 </section>
