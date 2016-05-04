@@ -9,8 +9,8 @@ export default function UtilsFactory (ngComponent) {
         alert(message) { return window.alert(message) },
         confirm(message, cb) {
           if (window.confirm(message)) {
-            cb.call()  
-          } 
+            cb.call()
+          }
         }
       }
     }
@@ -36,7 +36,7 @@ export default function UtilsFactory (ngComponent) {
     }
 
     this.alert = (title, message, type, alertCallback = this.alertCallback, buttonName = 'Ok') => {
-      if (ENV.type === 'development') {
+      if (ENV.isDevelopment()) {
         console.info('title')
         console.info(message)
       }

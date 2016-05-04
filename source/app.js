@@ -10,7 +10,7 @@ import services from './services'
 import partials from './partials'
 import locales from './locales'
 
-angular.module('App', [
+const app = angular.module('App', [
   'App.components',
   'App.partialsPrecompile',
   'App.services',
@@ -23,21 +23,15 @@ angular.module('App', [
   'ionic.service.push'
 ])
 
-angular.module('App').run((ENV) => {
+app.run((ENV) => {
   if(ENV.isDevelopment()) {
     window.ENV = ENV
   }
 })
 
-//angular.module('App').run(function($rootScope, $state, $templateCache) {
-//  $rootScope.$on('$stateChangeStart', function(event, toState){
-//    console.log($templateCache)
-//  })
-//  console.log('Running Angular with browserify')
-//})
-//
 //angular.module('App').config(function($ionicConfigProvider) {
 //  $ionicConfigProvider.views.maxCache(0);
 //})
+
 
 angular.bootstrap(document.body, ['App'])

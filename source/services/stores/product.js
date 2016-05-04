@@ -25,7 +25,7 @@ export default function productStoreFacotry (ngComponent) {
       },
       defaultValue() {
         return Object.assign({}, defaultProduct)
-      }, 
+      },
       set (newProduct) {
         if (Object.keys(newProduct).length > 0) {
           window.localStorage.setItem('cacheProductStore', JSON.stringify(newProduct))
@@ -36,7 +36,7 @@ export default function productStoreFacotry (ngComponent) {
 
     Object.assign(Model, event.EventEmitter.prototype)
 
-    if (ENV.type === 'development') {
+    if (ENV.isDevelopment()) {
       window.ProductStore = Model
     }
 
