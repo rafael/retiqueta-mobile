@@ -21,7 +21,7 @@ export default function WorkerServiceFactory (ngComponent) {
       }
     }
 
-    if (ENV.type === 'development') {
+    if (ENV.isDevelopment()) {
       window.WKS = Model
     }
 

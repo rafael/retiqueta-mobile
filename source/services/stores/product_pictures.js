@@ -47,7 +47,7 @@ export default function PictureStoreFactory (ngComponent) {
 
     Object.assign(Model, event.EventEmitter.prototype)
 
-    if (ENV.type === 'development') {
+    if (ENV.isDevelopment()) {
       window.PictureStore = Model
     }
 
@@ -67,4 +67,3 @@ function defaultPictureSize(size = 4, picturesArray) {
 
   return picturesArray.concat(completableArray)
 }
-

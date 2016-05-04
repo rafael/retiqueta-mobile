@@ -2,7 +2,7 @@ export default function AuthFactory (ngComponent) {
   ngComponent.service('Auth', AuthFactory)
 
   function AuthFactory ($rootScope, ENV, User, $q, $http) {
-    if (ENV.type === 'development') {
+    if (ENV.isDevelopment()) {
       window.Auth = this
     }
 

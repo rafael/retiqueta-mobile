@@ -26,6 +26,7 @@ var gulp = require('gulp'),
     sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var webkitAssign = require('webkit-assign/gulp');
+var run = require('gulp-run');
 
 var source_paths = {
   sass: './source/sass/app.scss',
@@ -59,8 +60,8 @@ tasks = {
   prodBrowserify: function() {
     return this.baseBrowserify()
       .pipe(ngAnnotate())
-      .pipe(streamify(uglify()))
-      .pipe(rename(tasks.assetProdName('js')))
+      // .pipe(streamify(uglify()))
+      // .pipe(rename(tasks.assetProdName('js')))
       .pipe(gulp.dest(source_paths.prod_js))
   },
   devBrowserify: function() {
@@ -73,7 +74,7 @@ tasks = {
       .pipe(sass.sync().on('error', sass.logError))
       .pipe(autoprefixer({ browsers: ['> 1%','iOS 7'], flexbox: true }))
       .pipe(minifyCss({compatibility: 'ie8'}))
-      .pipe(rename(tasks.assetProdName('css')))
+      // .pipe(rename(tasks.assetProdName('css')))
       .pipe(gulp.dest(source_paths.prod_css));
   },
   devCss: function() {
@@ -109,6 +110,18 @@ tasks = {
   assetProdName: function(type) {
     var name = "app-" + uuid.v1() + "." + type;
     return name
+  },
+  copyIonicBundle: function () {
+    return gulp.src([
+      'vendors/ionic/js/**/*.js',
+    ])
+    .pipe(gulp.dest('www/lib/ionic/js/'))
+  },
+  copyIonicIOBundle: function () {
+    return gulp.src([
+      'vendors/ionic-platform-web-client/dist/*.js',
+    ])
+    .pipe(gulp.dest('www/lib/ionic-platform-web-client/dist/'))
   },
   lint: function() {
     return gulp.src("./source/*/**/*.js")
@@ -153,11 +166,7 @@ gulp.task('copyImages', function() {
 })
 
 gulp.task('copyIonic', function() {
-  return gulp.src([
-    './source/ionic.bundle.min.js',
-    './source/ionic.io.bundle.min.js'
-  ])
-  .pipe(gulp.dest('./www/'))
+  return es.merge(tasks.copyIonicBundle(),tasks.copyIonicIOBundle())
 })
 
 gulp.task('cleanIonic', function() {
@@ -189,22 +198,28 @@ gulp.task('inject', ['ngHtml', 'copyFonts', 'copyIonic', 'copyImages'], function
   )
 })
 
-gulp.task('inject:prod',['ngHtml', 'copyFonts', 'ionicWebkitAssign', 'copyImages'], function() {
+gulp.task('injectProduction', ['ngHtml', 'copyFonts', 'copyIonic', 'copyImages']);
+
+gulp.task('compile', function() {
   return tasks.injectHtml(
     source_paths.prod_html,
     es.merge(tasks.prodCss(), tasks.prodBrowserify())
   )
-});
+})
 
-gulp.task('build', ['inject'])
+gulp.task('build', ['inject'], function () {
+  return run('npm run config_ionic_dev').exec()
+})
+
+gulp.task('dist', ['injectProduction', 'compile'], function () {
+  return run('npm run config_ionic_prod').exec()
+});
 
 gulp.task('build:watch', ['build'], function() {
   gulp.watch(source_paths.all_sass, ['sass'])
   gulp.watch(source_paths.all_js, ['browserify'])
   gulp.watch(source_paths.all_html, ['inject'])
 });
-
-gulp.task('dist', ['inject:prod']);
 
 gulp.task('serve', ['build:watch'],function() {
   return gulp.src('www')
@@ -217,7 +232,10 @@ gulp.task('serve', ['build:watch'],function() {
 
 gulp.task('serve:dist',function() {
   return gulp.src('www')
-    .pipe(webserver({open: true}));
+    .pipe(webserver({
+      open: true,
+      livereload: true
+    }));
 });
 
 /**
