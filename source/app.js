@@ -35,13 +35,6 @@ app.config(function (ENV, $compileProvider) {
   }
 });
 
-//angular.module('App').run(function($rootScope, $state, $templateCache) {
-//  $rootScope.$on('$stateChangeStart', function(event, toState){
-//    console.log($templateCache)
-//  })
-//  console.log('Running Angular with browserify')
-//})
-//
 //angular.module('App').config(function($ionicConfigProvider) {
 //  $ionicConfigProvider.views.maxCache(0);
 //})

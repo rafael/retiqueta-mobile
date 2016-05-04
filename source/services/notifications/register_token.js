@@ -1,13 +1,5 @@
 import uuid from 'node-uuid'
 export default function saveTokenOnApi (Auth, User, $q, ENV) {
-  
-  if (typeof device === 'undefined') {
-    var device = {
-      uuid: uuid.v4(),
-      platform: 'browser'
-    }
-  }  
-
   return function(token) {
     if (ENV.isDevelopment()) {
       console.info('Saving token on retiqeuta API')
@@ -17,8 +9,8 @@ export default function saveTokenOnApi (Auth, User, $q, ENV) {
       return User.createToken(current_user.id, {
         environment: ENV.type,
         token: token,
-        device_id: device.uuid,
-        platform: device.platform.toLowerCase()
+        device_id: ionic.Platform.device().uuid,
+        platform: ionic.Platform.platform()
       })
     })
     .then((result) => {

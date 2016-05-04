@@ -4,9 +4,13 @@
   "description": "Retiqueta: An Ionic project",
   "dependencies": {},
   "scripts": {
-    "serve": "gulp serve",
-    "watch": "gulp build:watch",
-    "build": "gulp build && gulp dist"
+    "serve": "NODE_ENV=development gulp serve",
+    "watch": "NODE_ENV=development gulp build:watch",
+    "build": "NODE_ENV=development gulp build",
+    "release": "rm -rf www && NODE_ENV=production gulp dist",
+    "config_ionic_dev": "ionic io init && ionic config build && ionic config set dev_push true && ionic config set gcm_key 700715737155",
+    "config_ionic_prod": "ionic io init && ionic config build && ionic config set dev_push false && ionic config set gcm_key 700715737155",
+    "sp": "gulp serve:dist"
   },
   "devDependencies": {
     "angular": "^1.4.7",
@@ -31,7 +35,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-css-globbing": "^0.1.8",
     "gulp-htmlmin": "^1.1.4",
-    "gulp-inject": "^3.0.0",
+    "gulp-inject": "^4.0.0",
     "gulp-karma": "0.0.5",
     "gulp-minify-css": "^1.2.1",
     "gulp-ng-annotate": "^1.1.0",
@@ -72,8 +76,8 @@
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
     "cordova-plugin-camera@2.1.0",
-    "cordova-plugin-dialogs",   
-    { 
+    "cordova-plugin-dialogs",
+    {
       "locator": "https://github.com/highercomve/card.io.git",
       "id": "com.keepe.cardio"
     },
