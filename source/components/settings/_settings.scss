@@ -1,0 +1,13 @@
+$base-background: lighten($dark, 20%);
+@for $i from 1 to 5 {
+	.item.bg-gradient-#{$i} {
+		background-color: lighten($base-background, $i *3.5%);
+		border-color: lighten($base-background, $i *3.5%);
+	}
+}
+
+.settings {
+	.list {
+		color: darken($dark, 30%);
+	}
+}

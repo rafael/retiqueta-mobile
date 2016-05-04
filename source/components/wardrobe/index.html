@@ -1,0 +1,28 @@
+<ion-view name="wardrobeView">
+	<ion-nav-bar class="bar-assertive">
+		<ion-nav-back-button></ion-nav-back-button>
+		<ion-nav-buttons side="right" >
+			<button
+				ng-if="wardrobe.isOwner"
+				ui-sref="users.settings"
+				class="button buttons button-clear header-item">
+				<i class="icon ion-gear-a"></i>
+			</button>
+		</ion-nav-buttons>
+	</ion-nav-bar>
+
+	<ion-content padding="false">
+		<ion-refresher
+			pulling-text="Pull to refresh..."
+			on-refresh="wardrobe.doRefresh()">
+		</ion-refresher>
+		<profile-header user="wardrobe.user" owner="{{wardrobe.isOwner}}"></profile-header>
+		<div class="wardrobe-count">
+			{{ wardrobe.products.length }} {{ 'PROFILE_PRODUCT_COUNT' | translate }}
+		</div>
+    <products-list 
+      products="wardrobe.products"
+      pagination-func="wardrobe.loadMore"
+      page="wardrobe.page"></products-list>
+	</ion-content>
+</ion-view>

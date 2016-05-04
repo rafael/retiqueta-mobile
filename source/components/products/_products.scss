@@ -1,0 +1,26 @@
+.item-avatar {
+	.avatar {
+		&.avatar-small {}
+	}
+}
+
+.products {
+	.list {
+		@extend .flex-container;
+		@extend .flex-start;
+		justify-content: space-between;
+		padding-bottom: 2em;
+		.item {
+			background: none;
+			border: none;
+			padding: 0;
+			margin: 0;
+			flex: 0 1 32%;
+		}
+		.product-resume {
+			img {
+				max-width: 100%;
+			}
+		}
+	}
+}

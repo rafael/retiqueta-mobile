@@ -1,0 +1,139 @@
+.form-basic {
+	&.form-with-labels {
+		.row {
+			padding: 0;
+			.form-for-field {
+				margin-top: 0;
+			}
+		}
+		.form-for-field {
+			margin: 1.5em 0;
+			&:before {
+				bottom: 0.3em;
+			}
+			input:disabled,
+			textarea:disabled {
+				opacity: 1;
+				background: none;
+				cursor: pointer;
+			}
+			&.invalid {
+				margin-bottom: 2.8em;
+			}
+			.form-for-select-arrows:after {
+				display: none;
+			}
+			label {
+				margin-bottom: 0;
+				padding-bottom: 0;
+				color: darken($dark,10%);
+			}
+			select {
+				background: none;
+				border: none;
+				box-shadow: 0 1px 0px rgba(0, 0, 0, 0.15);
+				border-radius: 0;
+				padding: 0.8em 0.6em;
+			}
+			input,
+			select,
+			textarea {
+				color: darken($dark, 50%);
+				font-size: 1.1em;
+			}
+		}
+	}
+	form {
+		text-field[attribute='password'] {
+			.form-for-field {
+				margin-bottom: 0;
+				&.invalid {
+					margin-bottom: $error-margin + 1em;
+				}
+			}
+		}
+		.simulated-field,
+		.form-for-field {
+			position: relative;
+			margin-bottom: 0.7em;
+			margin-top: 0.7em;
+			label,
+			.label {
+				font-weight: normal;
+			}
+			input,
+			.input,
+			select,
+			textarea {
+				&:focus {
+				}
+				&::-webkit-input-placeholder ,
+				&::-moz-placeholder ,
+				&:-ms-input-placeholder ,
+				&:-moz-placeholder,
+				&:placeholder {
+					color: #000;
+				}
+			}
+			input,
+			.input {
+				padding-top: 1.5em;
+				padding-bottom: 1.5em;
+				color: $dark;
+			}
+			&::before {
+				position: absolute;
+				content: "\f405";
+				bottom: 0.4em;
+				right: 0.5em;
+				font-size: 2em;
+				display: inline-block;
+				opacity: 0.3;
+				font-family: "Ionicons";
+				speak: none;
+				font-style: normal;
+				font-weight: normal;
+				font-variant: normal;
+				text-transform: none;
+				text-rendering: auto;
+				line-height: 1;
+				-webkit-font-smoothing: antialiased;
+			}
+			&.invalid {
+				margin-bottom: $error-margin;
+			}
+		}
+		&.ng-dirty {
+			.form-for-field {
+				&::before {
+					content: "\f3fe";
+					opacity: 1;
+					color: $balanced;
+				}
+				&.invalid {
+					&::before {
+						content: "\f405";
+						opacity: 1;
+						color: $assertive
+					}
+				}
+			}
+		}
+	}
+}
+
+.simulated-field {
+	.label {
+		color: darken($stable, 40%);
+		margin-top: -0.8em;
+	}
+	.placeholder {
+		color: $dark;
+	}
+	.placeholder,
+	.input {
+		padding: 1em;
+		box-shadow: 0 1px 0px rgba(0, 0, 0, 0.15);
+	}
+}
+

@@ -1,0 +1,16 @@
+<div class="order list order-resume">
+	<a 
+		class="item item-white item-no-border item-thumbnail-left" 
+		ui-sref="users.ordersChat({ id: order.id})">
+		<img src="{{ ::firstProduct.relationships.product_pictures[0].attributes.small_url }}">
+		<h2>{{ firstProduct.attributes.price | currency : firstProduct.attributes.currency }}</h2>
+		<p>
+			{{ ::firstProduct.attributes.description }}
+			<br>
+			<button class="button button-dark button-block button-small">
+				{{ detailMessage | translate }}
+			</button>
+		</p>
+	</a>
+</div>
+

@@ -16,8 +16,9 @@ $dark:                            #444 !default;
 // Base
 // -------------------------------
 
-$font-family-sans-serif:          "Helvetica Neue", "Roboto", "Segoe UI", sans-serif !default;
-$font-family-light-sans-serif:    "HelveticaNeue-Light", "Roboto-Light", "Segoe UI-Light", sans-serif-light !default;
+$font-family-sans-serif:           '-apple-system', "Helvetica Neue", "Roboto", "Segoe UI", sans-serif !default;
+
+$font-family-light-sans-serif:    '-apple-system', "HelveticaNeue-Light", "Roboto-Light", "Segoe UI-Light", sans-serif-light !default;
 $font-family-serif:               serif !default;
 $font-family-monospace:           monospace !default;
 
@@ -42,7 +43,6 @@ $link-color:                      $positive !default;
 $link-hover-color:                darken($link-color, 15%) !default;
 
 $content-padding:                 10px !default;
-
 $padding-base-vertical:           6px !default;
 $padding-base-horizontal:         12px !default;
 
@@ -69,7 +69,7 @@ $scroll-refresh-icon-color:       #666666 !default;
 $button-color:                    #222 !default;
 $button-block-margin:             10px !default;
 $button-clear-padding:            6px !default;
-$button-border-radius:            2px !default;
+$button-border-radius:            4px !default;
 $button-border-width:             1px !default;
 
 $button-font-size:                16px !default;
@@ -433,7 +433,7 @@ $input-color:                     #111 !default;
 $input-border:                    $item-default-border !default;
 $input-border-width:              $item-border-width !default;
 $input-label-color:               $dark !default;
-$input-color-placeholder:         lighten($dark, 40%) !default;
+$input-color-placeholder:         lighten($dark, 0%) !default;
 
 
 // Progress

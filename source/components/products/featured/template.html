@@ -1,0 +1,48 @@
+<section class="products">
+  <article
+    class="product-featured"
+    ng-repeat="product in products track by $index">
+    <div class="container" nf-if="hasPicture(product.relationships.product_pictures)">
+      <header>
+        <a ui-sref="users.productDetails({productID: product.id})">
+          <img class="thumbnail" src="{{ product.relationships.product_pictures[0].attributes.url }}">
+        </a>
+      </header>
+      <div class="details">
+        <div class="original-price">
+          <span class="price">
+            {{ product.attributes.original_price | currency : product.attributes.currency  }}
+          </span>
+          <span class="divisor">
+            /
+          </span>
+        </div>
+        <div class="retiqueta-price">
+          {{ product.attributes.price | currency : products.attributes.currency }}
+        </div>
+      </div>
+      <footer>
+        <div class="item tabs tabs-secondary tabs-icon-left">
+          <span
+            class="tab-item"
+            like-this
+            product="product">
+            <i class="icon ion-heart"></i>
+            <span class="count">
+              {{ product.attributes.likes_count }}
+            </span>
+          </span>
+          <a class="tab-item"
+            ui-sref="users.productDetails({productID: product.id})">
+            <i class="icon ion-chatbox"></i>
+            <span class="count">
+              {{ product.attributes.comments_count }}
+            </span>
+          </a>
+        </a>
+      </div>
+    </footer>
+  </div>
+</article>
+</section>
+

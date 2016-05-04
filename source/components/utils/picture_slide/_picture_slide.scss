@@ -1,0 +1,36 @@
+.pictures-slide {
+	overflow: hidden;
+	position: relative;
+	@include clear-float;
+	.picture-slide-counter {
+		position: absolute;
+		z-index: 100;
+		bottom: 1em;
+		text-align: center;
+		width: 100%;
+		.counter {
+			color: $stable;
+			font-size: 1em;
+			&.active {
+				color: $assertive;
+			}
+		}	
+	}
+	.picture-slide-container {
+		transition: all ease 400ms;
+		position: relative;
+		left: 0;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: no-wrap;
+		@include clear-float;
+		.picture-slide {
+			flex: 0 0 100%;
+			img {
+				max-width: 100%;
+			}
+		}
+	}
+}
+
+

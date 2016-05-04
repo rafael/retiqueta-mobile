@@ -1,0 +1,15 @@
+ .order {
+	.order-header {}
+	.order-body {
+		.items-header {
+			box-shadow: 0 1px 0px 0 $assertive;
+		}
+		.item-content {
+			padding-top: 0.6em;
+		}
+		.items-footer {
+			box-shadow: 0 -1px 0px 0 $assertive;
+			padding-top: 0.6em;
+		}
+	}
+}

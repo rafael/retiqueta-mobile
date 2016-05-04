@@ -1,0 +1,18 @@
+.tabs-icon-only {
+	& > .tabs {
+		.tab-item {
+			.icon {
+				height: 100%;
+				font-size: 36px;
+				line-height: 46px;
+			}
+			.tab-title {
+				display: none;
+			}
+			&.tab-item-active {
+				background-color: $assertive;
+				color: $light;
+			}
+		}
+	}
+}

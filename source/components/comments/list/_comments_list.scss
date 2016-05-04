@@ -1,0 +1,71 @@
+.comments-list {
+	.item {
+		border: none;
+		box-shadow: 0 1px 0 0 $stable;
+		margin-bottom: 2px;
+		.message {
+			overflow: visible;
+			text-overflow: initial;
+			white-space: normal;
+		}
+	}
+	&.as-chat {
+		.item {
+			box-shadow: 0 0 0 0 $stable;
+			margin-bottom: 0;
+			&.is-not-me {
+				padding-left: 1em;
+				padding-right: 72px;
+				img {
+					left: auto;
+					right: 1em;
+				}
+				.message {
+					background-color: $stable;
+					text-align: right;
+					&:before {
+						left: auto;
+						right: -8px;
+						border-right: none;
+						border-left: 8px solid $stable;
+						border-top: 8px solid transparent;
+						border-bottom: 8px solid transparent;
+					}
+					&:after {
+						display: none;
+					}
+				}
+			}
+			.message {
+				padding: 0.5em 0.5em;
+				border: 1px solid $stable;
+				border-radius: 0.5em;
+				position: relative;
+				&:before {
+					display: block;
+					content: "";
+					position: absolute;
+					top: 0.6em;
+					left: -8px;
+					width: 0;
+					height: 0;
+					border-right: 8px solid $stable;
+					border-top: 8px solid transparent;
+					border-bottom: 8px solid transparent;
+				}
+				&:after {
+					display: block;
+					content: "";
+					position: absolute;
+					top: 0.6em;
+					left: -7px;
+					width: 0;
+					height: 0;
+					border-right: 8px solid $light;
+					border-top: 8px solid transparent;
+					border-bottom: 8px solid transparent;
+				}
+			}
+		}
+	}
+}

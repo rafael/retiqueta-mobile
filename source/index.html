@@ -2,23 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>App with Angular</title>
+  <title>Retiqueta</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
   <!-- inject:css -->
   <!-- endinject -->
 </head>
 <body>
 
-  <ion-nav-bar class="bar-stable">
+  <ion-nav-bar class="bar-assertive">
     <ion-nav-back-button>
     </ion-nav-back-button>
   </ion-nav-bar>
 
   <ion-nav-view></ion-nav-view>
 
-  <script src="cordova.js"></script>
+  <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
+  <!-- <script src="cordova.js"></script> -->
+  <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
   <script src="ionic.bundle.min.js"></script>
+  <script src="ionic.io.bundle.min.js"></script>
   <!-- inject:js -->
   <!-- endinject -->
 </body>

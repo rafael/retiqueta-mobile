@@ -1,8 +1,4 @@
-import ngResource from 'ng-resource'
-
-ngResource(window, angular)
-
-angular.module('App.services', ['ngResource'])
+angular.module('App.services', [])
 
 let services = angular.module('App.services')
 
@@ -17,5 +13,31 @@ let services = angular.module('App.services')
 // export default function(ngComponent) {
 //   ngComponent.factory('exampleFactory', ExampleFactory)
 // }
+
+require('./auth')(services)
+require('./user')(services)
+require('./product')(services)
+require('./utils')(services)
+require('./notifications')(services)
+require('./camera')(services)
+require('./comment')(services)
+require('./like')(services)
+require('./mercadopago')(services)
+require('./order')(services)
+require('./sell')(services)
+require('./cardio')(services)
+require('./facebook_auth')(services)
+// require('./worker')(services)
+
+// Stores (this objects save the state on localStorage)
+require('./stores/product_pictures')(services)
+require('./stores/product')(services)
+require('./stores/comment')(services)
+
+// services.run((PictureStore, Product, WKS, ENV) => {
+//   if (ENV.type === 'development') {
+//     window.Benchmark = require('benchmark')
+//   }
+// })
 
 export default services

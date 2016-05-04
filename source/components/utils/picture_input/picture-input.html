@@ -1,0 +1,16 @@
+<input
+  type="file"
+  style="height:0px;width:0px;display:block;"
+  on-file-change
+  on-file-change-handler="extractPicture"
+  accept="image/*">
+
+<div class="button-bar">
+  <button href="" ng-click="uploadPic()" class="button">
+    {{ uploadText }}
+  </button>
+  <button ng-click="takePic()" class="button">
+    {{ takeText }}
+  </button>
+</div>
+

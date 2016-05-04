@@ -16,7 +16,8 @@ module.exports = function(config) {
     // testing framework to use (jasmine/mocha/qunit/...)
     // as well as any additional frameworks (requirejs/chai/sinon/...)
     frameworks: [
-      "jasmine"
+      "jasmine",
+      "browserify",
     ],
 
     // list of files / patterns to load in the browser
@@ -32,7 +33,7 @@ module.exports = function(config) {
     ],
 
     // web server port
-    port: 8080,
+    port: 9090,
 
     // Start these browsers, currently available:
     // - Chrome
@@ -43,13 +44,27 @@ module.exports = function(config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: [
-      "PhantomJS"
+      //"PhantomJS"
+      "Chrome"
     ],
+
+    preprocessors: {
+      'test/spec/**/*.js': [ 'browserify' ] //Mention path as per your test js folder
+    },
+
+    browserify: {
+      debug: true,
+      transform: [
+        ['babelify']
+      ]
+    },
 
     // Which plugins to enable
     plugins: [
       "karma-phantomjs-launcher",
-      "karma-jasmine"
+      "karma-chrome-launcher",
+      "karma-jasmine",
+      'karma-browserify',
     ],
 
     // Continuous Integration mode

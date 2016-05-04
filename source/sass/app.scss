@@ -1,28 +1,51 @@
-/*
-To customize the look and feel of Ionic, you can override the variables
-in ionic's _variables.scss file.
-
-For example, you might change some of the default colors:
-
-$light:                           #fff !default;
-$stable:                          #f8f8f8 !default;
-$positive:                        #387ef5 !default;
-$calm:                            #11c1f3 !default;
-$balanced:                        #33cd5f !default;
-$energized:                       #ffc900 !default;
-$assertive:                       #ef473a !default;
-$royal:                           #886aea !default;
-$dark:                            #444 !default;
-*/
-
-// The path for our ionicons font files, relative to the built CSS in www/css
-$ionicons-font-path: "../fonts" !default;
-
-// Include all of Ionic
+@import "vars";
 @import "../../vendors/ionic/scss/ionic";
+@import "./ionicicons";
+
+// Vendors
+// Must vendors css have to be converted to scss file manualy in order to be imported here
+@import "../../vendors/angular-form-for/form-for";
+@import "../../vendors/sweetalert/sweetalert";
+@import "helpers";
+@import "form";
+@import "tabs";
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-  display: none !important;
+	display: none !important;
 }
 
 @import "../components/**/*.scss";
+
+a {
+	color: $dark;
+}
+
+.tabs-light > .tabs, .tabs.tabs-light {
+	background-color: $stable;
+}
+
+.tabs-icon-only > .tabs .tab-item  {
+	.icon.ion-retiqueta {
+		color: $assertive;
+		position: relative;
+		top: 0.0em;
+	}
+	.icon.ion-ios-pricetags-outline {
+		position: relative;
+		top: 0.08em;
+	}
+	&.tabs-item-active {
+		.icon.ion-retiqueta {
+			color: white;
+		}
+	}
+}
+
+.text-stable { color: $stable; }
+.text-balanced { color: $balanced; }
+.text-dark { color: $dark; }
+.text-assertive { color: $assertive }
+
+.item.item-white {
+	background-color: white;
+} 

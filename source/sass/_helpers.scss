@@ -1,0 +1,61 @@
+@for $i from 0 through 10 {
+	.mt#{$i} { margin-top: $i * 1em !important; }
+	.mb#{$i} { margin-bottom: $i * 1em !important; }
+	.mr#{$i} { margin-right: $i * 1em !important; }
+	.ml#{$i} { margin-left: $i * 1em !important; }
+}
+
+@for $i from 0 through 10 {
+	.pt#{$i} { padding-top: $i * 1em; }
+	.pb#{$i} { padding-bottom: $i * 1em; }
+	.pr#{$i} { padding-right: $i * 1em; }
+	.pl#{$i} { padding-left: $i * 1em; }
+}
+
+.view-title {
+	font-size: 1.8em;
+}
+
+.text-center { text-align: center }
+.text-left { text-align: left }
+.text-right { text-align: right }
+.text-justify { text-align: justify }
+
+@mixin flex-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+@mixin rotateTo($angle) {
+	transform: rotate(#{$angle}deg);
+}
+
+@mixin flex-start {
+	align-items: flex-start;
+	justify-content: flex-start;
+	align-content: flex-start;
+}
+
+@mixin clear-float { 
+	&:after, 
+	&:before {
+		content: "";
+		display: block;
+		clear: both;
+	}
+}
+
+.flex-container {
+	@include flex-container;
+}
+
+.flex-start {
+	@include flex-start;
+}
+
+@for $i from 1 through 8 {
+	.rotate-#{$i*45} { @include rotateTo($i*45) }
+}
+
+

@@ -1,0 +1,23 @@
+<ion-view view-title="{{ 'MY_SALES' | translate }}">
+	<ion-content padding="false">
+		<div ng-if="!ctrl.loading">
+			<h4 
+				class="pt2 pb2 pl1 pr1" 
+				ng-if="ctrl.sales.length === 0" class="no-orders">
+				{{ 'SALES_NO_EXISTS' | translate }}
+			</h4>
+		</div>
+		<div ng-if="ctrl.loading">
+			<h4 class="pt2 pb2 pl1 pr1" ng-if="ctrl.orders.length === 0" class="no-orders">
+				{{ 'SALES_LOADING' | translate }}
+			</h4>
+		</div>
+		<div class="pb4">
+			<order-resume
+				detail-message="{{ 'SELL_DETAILS' | translate }}"
+				ng-repeat="sell in ctrl.sales track by sell.id"
+				order="sell.relationships.order">
+			</order-resume>
+		</div>
+	</ion-content>
+</ion-view>
