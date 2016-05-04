@@ -2,6 +2,7 @@
 require('babelify/polyfill')
 require('object.observe')
 require('array.observe')
+require('promise.prototype.finally')
 
 import configurations from './conf'
 import components from './components'

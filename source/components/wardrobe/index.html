@@ -20,6 +20,9 @@
 		<div class="wardrobe-count">
 			{{ wardrobe.products.length }} {{ 'PROFILE_PRODUCT_COUNT' | translate }}
 		</div>
-		<products-list products="wardrobe.products"></products-list>
+    <products-list 
+      products="wardrobe.products"
+      pagination-func="wardrobe.loadMore"
+      page="wardrobe.page"></products-list>
 	</ion-content>
 </ion-view>

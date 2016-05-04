@@ -1,15 +1,17 @@
 export default function searchFactory (ngComponent) {
   ngComponent.controller('SearchProductCtrl', SearchProductCtrl)
 
-  function SearchProductCtrl (Product, $stateParams, Utils) {
+  function SearchProductCtrl (Product, $stateParams, Utils, $q) {
     var _ = this
     _.text = ''
     _.products = []
     _.noResult = false
     _.loading = false
+    _.page = 0
 
     // Search function
     _.search = searchProducts
+    _.loadMore = loadMore
     _.clear = clear
 
     if ($stateParams.hasOwnProperty('word') && typeof $stateParams.word !== 'undefined' && $stateParams.word !== '') {
@@ -30,6 +32,14 @@ export default function searchFactory (ngComponent) {
       .catch(Utils.swalError)
     }
 
+    function loadMore (nextpage) {
+      if (_.text !== '') {
+        return populatewithproduct(nextpage, true)
+      } else {
+        return Promise.resolve()
+      }
+    }
+
     function searchProducts (page = 0) {
       if (_.text === '') { return }
       _.noResult = false
@@ -38,24 +48,30 @@ export default function searchFactory (ngComponent) {
       populateWithProduct(page)
     }
 
-    function populateWithProduct (page) {
-      Product.search({
+    function populateWithProduct (page, add = false) {
+      return Product.search({
         q: _.text,
-        page_number: page,
+        'page[number]': page,
+        'page[size]': 15,
         include: 'user,product_pictures'
+      }).then((result) => { 
+        return setProducts(result, add) 
       })
-      .then(setProducts)
       .catch(Utils.swalError)
       .finally(() => {
         _.loading = false
         console.log('Search complete')
       })
-
     }
 
-    function setProducts (newProducts) {
-      _.products = newProducts
+    function setProducts (newProducts, add) {
+      if (add) {
+        _.products = _.products.concat(newProducts)
+      } else {
+        _.products = newProducts
+      }
       _.noResult = _.products.length === 0 && _.text !== ''
+      return newProducts
     }
 
     Object.observe(_, (changes) => {

@@ -19,12 +19,10 @@
           {{ 'NOT_RESULT_FOR_SEARCH' | translate }}
         </h4>
       </div>
-      <div ng-show="search.loading">
-        <h4>
-          {{ 'SEARCHING' | translate }}
-        </h4>
-      </div>
-      <products-list products="search.products"></products-list>
+      <products-list 
+        products="search.products"
+        pagination-func="search.loadMore"
+        page="search.page"></products-list>
     </div>
   </ion-content>
 </ion-view>

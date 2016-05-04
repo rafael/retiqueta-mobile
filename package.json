@@ -54,6 +54,7 @@
     "node-uuid": "^1.4.3",
     "object.observe": "^0.2.6",
     "pipeable": "0.0.5",
+    "promise.prototype.finally": "^1.0.1",
     "protractor": "^2.5.1",
     "q": "^1.4.1",
     "run-sequence": "^1.1.4",

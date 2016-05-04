@@ -1,11 +1,8 @@
 import _chain from 'pipeable'
 
 function UrlBuilder (query = {}) {
+  // query = Object.assign({}, { page_number: 0, page_size: 1 }, query)
   var result = _chain(query)
-    .pipe(Object.assign, {
-      page_number: 0,
-      page_size: 15
-    })
     .pipe(Object.keys)
     .pipe(Array.map, (key) => {
       return [key, query[key]]
