@@ -2,8 +2,9 @@ npm install
 rm -rf www
 gulp
 gulp dist
+sed -i -e 's/"dev_push":true/"dev_push":false/g' www/ionic.io.bundle.min.js 
 ionic state reset
 ionic build ios
 ionic package build ios --release --profile production
-#ionic package build android --release --profile production 
+ionic package build android --release --profile production 
 #ionic package build ios  --profile iosdev 
