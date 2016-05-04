@@ -15,7 +15,7 @@ export default function Creatable (url, type, $http, $q) {
       if (result.status >= 400) { return deferred.reject(result) }
       
       if (result.hasOwnProperty('data') && result.data !== null && result.data.hasOwnProperty('data')) {
-        deferred.resolve(jsonapi(result.data))
+        deferred.resolve(result.data)
       } else {
         deferred.resolve(result)
       }

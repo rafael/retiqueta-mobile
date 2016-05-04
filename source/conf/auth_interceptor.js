@@ -29,23 +29,23 @@ export default function(ngComponent) {
               response.status = 404
               location.replace('#/update-token')
             }
-            return response
+            return $q.reject(response)
           case 401:
             window.localStorage.removeItem('token')
             location.replace('#/auth/login')
-            return response
+            return $q.reject(response)
           case 403:
             window.localStorage.removeItem('token')
             location.replace('#/auth/login')
-            return response
+            return $q.reject(response)
           case 0:
             Utils.swalError('No connection with the server')
-            return response
+            return $q.reject(response)
           case 500:
             Utils.swalError('Error on the server, if the error persist contact retiqueta team')
-            return response
+            return $q.reject(response)
           default:
-            return response        
+            return $q.reject(response)        
         }
       }
     }
