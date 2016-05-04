@@ -10,7 +10,7 @@ import services from './services'
 import partials from './partials'
 import locales from './locales'
 
-angular.module('App', [
+const app = angular.module('App', [
   'App.components',
   'App.partialsPrecompile',
   'App.services',
@@ -23,11 +23,17 @@ angular.module('App', [
   'ionic.service.push'
 ])
 
-angular.module('App').run((ENV) => {
+app.run((ENV) => {
   if(ENV.isDevelopment()) {
     window.ENV = ENV
   }
 })
+
+app.config(function (ENV, $compileProvider) {
+  if (ENV.isProduction()) {
+    $compileProvider.debugInfoEnabled(false)
+  }
+});
 
 //angular.module('App').run(function($rootScope, $state, $templateCache) {
 //  $rootScope.$on('$stateChangeStart', function(event, toState){
