@@ -58,7 +58,7 @@ tasks = {
       .pipe(source('app.js'))
   },
   prodBrowserify: function() {
-    return this.baseBrowserify()
+    return tasks.baseBrowserify()
       .pipe(ngAnnotate())
       // .pipe(streamify(uglify()))
       // .pipe(rename(tasks.assetProdName('js')))
@@ -149,6 +149,14 @@ gulp.task('clean', function() {
 
 gulp.task('sass', tasks.devCss)
 
+gulp.task('ionic_config_dev', function() {
+  return run('npm run config_ionic_dev').exec()
+})
+
+gulp.task('ionic_config_prod', function() {
+  return run('npm run config_ionic_prod').exec()
+})
+
 gulp.task('browserify', tasks.devBrowserify)
 
 gulp.task('ngHtml', function() {
@@ -207,9 +215,7 @@ gulp.task('compile', function() {
   )
 })
 
-gulp.task('build', ['inject'], function () {
-  return run('npm run config_ionic_dev').exec()
-})
+gulp.task('build', ['inject', 'ionic_config_dev'])
 
 gulp.task('dist', ['injectProduction', 'compile'], function () {
   return run('npm run config_ionic_prod').exec()
@@ -218,7 +224,7 @@ gulp.task('dist', ['injectProduction', 'compile'], function () {
 gulp.task('build:watch', ['build'], function() {
   gulp.watch(source_paths.all_sass, ['sass'])
   gulp.watch(source_paths.all_js, ['browserify'])
-  gulp.watch(source_paths.all_html, ['inject'])
+  gulp.watch(source_paths.all_html, ['ngHtml'])
 });
 
 gulp.task('serve', ['build:watch'],function() {

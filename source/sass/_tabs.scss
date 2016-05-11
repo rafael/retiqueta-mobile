@@ -1,6 +1,7 @@
 .tabs-icon-only {
 	& > .tabs {
 		.tab-item {
+			color: darken($dark, 10%);
 			.icon {
 				height: 100%;
 				font-size: 36px;
@@ -10,8 +11,8 @@
 				display: none;
 			}
 			&.tab-item-active {
-				background-color: $assertive;
-				color: $light;
+				box-shadow: 0 -3px 0 0 $assertive inset;
+				color: $assertive;
 			}
 		}
 	}

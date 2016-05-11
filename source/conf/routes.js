@@ -213,7 +213,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
   .state('users.profile', {
     url: '/profile/{userID}',
     views: {
-      'profile-tab@users': {
+      'profile-tab': {
         templateUrl: 'wardrobe/index.html',
         controller: 'wardrobeCtrl as wardrobe'
       }
@@ -224,29 +224,35 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     }
   })
-  .state('users.profile.followers', {
-    url: '/followers',
+  .state('users.profileFollowers', {
+    url: '/followers/{userID}',
     views: {
-      'profile-tab@users': {
+      'profile-tab': {
         templateUrl: 'fellowship/template.html',
         controller: 'fellowshipCtrl as ctrl'
       }
     },
     resolve: {
+      user: function (User, $stateParams, currentUser) {
+        return ($stateParams.userID !== '') ? User.get($stateParams.userID) : currentUser
+      },
       geter: function (User) {
         return User.getFollowers
       }
     }
   })
-  .state('users.profile.following', {
-    url: '/following',
+  .state('users.profileFollowing', {
+    url: '/following/{userID}',
     views: {
-      'profile-tab@users': {
+      'profile-tab': {
         templateUrl: 'fellowship/template.html',
         controller: 'fellowshipCtrl as ctrl'
       }
     },
     resolve: {
+      user: function (User, $stateParams, currentUser) {
+        return ($stateParams.userID !== '') ? User.get($stateParams.userID) : currentUser
+      },
       geter: function (User) {
         return User.getFollowing
       }
