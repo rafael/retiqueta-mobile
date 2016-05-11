@@ -15,12 +15,18 @@ export default function loginCtrlFactory (ngComponent) {
     _.user = {}
     _.errors = baseErrorsObject
     _.sendingInfo = false
+    _.hasErrors = false
     _.formController = {}
     _.validationRules = {
       username: {
-        inputType: 'text',
-        placeholder: 'Nombre de usuario o correo',
+        inputType: 'email',
+        placeholder: 'Escriba su correo',
         required: true,
+        type: 'email',
+        pattern: {
+          rule: /\w+@\w+\.\w+/,
+          message: 'Invalid email format'
+        },
         custom: validationFactory('username', $q).bind(_)
       },
       password: {
@@ -42,11 +48,24 @@ export default function loginCtrlFactory (ngComponent) {
       })
       .catch(error => {
         _.errors = extractErrorByField(error, user, Object.keys(_.errors))
-        _.formController.validateForm()
+        $scope.$evalAsync(() => {
+          _.formController.validateForm().then(afterValidateForm).catch(afterValidateForm)
+        })
       })
       .finally(() => {
         _.sendingInfo = false
       })
     }
+
+    function afterValidateForm (errors, values) {
+      _.hasErrors = Object.keys(errors[1]).length > 0 
+    }
+    /*
+    $scope.$watchCollection(function() {
+      return _.user
+    }, function (value) {
+      _.formController.validateForm().then(afterValidateForm).catch(afterValidateForm)
+    })
+    */
   }
 }

@@ -7,16 +7,17 @@ export default function CommentCreateDirectiveFactory (ngComponent) {
       restrict: 'E',
       scope: {
         parentId: '@',
-        parentType: '@'
+        parentType: '@',
+        focus: '='
       },
       link (scope, element, attrs) {
         scope.loading = false
         scope.comment = ''
         scope.save = saveComment
-
+        scope.focus = (typeof scope.focus === 'undefined') ? false : scope.focus
+        
         function saveComment () {
           scope.loading = true
-
           CommentStore.create(scope.parentId, { text: scope.comment }, scope.parentType)
           .then(result => {
             CommentStore.emit('refresh')

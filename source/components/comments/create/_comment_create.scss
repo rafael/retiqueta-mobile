@@ -1,0 +1,11 @@
+comment-form {
+	display: block;
+	.item.item-input {
+		border: none;
+		box-shadow: 0 0 0 0 $light;
+		background: $light;
+		button {
+			background: $light;
+		}
+	}
+}

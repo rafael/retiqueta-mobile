@@ -12,7 +12,7 @@ var enTranslation = {
   TAKE_A_TOUR: 'Do you want to sign up later?',
   SIGNUP_SUCCESS: 'Your account has been created',
   WELCOME_MESSAGE: 'Hi!, Welcome to Retiqueta',
-  DASHBOARD_TITLE: 'Retiqueta',
+  DASHBOARD_TITLE: 'Dashboard',
   PROFILE_TITLE: 'Profile',
   UPDATE_PROFILE_SUCCESS: 'Your profile has been updated!',
   UPLOAD_PICTURE: 'Select from gallery',

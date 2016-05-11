@@ -8,12 +8,13 @@
 		padding-bottom: 0;
 	}
 	.tabs-no-border {
-		border: none;
+		border: 0 none white;
 		margin-left: -1em;
 		margin-top: -0.8em;
 		padding: 0;
 		height: 42px;
 		line-height: 42px;
+		background: none;
 	}
 	.product-price {
 		text-align: right;

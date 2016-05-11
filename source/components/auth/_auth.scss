@@ -190,3 +190,14 @@ submit-button[label="Submit"] {
 		}
 	}
 }
+
+.form.ng-dirty {
+	&.invalid {
+		.form-for-field {
+			input {
+				margin-bottom: $error-margin !important;
+			}
+		}
+	}
+}
+

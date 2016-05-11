@@ -268,7 +268,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     }
   })
   .state('users.productDetails', {
-    url: '/products/{productID}',
+    url: '/products/{productID}?onComment',
     views: {
       'productDetail-tab': {
         templateUrl: 'products/details/index.html',

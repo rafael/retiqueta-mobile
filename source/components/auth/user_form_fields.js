@@ -5,10 +5,14 @@ export default {
     required: true
   },
   email: {
-    inputType: 'text',
+    inputType: 'email',
     type: 'email',
-    pattern: /\w+@\w+\.\w+/,
+    pattern: {
+      rule: /\w+@\w+\.\w+/,
+      message: 'Invalid email format'
+    },
     placeholder: 'juan@martinez.com',
+    type: 'email',
     required: true
   },
   password: {
