@@ -35,7 +35,7 @@ require('./stores/product')(services)
 require('./stores/comment')(services)
 
 // services.run((PictureStore, Product, WKS, ENV) => {
-//   if (ENV.type === 'development') {
+//   if (ENV.isDevelopment()) {
 //     window.Benchmark = require('benchmark')
 //   }
 // })

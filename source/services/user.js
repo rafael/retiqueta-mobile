@@ -16,7 +16,7 @@ export default function UserFactory (ngComponent) {
       require('./user/fellowship')(...dependecies)
      )
 
-    if (ENV.type === 'development') {
+    if (ENV.isDevelopment()) {
       window.User = Model
     }
 
