@@ -1,11 +1,15 @@
 <ion-view view-title="{{ 'MY_SALES' | translate }}">
 	<ion-content padding="false">
 		<div ng-if="!ctrl.loading">
-			<h4 
+			<div 
 				class="pt2 pb2 pl1 pr1" 
 				ng-if="ctrl.sales.length === 0" class="no-orders">
-				{{ 'SALES_NO_EXISTS' | translate }}
-			</h4>
+        <no-orders>
+          {{ 'SALES_NO_EXISTS' | translate }}
+          <br>
+          {{ 'RUN_AND_RETIQUETA' | translate }}
+        </no-orders>
+			</div>
 		</div>
 		<div ng-if="ctrl.loading">
 			<h4 class="pt2 pb2 pl1 pr1" ng-if="ctrl.orders.length === 0" class="no-orders">
@@ -14,7 +18,7 @@
 		</div>
 		<div class="pb4">
 			<order-resume
-				detail-message="{{ 'SELL_DETAILS' | translate }}"
+				detail-message="{{ 'SELL_DETAIL' | translate }}"
 				ng-repeat="sell in ctrl.sales track by sell.id"
 				order="sell.relationships.order">
 			</order-resume>

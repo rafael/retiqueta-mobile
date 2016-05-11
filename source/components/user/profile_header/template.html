@@ -2,7 +2,7 @@
 	<header class="profile-header">
 		<div class="profile-followers row">
 			<a 
-				ui-sref="users.profile.followers({ userID: user.id })"
+				ui-sref="users.profileFollowers({ userID: user.id })"
 				class="col col-33 follow-count followers" >
 				<div class="count">
 					{{ user.attributes.followers_count }}
@@ -12,7 +12,7 @@
 				</div>
 			</a>
 			<a 
-				ui-sref="users.profile.following({ userID: user.id })"
+				ui-sref="users.profileFollowing({ userID: user.id })"
 				class="col col-33 col-offset-33 follow-count following">
 				<div class="count">
 					{{ user.attributes.following_count }}

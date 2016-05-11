@@ -6,11 +6,12 @@
 		<h2>{{ firstProduct.attributes.price | currency : firstProduct.attributes.currency }}</h2>
 		<p>
 			{{ ::firstProduct.attributes.description }}
-			<br>
-			<button class="button button-dark button-block button-small">
+		</p>
+    <p>
+      <button class="button button-dark button-small">
 				{{ detailMessage | translate }}
 			</button>
-		</p>
+    </p>
 	</a>
 </div>
 
