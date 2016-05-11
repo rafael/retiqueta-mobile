@@ -1,18 +1,21 @@
-<ion-view view-title="{{ 'SEARCH_PRODUCT' | translate }}" hide-back-button="true">
-  <ion-content padding="false">
-    <form  class="bar bar-header item-input-inset" ng-submit="search.search()">
+<ion-view 
+  hide-back-button="true">
+  <ion-nav-bar>
+    <form class="bar bar-header bar-assertive item-input-inset" ng-submit="search.search()">
       <label class="item-input-wrapper">
         <i class="icon ion-ios-search placeholder-icon"></i>
         <input
         type="search"
-        placeholder="Search"
+        placeholder="{{ 'SEARCH_INPUT_PLACEHOLDER' | translate }}"
         ng-model='search.text'
         ng-keypress='search.enterHandle($event)'/>
       </label>
       <button class="button button-clear" type="button" ng-click="search.clear()">
-        Cancel
+        <i class="icon ion-ios-close-outline"></i>
       </button>
     </form>
+  </ion-nav-bar>
+  <ion-content padding="false">
     <div class="padding">
       <div ng-show="search.noResult">
         <h4>

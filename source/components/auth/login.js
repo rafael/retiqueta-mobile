@@ -19,13 +19,13 @@ export default function loginCtrlFactory (ngComponent) {
     _.validationRules = {
       username: {
         inputType: 'text',
-        placeholder: 'Username or email',
+        placeholder: 'Nombre de usuario o correo',
         required: true,
         custom: validationFactory('username', $q).bind(_)
       },
       password: {
         inputType: 'password',
-        placeholder: 'Password',
+        placeholder: 'Clave',
         minlength: 8,
         required: true,
         custom: validationFactory('password', $q).bind(_)

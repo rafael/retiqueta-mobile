@@ -16,7 +16,11 @@
     <ion-nav-view  name="activities-tab"></ion-nav-view>
   </ion-tab>
 
-  <ion-tab title="My Profile" icon="ion-ios-person-outline" ui-sref="users.me">
+  <ion-tab 
+    title="My Profile" 
+    icon="ion-ios-person-outline" 
+    ui-sref="users.me"
+    ui-sref-opts="{location: true, reload: true}">
     <ion-nav-view  name="profile-tab"></ion-nav-view>
   </ion-tab>
 

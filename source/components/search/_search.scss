@@ -1,15 +1,37 @@
 form.bar.bar-header.item-input-inset {
 	margin-top: 0em;
+	z-index: 20;
 }
 
 .platform-ios form.bar.bar-header.item-input-inset {
+	&.bar-assertive {
+		.item-input-wrapper {
+			background-color: rgba($light, 1);
+			.icon, input {
+				color: darken($dark, 40%);
+			}
+			::placeholder {
+				color: $dark;
+			}
+		}
+	}
 	.item-input-wrapper,
 	.button.button-clear {
-		margin-top: 0 !important;
+		// margin-top: 0 !important;
 	}
 }
-
+/*
 .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
-	margin-top: 0 !important;
+margin-top: 0 !important;
 }
+ */
+
+	.platform-ios.platform-cordova:not(.fullscreen) {
+		.bar-header:not(.bar-subheader).item-input-inset {
+			.button {
+				margin-top: 19px !important;
+			}
+		}
+	}
+
 
