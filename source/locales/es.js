@@ -69,6 +69,7 @@ var esTranslation = {
   RUN_AND_RETIQUETA: '\¡Corre y Retiqueta!',
   ORDER_SOMETHING: 'Comprar',
   SELL_SOMETHING: 'Vender',
+  SELL_DETAIL: 'Detalle de la venta',
   ORDER_DETAIL: 'Detalle de la compra',
   ORDER_DETAIL_CHAT: 'Chat con el vendedor',
   ORDER_NUMBER: 'Order Nº',
