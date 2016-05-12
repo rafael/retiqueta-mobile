@@ -9,39 +9,42 @@ export default function FeaturedDirective (ngComponent) {
         render: '=',
         products: '='
       },
-      link (scope, element, attrs) {
-        scope.hasPicture = hasPicture
-
-        function hasPicture (productPictures) {
-          return productPictures.length > 0
-        }
-
-        function loadFeatured () {
-          Product.getFeatured({
-            include: 'user,product_pictures,likes'
-          })
-          .then(result => {
-            scope.products = result
-          })
-          .catch(Utils.swalError)
-        }
-
-        function render () {
-          if (scope.render === true) {
-            loadFeatured()
-          }
-        }
-
-        render()
-
-        Object.observe(scope, (changes) => {
-          changes.forEach(change =>{
-            if (change.name === 'render') {
-              render()
-            }
-          })
-        })
-      }
+      link: featuredProductsLink    
     }
   }
+
+  function featuredProductsLink (scope, element, attrs) {
+    scope.hasPicture = hasPicture
+
+    function hasPicture (productPictures) {
+      return productPictures.length > 0
+    }
+
+    function loadFeatured () {
+      Product.getFeatured({
+        include: 'user,product_pictures,likes'
+      })
+      .then(result => {
+        scope.products = result
+      })
+      .catch(Utils.swalError)
+    }
+
+    function render () {
+      if (scope.render === true) {
+        loadFeatured()
+      }
+    }
+
+    render()
+
+    Object.observe(scope, (changes) => {
+      changes.forEach(change =>{
+        if (change.name === 'render') {
+          render()
+        }
+      })
+    })
+  }
+
 }
