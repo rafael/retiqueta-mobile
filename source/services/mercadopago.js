@@ -7,10 +7,23 @@ export default function(ngComponent) {
 
     Object.assign(Mercadopago, {
       guessPaymentMethod: guessPaymentMethodFactory($q),
-      resolveToken: createTokenFactory($q)
+      resolveToken: createTokenFactory($q),
+      resolveIdentificationTypes: resolveIdentificationTypesFactory($q)
     })
 
     return Mercadopago
+  }
+}
+
+function resolveIdentificationTypesFactory ($q) {
+  let methods = { types: [] }
+  return () => {
+    Mercadopago.getIdentificationTypes((status, result) => {
+      if (status === 200) {
+        methods.types =  result
+      }
+    })
+    return methods
   }
 }
 

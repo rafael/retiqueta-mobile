@@ -13,7 +13,8 @@ export default function CardIOServiceFactory (ngComponent) {
   ngComponent.factory('CardIOService', CardIOService)
 
   function CardIOService (ENV, $q) {
-    let CardIO = window.CardIO
+    let CardIO = Object.create(window.CardIO)
+    
     if (ENV.isDevelopment()) {
       if (typeof CardIO === 'undefined') {
         CardIO = {
@@ -35,7 +36,6 @@ export default function CardIOServiceFactory (ngComponent) {
       },
       scan (options = {}) {
         options = Object.assign({}, defaultScaningValues, options)
-        console.log(options)
         let defered = $q.defer()
         CardIO.scan(options, (response) => {
           defered.resolve(response)
