@@ -1,22 +1,36 @@
 <ion-view view-title="{{ 'PRODUCT_DETAIL' | translate }}">
   <ion-nav-bar class="bar-assertive">
     <ion-nav-buttons side="left">
-			<button
-				class="button back-button buttons button-clear header-item"
-				ng-click="detail.goBack()">
+      <button
+        class="button back-button buttons button-clear header-item"
+        ng-click="detail.goBack()">
         <i class="icon ion-ios-arrow-back"></i>
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-	<ion-content padding="false">
-		<profile-resume 
-			user="detail.product.relationships.user" 
-			owner-following="detail.product.meta.followed_by_current_user">
+  <ion-content padding="false">
+    <profile-resume 
+      user="detail.product.relationships.user" 
+      owner-following="detail.product.meta.followed_by_current_user">
     </profile-resume>
-		<show-product 
-			current-user="detail.currentUser"
-			product="detail.product" 
-			detail="true"></show-product>
-		<comments-list parent-type="products" parent-id="{{ ::detail.product.id }}"></comments-list>
+    <show-product 
+      current-user="detail.currentUser"
+      product="detail.product"
+      comment-toggle-func="detail.ToggleCommentForm()"
+      detail="true">
+    </show-product>
+    <comments-list 
+      parent-type="products" 
+      parent-id="{{ ::detail.product.id }}">
+    </comments-list>
+    <br>
   </ion-content>
+  <ion-footer-bar class="comment-form" ng-show="detail.showCommentForm">
+    <section class="form">
+      <comment-form 
+        parent-type="products" 
+        parent-id="{{ ::detail.product.id }}" 
+        focus="detail.showCommentForm"></comment-form>
+    </section>
+  </ion-footer-bar>
 </ion-view>

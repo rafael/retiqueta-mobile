@@ -2,11 +2,11 @@
 <widget id="com.retiqueta" version="0.3.51" android-versionCode="32241" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Retiqueta</name>
   <description>
-        An Ionic Framework and Cordova project.
-    </description>
+		An Ionic Framework and Cordova project.
+	</description>
   <author email="sam@devcrowd.it" href="http://www.devcrowd.it/">
-      Ionic Framework Team
-    </author>
+		Ionic Framework Team
+	</author>
   <content src="index.html"/>
   <access origin="*"/>
   <preference name="Fullscreen" value="false"/>
@@ -17,7 +17,8 @@
   <preference name="android-minSdkVersion" value="16"/>
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
-  <preference name="SplashScreenDelay" value="3000"/>
+  <preference name="SplashScreenDelay" value="5000"/>
+  <preference name="FadeSplashScreenDuration" value="1000"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
