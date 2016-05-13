@@ -11,10 +11,8 @@ export default function ResumeProductDirective (ngComponent) {
       },
       link: ResumenProductTagLink     
     }
+    function ResumenProductTagLink (scope, element, attrs) {
+      scope.product.relationships.product_pictures = scope.product.relationships.product_pictures.slice(0, 1)[0]
+    }
   }
-
-  function ResumenProductTagLink (scope, element, attrs) {
-    scope.product.relationships.product_pictures = scope.product.relationships.product_pictures.slice(0, 1)[0]
-  }
-
 }

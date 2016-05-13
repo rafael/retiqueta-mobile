@@ -11,27 +11,27 @@ export default function profileResumeFactory (ngcomponent) {
       },
       link: profileResumeLink     
     }
-  }
 
-  function profileResumeLink (scope, element, attrs) {
-    scope.isOwner = false
-    scope.toggleFollowship = followShip
+    function profileResumeLink (scope, element, attrs) {
+      scope.isOwner = false
+      scope.toggleFollowship = followShip
 
-    function setIsOwner () {
-      Auth.getCurrentUser()
-      .then(user => {
-        scope.isOwner = scope.user.id === user.id
-      })
+      function setIsOwner () {
+        Auth.getCurrentUser()
+        .then(user => {
+          scope.isOwner = scope.user.id === user.id
+        })
+      }
+
+      function followShip (following) {
+        User.followToggle(scope.user.id, following)
+        .then(result => {
+          scope.ownerFollowing = result.following
+        })
+        .catch(Utils.swalError)
+      }
+
+      setIsOwner()
     }
-
-    function followShip (following) {
-      User.followToggle(scope.user.id, following)
-      .then(result => {
-        scope.ownerFollowing = result.following
-      })
-      .catch(Utils.swalError)
-    }
-
-    setIsOwner()
   }
 }
