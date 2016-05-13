@@ -31,8 +31,14 @@ export default function(ngComponent) {
             }
             return $q.reject(response)
           case 401:
-            window.localStorage.removeItem('token')
-            location.replace('#/auth/login')
+            if (response.data.error_description === "access_token expired" ) {
+              ENV.auth.token = extractToken(string_token)
+              response.status = 404
+              location.replace('#/update-token')
+            } else {
+              window.localStorage.removeItem('token')
+              location.replace('#/auth/login')
+            }
             return $q.reject(response)
           case 403:
             window.localStorage.removeItem('token')

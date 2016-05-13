@@ -67,21 +67,18 @@
 			textarea {
 				&:focus {
 				}
-				&::-webkit-input-placeholder ,
-				&::-moz-placeholder ,
-				&:-ms-input-placeholder ,
-				&:-moz-placeholder,
-				&:placeholder {
-					color: #000;
-				}
 			}
 			input,
 			.input {
 				padding-top: 1.5em;
 				padding-bottom: 1.5em;
+				color: darken($dark, 30%);
+			}
+			::placeholder {
 				color: $dark;
 			}
 			&::before {
+				/*
 				position: absolute;
 				content: "\f405";
 				bottom: 0.4em;
@@ -98,23 +95,31 @@
 				text-rendering: auto;
 				line-height: 1;
 				-webkit-font-smoothing: antialiased;
+				*/
 			}
 			&.invalid {
 				margin-bottom: $error-margin;
+				input {
+					box-shadow: 0 2px 0 0 $assertive;
+				}
 			}
 		}
 		&.ng-dirty {
 			.form-for-field {
 				&::before {
+					/*
 					content: "\f3fe";
 					opacity: 1;
 					color: $balanced;
+					*/
 				}
 				&.invalid {
 					&::before {
+						/*
 						content: "\f405";
 						opacity: 1;
-						color: $assertive
+						color: $assertive;
+						*/
 					}
 				}
 			}

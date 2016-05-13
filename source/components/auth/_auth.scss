@@ -130,14 +130,16 @@ submit-button[label="Submit"] {
 	}
 	.auth-back-button {
 		a {
-			background-image: url(../images/btn-back.png);
-			background-size: cover;
-			background-repeat: no-repeat;
-			height: 30px;
-			width: 30px;
-			display: block;
+			//background-image: url(../images/btn-back.png);
+			//background-size: cover;
+			//background-repeat: no-repeat;
+			//height: 30px;
+			//width: 30px;
+			//display: block;
+			font-size: 2em;
+			color: $assertive;
 			position: absolute;
-			top: 1em;
+			top: 0;
 			left: 1em;
 		}
 	}
