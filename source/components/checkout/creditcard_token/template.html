@@ -97,10 +97,11 @@
 			<li class="form-for-field">
 				<label class="field-label" for="docType">
 					{{ 'CARD_DOCUMENT_TYPE' | translate }}
-				</label>
-				<select
-					id="docType"
-					data-checkout="docType">
+        </label>
+        <select
+          id="docType"
+          data-checkout="docType">
+          <option ng-repeat="item in identificationTypes.types track by item.id" value="{{item.id}}">{{ item.name }}</option>
 				</select>
 			</li>
 			<li class="form-for-field" ng-class="{'invalid': hasError('docNumber')}">

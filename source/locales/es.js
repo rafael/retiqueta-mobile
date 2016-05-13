@@ -12,7 +12,7 @@ var esTranslation = {
   SAVE_DRAFT: 'Guardar como borrador',
   SIGNUP_SUCCESS: 'Tu cuenta ha sido creado con exito',
   WELCOME_MESSAGE: 'Bienvenido a Retiqueta',
-  DASHBOARD_TITLE: 'Retiqueta',
+  DASHBOARD_TITLE: 'Inicio',
   PROFILE_TITLE: 'Profile',
   UPDATE_PROFILE_SUCCESS: 'Tu perfil ha sido actualizado',
   UPLOAD_PICTURE: 'Seleccionar de la galeria',

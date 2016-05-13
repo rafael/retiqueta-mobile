@@ -74,7 +74,7 @@ export default function CreditCardTokenFactory (ngComponent) {
           scope.createToken = createToken
           scope.changeCredictCard = changeCredictCard
           scope.hasError = hasError
-          MercadopagoFactory.getIdentificationTypes()
+          scope.identificationTypes = MercadopagoFactory.resolveIdentificationTypes()
 
           if (scope.formController) {
             Object.assign(scope.formController, { submit: createToken })
