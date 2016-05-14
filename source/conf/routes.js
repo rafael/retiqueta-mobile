@@ -86,10 +86,10 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     }
   })
-  .state('update-token', {
-    url: '/update-token',
-    controller: 'updateTokenCtrl'
-  })
+  // .state('update-token', {
+  //   url: '/update-token/:token/:userID',
+  //   controller: 'updateTokenCtrl'
+  // })
   .state('users', {
     abstract: true,
     url: '/users',

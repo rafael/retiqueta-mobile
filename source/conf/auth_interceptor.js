@@ -1,8 +1,17 @@
 function extractToken (string_token) {
   return JSON.parse(string_token || "{}")
 }
+
+function writeToken (oldObjToken, newObjToken) {
+  const token = Object.assign({}, oldObjToken, newObjToken)
+  window.localStorage.setItem('token', JSON.stringify(token))
+  return token
+}
 export default function(ngComponent) {
-  ngComponent.factory('authInterceptor', function ($rootScope, $q, ENV, Utils) {
+  ngComponent.factory('authInterceptor', authInterceptor)
+  ngComponent.config(configAuthInterceptor)
+
+  function authInterceptor ($rootScope, $injector, $q, ENV, Utils) {
     return {
       request: function (config) {
         config.headers = config.headers || {}
@@ -15,6 +24,8 @@ export default function(ngComponent) {
       },
       responseError: function (response) {
         var string_token = window.localStorage.getItem('token')
+        const token = extractToken(string_token)
+        const updateTokenUrl = `#/update-token/${token.refresh_token}/${token.user_id}`
         if (ENV.isDevelopment()) {
           console.log('Some error on HTTP protocol')
           console.log(response)
@@ -24,22 +35,45 @@ export default function(ngComponent) {
         switch (response.status) {
           case 400:
             // The token is erased from localStorage without reason, this is why i save in memory until refresh_token finish
-            if (response.data.error_description === "access_token expired" ) {
-              ENV.auth.token = extractToken(string_token)
-              response.status = 404
-              location.replace('#/update-token')
-            }
             return $q.reject(response)
           case 401:
-            if (response.data.error_description === "access_token expired" ) {
-              ENV.auth.token = extractToken(string_token)
-              response.status = 404
-              location.replace('#/update-token')
+            const deferred = $q.defer();
+            if (response.data.error === "invalid_token" ) {
+              if (ENV.isDevelopment()) {
+                console.log('Token is expired')
+                console.log('redirect to:', updateTokenUrl)
+              }
+              $injector.get("$http")({
+                method: 'POST',
+                url: `${ENV.api.url}/v1/authenticate/token`,
+                data: {
+                  refresh_token: token.refresh_token,
+                  client_id: 'ret-mobile-ios'
+                }
+              })
+              .then((result) => {
+                if (ENV.isDevelopment()) {
+                  console.info('Token Updated')
+                  console.log(writeToken(token, result.data))
+                  console.info('repeat previus request')
+                }
+                $injector.get("$http")(response.config).then(function(resp) {
+                  deferred.resolve(resp);
+                },function(resp) {
+                  deferred.reject(resp);
+                });
+              })
+              .catch((resp) => {
+                deferred.reject(resp)
+                window.localStorage.removeItem('token')
+                location.replace('#/auth/login')
+              })
             } else {
               window.localStorage.removeItem('token')
               location.replace('#/auth/login')
+              deferred.reject(response)
             }
-            return $q.reject(response)
+            return deferred.promise
           case 403:
             window.localStorage.removeItem('token')
             location.replace('#/auth/login')
@@ -55,12 +89,12 @@ export default function(ngComponent) {
         }
       }
     }
-  })
+  }
 
-  ngComponent.config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+  function configAuthInterceptor ($locationProvider, $httpProvider) {
     $locationProvider.html5Mode(false)
     $httpProvider.interceptors.push('authInterceptor')
     $httpProvider.defaults.useXDomain = true
     delete $httpProvider.defaults.headers.common['X-Requested-With']
-  })
+  }
 }

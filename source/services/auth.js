@@ -17,6 +17,10 @@ export default function AuthFactory (ngComponent) {
       this.user = {}
     })
 
+    $rootScope.$on('session:refresh', (token) => {
+      this.refreshToken(token)
+    })
+
     // Login user
     this.login = (user) => {
       var deferred = $q.defer()
@@ -45,16 +49,11 @@ export default function AuthFactory (ngComponent) {
 
     this.refreshToken = (token = {}) => {
       let deferred = $q.defer()
-      if(!token.hasOwnProperty('refresh_token') && ENV.auth.hasOwnProperty('token')) {
-        token = ENV.auth.token
-      }
       if(ENV.isDevelopment()) {
         console.log('Iniciando refresh_token process')
         console.log(window.localStorage)
         console.log('Este es el refresh_token')
         console.log(token)
-        console.log('Este es el numero de veces que a intentando')
-        console.log(this.updateTokenIntent)
       }
       if (this.updateTokenIntent <= 1 && token.hasOwnProperty('refresh_token')) {
         this.updateTokenIntent += 1
@@ -92,13 +91,11 @@ export default function AuthFactory (ngComponent) {
     // Login token
     this.loginToken = (token) => {
       this.updateToken(token)
-      ENV.auth.token = token
       $rootScope.$broadcast('session:start')
     }
 
     // Logout user
     this.logout = () => {
-      ENV.auth = {}
       window.localStorage.clear()
       $rootScope.$broadcast('session:finish')
     }
@@ -189,9 +186,12 @@ export default function AuthFactory (ngComponent) {
     }
 
     this.updateToken = (newtoken) => {
+      if (ENV.isDevelopment()) {
+        console.info('Updating token with')
+        console.log(newtoken)
+      }
       var oldtoken = this.getToken()
       newtoken = Object.assign({}, oldtoken, newtoken)
-      ENV.auth.token = newtoken
       return window.localStorage.setItem('token', JSON.stringify(newtoken))
     }
 

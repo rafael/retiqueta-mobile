@@ -15,23 +15,33 @@ export default function UtilsFactory (ngComponent) {
       }
     }
 
-    this.cleanErrors = function (error) {
+    this.cleanErrors = (error) => {
       if (typeof error === 'undefined' || error === null) {
         return 'Error in the server'
       }
 
-      if (error.hasOwnProperty('data')) {
-        return JSON.stringify(error.data.detail).replace(/[{}\[\]\"]/g, '').replace(/error\:/g, '')
-      } else {
-        return JSON.stringify(error).replace(/[{}\[\]\"]/g, '').replace(/error\:/g, '')
+      if (ENV.isDevelopment()) {
+        console.log(error)
       }
+
+      let errorMessage = ''
+
+      if (error.hasOwnProperty('data') && error.data !== null && error.data.hasOwnProperty('detail')) {
+        errorMessage = JSON.stringify(error.data.detail) || ''
+      } else if (error.hasOwnProperty('data') && error.data !== null) {
+        errorMessage = JSON.stringify(error.data) || ''
+      } else {
+        errorMessage = 'A problem occur getting data from retiqueta'
+      }
+
+      return errorMessage.replace(/[{}\[\]\"]/g, '').replace(/error\:/g, '')
     }
 
-    this.swalError = function (error) {
+    this.swalError = (error) => {
       this.alert('Oops...', this.cleanErrors(error), 'error')
     }
 
-    this.swalSuccess = function (message, title = 'Great!') {
+    this.swalSuccess = (message, title = 'Great!') => {
       this.alert(title, message, 'success')
     }
 
@@ -40,13 +50,15 @@ export default function UtilsFactory (ngComponent) {
         console.info('title')
         console.info(message)
       }
-      $rootScope.$evalAsync(function () {
+      $rootScope.$evalAsync(() => {
         navigator.notification.alert(message, alertCallback, title, buttonName)
       })
     }
 
     this.confirm = (title, message, confirmCallback, buttonOptions = "Yes, No") => {
-      navigator.notification.confirm(message, confirmCallback, title, buttonOptions)
+      $rootScope.$evalAsync(() => {
+        navigator.notification.confirm(message, confirmCallback, title, buttonOptions)
+      })
     }
 
     this.alertCallback = () => {

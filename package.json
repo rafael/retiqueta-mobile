@@ -42,6 +42,7 @@
     "gulp-ng-html2js": "^0.2.0",
     "gulp-protractor": "^1.0.0",
     "gulp-rename": "^1.2.2",
+    "gulp-run": "^1.6.12",
     "gulp-sass": "^2.0.4",
     "gulp-standard": "^5.2.2",
     "gulp-streamify": "^1.0.2",
@@ -66,8 +67,7 @@
     "sweetalert": "^1.1.0",
     "uglifyify": "^3.0.1",
     "vinyl-source-stream": "^1.1.0",
-    "webkit-assign": "^1.4.0",
-    "gulp-run": "^1.6.12"
+    "webkit-assign": "^1.4.0"
   },
   "cordovaPlugins": [
     "cordova-plugin-device",
