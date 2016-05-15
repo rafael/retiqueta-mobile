@@ -10,34 +10,36 @@ export default function ProductsDirectiveFactory (ngComponent) {
         paginationFunc: '=',
         page: '='
       },
-      link (scope, element, attrs) {
-        let canLoadMore = true
-        scope.loadMore = loadMore
-        scope.moreDataCanBeLoaded = moreDataCanBeLoaded
+      link: productsTagLink
+    }
 
-        function moreDataCanBeLoaded () {
-          return canLoadMore
-        }
+    function productsTagLink (scope, element, attrs) {
+      let canLoadMore = true
+      scope.loadMore = loadMore
+      scope.moreDataCanBeLoaded = moreDataCanBeLoaded
 
-        function loadMore () {
-          if (moreDataCanBeLoaded()) {
-            scope.page = scope.page + 1
-            return scope.paginationFunc(scope.page)
-            .then((newProducts) => {
-              if (newProducts.length < 1) {
-                canLoadMore = false
-              }
-            })
-            .catch(() => {   
+      function moreDataCanBeLoaded () {
+        return canLoadMore
+      }
+
+      function loadMore () {
+        if (moreDataCanBeLoaded()) {
+          scope.page = scope.page + 1
+          return scope.paginationFunc(scope.page)
+          .then((newProducts) => {
+            if (newProducts.length < 1) {
               canLoadMore = false
-            })
-            .finally(() => {
-              scope.$broadcast('scroll.infiniteScrollComplete')
-            })
-          } else {
+            }
+          })
+          .catch(() => {   
+            canLoadMore = false
+          })
+          .finally(() => {
             scope.$broadcast('scroll.infiniteScrollComplete')
-            return Promise.reject()
-          }
+          })
+        } else {
+          scope.$broadcast('scroll.infiniteScrollComplete')
+          return Promise.reject()
         }
       }
     }
