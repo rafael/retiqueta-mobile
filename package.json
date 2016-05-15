@@ -67,7 +67,7 @@
     "uglifyify": "^3.0.1",
     "vinyl-source-stream": "^1.1.0",
     "webkit-assign": "^1.4.0",
-    "gulp-run":"^1.6.12"
+    "gulp-run": "^1.6.12"
   },
   "cordovaPlugins": [
     "cordova-plugin-device",

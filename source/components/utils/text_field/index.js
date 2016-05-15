@@ -66,7 +66,8 @@ export default function textPlusFieldFactory (ngComponent) {
         iconBeforeClicked: '&?',
         placeholder: '@?',
         rows: '=?',
-        controller: '=?'
+        controller: '=?',
+        type: '=?'
       },
       link: function($scope, $element, $attributes, formForController) {
         if (!$scope.attribute) {
