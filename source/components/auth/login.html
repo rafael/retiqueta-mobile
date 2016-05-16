@@ -2,17 +2,19 @@
 	<ion-content padding="false" class="auth-form">
 		<div class="white-padding-form">
 			<form
+				novalidate="true"
 				form-for="login.user"
         form-for-builder
 				controller="login.formController"
 				validation-rules="login.validationRules"
 				submit-with="login.submit(login.user)">
 				<submit-button
+					ng-click="login.validateRequired()"
 					disable="login.sendingInfo || login.hasErrors"
 					label="{{ 'SIGNIN' | translate }}" >
 				</submit-button>
 			</form>
 		</div>
-		<facebook-login></facebook-login>  
+		<facebook-login></facebook-login>
 	</ion-content>
 </ion-view>
