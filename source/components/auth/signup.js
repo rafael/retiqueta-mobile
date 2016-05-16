@@ -10,10 +10,12 @@ const baseErrorsObject = {
 export default function signupCtrlFactory (ngComponent) {
   ngComponent.controller('signupCtrl', signupCtrl)
 
-  function signupCtrl ($state, User, FormForConfiguration, Auth, Utils, $translate, $q, FacebookAuth) {
+  function signupCtrl ($scope, $state, User, FormForConfiguration, Auth, Utils, $translate, $q, FacebookAuth) {
     FormForConfiguration.disableAutoLabels()
-    var _ = this
+    let _ = this
+    let notFirstValidation = false
     _.user = {}
+    _.hasErrors = false
     _.errors = baseErrorsObject
     _.formController = {}
     _.sendingInfo = false
@@ -23,12 +25,19 @@ export default function signupCtrlFactory (ngComponent) {
     _.validationRules.password.acustom = validationFactory('password', $q).bind(_)
 
     _.submit = submit
+    _.validateRequired = () => {
+      notFirstValidation = true
+      $scope.$evalAsync(() => {
+        _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
+      })
+    }
 
     function redirectToDashboard() {
       $state.go('users.dashboard')
     }
 
     function submit (user) {
+      console.log(validateRequired())
       _.sendingInfo = true
       user.email = user.email.toLowerCase()
       user.username = user.username.toLowerCase()
@@ -39,13 +48,49 @@ export default function signupCtrlFactory (ngComponent) {
         .then(redirectToDashboard)
         .catch(error => {
           _.errors = extractErrorByField(error.data, user, Object.keys(_.errors))
-          _.formController.validateForm()
+          _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
         })
         .finally(() => {
           _.sendingInfo = false
         })
     }
+
+    function afterValidateForm (errors, values) {
+      _.hasErrors = formHasErrors(errors[1]) || (validateRequired() && notFirstValidation)
+      notFirstValidation = true
+      console.log(_.hasErrors)
+    }
+
+    function formHasErrors (errors) {
+      if (Object.keys(errors).length > 0) {
+        return Object.keys(errors)
+                .reduce((acc, value) => {
+                  return acc || typeof errors[value] !== 'undefined'
+                }, false)
+      } else {
+        return false
+      }
+    }
+
+    function validateRequired () {
+      return _.hasErrors = isNotThere(_.user, 'username') ||
+                           isNotThere(_.user, 'password') ||
+                           isNotThere(_.user, 'email')
+    }
+
+    function isNotThere (obj, key) {
+      return !obj.hasOwnProperty(key) ||
+             obj[key] === null ||
+             typeof obj[key] === 'undefined' ||
+             obj[key] === ''
+    }
+
+    $scope.$watchCollection(function() {
+      return _.user
+    }, function (value) {
+      $scope.$evalAsync(() => {
+        _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
+      })
+    })
   }
 }
-
-

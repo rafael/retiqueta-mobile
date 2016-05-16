@@ -12,7 +12,6 @@ export default {
       message: 'Invalid email format'
     },
     placeholder: 'juan@martinez.com',
-    type: 'email',
     required: true
   },
   password: {

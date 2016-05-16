@@ -2,18 +2,22 @@
   <ion-content padding="false" class="auth-form">
     <div class="white-padding-form">
       <form
+        novalidate="true"
         form-for="signup.user"
         form-for-builder
         controller="signup.formController"
         validation-rules="signup.validationRules"
         submit-with="signup.submit(signup.user)">
-        <submit-button  disable="signup.sendingInfo" label="{{ 'CREATE_ACCOUNT' | translate }}" ></submit-button>
+        <submit-button
+          ng-click="signup.validateRequired()"
+          disable="signup.sendingInfo || signup.hasErrors"
+          label="{{ 'CREATE_ACCOUNT' | translate }}" ></submit-button>
       </form>
 		</div>
 		<facebook-login></facebook-login>
     <p class="text-center pt2 pb2 pl4 pr4 text-dark auth-terms">
       {{ 'ACCEPT_TERMS_PRE' | translate }}
-      <a href="#">{{ 'ACCEPT_TERMS_BUTTON' | translate }}</a> 
+      <a href="#">{{ 'ACCEPT_TERMS_BUTTON' | translate }}</a>
       {{ 'ACCEPT_TERMS_POST' | translate}}
     </p>
     <div ng-include="'auth/tour.html'"></div>

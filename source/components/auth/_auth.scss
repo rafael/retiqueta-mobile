@@ -57,6 +57,9 @@ submit-button[label="Submit"] {
 }
 
 .auth {
+	.submit-button.disabled, .submit-button:disabled {
+		margin-top: 2.5em;
+	}
 	position: relative;
 	.tabs-not-absolute.has-big-header {
 		.tabs {
@@ -200,4 +203,3 @@ submit-button[label="Submit"] {
 		}
 	}
 }
-
