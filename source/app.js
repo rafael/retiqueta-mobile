@@ -23,10 +23,7 @@ const app = angular.module('App', [
   'ionic.service.push'
 ])
 
-app.run((ENV, MercadopagoFactory) => {
-  if(ENV.isDevelopment()) {
-    window.ENV = ENV
-  }
+app.run((MercadopagoFactory) => {
   MercadopagoFactory.resolveIdentificationTypes()
 })
 

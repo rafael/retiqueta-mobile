@@ -1,7 +1,7 @@
 import onNotification from './onnotification'
 import RegisterToken from './register_token'
 
-export default function InitPushFactory (Auth, User, $q, ENV, $ionicPush, $ionicPlatform) {
+export default function InitPushFactory (Auth, User, $q, ENV, $ionicPush, $ionicPlatform, Utils) {
   let saveTokenOnApi = RegisterToken(...arguments)
   function InitPush () {
     var push = $ionicPush.init({
@@ -11,10 +11,8 @@ export default function InitPushFactory (Auth, User, $q, ENV, $ionicPush, $ionic
     })
 
     function onRegisterCallback (data) {
-      if (ENV.isDevelopment()) {
-        console.info('Device has been register on Ionic Platform Push')
-        console.log(data)
-      }
+      Utils.logger.info('Device has been register on Ionic Platform Push')
+      Utils.logger.log(data)
       // persist the token in the Ionic platforms
 
       saveTokenOnApi(data.token)
