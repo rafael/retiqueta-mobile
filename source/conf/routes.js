@@ -166,7 +166,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     },
   })
   .state('users.ordersChat', {
-    url: '/orders/{id}',
+    url: '/orders/{id}?type',
     views: {
       'order-detail-tab': {
         templateUrl: 'orders/chat/template.html',
@@ -273,13 +273,6 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       'productDetail-tab': {
         templateUrl: 'products/details/index.html',
         controller: 'productDetail as detail',
-      }
-    },
-    resolve: {
-      ProductData: function (Product, $stateParams) {
-        return Product.get($stateParams.productID,  {
-          include: 'user,product_pictures'
-        })
       }
     }
   })

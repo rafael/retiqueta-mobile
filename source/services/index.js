@@ -27,6 +27,7 @@ require('./order')(services)
 require('./sell')(services)
 require('./cardio')(services)
 require('./facebook_auth')(services)
+require('./geo')(services)
 // require('./worker')(services)
 
 // Stores (this objects save the state on localStorage)

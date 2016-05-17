@@ -9,7 +9,7 @@ const includes = [
 export default function orderChatCtrlFactory (ngComponent) {
   ngComponent.controller('orderChatCtrl', orderChatCtrl)
 
-  function orderChatCtrl (Order, Utils, $stateParams, $ionicHistory, CommentStore, currentUser) {
+  function orderChatCtrl (Order, Utils, $stateParams, $state, $ionicHistory, CommentStore, currentUser) {
     var _ = this
     _.order = {}
     _.firstProduct = {}
@@ -18,7 +18,12 @@ export default function orderChatCtrlFactory (ngComponent) {
     _.refreshComment = refreshComment
 
     function goBack () {
-      $ionicHistory.goBack()
+      window.StateManager = $state
+      if ($stateParams.type === 'order' || $stateParams.type === 'sell') {
+        $state.go('users.activities.orders')
+      } else {
+        $ionicHistory.goBack()
+      }
     }
 
     function refreshComment () {
@@ -27,7 +32,8 @@ export default function orderChatCtrlFactory (ngComponent) {
 
     function getorder () {
       Order.get($stateParams.id, { include: includes })
-      .then(order => { 
+      .then(order => {
+        console.log(order)
         _.order = order
         _.firstProduct = setFirstProduct(order)
       })

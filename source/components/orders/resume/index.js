@@ -7,7 +7,8 @@ export default function OrderDirectiveFactory (ngComponent) {
       templateUrl: 'orders/resume/template.html',
       scope: {
         order: "=",
-        detailMessage: "@"
+        detailMessage: "@",
+        type: "@"
       },
       link: orderResumeLink  
     }

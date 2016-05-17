@@ -65,7 +65,7 @@ export default function productCheckoutFactory (ngComponent) {
     function successOnSaveOrder (result) {
       _.creditcardCtrl.clearForm()
       _.order = {}
-      $state.go('users.ordersChat', { id: result.data.id })
+      $state.go('users.ordersChat', { id: result.id })
     }
 
     function errorOnSaveOrder (error) {

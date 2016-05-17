@@ -32,14 +32,14 @@
       <div class="product-price col col-67">
         <div class="original-price">
           <span class="price">
-            {{ ::product.attributes.original_price | currency : product.attributes.currency  }}
+            {{ product.attributes.original_price | currency : product.attributes.currency  }}
           </span>
           <span class="divisor">
             /
           </span>
         </div>
         <div class="retiqueta-price">
-          {{ ::product.attributes.price | currency : products.attributes.currency }}
+          {{ product.attributes.price | currency : products.attributes.currency }}
         </div>
       </div>
     </div>

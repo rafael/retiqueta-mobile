@@ -6,7 +6,7 @@ const comitionRate = 0.2
 export default function ProductCreateFactory (ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
 
-  function productCreateCtrl ($ionicHistory, $ionicPlatform, $q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate, currentUser) {
+  function productCreateCtrl (GeoService, $ionicHistory, $ionicPlatform, $q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate, currentUser) {
     FormForConfiguration.enableAutoLabels()
     var _ = this
     let picturesIds = PictureStore.ids()
@@ -19,7 +19,6 @@ export default function ProductCreateFactory (ngComponent) {
     _.pictureErrors = { message: '' }
     _.validationRules = FormRules
     _.validationRules.category.custom = validationFactory('category', $q).bind(_)
-    _.validationRules.title.custom = validationFactory('title', $q).bind(_)
     _.validationRules.description.custom = validationFactory('description', $q).bind(_)
     _.validationRules.original_price.custom = validationFactory('original_price', $q).bind(_)
     _.validationRules.price.custom = validationFactory('price', $q).bind(_)
@@ -44,6 +43,7 @@ export default function ProductCreateFactory (ngComponent) {
     }
 
     function goToSelect () {
+      console.log('Open Select')
       saveDraft(_.product)
       $state.go('productsNewSelectCategory', {}, { location: 'replace', reload: true })
     }
@@ -53,13 +53,15 @@ export default function ProductCreateFactory (ngComponent) {
       product.pictures = _.pictureStore.ids()
       Product.create(product)
       .then(result => {
-        removeDraft()
+        Utils.logger.log(result)
         Utils.swalSuccess($translate.instant('PRODUCT_SAVE_MESSAGE'))
         $state.go('users.productDetails', { productID: result.id })
       })
       .catch(error => {
+        Utils.logger.info('Error on product creation')
+        Utils.logger.log(error)
         _.errors = extractErrorByField(error.data, product, Object.keys(_.errors))
-        _.formController.validateForm()
+        _.formController.validateForm(true).then((e) => {console.log(e)}).catch((e) => {console.log(e)})
         Utils.swalError(ErrorIfFor('Picture', error.data))
       })
       .finally(() => {
@@ -128,6 +130,26 @@ export default function ProductCreateFactory (ngComponent) {
 
     $scope.$on("$destroy", function() {
       action()
+    })
+
+    $scope.$on("$ionicView.enter", function(event, data) {  
+      if (_.product.location === '') {
+        GeoService.resolveLocation()
+        .then((location) => {
+          console.log('Se esta agarrando la location y es:')
+          console.log(location)
+          _.product.location = location.formatted_address
+          _.product.lat_lon = `${location.cords.lat},${location.cords.lng}`
+        })
+        .catch((e) => {
+          Utils.logger.log(e)
+          if (e.PERMISSION_DENIED === 1) {
+            Utils.swalError('Permision to GPS denied')
+          } else {
+            Utils.swalError('Error on GPS geolocation')
+          }
+        })
+      }
     })
   }
 }

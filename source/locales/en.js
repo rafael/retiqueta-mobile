@@ -37,6 +37,7 @@ var enTranslation = {
   REMOVE_DRAFT: 'Delete draft',
   LETS_RETIQUETA: 'Lets go to resell',
   PRODUCT_FORM_TITLE: 'Put a name to this product',
+  PRODUCT_FORM_ADDRESS: 'Ubication',
   PRODUCT_FORM_DESCRIPTION: 'Describe the product',
   PRODUCT_FORM_CATEGORY: 'In what category your product is',
   PRODUCT_FORM_ORIGINAL_PRICE: 'Original price',

@@ -2,11 +2,11 @@ import event from 'events'
 
 const defaultProduct = {
   category: '',
-  title: '',
   description: '',
+  location: '',
   original_price: '',
-  size: '',
   price: '',
+  lat_lon: '',
   pictures: ''
 }
 
