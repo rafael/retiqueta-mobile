@@ -12,7 +12,7 @@ export default function productCheckoutFactory (ngComponent) {
     _.creditcardCtrl = {}
     _.validationRules = {
       address: {
-        required: true,
+        required: false,
         placeholder: 'Put your address here'
       }
     }
@@ -63,9 +63,9 @@ export default function productCheckoutFactory (ngComponent) {
     }
 
     function successOnSaveOrder (result) {
-      _.credit_card = {}
+      _.creditcardCtrl.clearForm()
       _.order = {}
-      $state.go('users.ordersChat', { id: result.id })
+      $state.go('users.ordersChat', { id: result.data.id })
     }
 
     function errorOnSaveOrder (error) {
@@ -81,6 +81,10 @@ export default function productCheckoutFactory (ngComponent) {
     function getForm() {
       form = document.getElementById("address-form")
     }
+
+    $scope.$on("$ionicView.enter", function(event, data){
+      _.creditcardCtrl.clearForm()
+    });
 
     getForm()
   }

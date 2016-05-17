@@ -1,4 +1,4 @@
-<ion-view view-title="{{ 'BUY_NOW' | translate }}">
+<ion-view view-title="{{ 'BUY_NOW' | translate }}" cache-view="false">
 	<ion-content padding="false">
 		<header class="order-detail-header row">
 			<img 
@@ -40,11 +40,13 @@
 					controller="ctrl.formController"
 					validation-rules="ctrl.validationRules"
 					submit-with="ctrl.submitOrder()">
-					<text-field attribute="address"
+          <!--
+          <text-field attribute="address"
 						label="{{ 'ORDER_ADDRESS' | translate }}"
 						placeholder="{{ ctrl.validationRules.address.placeholder}}"
 						type="text">
-					</text-field>
+          </text-field>
+          -->
 				</form>
 				<button ng-click="ctrl.submitOrder()"
 					class="button button-block button-assertive"
