@@ -7,7 +7,7 @@
 			<img ng-if="asChat" src="{{ comment.attributes.user_pic }}" alt="">
 			<p class="message">
 				<a ng-if="!asChat" class="text-assertive" 
-					ui-sref="user.profile({userID: comment.attributes.user_id})">
+					ui-sref="users.profile({userID: comment.attributes.user_id})">
 					{{ ::comment.attributes.username }}:
 				</a>
 				<span class="content" ng-bind-html="comment.attributes.text | linkify"></span>
