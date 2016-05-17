@@ -25,13 +25,10 @@ export default function(ngComponent) {
       responseError: function (response) {
         var string_token = window.localStorage.getItem('token')
         const token = extractToken(string_token)
-        const updateTokenUrl = `#/update-token/${token.refresh_token}/${token.user_id}`
-        if (ENV.isDevelopment()) {
-          console.log('Some error on HTTP protocol')
-          console.log(response)
-          console.log('The actual token is')
-          console.log(string_token)
-        }
+        Utils.logger.log('Some error on HTTP protocol')
+        Utils.logger.log(response)
+        Utils.logger.log('The actual token is')
+        Utils.logger.log(string_token)
         switch (response.status) {
           case 400:
             // The token is erased from localStorage without reason, this is why i save in memory until refresh_token finish
@@ -39,10 +36,7 @@ export default function(ngComponent) {
           case 401:
             const deferred = $q.defer();
             if (response.data.error === "invalid_token" ) {
-              if (ENV.isDevelopment()) {
-                console.log('Token is expired')
-                console.log('redirect to:', updateTokenUrl)
-              }
+              Utils.logger.log('Token is expired')
               $injector.get("$http")({
                 method: 'POST',
                 url: `${ENV.api.url}/v1/authenticate/token`,
@@ -52,11 +46,9 @@ export default function(ngComponent) {
                 }
               })
               .then((result) => {
-                if (ENV.isDevelopment()) {
-                  console.info('Token Updated')
-                  console.log(writeToken(token, result.data))
-                  console.info('repeat previus request')
-                }
+                Utils.logger.info('Token Updated')
+                Utils.logger.log(writeToken(token, result.data))
+                Utils.logger.info('repeat previus request')
                 $injector.get("$http")(response.config).then(function(resp) {
                   deferred.resolve(resp);
                 },function(resp) {
@@ -66,12 +58,12 @@ export default function(ngComponent) {
               .catch((resp) => {
                 deferred.reject(resp)
                 window.localStorage.removeItem('token')
-                location.replace('#/auth/login')
+                $injector.get("$state").go('auth.login')
               })
             } else {
-              window.localStorage.removeItem('token')
-              location.replace('#/auth/login')
               deferred.reject(response)
+              window.localStorage.removeItem('token')
+              $injector.get("$state").go('auth.login')
             }
             return deferred.promise
           case 403:

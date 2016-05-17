@@ -15,15 +15,27 @@ export default function UtilsFactory (ngComponent) {
       }
     }
 
+    this.logger = {
+      info () {
+        if (ENV.isDevelopment() || ENV.debug()) {
+          console.info(...arguments)
+        }
+      },
+      log () {
+        if (ENV.isDevelopment() || ENV.debug()) {
+          console.log(...arguments)
+        }
+      },
+      warn () {
+        if (ENV.isDevelopment() || ENV.debug()) {
+          console.warn(...arguments)
+        }
+      }
+    }
+
     this.cleanErrors = (error) => {
-      if (typeof error === 'undefined' || error === null) {
-        return 'Error in the server'
-      }
-
-      if (ENV.isDevelopment()) {
-        console.log(error)
-      }
-
+      if (typeof error === 'undefined' || error === null) { return 'Error in the server' }
+      this.logger.log(error)
       let errorMessage = ''
 
       if (error.hasOwnProperty('data') && error.data !== null && error.data.hasOwnProperty('detail')) {
@@ -31,7 +43,7 @@ export default function UtilsFactory (ngComponent) {
       } else if (error.hasOwnProperty('data') && error.data !== null) {
         errorMessage = JSON.stringify(error.data) || ''
       } else {
-        errorMessage = 'A problem occur getting data from retiqueta'
+        errorMessage = 'A problem occur getting data'
       }
 
       return errorMessage.replace(/[{}\[\]\"]/g, '').replace(/error\:/g, '')
@@ -46,10 +58,9 @@ export default function UtilsFactory (ngComponent) {
     }
 
     this.alert = (title, message, type, alertCallback = this.alertCallback, buttonName = 'Ok') => {
-      if (ENV.isDevelopment()) {
-        console.info('title')
-        console.info(message)
-      }
+      this.logger.info('title')
+      this.logger.info(message)
+
       $rootScope.$evalAsync(() => {
         navigator.notification.alert(message, alertCallback, title, buttonName)
       })

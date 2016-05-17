@@ -1,9 +1,9 @@
 export default function updateTokenCtrlFactory (ngComponent) {
   ngComponent.controller('updateTokenCtrl', updateTokenCtrl)
 
-  function updateTokenCtrl (Auth, $state, $ionicHistory, ENV, $stateParams, $scope) {
+  function updateTokenCtrl (Auth, $state, $ionicHistory, ENV, $stateParams, $scope, Utils) {
     Auth.refreshToken({
-      refresh_token: $stateParams.token, 
+      refresh_token: $stateParams.token,
       user_id: $stateParams.userID
     })
     .then(result => {
@@ -14,9 +14,7 @@ export default function updateTokenCtrlFactory (ngComponent) {
       }
     })
     .catch(error => {
-      if (ENV.isDevelopment()) {
-        console.log(error)
-      }
+      Utils.logger.log(error)
       //location.replace('#/auth/login')
     })
 

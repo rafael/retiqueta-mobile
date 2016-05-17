@@ -1,6 +1,7 @@
 const DEVELOPMENT = 'development'
 const PRODUCTION = 'production'
 const node_env = process.env.NODE_ENV || DEVELOPMENT
+const DEBUG_MODE = process.env.DEBUG_MODE || true
 
 angular.module('App.contants', [])
 
@@ -17,6 +18,9 @@ const ENV = {
   },
   isProduction () {
     return this.type === PRODUCTION
+  },
+  debug() {
+    return DEBUG_MODE
   },
   mercadopago_keys: {
     public: 'TEST-f4c0a8de-a40c-46c2-90f9-202e66994dd3'

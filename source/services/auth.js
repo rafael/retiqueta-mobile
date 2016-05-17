@@ -1,7 +1,7 @@
 export default function AuthFactory (ngComponent) {
   ngComponent.service('Auth', AuthFactory)
 
-  function AuthFactory ($rootScope, ENV, User, $q, $http) {
+  function AuthFactory ($rootScope, ENV, User, $q, $http, Utils) {
     if (ENV.isDevelopment()) {
       window.Auth = this
     }
@@ -49,12 +49,11 @@ export default function AuthFactory (ngComponent) {
 
     this.refreshToken = (token = {}) => {
       let deferred = $q.defer()
-      if(ENV.isDevelopment()) {
-        console.log('Iniciando refresh_token process')
-        console.log(window.localStorage)
-        console.log('Este es el refresh_token')
-        console.log(token)
-      }
+      Utils.logger.log('Iniciando refresh_token process')
+      Utils.logger.log(window.localStorage)
+      Utils.logger.log('Este es el refresh_token')
+      Utils.logger.log(token)
+
       if (this.updateTokenIntent <= 1 && token.hasOwnProperty('refresh_token')) {
         this.updateTokenIntent += 1
         $http({
@@ -66,19 +65,15 @@ export default function AuthFactory (ngComponent) {
           }
         })
         .then(result => {
-          if(ENV.isDevelopment()) {
-            console.log("resultado del refresh token")
-            console.log(result)
-          }
+          Utils.logger.log("resultado del refresh token")
+          Utils.logger.log(result)
           this.updateToken(Object.assign({}, token, result.data))
           this.updateTokenIntent = 0
           deferred.resolve(result)
         })
         .catch(e => {
-          if(ENV.isDevelopment()) {
-            console.log("Error al envio de refreshToken")
-            console.log(e)
-          }
+          Utils.logger.log("Error al envio de refreshToken")
+          Utils.logger.log(e)
           this.logout()
           deferred.reject(e)
         })
@@ -186,10 +181,8 @@ export default function AuthFactory (ngComponent) {
     }
 
     this.updateToken = (newtoken) => {
-      if (ENV.isDevelopment()) {
-        console.info('Updating token with')
-        console.log(newtoken)
-      }
+      Utils.logger.info('Updating token with')
+      Utils.logger.log(newtoken)
       var oldtoken = this.getToken()
       newtoken = Object.assign({}, oldtoken, newtoken)
       return window.localStorage.setItem('token', JSON.stringify(newtoken))
