@@ -15,7 +15,7 @@ var esTranslation = {
   DASHBOARD_TITLE: 'Inicio',
   PROFILE_TITLE: 'Profile',
   UPDATE_PROFILE_SUCCESS: 'Tu perfil ha sido actualizado',
-  UPLOAD_PICTURE: 'Seleccionar de la galeria',
+  UPLOAD_PICTURE: 'Elegir de la galer\ía',
   TAKE_PICTURE: 'Tomar foto',
   UPLOADING_PICTURE: 'Actualizando tu imagen ...',
   UPDATE_PROFILE: 'actualizar perfil',
