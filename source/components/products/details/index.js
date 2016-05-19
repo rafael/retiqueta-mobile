@@ -21,12 +21,10 @@ export default function ProductDetailFactory (ngComponent) {
         _.product = product
       })
       .catch(Utils.swalError)
- 
     }
 
     function ToggleCommentForm () {
       _.showCommentForm = !_.showCommentForm
-      console.log(_.showCommentForm)
     }
 
     LoadProduct()
