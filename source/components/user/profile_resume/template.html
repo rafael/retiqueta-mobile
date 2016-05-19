@@ -14,7 +14,7 @@
 				{{ user.attributes.last_name }}
 			</h3>
 		</div>
-		<div class="col col-25 text-right" ng-if="UserisOwner()">
+		<div class="col col-25 text-right" ng-if="!isOwner">
 			<follow-button 
 				follow-handler="toggleFollowship" 
 				following="ownerFollowing">

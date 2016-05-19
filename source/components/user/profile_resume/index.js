@@ -15,17 +15,12 @@ export default function profileResumeFactory (ngcomponent) {
     function profileResumeLink (scope, element, attrs) {
       scope.isOwner = false
       scope.toggleFollowship = followShip
-      scope.UserisOwner = UserisOwner
 
       function setIsOwner () {
         Auth.getCurrentUser()
         .then(user => {
           scope.isOwner = scope.user.id === user.id
         })
-      }
-
-      function UserisOwner () {
-        return scope.isOwner
       }
 
       function followShip (following) {
@@ -36,7 +31,11 @@ export default function profileResumeFactory (ngcomponent) {
         .catch(Utils.swalError)
       }
 
-      setIsOwner()
+      scope.$watchCollection(() => {
+        return scope.user
+      }, () => {
+        setIsOwner()
+      })
     }
   }
 }

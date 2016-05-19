@@ -230,7 +230,7 @@ gulp.task('build:watch', ['build'], function() {
 gulp.task('serve', ['build:watch'],function() {
   return gulp.src('www')
   .pipe(webserver({
-    host: '192.168.1.178',
+    host: '0.0.0.0',
     open: true,
     livereload: true
   }));

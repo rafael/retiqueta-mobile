@@ -3,7 +3,7 @@ export default function ProductDetailFactory (ngComponent) {
 
   function productDetail (currentUser, Product, $ionicHistory, $stateParams, Utils) {
     var _ = this
-    _.product = {}
+    _.product = null
     _.goBack = goBack
     _.currentUser = currentUser
     _.showCommentForm = typeof $stateParams.onComment !== 'undefined'
