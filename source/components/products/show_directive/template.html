@@ -53,5 +53,8 @@
         {{ 'BUY_NOW' | translate }}
       </a>
     </div>
+    <div class="pt1 pb1 product-description">
+      <span ng-bind-html="product.attributes.description | linkify"></span>
+    </div>
   </div>
 </div>
