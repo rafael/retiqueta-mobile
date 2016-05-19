@@ -53,7 +53,7 @@ export default function ProductCreateFactory (ngComponent) {
       product.pictures = _.pictureStore.ids()
       Product.create(product)
       .then(result => {
-        Utils.logger.log(result)
+        removeDraft()
         Utils.swalSuccess($translate.instant('PRODUCT_SAVE_MESSAGE'))
         $state.go('users.productDetails', { productID: result.id })
       })
