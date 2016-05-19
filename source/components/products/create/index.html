@@ -6,58 +6,54 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content padding="true" scroll="true" class="form-basic form-with-labels new_product">
+  <ion-content 
+    padding="true" 
+    scroll="true" 
+    class="form-basic form-with-labels new_product">
     <product-picture></product-picture>
     <p ng-if="create.pictureHasErrors()" class="pictures-errors">
       {{ create.pictureErrors.message }}
     </p>
     <form form-for="create.product"
+      no-validate
       controller="create.formController"
       validation-rules="create.validationRules"
       submit-with="create.submit(create.product)">
 
-      <text-plus-field attribute="title"
-        label="{{ 'PRODUCT_FORM_TITLE' | translate }}"
-        placeholder="{{ create.validationRules.title.placeholder}}"
-        type="text">
-      </text-plus-field>
-
       <text-plus-field attribute="description"
+        multiline="true"
         label="{{ 'PRODUCT_FORM_DESCRIPTION' | translate }}"
         placeholder="{{ create.validationRules.description.placeholder}}"
         type="text">
       </text-plus-field>
 
-      <div class="row">
-        <div class="col-50">
-          <text-plus-field attribute="category"
-            label="{{ 'PRODUCT_FORM_CATEGORY' | translate }}"
-            placeholder="{{ create.validationRules.category.placeholder}}"
-            type="text"
-            ng-click="create.goToSelect()">
-          </text-plus-field>
-        </div>
-        <div class="col-50">
-          <text-plus-field attribute="size"
-            label="{{ 'PRODUCT_FORM_SIZE' | translate }}"
-            placeholder="{{ create.validationRules.size.placeholder}}"
-            type="text">
-          </text-plus-field>
-        </div>
-      </div>
+      <text-plus-field attribute="location"
+        label="{{ 'PRODUCT_FORM_ADDRESS' | translate }}"
+        placeholder="{{ create.validationRules.address.placeholder}}"
+        type="text">
+      </text-plus-field>
+
+      <text-plus-field attribute="category"
+        label="{{ 'PRODUCT_FORM_CATEGORY' | translate }}"
+        placeholder="{{ create.validationRules.category.placeholder}}"
+        type="text"
+        ng-click="create.goToSelect()">
+      </text-plus-field>
 
       <div class="row">
         <div class="col-50">
-          <text-plus-field attribute="original_price"
+          <text-field attribute="original_price"
             type="tel"
+            pattern="[0-9]*"
             label="{{ 'PRODUCT_FORM_ORIGINAL_PRICE' | translate }}"
             placeholder="{{ create.validationRules.original_price.placeholder}}"
             type="text">
           </text-plus-field>
         </div>
         <div class="col-50">
-          <text-plus-field attribute="price"
+          <text-field attribute="price"
             type="tel"
+            pattern="[0-9]*"
             label="{{ 'PRODUCT_FORM_PRICE' | translate }}"
             placeholder="{{ create.validationRules.price.placeholder}}"
             type="text">
@@ -65,7 +61,7 @@
         </div>
       </div>
 
-      <div class="submit-area bg-stable">
+      <div class="submit-area bg-stable comition-area">
         <div class="label">
           {{ 'PRODUCT_FORM_COMITION' | translate }}
         </div>
@@ -74,13 +70,18 @@
         </div>
       </div>
 
+      <div class="publish">
+        <submit-button  
+          disable="create.sendingInfo" 
+          label="{{ 'SUBMIT' | translate }}" ></submit-button>
+      </div>
+
       <div class="submit-area">
         <span class="polis">
           <a href="#">
             {{ 'COMISION_POLITICS' | translate }}
           </a>
         </span>
-        <submit-button  disable="create.sendingInfo" label="{{ 'SUBMIT' | translate }}" ></submit-button>
         <!--
         <span class="submit-button" ng-click="create.removeDraft()">
           {{ 'REMOVE_DRAFT' | translate }}

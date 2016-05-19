@@ -42,6 +42,8 @@ export default function UtilsFactory (ngComponent) {
         errorMessage = JSON.stringify(error.data.detail) || ''
       } else if (error.hasOwnProperty('data') && error.data !== null) {
         errorMessage = JSON.stringify(error.data) || ''
+      } else if (typeof error === 'string') {
+        errorMessage = error
       } else {
         errorMessage = 'A problem occur getting data'
       }

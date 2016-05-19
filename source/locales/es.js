@@ -37,6 +37,7 @@ var esTranslation = {
   REMOVE_DRAFT: 'Limpiar',
   LETS_RETIQUETA: '\¡A Retiquetar!',
   PRODUCT_FORM_TITLE: 'Nombre del producto',
+  PRODUCT_FORM_ADDRESS: 'Ubicaci\ón',
   PRODUCT_FORM_DESCRIPTION: 'Descripci\ón (recuerda utilizar #)',
   PRODUCT_FORM_CATEGORY: 'Categoria',
   PRODUCT_FORM_ORIGINAL_PRICE: 'Precio original',

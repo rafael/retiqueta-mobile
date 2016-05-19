@@ -1,9 +1,9 @@
 export default function ProductDetailFactory (ngComponent) {
   ngComponent.controller('productDetail', productDetail)
 
-  function productDetail (currentUser, ProductData, $ionicHistory, $stateParams) {
+  function productDetail (currentUser, Product, $ionicHistory, $stateParams, Utils) {
     var _ = this
-    _.product = ProductData
+    _.product = {}
     _.goBack = goBack
     _.currentUser = currentUser
     _.showCommentForm = typeof $stateParams.onComment !== 'undefined'
@@ -13,10 +13,23 @@ export default function ProductDetailFactory (ngComponent) {
       $ionicHistory.goBack()
     }
 
+    function LoadProduct () {
+      Product.get($stateParams.productID,  {
+        include: 'user,product_pictures'
+      })
+      .then((product) => {
+        _.product = product
+      })
+      .catch(Utils.swalError)
+ 
+    }
+
     function ToggleCommentForm () {
       _.showCommentForm = !_.showCommentForm
       console.log(_.showCommentForm)
     }
+
+    LoadProduct()
 
   }
 }

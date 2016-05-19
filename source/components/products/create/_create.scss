@@ -8,12 +8,22 @@
 		input[name="category"] {
 			pointer-events:none;
 		}
+		.publish {
+			margin-top: 2.5em;
+			.submit-button {
+				display: block;
+				width: 100%;
+			}
+		}
 		.submit-area {
 			background-color: white;
 			width: calc( 100% + 20px);
 			position: relative;
 			left: -10px;
 			padding: 0.8em 0.8em;
+			&.comition-area {
+				margin-top: 0em;
+			}
 			&.bg-stable {
 				background: $stable;
 				.label {
@@ -34,17 +44,13 @@
 			.polis {
 				font-size: 0.9em;
 				padding-top: 0.6em;
-				display: inline-block;
 				color: $dark;
+				text-align: center;
+				display: block;
 			}
 			.submit-button {
-				@extend .button-clear;
-				@extend .button-assertive;
-				color: $assertive;
-				float: right;
-				padding-right: 0.5em;
-				padding-left: 0.5em;
-				border-radius: 0;
+				text-transform: uppercase;
+				font-weight: bold;
 			}
 		}
 	}

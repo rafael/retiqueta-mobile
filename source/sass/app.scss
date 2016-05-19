@@ -47,6 +47,14 @@ a {
 .text-dark { color: $dark; }
 .text-assertive { color: $assertive }
 
+.text-uppercase {
+	text-transform: uppercase;
+}
+
+.text-bold {
+	font-weight: bold;
+}
+
 .item.item-white {
 	background-color: white;
 } 

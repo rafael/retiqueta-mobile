@@ -10,42 +10,37 @@ export const Rules = {
       { value: '#carteras', label: '#Carteras', bg: '#999', icon: 'ion-bag' },
       { value: '#accesorios', label: '#Accesorios', bg: '#AAA', icon: 'ion-bowtie' }
     ]
-  },
-  title: {
-    inputType: 'text',
-    required: true,
-    placeholder: 'Title of your product'
-  },
-  size: {
-    inputType: 'text',
-    required: true,
-    placeholder: 'Size'
-  },
+  }, 
   description: {
     inputType: 'text',
     required: true,
     multiline: true,
-    placeholder: 'Describe your product'
+    placeholder: 'Lindo pantal\ón #tallaM #pantalon #negro'
+  },
+  location: {
+    inputType: 'text',
+    required: true,
+    placeholder: 'Estado, Ciudad'
   },
   original_price: {
     inputType: 'text',
     required: true,
-    placeholder: 'Original price',
-    pattern: /[0-9]*/,
-    inputPattern: '[0-9]*',
+    placeholder: 'Precio original',
+    // pattern: /[0-9]*/,
+    // inputPattern: '[0-9]*',
   },
   price: {
     inputType: 'text',
     required: true,
-    placeholder: 'Your price',
-    pattern: /[0-9]*/,
-    inputPattern: '[0-9]*',
+    placeholder: 'Precio Retiqueta',
+    // pattern: /[0-9]*/,
+    // inputPattern: '[0-9]*',
   }
 }
 
 export const baseErrorsObject = {
   category: Object.assign({}, baseErrorObj),
-  title: Object.assign({}, baseErrorObj),
+  location: Object.assign({}, baseErrorObj),
   description: Object.assign({}, baseErrorObj),
   original_price: Object.assign({}, baseErrorObj),
   price: Object.assign({}, baseErrorObj)

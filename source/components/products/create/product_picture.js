@@ -18,6 +18,8 @@ export default function productPictureDirectiveFactory (ngComponent) {
         _.pictureIndex = 0
 
         _.hasUrl = (picture) => {
+          // Utils.logger.info('Picture inside product pictures directive')
+          // Utils.logger.log(picture)
           return picture.attributes.url !== ''
         }
 
@@ -31,6 +33,8 @@ export default function productPictureDirectiveFactory (ngComponent) {
           _.loadingPicture = true
           Product.uploadPicture(base64picture)
           .then(result => {
+            Utils.logger.info('Result of picture uploading')
+            Utils.logger.log(result)
             PictureStore.setPicture(numberOfPhotosPerProduct, _.pictureIndex, result)
           })
           .catch(Utils.swalError)

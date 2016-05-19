@@ -96,7 +96,8 @@
       },
       "locator": "phonegap-plugin-push@1.4.5",
       "id": "phonegap-plugin-push"
-    }
+    },
+    "cordova-plugin-geolocation"
   ],
   "cordovaPlatforms": [
     {

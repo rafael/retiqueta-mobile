@@ -16,6 +16,7 @@
     </div>
     <div class="pb4">
       <order-resume
+        type="order"
         detail-message="{{ 'ORDER_DETAIL' | translate }}"
         ng-repeat="order in ctrl.orders track by order.id"
         order="order">

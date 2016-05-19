@@ -1,7 +1,7 @@
 <div class="order list order-resume">
 	<a 
 		class="item item-white item-no-border item-thumbnail-left" 
-		ui-sref="users.ordersChat({ id: order.id})">
+		ui-sref="users.ordersChat({ id: order.id, type: type})">
 		<img src="{{ ::firstProduct.relationships.product_pictures[0].attributes.small_url }}">
 		<h2>{{ firstProduct.attributes.price | currency : firstProduct.attributes.currency }}</h2>
 		<p>
