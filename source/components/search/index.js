@@ -34,7 +34,7 @@ export default function searchFactory (ngComponent) {
 
     function loadMore (nextpage) {
       if (_.text !== '') {
-        return populatewithproduct(nextpage, true)
+        return populateWithProduct(nextpage, true)
       } else {
         return Promise.resolve()
       }
