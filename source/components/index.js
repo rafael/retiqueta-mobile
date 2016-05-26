@@ -25,6 +25,7 @@ require('./auth/logout')(components)
 require('./auth/facebook_login')(components)
 
 // User
+require('./user')(components)
 require('./wardrobe')(components)
 require('./profile/edit')(components)
 require('./profile/profile_picture')(components)

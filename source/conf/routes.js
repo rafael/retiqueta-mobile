@@ -94,6 +94,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     abstract: true,
     url: '/users',
     templateUrl: 'user/index.html',
+    controller: 'UserTabsCtrl as ctrl',
     data: {
       permissions: {
         only: ['client'],
