@@ -43,7 +43,6 @@ export default function ProductCreateFactory (ngComponent) {
     }
 
     function goToSelect () {
-      console.log('Open Select')
       saveDraft(_.product)
       $state.go('productsNewSelectCategory', {}, { location: 'replace', reload: true })
     }
@@ -53,9 +52,10 @@ export default function ProductCreateFactory (ngComponent) {
       product.pictures = _.pictureStore.ids()
       Product.create(product)
       .then(result => {
-        removeDraft()
+        ProductStore.clear()
+        PictureStore.clear()
         Utils.swalSuccess($translate.instant('PRODUCT_SAVE_MESSAGE'))
-        $state.go('users.productDetails', { productID: result.id })
+        $state.go('users.me')
       })
       .catch(error => {
         Utils.logger.info('Error on product creation')
@@ -132,12 +132,13 @@ export default function ProductCreateFactory (ngComponent) {
       action()
     })
 
+    $scope.$on("$ionicView.leave", function(event, data) {})
+
+
     $scope.$on("$ionicView.enter", function(event, data) {  
       if (_.product.location === '') {
         GeoService.resolveLocation()
         .then((location) => {
-          console.log('Se esta agarrando la location y es:')
-          console.log(location)
           _.product.location = location.formatted_address
           _.product.lat_lon = `${location.cords.lat},${location.cords.lng}`
         })
