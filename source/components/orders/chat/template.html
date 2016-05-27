@@ -1,47 +1,45 @@
 <ion-view view-title="{{ 'ORDER_DETAIL_CHAT' | translate }}">
-	<ion-nav-bar class="bar-assertive">
-		<ion-nav-buttons side="left">
-			<button
-				class="button back-button buttons button-clear header-item"
-				ng-click="ctrl.goBack()">
-				<i class="icon ion-ios-arrow-back"></i>
-			</button>
-		</ion-nav-buttons>
-	</ion-nav-bar>
-	<ion-content class="order-chat" padding="false">
-		<ion-refresher
-			pulling-text="Pull to refresh..."
-			on-refresh="ctrl.refreshComment()">
-		</ion-refresher>
-		<header class="order-detail-header list">
-			<a class="item item-avatar item-icon-right"
-				ui-sref="users.ordersDetail({ id: ctrl.order.id})">
-				<img 
-					src="{{ ::ctrl.firstProduct.relationships.product_pictures[0].attributes.small_url}}" 
-					alt="">
-				<h2 class="text-assertive">
-					{{ ctrl.order.attributes.total_amount | currency : ctrl.order.attributes.currency }}
-				</h2>
-				<p>
-					{{ ctrl.firstProduct.attributes.description }}
-				</p>
-				<i class="icon ion-chevron-right"></i>
-			</a>
-		</header>
-		<section class="comments">
-			<comments-list 
-        reverse="true"
-        as-chat="true"
-				parent-type="fulfillments" 
-				current-user-id="{{ ctrl.currentUser.id }}"
-				parent-id="{{ ctrl.order.relationships.fulfillment.id }}"></comments-list>
-		</section>
-	</ion-content>
-	<ion-footer-bar class="comment-form">
-		<section class="form">
-			<comment-form
-				parent-type="fulfillments" 
-				parent-id="{{ ctrl.order.relationships.fulfillment.id }}"></comment-form>
-		</section>
-	</ion-footer-bar>
+  <ion-nav-bar class="bar-assertive">
+    <ion-nav-buttons side="left">
+      <button
+        class="button back-button buttons button-clear header-item"
+        ng-click="ctrl.goBack()">
+        <i class="icon ion-ios-arrow-back"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content class="order-chat" padding="false">
+    <header class="order-detail-header list">
+      <a class="item item-avatar item-icon-right"
+        ui-sref="users.ordersDetail({ id: ctrl.order.id})">
+        <img 
+        src="{{ ::ctrl.firstProduct.relationships.product_pictures[0].attributes.small_url}}" 
+        alt="">
+        <h2 class="text-assertive">
+          {{ ctrl.order.attributes.total_amount | currency : ctrl.order.attributes.currency }}
+        </h2>
+        <p>
+          {{ ctrl.firstProduct.attributes.description }}
+        </p>
+        <i class="icon ion-chevron-right"></i>
+      </a>
+    </header>
+    <section class="comments">
+      <ion-scroll  delegate-handle="comments">
+        <comments-list 
+          reverse="true"
+          as-chat="true"
+          parent-type="fulfillments" 
+          current-user-id="{{ ctrl.currentUser.id }}"
+          parent-id="{{ ctrl.order.relationships.fulfillment.id }}"></comments-list>
+      </ion-scroll>
+    </section>
+  </ion-content>
+  <ion-footer-bar class="comment-form">
+    <section class="form">
+      <comment-form
+        parent-type="fulfillments" 
+        parent-id="{{ ctrl.order.relationships.fulfillment.id }}"></comment-form>
+    </section>
+  </ion-footer-bar>
 </ion-view>

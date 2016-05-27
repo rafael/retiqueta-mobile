@@ -49,6 +49,7 @@ export default function CommentListDirectiveFactory (ngComponent) {
         .catch(Utils.swalError)
         .finally(() => {
           scope.loading = false
+          CommentStore.emit('fetchFinish')
         })
       }
 

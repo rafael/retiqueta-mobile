@@ -25,7 +25,7 @@ export default function CommentCreateDirectiveFactory (ngComponent) {
 
         CommentStore.create(scope.parentId, { text: scope.comment }, scope.parentType)
         .then(result => {
-          CommentStore.emit('refresh')
+          CommentStore.emit('new', result)
         })
         .catch(error => {
           Utils.swalError(error)
