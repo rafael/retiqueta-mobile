@@ -31,7 +31,7 @@
 			select {
 				background: none;
 				border: none;
-				box-shadow: 0 1px 0px rgba(0, 0, 0, 0.15);
+				box-shadow: 0 1px 0 $stable;
 				border-radius: 0;
 				padding: 0.8em 0.6em;
 			}
@@ -40,6 +40,7 @@
 			textarea {
 				color: darken($dark, 50%);
 				font-size: 1.1em;
+				box-shadow: 0 1px 0 $stable;
 			}
 		}
 	}

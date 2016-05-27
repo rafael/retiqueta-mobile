@@ -146,6 +146,22 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         controller: 'profileEditCtrl as profile'
       }
     },
+    resolve: {
+      identificationTypes: function (MercadopagoFactory, $q) {
+        let defered = $q.defer()
+        MercadopagoFactory.getIdentificationTypes((status, result) => {
+          if (status === 200) {
+            let options = result.map((value) => {
+              return { value: value.id, label: value.name } 
+            })
+            defered.resolve(options)
+          } else {
+            defered.reject(result)
+          }
+        })
+        return defered.promise
+      } 
+    }
   })
   .state('users.favorites', {
     url: '/favorites',

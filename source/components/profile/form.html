@@ -1,36 +1,81 @@
 <ion-view name="editProfile" view-title="{{ 'EDIT_PROFILE' | translate }}">
-  <ion-content padding="true">
-    <profile-picture user='profile.user'></profile-picture>
-    <form
-      form-for="profile.user.attributes"
-      validation-rules="profile.schema"
-      submit-with="profile.submit(profile.user.attributes)">
-      <text-field label="Username"
-        attribute="username"
-        placeholder="set your username">
-      </text-field>
-      <text-field label="Fistname"
-        attribute="first_name"
-        placeholder="Your first name">
-      </text-field>
-      <text-field label="Lastname"
-        attribute="last_name"
-        placeholder="Yoor last name">
-      </text-field>
-      <text-field label="Website"
-        attribute="website"
-        placeholder="http://yourwebsite.com">
-      </text-field>
-      <text-field label="Bio"
-        attribute="bio"
-        multiline
-        rows="4"
-        placeholder="About you">
-      </text-field>
-      <submit-button
-        disable="profile.sendingInfo"
-        label="{{ 'UPDATE_PROFILE' | translate }}" >
-      </submit-button>
-    </form>
+  <ion-content padding="true" class="edit-profile form-basic form-with-labels">
+    <section>
+      <form
+        form-for="profile.user.attributes"
+        validation-rules="profile.schema"
+        submit-with="profile.submit(profile.user.attributes)">
+        <div class="row profile-header">
+          <div class="col col-25">
+            <profile-picture user='profile.user'></profile-picture>
+          </div>
+          <div class="col col-75 user_basic_data">
+            <text-field 
+              attribute="username"
+              icon-before="fa icon ion ion-at"
+              placeholder="{{ 'EDIT_PROFILE_USERNAME' | translate }}">
+            </text-field>
+            <text-field 
+              attribute="first_name"
+              icon-before="fa icon ion ion-android-person"
+              placeholder="{{ 'EDIT_PROFILE_FIRST_NAME' | translate }}">
+            </text-field>
+          </div>
+        </div>
+        <text-field 
+          attribute="website"
+          icon-before="fa icon ion ion-link"
+          placeholder="http://yourwebsite.com">
+        </text-field>
+        <text-field 
+          attribute="bio"
+          multiline
+          rows="4"
+          icon-before="fa icon ion ion-clipboard"
+          placeholder="{{ 'EDIT_PROFILE_BIO' | translate }}">
+        </text-field>
+
+        <h4 class="separator-title">
+          {{ 'EDIT_PROFILE_ACCOUNT_INFORMATION' | translate }}
+        </h4>
+        <text-field 
+          attribute="bank_account.bank_name"
+          label="{{ 'EDIT_PROFILE_BANK_NAME' | translate }}">
+        </text-field>
+        <text-field 
+          attribute="bank_account.account_number"
+          type="tel"
+          label="{{ 'EDIT_PROFILE_ACCOUNT_NUMBER' | translate }}">
+        </text-field> 
+        <select-field 
+          attribute="bank_account.account_type"
+          allow-blank
+          label="{{ 'EDIT_PROFILE_ACCOUNT_TYPE' | translate }}"
+          options="profile.schema.bank_account.account_type.options">
+        </select-field>
+        <div class="row">
+          <div class="col col-33">
+            <select-field 
+              attribute="bank_account.document_type"
+              allow-blank
+              label="{{ 'EDIT_PROFILE_DOCUMENT_TYPE' | translate }}"
+              options="profile.identificationTypes">
+            </select-field>
+          </div>
+          <div class="col col-67">
+            <text-field 
+              attribute="bank_account.document_id"
+              label="{{ 'EDIT_PROFILE_DOCUMENT_ID' | translate }}">
+            </text-field>
+          </div>
+        </div>
+
+        <submit-button
+          disable="profile.sendingInfo"
+          label="{{ 'UPDATE_PROFILE' | translate }}" >
+        </submit-button>
+      </form>
+
+    </section>
   </ion-content>
 </ion-view>

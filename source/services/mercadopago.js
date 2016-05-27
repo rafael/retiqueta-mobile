@@ -17,12 +17,14 @@ export default function(ngComponent) {
 
 function resolveIdentificationTypesFactory ($q) {
   let methods = { types: [] }
-  return () => {
-    Mercadopago.getIdentificationTypes((status, result) => {
-      if (status === 200) {
-        methods.types =  result
-      }
-    })
+  return (cached = false) => {
+    if (!cached) {
+      Mercadopago.getIdentificationTypes((status, result) => {
+        if (status === 200) {
+          methods.types =  result
+        }
+      })
+    }
     return methods
   }
 }
