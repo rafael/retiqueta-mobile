@@ -18,7 +18,6 @@ export default function orderChatCtrlFactory (ngComponent) {
     _.refreshComment = refreshComment
 
     function goBack () {
-      window.StateManager = $state
       if ($stateParams.type === 'order' || $stateParams.type === 'sell') {
         $state.go('users.activities.orders')
       } else {
@@ -33,7 +32,6 @@ export default function orderChatCtrlFactory (ngComponent) {
     function getorder () {
       Order.get($stateParams.id, { include: includes })
       .then(order => {
-        console.log(order)
         _.order = order
         _.firstProduct = setFirstProduct(order)
       })
