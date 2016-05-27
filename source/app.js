@@ -26,7 +26,7 @@ const app = angular.module('App', [
 ])
 
 app.run((MercadopagoFactory) => {
-  MercadopagoFactory.resolveIdentificationTypes()
+  window.ITypes = MercadopagoFactory.resolveIdentificationTypes()
 })
 
 app.config(function (ENV, $compileProvider) {
