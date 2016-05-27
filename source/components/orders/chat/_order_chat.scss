@@ -6,15 +6,6 @@
 		margin-left: -1em;
 		margin-right: -1em;
 	}
-
-	.comments-list {
-		height: 80vh;
-		display: flex;
-		flex-direction: column-reverse;
-		overflow: scroll-y;
-		.item {
-		}
-	}
 }
 
 .comment-form {
