@@ -10,8 +10,7 @@ export default function CommentListDirectiveFactory (ngComponent) {
         parentType: '@',
         autoLoad: '@',
         asChat: '@',
-        currentUserId: '@',
-        reverse: '@'
+        currentUserId: '@'
       },
       link: CommentsListLink  
     }
@@ -23,13 +22,6 @@ export default function CommentListDirectiveFactory (ngComponent) {
       scope.comments = []
       scope.authorIsCurrentUser = authorIsCurrentUser
       scope.refreshComment = fetchComments
-      scope.ordenedComments = () => {
-        if (scope.reverse === 'true') {
-          return scope.comments.slice().reverse()
-        } else {
-          return scope.comments
-        }
-      }
 
       function authorIsCurrentUser (comment) {
         return comment.attributes.user_id === scope.currentUserId
