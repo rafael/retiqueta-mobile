@@ -22,9 +22,10 @@ export default function (ngComponent) {
   }
 
   function configIonic ($ionicConfigProvider) {
+    $ionicConfigProvider.views.forwardCache(true)
     $ionicConfigProvider.tabs.style('standard')
     $ionicConfigProvider.tabs.position('bottom')
     $ionicConfigProvider.scrolling.jsScrolling(false)
-    $ionicConfigProvider.backButton.previousTitleText(false).text('').icon('ion-ios-arrow-back');
+    $ionicConfigProvider.backButton.previousTitleText(false).text('').icon('ion-ios-arrow-back')
   }
 }

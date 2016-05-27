@@ -18,9 +18,8 @@
 
   <ion-tab 
     title="My Profile" 
-    icon="ion-ios-person-outline" 
-    ui-sref="users.me"
-    ui-sref-opts="{location: true, reload: true}">
+    icon="ion-ios-person-outline"
+    ng-click="ctrl.go('users.me')"> 
     <ion-nav-view  name="profile-tab"></ion-nav-view>
   </ion-tab>
 
