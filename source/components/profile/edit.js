@@ -12,6 +12,8 @@ export default function profileEditFactory (ngComponent) {
   ngComponent.controller('profileEditCtrl', profileEditCtrl)
 
   function profileEditCtrl (identificationTypes, currentUser, User, FormForConfiguration, Utils, $translate, Auth, $state) {
+    FormForConfiguration.disableAutoLabels()
+    
     var _ = this
     _.user = currentUser
     _.sendingInfo = false
