@@ -4,6 +4,13 @@ ion-content.form-basic.form-with-labels.new_product.scroll-content.ionic-scroll.
 
 .form-basic.new_product {
 	form {
+		.submit-button {
+			text-transform: uppercase;
+			font-weight: bold;
+			font-size: 1em;
+			padding-top: 0.4em;
+			padding-bottom: 0.4em;
+		}
 		select-field {
 			.form-for-field::before {
 				display: block;
@@ -51,10 +58,6 @@ ion-content.form-basic.form-with-labels.new_product.scroll-content.ionic-scroll.
 				color: $dark;
 				text-align: center;
 				display: block;
-			}
-			.submit-button {
-				text-transform: uppercase;
-				font-weight: bold;
 			}
 		}
 	}

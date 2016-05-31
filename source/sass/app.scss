@@ -47,6 +47,10 @@ a {
 .text-dark { color: $dark; }
 .text-assertive { color: $assertive }
 
+.align-center { text-align: center }
+.align-right { text-align: right }
+.align-left { text-align: left }
+
 .text-uppercase {
 	text-transform: uppercase;
 }
