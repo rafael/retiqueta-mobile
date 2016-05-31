@@ -1,4 +1,71 @@
 <ion-view view-title="{{ 'MY_BALANCE' | translate }}">
-  <ion-content padding="true">
+  <ion-content padding="false" class="balance-view">
+    <div class="item row pt2 pb1 pr1 pl1">
+      <div class="col">
+        {{ 'BALANCE_EARNINGS' | translate }}:
+      </div>
+      <div class="col text-balanced text-bold text-right">
+        {{ ctrl.user.attributes.available_balance | currency: ctrl.user.attributes.currency.code }}
+      </div>
+    </div>
+    <div class="pl1 pr1">
+      <div ng-if="ctrl.hasBankInformation()" class="add_bank_info">
+        <button 
+          ng-click="ctrl.requestPayout()"
+          ng-disable="ctrl.isBusy"
+          class="button button-balanced button-block text-uppercase">
+          {{ 'BALANCE_WITHDRAW' | translate }}
+        </button>
+        <div class="text-center">
+          <a ui-sref="users.edit">
+            {{ 'BALANCE_EDIT_BANK_ACCOUNT' | translate }}
+          </a>
+        </div>
+      </div>
+      <div ng-if="!ctrl.hasBankInformation()" class="add_bank_info"> 
+        <a  
+          ui-sref="users.edit"
+          class="button button-balanced button-block text-uppercase">
+          {{ 'BALANCE_ADD_BANK_ACCOUNT' | translate }}
+        </a>
+      </div>
+      <div ng-if="!ctrl.hasBalanceAvaliable()" class="no_sales">
+        <div class="card">
+          <div class="item item-divider item-assertive text-center pt1 pb1">
+            <div class="pt1 pb1">
+              {{ 'BALANCE_NO_EARNINGS' | translate }}
+            </div>
+          </div>
+          <div class="item pl0 pr0 pt0 pb0 item-white">
+            <div class="button-bar bar-light">
+              <a  ui-sref="productsNew" class="button pt1 pb1">
+                {{ 'BALANCE_SELL_SOMETHING' | translate }}
+              </a>
+            </div>
+          </div>
+        </div>  
+      </div>
+      <div ng-if="ctrl.payouts.length > 0" class="payout_list list">
+        <ion-list>    
+          <ion-item 
+            ng-repeat="payout in ctrl.payouts track by payout.id"
+            class="item-button-right item-white payout_list-detail">
+            <div>
+              <span class="payout-date">
+                {{ ::payout.attributes.created_at | date }}
+              </span>
+              <span class="payout-amount">
+                {{ ::payout.attributes.amount | currency: ctrl.user.attributes.currency.code }}
+              </span>
+            </div>
+            <span 
+              ng-class="ctrl.classByStatus(payout.attributes.status)"
+              class="button text-uppercase">            
+              {{ ctrl.statusToLocale(payout.attributes.status) | translate }} 
+            </span>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
   </ion-content>
 </ion-view>
