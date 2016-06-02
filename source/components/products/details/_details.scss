@@ -1,2 +1,28 @@
 .product-detail-view {
+	.scrollable-part {
+		.scroll-view {
+			height: calc(100vh - 180px);
+		}
+	}
 }
+
+.platform-ios {
+	.product-detail-view {
+		.scrollable-part {
+			.scroll-view {
+				height: calc(100vh - 230px);
+			}
+		}
+	}
+}
+
+.platform-android {
+	.product-detail-view {
+		.scrollable-part {
+			.scroll-view {
+				height: calc(100vh - 185px);
+			}
+		}
+	}
+}
+

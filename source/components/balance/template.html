@@ -29,7 +29,7 @@
           {{ 'BALANCE_ADD_BANK_ACCOUNT' | translate }}
         </a>
       </div>
-      <div ng-if="!ctrl.hasBalanceAvaliable()" class="no_sales">
+      <div ng-if="!ctrl.hasBalanceAvaliable() && ctrl.payouts.length === 0" class="no_sales">
         <div class="card">
           <div class="item item-divider item-assertive text-center pt1 pb1">
             <div class="pt1 pb1">
