@@ -46,7 +46,7 @@ export default function balanceCtrlFactory (ngComponent) {
     function getPayouts () {
       Payout.all()
       .then(result => { return _.payouts = result })
-      .then(result => { Utils.logger.log(result) })
+      // .then(result => { Utils.logger.log(result) })
       .catch(Utils.swalError)
     }
 

@@ -7,8 +7,7 @@
     <p class="message">
       <a ng-if="!asChat" class="text-assertive" 
         ui-sref="users.profile({userID: comment.attributes.user_id})">
-        {{ ::comment.attributes.username }}:
-      </a>
+        {{ ::comment.attributes.username }}:</a>
       <span class="content" ng-bind-html="comment.attributes.text | linkify"></span>
     </p>
   </div>

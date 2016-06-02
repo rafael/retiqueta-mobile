@@ -8,23 +8,27 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content padding="false" class="product-detail-view">
+  <ion-content padding="false" class="product-detail-view" scroll="false">
     <div ng-if="detail.product" class="pb2">
       <profile-resume 
         user="detail.product.relationships.user" 
         owner-following="detail.product.meta.followed_by_current_user">
       </profile-resume>
-      <show-product 
-        current-user="detail.currentUser"
-        product="detail.product"
-        comment-toggle-func="detail.ToggleCommentForm()"
-        detail="true">
-      </show-product>
-      <comments-list
-        reverse="true"
-        parent-type="products" 
-        parent-id="{{ ::detail.product.id }}">
-      </comments-list>
+      <div class="scrollable-part">
+        <ion-scroll  delegate-handle="productDetail">
+          <show-product 
+            current-user="detail.currentUser"
+            product="detail.product"
+            comment-toggle-func="detail.ToggleCommentForm()"
+            detail="true">
+          </show-product>
+          <comments-list
+            reverse="false"
+            parent-type="products" 
+            parent-id="{{ ::detail.product.id }}">
+          </comments-list>
+        </ion-scroll>
+      </div>
     </div>
   </ion-content>
   <ion-footer-bar class="comment-form" ng-show="detail.showCommentForm">
