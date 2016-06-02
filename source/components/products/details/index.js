@@ -30,6 +30,7 @@ export default function ProductDetailFactory (ngComponent) {
 
     function ToggleCommentForm (forceShow = false) {
       _.showCommentForm = !_.showCommentForm || forceShow
+      
       if (_.showCommentForm) {
         scrollComments()
       }
@@ -48,7 +49,7 @@ export default function ProductDetailFactory (ngComponent) {
     }
 
     CommentStore.on('new', scrollComments)
-    CommentStore.on('fetchFinish', scrollComments)
+    CommentStore.on('fetchFinish', needToShowCommentForm)
 
     $scope.$on("$ionicView.enter", function(event, data) {
       _.showCommentForm = false
