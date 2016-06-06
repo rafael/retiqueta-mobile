@@ -39,7 +39,7 @@ var esTranslation = {
   PRODUCT_FORM_TITLE: 'Nombre del producto',
   PRODUCT_FORM_ADDRESS: 'Ubicaci\ón',
   PRODUCT_FORM_DESCRIPTION: 'Descripci\ón (recuerda utilizar #)',
-  PRODUCT_FORM_CATEGORY: 'Categoria',
+  PRODUCT_FORM_CATEGORY: 'Categor\ía',
   PRODUCT_FORM_ORIGINAL_PRICE: 'Precio original',
   PRODUCT_FORM_PRICE: 'Precio Retiqueta',
   PRODUCT_FORM_SIZE: 'Talla',

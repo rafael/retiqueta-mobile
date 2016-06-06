@@ -5,10 +5,34 @@ export default function GeoFactory (ngComponent) {
   function GeoService (ENV, Utils, $http, $q, $cordovaGeolocation) {
     var geocoder = new google.maps.Geocoder;
     var Model = {
-      resolveLocation: getLocation
+      resolveLocation,
+      reverseGeolocation
     }
 
-    function getLocation() {
+    if (ENV.isDevelopment()) {
+      Utils.logger.info('Saving GeoService model on window')
+      window.GeoService = Model
+    }
+
+    return Model
+
+    function resolveLocation(address) {
+      let deferred = $q.defer()
+      geocoder.geocode({'address': address}, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          if(results[0]) {
+            deferred.resolve(results[0])
+          } else {
+            deferred.reject(status)
+          }
+        } else {
+          deferred.reject(status)
+        }
+      })
+      return deferred.promise
+    }
+
+    function reverseGeolocation () {
       let deferred = $q.defer()
       $cordovaGeolocation
       .getCurrentPosition({timeout: 10000, enableHighAccuracy: false})
@@ -19,8 +43,8 @@ export default function GeoFactory (ngComponent) {
         }
         geocoder.geocode({'location': latlng}, function(results, status) {
           if (status === google.maps.GeocoderStatus.OK) {
-            if (results[1]) {
-              deferred.resolve(Object.assign({}, results[1], { cords: latlng }))
+            if (results[0]) {
+              deferred.resolve(Object.assign({}, results[0], { cords: latlng }))
             } else {
               Utils.logger.log(results)
               deferred.reject(status)
@@ -36,12 +60,6 @@ export default function GeoFactory (ngComponent) {
       })
 
       return deferred.promise
-    }
-
-    if (ENV.isDevelopment()) {
-      console.info('Saving GeoService model on window')
-      window.GeoService = Model
-    }
-    return Model
+    } 
   }
 }
