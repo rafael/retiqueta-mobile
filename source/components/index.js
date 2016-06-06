@@ -26,16 +26,22 @@ require('./auth/facebook_login')(components)
 
 // User
 require('./user')(components)
-require('./wardrobe')(components)
-require('./profile/edit')(components)
-require('./profile/profile_picture')(components)
 require('./user/profile_header')(components)
 require('./user/profile_resume')(components)
 require('./user/follow_button')(components)
+require('./user/avatar')(components)
+
+// User wardrobe and settings
+require('./wardrobe')(components)
 require('./fellowship')(components)
 require('./settings')(components)
 require('./favorites')(components)
 require('./faq')(components)
+
+// Profile edit
+require('./profile/edit')(components)
+require('./profile/profile_picture')(components)
+
 
 // Sales
 require('./sales')(components)

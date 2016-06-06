@@ -11,7 +11,7 @@ const defaultAttibutes = {
 export default function profileEditFactory (ngComponent) {
   ngComponent.controller('profileEditCtrl', profileEditCtrl)
 
-  function profileEditCtrl (identificationTypes, currentUser, User, FormForConfiguration, Utils, $translate, Auth, $state) {
+  function profileEditCtrl (identificationTypes, currentUser, User, FormForConfiguration, Utils, $translate, Auth, $state, $ionicHistory) {
     FormForConfiguration.disableAutoLabels()
     
     var _ = this
@@ -30,6 +30,9 @@ export default function profileEditFactory (ngComponent) {
       .then(result => {
         Utils.swalSuccess($translate.instant('UPDATE_PROFILE_SUCCESS'))
         Auth.user.attributes = Object.assign({}, attrs)
+        return $ionicHistory.clearCache()
+      })
+      .then(() => {
         $state.go($state.current, {}, { reload: true, inherit: false, notify: true })
       })
       .catch(error => {
