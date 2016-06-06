@@ -2,6 +2,18 @@ ion-content.form-basic.form-with-labels.new_product.scroll-content.ionic-scroll.
 	height: auto !important;
 }
 
+@keyframes blink {
+	0% {
+		color: $stable;
+	}
+	50% {
+		color: $dark;
+	}
+	100% {
+		color: $stable;
+	}
+}
+
 .form-basic.new_product {
 	form {
 		.submit-button {
@@ -14,6 +26,22 @@ ion-content.form-basic.form-with-labels.new_product.scroll-content.ionic-scroll.
 		select-field {
 			.form-for-field::before {
 				display: block;
+			}
+		}
+		.geolocation-button {
+			position: relative;
+			top: 1.4em;
+			left: -0.2em;
+			button {
+				color: lighten($dark, 0%);
+			}
+			button.location-processing {
+				animation-duration: 800ms;
+				animation-name: blink;
+				animation-iteration-count: infinite;
+			}
+			button.location-done {
+				color: darken($dark, 30%);
 			}
 		}
 		input[name="category"] {

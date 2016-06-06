@@ -10,10 +10,15 @@ export default function ProductCreateFactory (ngComponent) {
     FormForConfiguration.enableAutoLabels()
     var _ = this
     let picturesIds = PictureStore.ids()
+    let lastGeolocationResult = ''
+    let action = () => {}
+
     _.currentUser = currentUser
     _.pictureStore = PictureStore
     _.product = ProductStore.get()
     _.sendingInfo = false
+    _.geolocated = false
+    _.geoLocalizationInProgress = false
     _.errors = baseErrorsObject
     _.formController = {}
     _.pictureErrors = { message: '' }
@@ -25,18 +30,9 @@ export default function ProductCreateFactory (ngComponent) {
     _.goBack = goBack
     _.goToSelect = goToSelect
     _.submit = saveProduct
-    _.draft = saveDraft
-    _.removeDraft = removeDraft
     _.pictureHasErrors = hasError
     _.comitionCalculate = ComitionCalculate
-
-    var action = $ionicPlatform.registerBackButtonAction(() => {
-      if($state.is('productsNew')) {
-        goBack()
-      } else {
-        $ionicHistory.backView()
-      }
-    }, 101)
+    _.reverseGeolocation = reverseGeolocation
 
     function ComitionCalculate (product) {
       return product.price * (1 - comitionRate) || 0
@@ -54,7 +50,7 @@ export default function ProductCreateFactory (ngComponent) {
       .then(result => {
         ProductStore.clear()
         PictureStore.clear()
-        Utils.swalSuccess($translate.instant('PRODUCT_SAVE_MESSAGE'))
+        // Utils.swalSuccess($translate.instant('PRODUCT_SAVE_MESSAGE'))
         $state.go('users.me')
       })
       .catch(error => {
@@ -77,9 +73,12 @@ export default function ProductCreateFactory (ngComponent) {
     function removeDraft () {
       ProductStore.clear()
       PictureStore.clear()
+      _.sendingInfo = false
+      _.geolocated = false
+      _.geoLocalizationInProgress = false
       picturesIds = PictureStore.ids()
       _.product = ProductStore.defaultValue()
-      _.formController.validateForm()
+      _.formController.resetErrors()
     }
 
     function hasError () {
@@ -93,20 +92,17 @@ export default function ProductCreateFactory (ngComponent) {
             'Save this product','Do you what save this product information has a draft?', 
             (buttonIndex) => {
               if (buttonIndex == 1) {
-                _.draft(_.product)
+                saveDraft(_.product)
               } else if (buttonIndex == 2) {
-                _.removeDraft()
+                removeDraft()    
               }
-              action()
               $state.go('users.dashboard', {}, { location: 'replace', reload: true })
             })
-        } else {
-          action()
+        } else {          
           $state.go('users.dashboard', {}, { location: 'replace', reload: true })
         }
       }
       catch (e) {
-        action()
         $state.go('users.dashboard', {}, { location: 'replace', reload: true })
       }
     }
@@ -118,39 +114,77 @@ export default function ProductCreateFactory (ngComponent) {
       return !((productEqualsToStore && dontHaveNewPictures) || isDefault)
     }
 
-    // Object.observe(_.product, function(changes) {
-    //   changes.forEach((change) => {
-    //     saveDraft(_.product)
-    //   })
-    // })
+    function reverseGeolocation () {
+      Utils.logger.info('Starting geoLocalization')
+      _.geolocated = false
+      _.geoLocalizationInProgress = true
+      GeoService.reverseGeolocation()
+      .then((location) => {
+        _.geolocated = true
+        _.product.location = location.formatted_address
+        _.product.lat_lon = `${location.cords.lat},${location.cords.lng}`
+      })
+      .catch(onGeoError)
+      .finally(() => {
+        _.geoLocalizationInProgress = false
+      })
+    }
 
+    function resolveLocation (address) {
+      Utils.logger.info('Resolving address')
+      _.geolocated = false
+      _.geoLocalizationInProgress = true
+      GeoService.resolveLocation(address)
+      .then((location) => {
+        _.geolocated = true
+        lastGeolocationResult = location.formatted_address
+        _.product.location = location.formatted_address
+        _.product.lat_lon = `${location.geometry.location.lat()},${location.geometry.location.lng()}`
+      })
+      .catch(onGeoError)
+      .finally(() => {
+        _.geoLocalizationInProgress = false
+      })
+    }
+
+    function onGeoError (e) {
+      Utils.logger.log(e)
+      if (e.PERMISSION_DENIED === 1) {
+        Utils.swalError('Permision to GPS denied')
+      } else {
+        Utils.swalError('Error on GPS geolocation')
+      }
+    }
+
+    $scope.$watch(() => _.product.location, function (newValue, oldValue) {
+      const needToGeolocate = newValue !== oldValue 
+      && newValue !== ''
+      && oldValue !== ''
+      && newValue !== lastGeolocationResult
+      && _.geoLocalizationInProgress !== true
+      if (needToGeolocate) {
+        resolveLocation(_.product.location)
+      }
+    })
+
+    // Product Store events 
     ProductStore.on('change', () => {
       _.product = ProductStore.get()
     })
 
-    $scope.$on("$destroy", function() {
-      action()
+    // Life Cicle Events
+    // $scope.$on("$destroy", function() { action() })
+    $scope.$on("$ionicView.enter", function(event, data) {
+      action = $ionicPlatform.registerBackButtonAction(() => {
+        if($state.is('productsNew')) {
+          goBack()
+        } else {
+          $ionicHistory.backView()
+        }
+      }, 101)
     })
-
-    $scope.$on("$ionicView.leave", function(event, data) {})
-
-
-    $scope.$on("$ionicView.enter", function(event, data) {  
-      if (_.product.location === '') {
-        GeoService.resolveLocation()
-        .then((location) => {
-          _.product.location = location.formatted_address
-          _.product.lat_lon = `${location.cords.lat},${location.cords.lng}`
-        })
-        .catch((e) => {
-          Utils.logger.log(e)
-          if (e.PERMISSION_DENIED === 1) {
-            Utils.swalError('Permision to GPS denied')
-          } else {
-            Utils.swalError('Error on GPS geolocation')
-          }
-        })
-      }
+    $scope.$on("$ionicView.leave", function(event, data) {
+      action()
     })
   }
 }

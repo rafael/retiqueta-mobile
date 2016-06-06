@@ -27,11 +27,23 @@
         type="text">
       </text-plus-field>
 
-      <text-plus-field attribute="location"
-        label="{{ 'PRODUCT_FORM_ADDRESS' | translate }}"
-        placeholder="{{ create.validationRules.address.placeholder}}"
-        type="text">
-      </text-plus-field>
+      <div class="row">
+        <div class="col col-90">
+          <text-plus-field attribute="location"
+            debounce="1000"
+            label="{{ 'PRODUCT_FORM_ADDRESS' | translate }}"
+            placeholder="{{ create.validationRules.address.placeholder}}"
+            type="text">
+          </text-plus-field>
+        </div>
+        <div class="col col-10 geolocation-button">
+          <button
+            ng-click="create.reverseGeolocation()"
+            ng-class="{'location-done': create.geolocated, 'location-processing': create.geoLocalizationInProgress }"
+            class="button button-icon icon ion-android-locate">
+          </button>
+        </div>
+      </div>
 
       <text-plus-field attribute="category"
         label="{{ 'PRODUCT_FORM_CATEGORY' | translate }}"
