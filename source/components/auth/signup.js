@@ -32,12 +32,11 @@ export default function signupCtrlFactory (ngComponent) {
       })
     }
 
-    function redirectToDashboard() {
+    function redirectToDashboard () {
       $state.go('users.dashboard')
     }
 
     function submit (user) {
-      console.log(validateRequired())
       _.sendingInfo = true
       user.email = user.email.toLowerCase()
       user.username = user.username.toLowerCase()
@@ -58,7 +57,6 @@ export default function signupCtrlFactory (ngComponent) {
     function afterValidateForm (errors, values) {
       _.hasErrors = formHasErrors(errors[1]) || (validateRequired() && notFirstValidation)
       notFirstValidation = true
-      console.log(_.hasErrors)
     }
 
     function formHasErrors (errors) {

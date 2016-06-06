@@ -12,15 +12,21 @@ export default function wardrobeIndexFactory (ngComponent) {
 
     function loadMore (nextpage) {
       /* Api dont paginate userProducts
-      if (_.text !== '') {
-        return doRefresh(nextpage, true)
-      } else {
-        return Promise.resolve()
-      }
-      */
-     return Promise.resolve()
+         if (_.text !== '') {
+         return doRefresh(nextpage, true)
+         } else {
+         return Promise.resolve()
+         }
+         */
+      return Promise.resolve()
     }
- 
+
+    function ClearHistoryIfOwner () {
+      if (_.isOwner === true) {
+        $ionicHistory.clearHistory()
+      } 
+    }
+
     function doRefresh (page = 0, add = false) {
       return Product.getByUser(user.id, {
         // 'page[size]': 15,
@@ -46,6 +52,9 @@ export default function wardrobeIndexFactory (ngComponent) {
       return newProducts
     }
 
+    $scope.$on("$ionicView.enter", function(event, data) {
+      ClearHistoryIfOwner()
+    })
 
     doRefresh()
   }

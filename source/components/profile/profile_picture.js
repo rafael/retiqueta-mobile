@@ -25,7 +25,9 @@ export default function profilePictureFactory (ngComponent) {
         }
 
         function hasPicture () {
-          return _.user.attributes.hasOwnProperty('profile_pic') && _.user.attributes.profile_pic !== ''
+          return _.user.attributes.hasOwnProperty('profile_pic') 
+            && _.user.attributes.profile_pic !== ''
+            && _.user.attributes.profile_pic !== '/pics/original/missing.png'
         }
 
 

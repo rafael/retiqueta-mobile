@@ -47,7 +47,6 @@ export default function loginCtrlFactory (ngComponent) {
     }
 
     function submit (user) {
-      console.log(validateRequired())
       _.sendingInfo = true
       user.username = user.username.toLowerCase()
       Auth.login(user)
