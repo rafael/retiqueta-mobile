@@ -13,6 +13,7 @@
 	}
 }
 
+
 .home-bg {
 	.tabs {
 		display: table;
@@ -24,6 +25,10 @@
 			float: none;
 			width: 50%;
 			border-left: 1px solid darken($assertive, 10);
+			font-size: 1em;
+			text-transform: uppercase;
+			padding-top: 0.4em;
+			padding-bottom: 0.4em;
 		}
 		.tab-item:nth-child(3) {
 			border-left: 0px solid $assertive;
