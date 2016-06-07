@@ -9,12 +9,14 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content padding="false" class="product-detail-view" scroll="false">
-    <div ng-if="detail.product" class="pb2">
+    <div ng-if="detail.productNotEmpty()" class="">
       <profile-resume 
         user="detail.product.relationships.user" 
         owner-following="detail.product.meta.followed_by_current_user">
       </profile-resume>
-      <div class="scrollable-part">
+      <div 
+        class="scrollable-part" 
+        ng-class="{ 'with-comment-form': detail.commentFormWasShowed }">
         <ion-scroll  delegate-handle="productDetail">
           <show-product 
             current-user="detail.currentUser"
@@ -31,7 +33,7 @@
       </div>
     </div>
   </ion-content>
-  <ion-footer-bar class="comment-form" ng-show="detail.showCommentForm">
+  <ion-footer-bar class="comment-form" ng-if="detail.showCommentForm">
     <section class="form">
       <comment-form 
         parent-type="products" 

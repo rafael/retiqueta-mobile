@@ -1,8 +1,14 @@
 .product-detail-view {
 	.scrollable-part {
 		.scroll-view {
-			height: calc(100vh - 180px);
+			height: calc(100vh - 160px);
 		}
+		&.with-comment-form {
+			.scroll-view {
+				// height: calc(100vh - 225px);
+			}
+		}
+
 	}
 }
 
@@ -10,7 +16,12 @@
 	.product-detail-view {
 		.scrollable-part {
 			.scroll-view {
-				height: calc(100vh - 230px);
+				height: calc(100vh - 175px);
+			}
+			&.with-comment-form {
+				.scroll-view {
+					height: calc(100vh - 225px);
+				}
 			}
 		}
 	}
@@ -20,7 +31,12 @@
 	.product-detail-view {
 		.scrollable-part {
 			.scroll-view {
-				height: calc(100vh - 185px);
+				height: calc(100vh - 166px);
+			}
+			&.with-comment-form {
+				.scroll-view {
+					height: calc(100vh - 210px);
+				}
 			}
 		}
 	}
