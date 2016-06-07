@@ -47,9 +47,8 @@
       <div ng-if="isCurrentUser()" class="pt1"></div>
       <a
         ng-if="!isCurrentUser()"
-        class="button button-block button-assertive"
+        class="button button-block button-assertive button-buy"
         ui-sref="users.productDetails.checkout({ productID: product.id})">
-        {{ product.price | currency : 'Bs' }}
         {{ 'BUY_NOW' | translate }}
       </a>
     </div>

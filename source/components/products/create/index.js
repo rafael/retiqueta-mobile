@@ -12,6 +12,7 @@ export default function ProductCreateFactory (ngComponent) {
     let picturesIds = PictureStore.ids()
     let lastGeolocationResult = ''
     let action = () => {}
+    let picturesHasChanged = false
 
     _.currentUser = currentUser
     _.pictureStore = PictureStore
@@ -96,22 +97,27 @@ export default function ProductCreateFactory (ngComponent) {
               } else if (buttonIndex == 2) {
                 removeDraft()    
               }
-              $state.go('users.dashboard', {}, { location: 'replace', reload: true })
+              exitView()
             })
         } else {          
-          $state.go('users.dashboard', {}, { location: 'replace', reload: true })
+          exitView()
         }
       }
       catch (e) {
-        $state.go('users.dashboard', {}, { location: 'replace', reload: true })
+        exitView()
       }
+    }
+
+    function exitView () {
+      action()
+      picturesHasChanged = false
+      $state.go('users.dashboard', {}, { location: 'replace', reload: true })
     }
 
     function hasChanges () {
       const productEqualsToStore = angular.equals(_.product, ProductStore.get())
       const isDefault = angular.equals(_.product, ProductStore.defaultValue())
-      const dontHaveNewPictures = (picturesIds.length === PictureStore.ids().length)
-      return !((productEqualsToStore && dontHaveNewPictures) || isDefault)
+      return !(productEqualsToStore || isDefault) || picturesHasChanged
     }
 
     function reverseGeolocation () {
@@ -172,8 +178,14 @@ export default function ProductCreateFactory (ngComponent) {
       _.product = ProductStore.get()
     })
 
+    PictureStore.on('change', () => {
+      console.log('Pictures has changes?: true')
+      picturesHasChanged = true
+    })
+
     // Life Cicle Events
-    // $scope.$on("$destroy", function() { action() })
+
+    $scope.$on("$destroy", function() { action() })
     $scope.$on("$ionicView.enter", function(event, data) {
       action = $ionicPlatform.registerBackButtonAction(() => {
         if($state.is('productsNew')) {
@@ -184,7 +196,7 @@ export default function ProductCreateFactory (ngComponent) {
       }, 101)
     })
     $scope.$on("$ionicView.leave", function(event, data) {
-      action()
+      console.log('salio de la vista')
     })
   }
 }

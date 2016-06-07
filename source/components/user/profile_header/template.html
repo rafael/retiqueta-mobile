@@ -38,7 +38,11 @@
 			</div>
 			<div class="profile-about">
 				<h2 class="profile-name">
-					{{ user.attributes.first_name }}
+          <span class="text-assertive">
+            {{ user.attributes.username }}
+          </span> 
+          -
+          {{ user.attributes.first_name }}
 				</h2>
 				<p class="profile-about">
 					{{ user.attributes.bio }}
