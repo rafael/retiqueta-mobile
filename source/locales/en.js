@@ -1,6 +1,8 @@
 var enTranslation = {
   DO_LOGIN: 'My Retiqueta',
   DO_SIGNUP: 'Sign up',
+  FOLLOW: 'Follow',
+  UNFOLLOW: 'Unfollow',
   CREATE_ACCOUNT: 'Start on Retiqueta!',
   SUBMIT: 'Save',
   SIGNIN: 'Get my inside',

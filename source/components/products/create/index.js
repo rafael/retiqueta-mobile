@@ -49,8 +49,7 @@ export default function ProductCreateFactory (ngComponent) {
       product.pictures = _.pictureStore.ids()
       Product.create(product)
       .then(result => {
-        ProductStore.clear()
-        PictureStore.clear()
+        removeDraft()
         // Utils.swalSuccess($translate.instant('PRODUCT_SAVE_MESSAGE'))
         $state.go('users.me')
       })
@@ -179,7 +178,6 @@ export default function ProductCreateFactory (ngComponent) {
     })
 
     PictureStore.on('change', () => {
-      console.log('Pictures has changes?: true')
       picturesHasChanged = true
     })
 

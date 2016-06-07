@@ -2,6 +2,8 @@ var esTranslation = {
   DO_LOGIN: 'Mi retiqueta',
   DO_SIGNUP: 'Reg\ístrate',
   CREATE_ACCOUNT: '\¡A Retiquetar!',
+  UNFOLLOW: 'Siguiendo',
+  FOLLOW: 'Seguir',
   SUBMIT: 'Publicar',
   SIGNIN: 'Ingresar',
   SETTINGS: 'Opciones',
