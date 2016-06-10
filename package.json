@@ -6,6 +6,7 @@
   "scripts": {
     "serve": "NODE_ENV=development gulp serve",
     "watch": "NODE_ENV=development gulp build:watch",
+    "watch:prod": "NODE_ENV=production gulp build:watch",
     "build": "NODE_ENV=development gulp build",
     "release": "rm -rf www && NODE_ENV=production gulp dist",
     "config_ionic_dev": "ionic io init && ionic config build && ionic config set dev_push true && ionic config set gcm_key 700715737155",
