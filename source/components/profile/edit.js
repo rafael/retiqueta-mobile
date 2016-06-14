@@ -28,7 +28,7 @@ export default function profileEditFactory (ngComponent) {
       _.sendingInfo = true
       User.update(_.user.id, attrs)
       .then(result => {
-        Utils.swalSuccess($translate.instant('UPDATE_PROFILE_SUCCESS'))
+        // Utils.swalSuccess($translate.instant('UPDATE_PROFILE_SUCCESS'))
         Auth.user.attributes = Object.assign({}, attrs)
         return $ionicHistory.clearCache()
       })

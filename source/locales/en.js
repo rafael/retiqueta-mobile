@@ -8,6 +8,8 @@ var enTranslation = {
   SIGNIN: 'Get my inside',
   SAVE_DRAFT: 'Save draft',
   SETTINGS: 'Configuration',
+  USER_FRIENDSHIP_FOLLOWING: 'Following',
+  USER_FRIENDSHIP_FOLLOWERS: 'Followers',
   ACCEPT_TERMS_PRE: 'Al hacer clic acepto los ',
   ACCEPT_TERMS_BUTTON: 't\érminos de uso ',
   ACCEPT_TERMS_POST: 'de Retiqueta',

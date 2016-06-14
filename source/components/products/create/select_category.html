@@ -12,7 +12,8 @@
       validation-rules="ctrl.validationRules">
       <select-category-field attribute="category"
         options="ctrl.validationRules.category.values"
-        auto-toggle-modal="false">
+        auto-toggle-modal="false"
+        on-click-handler="ctrl.onChangeValueCallBack">
       </select-category-field>
     </form>
   </ion-content>

@@ -7,6 +7,8 @@ var esTranslation = {
   SUBMIT: 'Publicar',
   SIGNIN: 'Ingresar',
   SETTINGS: 'Opciones',
+  USER_FRIENDSHIP_FOLLOWING: 'Seguidos',
+  USER_FRIENDSHIP_FOLLOWERS: 'Siguiendo',
   ACCEPT_TERMS_PRE: 'Al hacer clic acepto los ',
   ACCEPT_TERMS_BUTTON: 't\érminos de uso ',
   ACCEPT_TERMS_POST: 'de Retiqueta',

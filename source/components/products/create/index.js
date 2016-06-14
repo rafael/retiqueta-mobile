@@ -183,8 +183,8 @@ export default function ProductCreateFactory (ngComponent) {
 
     // Life Cicle Events
 
-    $scope.$on("$destroy", function() { action() })
-    $scope.$on("$ionicView.enter", function(event, data) {
+    $scope.$on("$destroy", () => { action() })
+    $scope.$on("$ionicView.enter", (event, data) => {
       action = $ionicPlatform.registerBackButtonAction(() => {
         if($state.is('productsNew')) {
           goBack()
@@ -193,9 +193,7 @@ export default function ProductCreateFactory (ngComponent) {
         }
       }, 101)
     })
-    $scope.$on("$ionicView.leave", function(event, data) {
-      console.log('salio de la vista')
-    })
+    // $scope.$on("$ionicView.leave", function(event, data) {})
   }
 }
 

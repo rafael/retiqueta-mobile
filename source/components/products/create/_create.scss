@@ -107,10 +107,13 @@ ion-content.form-basic.form-with-labels.new_product.scroll-content.ionic-scroll.
 		}
 		.add-picture {
 			width: 100%;
-			padding: 36% 0;
-			font-size: 1.7em;
-			background: #E0E0E0;
 			border: none;
+			background-color: transparent;
+			padding: 0;
+			img {
+				max-width: 100%;
+				min-width: 100%;
+			}
 		}
 	}
 }

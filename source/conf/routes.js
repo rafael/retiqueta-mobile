@@ -256,6 +256,9 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       geter: function (User) {
         return User.getFollowers
       }
+    },
+    viewTitle: function () {
+      return 'USER_FRIENDSHIP_FOLLOWERS'
     }
   })
   .state('users.profileFollowing', {
@@ -272,6 +275,9 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       },
       geter: function (User) {
         return User.getFollowing
+      },
+      viewTitle: function () {
+        return 'USER_FRIENDSHIP_FOLLOWING'
       }
     }
   })
