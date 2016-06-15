@@ -7,10 +7,7 @@ export default {
   email: {
     inputType: 'email',
     type: 'email',
-    pattern: {
-      rule: /\w+@\w+\.\w+/,
-      message: 'Invalid email format'
-    },
+    pattern: /\w+@\w+\.\w+/,
     placeholder: 'juan@martinez.com',
     required: true
   },

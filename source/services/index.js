@@ -29,6 +29,7 @@ require('./cardio')(services)
 require('./facebook_auth')(services)
 require('./geo')(services)
 require('./payout')(services)
+require('./faq')(services)
 // require('./worker')(services)
 
 // Stores (this objects save the state on localStorage)

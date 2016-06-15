@@ -1,4 +1,11 @@
 var enTranslation = {
+  FORM_MIN_NUMBER_ERROR: 'Must be at least {{num}}',
+  FORM_MAX_NUMBER_ERROR: 'Must be no more than {{num}}',
+  FORM_MAX_LENGTH_ERROR: 'Must be fewer than {{num}} characters',
+  FORM_MIN_LENGTH_ERROR: 'Must be at least {{num}} characters',
+  FORM_INVALID_FORMAT_ERROR: 'Invalid format',
+  FORM_EMAIL_ERROR: 'Invalid email format',
+  FORM_REQUIRED_ERROR: 'Required field',
   DO_LOGIN: 'My Retiqueta',
   DO_SIGNUP: 'Sign up',
   FOLLOW: 'Follow',

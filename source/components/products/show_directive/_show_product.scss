@@ -1,4 +1,7 @@
 .product-show {
+	.product-description {
+		border-bottom: 1px solid $stable;
+	}
 	.button-buy {
 		text-transform: uppercase;
 		font-weight: bold;
@@ -8,43 +11,51 @@
 	}
 	.product-details-row {
 		margin-bottom: -1em;
-	}
-	.item-body {
-		border: none;
-		padding-top: 0;
-		padding-bottom: 0;
-	}
-	.tabs-no-border {
-		border: 0 none white;
-		margin-left: -1em;
-		margin-top: -0.8em;
-		padding: 0;
-		height: 42px;
-		line-height: 42px;
-		background: none;
-	}
-	.product-description {
-		border-bottom: 1px solid $stable;
-	}
-	.product-price {
-		text-align: right;
-		margin-top: -0.2em;
-		.original-price {
-			display: inline-block;
-			color: $stable-dark;
-			.price {
-				text-decoration: line-through;
+		@extend .flex-container;
+		@extend .flex-start;
+		padding: 0.5em 0.1em;
+		justify-content: space-between;
+		.product-detail-action-buttons {
+			.item-body {
+				border: none;
+				padding-top: 0;
+				padding-bottom: 0;
 			}
-			.divisor {
+			.tab-item {
+				margin-right: 1.4em;
+				overflow: visible;
+			}			
+			.tabs-no-border {
+				border: 0 none white;
+				margin-left: 0.1em;
+				margin-top: -0.8em;
+				padding: 0;
+				height: 42px;
+				line-height: 42px;
+				background: none;
+			}
+		}
+		.product-price {
+			text-align: right;
+			margin-top: -0.2em;
+			.original-price {
 				display: inline-block;
-				margin-left: 0.3em;
+				color: $stable-dark;
+				font-size: 0.8rem;
+				.price {
+					text-decoration: line-through;
+				}
+				.divisor {
+					display: inline-block;
+					margin-left: 0.3em;
+				}
 			}
-		}
-		.retiqueta-price {
-			display: inline-block;
-			font-size: 1.4em;
-			color: $assertive;
-			font-weight: 500;
-		}
+			.retiqueta-price {
+				display: inline-block;
+				font-size: 1.2rem;
+				color: $assertive;
+				font-weight: 500;
+			}
+		}	
 	}
 }
