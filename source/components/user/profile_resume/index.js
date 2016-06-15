@@ -26,7 +26,7 @@ export default function profileResumeFactory (ngcomponent) {
       function followShip (following) {
         User.followToggle(scope.user.id, following)
         .then(result => {
-          scope.ownerFollowing = result.following
+          scope.ownerFollowing = result.following 
         })
         .catch(Utils.swalError)
       }

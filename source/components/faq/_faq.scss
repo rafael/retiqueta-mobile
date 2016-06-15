@@ -1,0 +1,22 @@
+.faq-controller {
+	.list .item.item-accordion {
+		background-color: white;
+		overflow: visible;
+		text-overflow: initial;
+		height: auto;
+		line-height: 1.4em;
+		padding-top: 1em;
+		padding-bottom: 1em;
+		transition: 0.09s all linear;
+		p {
+			white-space: normal;
+		}
+	}
+	.list .item.item-accordion.ng-hide {
+		line-height: 0px;
+	}
+	.list .item.item-accordion.ng-hide-add,
+	.list .item.item-accordion.ng-hide-remove {
+		display: block !important;
+	}
+}

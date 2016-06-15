@@ -22,6 +22,14 @@ export default function AuthFactory (ngComponent) {
     })
 
     // Login user
+    //
+    this.updateCurrentUser = () => {
+      return User.get(this.getToken().user_id)
+      .then((result) => {
+        Object.assign(this.user, result)
+      })
+    }
+
     this.login = (user) => {
       var deferred = $q.defer()
       $http({

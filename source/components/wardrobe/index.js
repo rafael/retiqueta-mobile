@@ -52,7 +52,12 @@ export default function wardrobeIndexFactory (ngComponent) {
       return newProducts
     }
 
+    function LoadUser () {
+      User.get(user.id).then(user => { Object.assign(_.user, user) })
+    }
+
     $scope.$on("$ionicView.enter", function(event, data) {
+      LoadUser()
       ClearHistoryIfOwner()
     })
 

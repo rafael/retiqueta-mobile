@@ -1,4 +1,11 @@
 var esTranslation = {
+  FORM_MIN_NUMBER_ERROR: 'Debe ser mayor a {{num}}',
+  FORM_MAX_NUMBER_ERROR: 'No debe ser mayor a {{num}}',
+  FORM_MAX_LENGTH_ERROR: 'Debe tener menos de {{num}} caracteres',
+  FORM_MIN_LENGTH_ERROR: 'Debe tener al menos {{num}} caracteres',
+  FORM_INVALID_FORMAT_ERROR: 'Formato invalido',
+  FORM_EMAIL_ERROR: 'Formator de correo invalido',
+  FORM_REQUIRED_ERROR: 'Campo requerido',
   DO_LOGIN: 'Mi retiqueta',
   DO_SIGNUP: 'Reg\ístrate',
   CREATE_ACCOUNT: '\¡A Retiquetar!',

@@ -81,8 +81,8 @@
     "cordova-plugin-dialogs",
     {
       "variables": {
-        "APP_ID": "830345867092501",
-        "APP_NAME": "RetiquetaDummyApp"
+        "APP_ID": "218604841833703",
+        "APP_NAME": "Retiqueta"
       },
       "locator": "https://github.com/Telerik-Verified-Plugins/Facebook.git",
       "id": "cordova-plugin-facebook"
