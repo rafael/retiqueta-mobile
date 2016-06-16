@@ -1,4 +1,9 @@
 .product-detail-view {
+	show-product {
+		.product-show {
+			margin-top: -16px;
+		}
+	}
 	.scrollable-part {
 		.scroll-view {
 			height: calc(100vh - 160px);

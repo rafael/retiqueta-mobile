@@ -7,6 +7,14 @@
         <i class="icon ion-ios-arrow-back"></i>
       </button>
     </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button
+        ng-if="detail.isOwner()"
+        class="button back-button buttons button-clear header-item"
+        ng-click="detail.showOptions()">
+        <i class="icon ion-navicon"></i>
+      </button>
+    </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content padding="false" class="product-detail-view" scroll="false">
     <div ng-if="detail.productNotEmpty()" class="">
@@ -31,6 +39,14 @@
           </comments-list>
         </ion-scroll>
       </div>
+      <modal-actions show-if="detail.optionsModal">
+        <button
+          ng-click="detail.deleteProduct(detail.product.id)"
+          class="button icon-left ion-ios-trash-outline">
+          {{ 'PRODUCT_DELETE' | translate }}
+        </button>
+      </modal-actions>
+
     </div>
   </ion-content>
   <ion-footer-bar class="comment-form" ng-if="detail.showCommentForm">

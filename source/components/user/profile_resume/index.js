@@ -1,7 +1,7 @@
 export default function profileResumeFactory (ngcomponent) {
   ngcomponent.directive('profileResume', profileResume)
 
-  function profileResume (User, Utils, Auth) {
+  function profileResume (User, Utils, Auth, $state) {
     return {
       templateUrl: 'user/profile_resume/template.html',
       restrict: 'E',
@@ -15,6 +15,11 @@ export default function profileResumeFactory (ngcomponent) {
     function profileResumeLink (scope, element, attrs) {
       scope.isOwner = false
       scope.toggleFollowship = followShip
+      scope.goToUserProfile = goToUserProfile
+
+      function goToUserProfile (id) {
+        $state.go('users.profile', { userID: id })
+      } 
 
       function setIsOwner () {
         Auth.getCurrentUser()

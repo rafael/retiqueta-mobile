@@ -92,6 +92,7 @@ require('./utils/text_field')(components)
 require('./utils/auto_next_input_when_full')(components)
 require('./utils/picture_slide')(components)
 require('./utils/no_orders')(components)
+require('./utils/actions_modal')(components)
 
 // component example
 // export default function(ngComponent) {
