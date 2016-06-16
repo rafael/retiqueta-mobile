@@ -1,16 +1,49 @@
 export default function ProductDetailFactory (ngComponent) {
   ngComponent.controller('productDetail', productDetail)
 
-  function productDetail (currentUser, Product, $ionicHistory, $timeout, $stateParams, Utils, $ionicScrollDelegate, CommentStore, $scope, $state) {
+  function productDetail (currentUser, Product, $ionicHistory, $translate, $timeout, $stateParams, Utils, $ionicScrollDelegate, CommentStore, $scope, $state) {
     var _ = this
     var openCommentForm = false     
     _.product = {} 
-    _.goBack = goBack
-    _.currentUser = currentUser
+    _.optionsModal = false
     _.showCommentForm = false   
     _.commentFormWasShowed = false
+    _.goBack = goBack
+    _.currentUser = currentUser
     _.ToggleCommentForm = ToggleCommentForm
     _.productNotEmpty = productNotEmpty
+    _.showOptions = showOptions
+    _.isOwner = isOwner
+    _.deleteProduct = deleteProduct
+
+    function deleteProduct (id) {
+      Utils.confirm(
+        $translate.instant('PRODUCT_DELETE_CONFIRMATION'), 
+        $translate.instant('PRODUCT_DELETE_MESSAGE'),
+        (buttonIndex) => {
+          if (buttonIndex == 1) {
+            Product.destroy(id)
+            .then(() => {
+              $state.go('users.me')
+            })
+            .catch((e) => {
+              Utils.swalError(e)
+            })
+          }
+        })
+    }
+
+    function isOwner () {
+      if (_.product.hasOwnProperty('relationships')) {
+        return _.product.relationships.user.id === currentUser.id
+      } else {
+        return false
+      }
+    }
+
+    function showOptions () {
+      _.optionsModal = !_.optionsModal
+    }
 
     function productNotEmpty () {
       return _.product.hasOwnProperty('attributes')
@@ -36,7 +69,7 @@ export default function ProductDetailFactory (ngComponent) {
 
     function ToggleCommentForm (forceShow = false) {
       _.showCommentForm = !_.showCommentForm || forceShow
-      
+
       if (_.showCommentForm) {
         scrollComments()
       }
