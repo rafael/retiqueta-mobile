@@ -1,7 +1,7 @@
 export default function ProductsDirectiveFactory (ngComponent) {
   ngComponent.directive('productsList', productsTag)
 
-  function productsTag () {
+  function productsTag ($q) {
     return {
       templateUrl: 'products/list_directive/template.html',
       restrict: 'E',
@@ -39,7 +39,7 @@ export default function ProductsDirectiveFactory (ngComponent) {
           })
         } else {
           scope.$broadcast('scroll.infiniteScrollComplete')
-          return Promise.reject()
+          return $q.reject()
         }
       }
     }

@@ -23,7 +23,9 @@ export default function CommentListDirectiveFactory (ngComponent) {
       scope.comments = []
       scope.authorIsCurrentUser = authorIsCurrentUser
       scope.refreshComment = fetchComments
-      scope.ordenedComments = () => {
+      scope.ordenedComments = ordenedComments
+        
+      function ordenedComments  () {
         if (scope.reverse === 'true') {
           return scope.comments.slice().reverse()
         } else {
@@ -35,18 +37,20 @@ export default function CommentListDirectiveFactory (ngComponent) {
         return comment.attributes.user_id === scope.currentUserId
       }
 
-      function fetchComments() {
+      function fetchComments(parentType = scope.parentType, parentId = scope.parentId) {
         scope.loading = true
 
-        if (typeof scope.parentId === 'undefined' || scope.parentId === '' || scope.parentType === '') {
+        if (typeof parentId === 'undefined' || parentId === '' || parentType === '') {
           scope.loading = false            
           return
         }
 
-        return CommentStore.getBy(scope.parentType, scope.parentId).then(result => {
+        return CommentStore.getBy(parentType, parentId).then(result => {
           scope.comments = result
         })
-        .catch(Utils.swalError)
+        .catch((e) => {
+          Utils.swalError(e)
+        })
         .finally(() => {
           scope.loading = false
           CommentStore.emit('fetchFinish')
@@ -58,8 +62,13 @@ export default function CommentListDirectiveFactory (ngComponent) {
       }
 
       CommentStore.on('new', addComment)
-      CommentStore.on('refresh', fetchComments)
-      scope.$watch('parentId', fetchComments)
+      CommentStore.on('refresh', (newId = scope.parentId) => {
+        fetchComments(scope.parentType, newId)      
+      })
+      scope.$watch('parentId', () => {
+        console.log('parentId  change')
+        fetchComments(scope.parentType, scope.parentId)
+      })
 
       if (scope.autoLoad) {
         fetchComments()

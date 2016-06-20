@@ -1,7 +1,7 @@
 export default function searchFactory (ngComponent) {
   ngComponent.controller('SearchProductCtrl', SearchProductCtrl)
 
-  function SearchProductCtrl (Product, $stateParams, Utils, $q) {
+  function SearchProductCtrl (Product, $stateParams, Utils, $q, $scope) {
     var _ = this
     _.text = ''
     _.products = []
@@ -14,11 +14,13 @@ export default function searchFactory (ngComponent) {
     _.loadMore = loadMore
     _.clear = clear
 
-    if ($stateParams.hasOwnProperty('word') && typeof $stateParams.word !== 'undefined' && $stateParams.word !== '') {
-      _.text = $stateParams.word
-      _.search()
-    } else {
-      prePopulate()
+    function LoadProduct () {
+      if ($stateParams.hasOwnProperty('word') && typeof $stateParams.word !== 'undefined' && $stateParams.word !== '') {
+        _.text = $stateParams.word
+        searchProducts()
+      } else {
+        prePopulate()
+      }
     }
 
     function clear () {
@@ -80,6 +82,10 @@ export default function searchFactory (ngComponent) {
           prePopulate()
         }
       })
+    })
+
+    $scope.$on("$ionicView.enter", () => {
+      LoadProduct() 
     })
 
   }
