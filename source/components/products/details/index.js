@@ -4,6 +4,7 @@ export default function ProductDetailFactory (ngComponent) {
   function productDetail (currentUser, Product, $ionicHistory, $translate, $timeout, $stateParams, Utils, $ionicScrollDelegate, CommentStore, $scope, $state) {
     var _ = this
     var openCommentForm = false     
+    _.loading = false
     _.product = {} 
     _.optionsModal = false
     _.showCommentForm = false   
@@ -46,7 +47,7 @@ export default function ProductDetailFactory (ngComponent) {
     }
 
     function productNotEmpty () {
-      return _.product.hasOwnProperty('attributes')
+      return _.product.hasOwnProperty('attributes') && _.loading === false
     }
 
     function goBack () {
@@ -58,6 +59,7 @@ export default function ProductDetailFactory (ngComponent) {
     }
 
     function LoadProduct () {
+      _.loading = true
       Product.get($stateParams.productID,  {
         include: 'user,product_pictures'
       })
@@ -65,6 +67,7 @@ export default function ProductDetailFactory (ngComponent) {
         _.product = product
       })
       .catch(Utils.swalError)
+      .finally(() => { _.loading = false })
     }
 
     function ToggleCommentForm (forceShow = false) {
@@ -95,7 +98,7 @@ export default function ProductDetailFactory (ngComponent) {
     })
 
     $scope.$on("$ionicView.enter", function(event, data) {
-      CommentStore.emit('refresh')
+      CommentStore.emit('refresh', $stateParams.productID)
       _.showCommentForm = false
       openCommentForm = typeof $stateParams.onComment !== 'undefined'
       _.commentFormWasShowed = typeof $stateParams.onComment !== 'undefined'
@@ -104,6 +107,7 @@ export default function ProductDetailFactory (ngComponent) {
       }, 10)
       needToShowCommentForm()
     })
+
     LoadProduct()
   }
 }

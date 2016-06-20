@@ -9,7 +9,7 @@ export default function UtilsFactory (ngComponent) {
         alert(message) { return window.alert(message) },
         confirm(message, cb) {
           if (window.confirm(message)) {
-            cb.call()
+            cb(1)          
           }
         }
       }

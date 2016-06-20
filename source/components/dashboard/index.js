@@ -1,7 +1,7 @@
 export default function DashboardFactory (ngComponent) {
   ngComponent.controller('dashboardCtrl', dashCtrl)
 
-  function dashCtrl (Product, Utils) {
+  function dashCtrl (Product, Utils, $scope) {
     var _ = this
     _.products = []
 
@@ -15,6 +15,8 @@ export default function DashboardFactory (ngComponent) {
       .catch(Utils.swalError)
     }
 
-    refreshFeatured()
+    $scope.$on("$ionicView.enter", function(event, data) {
+      refreshFeatured()
+    })
   }
 }

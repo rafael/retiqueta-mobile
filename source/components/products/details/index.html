@@ -35,7 +35,7 @@
           <comments-list
             reverse="false"
             parent-type="products" 
-            parent-id="{{ ::detail.product.id }}">
+            parent-id="{{ detail.product.id }}">
           </comments-list>
         </ion-scroll>
       </div>
@@ -53,7 +53,7 @@
     <section class="form">
       <comment-form 
         parent-type="products" 
-        parent-id="{{ ::detail.product.id }}" 
+        parent-id="{{ detail.product.id }}" 
         focus="detail.showCommentForm"></comment-form>
     </section>
   </ion-footer-bar>
