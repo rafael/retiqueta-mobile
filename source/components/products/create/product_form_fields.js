@@ -25,14 +25,14 @@ export const Rules = {
   original_price: {
     inputType: 'text',
     required: true,
-    placeholder: 'Precio original',
+    placeholder: '0',
     // pattern: /[0-9]*/,
     // inputPattern: '[0-9]*',
   },
   price: {
     inputType: 'text',
     required: true,
-    placeholder: 'Precio Retiqueta',
+    placeholder: '0',
     // pattern: /[0-9]*/,
     // inputPattern: '[0-9]*',
   }

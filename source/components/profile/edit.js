@@ -33,7 +33,7 @@ export default function profileEditFactory (ngComponent) {
         return $ionicHistory.clearCache()
       })
       .then(() => {
-        $state.go($state.current, {}, { reload: true, inherit: false, notify: true })
+        $state.go('users.me', {}, { reload: true, inherit: false, notify: true })
       })
       .catch(error => {
         Utils.swalError(error)

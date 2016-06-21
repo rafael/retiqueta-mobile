@@ -6,6 +6,14 @@
 	}
 	.scrollable-part {
 		.scroll-view {
+			> div {
+				padding-bottom: 100px;
+			}
+		}
+	}
+	/*
+	.scrollable-part {
+		.scroll-view {
 			height: calc(100vh - 160px);
 		}
 		&.with-comment-form {
@@ -15,10 +23,12 @@
 		}
 
 	}
+	*/
 }
 
 .platform-ios {
 	.product-detail-view {
+		/*
 		.scrollable-part {
 			.scroll-view {
 				height: calc(100vh - 175px);
@@ -29,11 +39,13 @@
 				}
 			}
 		}
+		*/
 	}
 }
 
 .platform-android {
 	.product-detail-view {
+		/*
 		.scrollable-part {
 			.scroll-view {
 				height: calc(100vh - 166px);
@@ -44,6 +56,7 @@
 				}
 			}
 		}
+		*/
 	}
 }
 
