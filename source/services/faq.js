@@ -14,15 +14,28 @@ export default function(ngComponent) {
       },
       {
         name: 'Política de comisión de Retiqueta',
-        items: ['¡Quisiéramos no cobrar comisión pero nuestro equipo trabaja duro!.... Recuerda que tu colocas el precio de la pieza. Ganas un 75% ​del precio de la pieza. Nosotros cobramos un 25% ​de ese precio por cada pieza que vendas.']
+        items: ['Quisiéramos no cobrar comisión pero nuestro equipo trabaja duro!.... Recuerda que tu colocas el precio y ganas el 75% por cada producto vendido. Es decir, que nuestra comisión es de un 25% de ese precio por cada ropa o accesorio que vendas.']     
+      },
+      {
+        name: '¿Cómo definir el precio de mi ropa y/o accesorios?',
+        items: [
+          'Existen factores que debes pensar antes de poner el precio:'
+        , '- La mayoría de la ropa de segunda mano, se vende desde un 50% hasta un 75% menos que su precio original. '
+        , '- ¿En qué estado se encuentra el producto?'
+        , '- ¿Es de una marca reconocida? '
+        , '- ¿Es una prenda de vestir o accesorio que está de moda en este momento?'
+        , 'Revisa un producto de la misma categoría en Retiqueta y detalla todos estos factores. No olvides pensar si el cliente debe pagar por el envío o si lo estás incluyendo en el precio.'
+        ]    
       },
       {
         name: '¿Cuál es el método de envío/recibo?',
         items: ['Al terminar el proceso de pago del producto, el comprador podrá comunicarse con el vendedor por medio de un chat dentro de la aplicación para ponerse de acuerdo en el método de envío. Si deciden hacer la entrega del paquete en persona, recomendamos ir a sitios públicos y que una persona de confianza conozca del encuentro. Toma las medidas de seguridad pertinentes. Si lo haces en persona no olvides llevar un recibo de entrega para que sean firmado por las partes. El costo del envío es por mutuo acuerdo. Aconsejamos a los vendedores incluir en su precio este costo y detallarlo en la descripción del producto.']
       },
       {
-        name: 'Paquetes de envío',
-        items: ['Embala con cariño la pieza que vendiste, recuerda que a parte de hablar buen de ti como vendedora, tus seguidores lo tomará en cuenta para futuras compras. Sería encantador recibir un paquete envuelto con amor. ¡Escríbele una nota de agradecimiento y será tu compradora por siempre!']
+        name: 'Gana puntos como vendedor',
+        items: [
+          'Embala con cariño tu venta, recuerda que aparte de hablar bien de ti como vendedor, tus seguidores lo tomarán en cuenta para futuras compras. Sería encantador recibir un producto envuelto con amor. ¡Escríbele una nota de agradecimiento y será tu seguidor por siempre!'
+        ]
       },
       {
         name: '¿Qué es “Mi Balance” ?',
