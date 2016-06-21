@@ -24,8 +24,9 @@
       </profile-resume>
       <div 
         class="scrollable-part" 
-        ng-class="{ 'with-comment-form': detail.commentFormWasShowed }">
-        <ion-scroll  delegate-handle="productDetail">
+        ng-class="{ 'with-comment-form': detail.showCommentForm }"
+        auto-height-scroll>
+        <ion-scroll delegate-handle="productDetail">
           <show-product 
             current-user="detail.currentUser"
             product="detail.product"

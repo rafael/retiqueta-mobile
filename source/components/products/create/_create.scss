@@ -32,15 +32,15 @@ ion-content.form-basic.form-with-labels.new_product.scroll-content.ionic-scroll.
 			position: relative;
 			top: 1.4em;
 			left: -0.2em;
-			button {
+			a {
 				color: lighten($dark, 0%);
 			}
-			button.location-processing {
+			a.location-processing {
 				animation-duration: 800ms;
 				animation-name: blink;
 				animation-iteration-count: infinite;
 			}
-			button.location-done {
+			a.location-done {
 				color: darken($dark, 30%);
 			}
 		}
