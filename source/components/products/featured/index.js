@@ -1,49 +1,79 @@
 export default function FeaturedDirective (ngComponent) {
   ngComponent.directive('featuredProducts', featuredProducts)
 
-  function featuredProducts (Product, Utils) {
+  function featuredProducts (Product, Utils, $q) {
     return {
       templateUrl: 'products/featured/template.html',
       restrict: 'E',
       scope: {
         render: '=',
-        products: '='
+        products: '=',
       },
       link: featuredProductsLink    
     }
 
     function featuredProductsLink (scope, element, attrs) {
+      let canLoadMore = true
+      let page = 1
       scope.hasPicture = hasPicture
+      scope.loadMore = loadMore
+      scope.moreDataCanBeLoaded = moreDataCanBeLoaded
+
+      function moreDataCanBeLoaded () {
+        return canLoadMore
+      }
+
+      function loadMore () {
+        if (moreDataCanBeLoaded()) {
+          page = page + 1
+          loadFeatured(page)
+        } else {
+          scope.$broadcast('scroll.infiniteScrollComplete')
+          return $q.reject()
+        }
+      }
 
       function hasPicture (productPictures) {
         return productPictures.length > 0
       }
 
-      function loadFeatured () {
+      function loadFeatured (page) {
         Product.getFeatured({
-          include: 'user,product_pictures,likes'
+          include: 'product_pictures, likes',
+          'page[number]': page,
+          'page[size]': 16,
         })
         .then(result => {
-          scope.products = result
+          if (page === 1 && result.length > 1) {
+            scope.products = result
+          } else if (result.length > 1) {
+            scope.products = scope.products.concat(result)
+          } else {
+            canLoadMore = false
+          }
         })
-        .catch(Utils.swalError)
+        .catch((e) => {
+          Utils.swalError(e)
+          canLoadMore = false
+        })
+        .finally(() => {
+          scope.$broadcast('scroll.infiniteScrollComplete')
+        })
       }
 
       function render () {
-        if (scope.render === true) {
-          loadFeatured()
+        if (scope.render === true && moreDataCanBeLoaded()) {
+          loadFeatured(page)
         }
       }
 
-      render()
-
-      Object.observe(scope, (changes) => {
-        changes.forEach(change =>{
-          if (change.name === 'render') {
-            render()
-          }
-        })
+      scope.$watch(() => {
+        return scope.render
+      }, () => {
+        render()
       })
+
+      render()
     }
   }
 }

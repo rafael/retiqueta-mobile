@@ -4,15 +4,11 @@ export default function DashboardFactory (ngComponent) {
   function dashCtrl (Product, Utils, $scope) {
     var _ = this
     _.products = []
+    _.render = true
 
-    function refreshFeatured () {
-      Product.getFeatured({
-        include: 'product_pictures, likes'
-      })
-      .then(result => {
-        _.products = result
-      })
-      .catch(Utils.swalError)
+    function refreshFeatured() {
+      _.render = false
+      _.render = true
     }
 
     $scope.$on("$ionicView.enter", function(event, data) {
