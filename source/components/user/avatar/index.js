@@ -13,7 +13,7 @@ export default function userAvatarFactory (ngComponent) {
 
     function preLink(scope, iElement, iAttrs, controller) { 
       scope.image = () => {
-        return (hasPicture(scope.src)) ? scope.src : 'images/guess_user.gif'
+        return (hasPicture(scope.src)) ? scope.src : 'images/guess_user.png'
       }
 
       function hasPicture (source) {
