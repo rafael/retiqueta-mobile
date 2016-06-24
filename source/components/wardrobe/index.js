@@ -21,8 +21,12 @@ export default function wardrobeIndexFactory (ngComponent) {
       return Promise.resolve()
     }
 
+    function isOwner () {
+      return _.user.id === currentUser.id
+    }
+
     function ClearHistoryIfOwner () {
-      if (_.isOwner === true) {
+      if (isOwner()) {
         $ionicHistory.clearHistory()
       } 
     }
