@@ -1,4 +1,48 @@
 .product-show {
+	&.sold {
+		.sold-mark {
+			opacity: 1;
+			display: block;
+			position: absolute;
+			top: 0px;
+			left: 16px;
+			width: 30px;
+			height: 30px;
+			text-align: center;
+			line-height: 30px;
+			z-index: 2000;
+			.sold-mark-text {
+				position: relative;
+				top: 0.8em;
+				left: -0.1em;
+				color: white;
+				font-size: 16px;
+				z-index: 3000;
+			}
+			&:before {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				content: "";
+				display: block;
+				width: 0;
+				height: 0;
+				color: white;
+				border-top: 30px solid $balanced;
+				border-bottom: 30px solid transparent;
+				border-left: 30px solid $balanced;
+				border-right: 30px solid transparent;
+			}
+		}
+		.button-buy {
+			padding-top: 0.2em;
+			padding-bottom: 0.1em;
+		}
+	}
+	.sold-mark {
+		display: none;
+		opacity: 0;
+	}
 	.product-description {
 		border-bottom: 1px solid $stable;
 	}
