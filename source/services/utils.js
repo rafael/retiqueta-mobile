@@ -3,17 +3,26 @@ import swal from 'sweetalert'
 export default function UtilsFactory (ngComponent) {
   ngComponent.service('Utils', UtilsFactory)
 
-  function UtilsFactory (ENV, $rootScope, $translate) {
-    if (typeof navigator.notification === 'undefined') {
-      navigator.notification = {
-        alert(message) { return window.alert(message) },
-        confirm(message, cb) {
-          if (window.confirm(message)) {
-            cb(1)          
+  function UtilsFactory (ENV, $rootScope, $translate, $ionicPlatform) {
+    let YesNoActionsText = 'Yes, No' 
+
+    $translate('YES_NO_CONFIRM')
+    .then((translation) => {
+      YesNoActionsText = translation
+    })
+
+    $ionicPlatform.ready(function() {
+      if (typeof navigator.notification === 'undefined') {
+        navigator.notification = {
+          alert(message) { return window.alert(message) },
+          confirm(message, cb) {
+            if (window.confirm(message)) {
+              cb(1)          
+            }
           }
         }
       }
-    }
+    })
 
     this.logger = {
       info () {
@@ -68,7 +77,8 @@ export default function UtilsFactory (ngComponent) {
       })
     }
 
-    this.confirm = (title, message, confirmCallback, buttonOptions = "Yes, No") => {
+    this.confirm = (title, message, confirmCallback, buttonOptions = YesNoActionsText) => {
+      console.log(title, message, confirmCallback, buttonOptions)
       $rootScope.$evalAsync(() => {
         navigator.notification.confirm(message, confirmCallback, title, buttonOptions)
       })

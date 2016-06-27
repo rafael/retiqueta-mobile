@@ -89,7 +89,8 @@ export default function ProductCreateFactory (ngComponent) {
       try {
         if (hasChanges()) {
           Utils.confirm(
-            'Save this product','Do you what save this product information has a draft?', 
+            $translate.instant('CREATE_PRODUCT_SAVE_DRAFT_MESSAGE_TITLE'),
+            $translate.instant('CREATE_PRODUCT_SAVE_DRAFT_MESSAGE_CONTENT'),
             (buttonIndex) => {
               if (buttonIndex == 1) {
                 saveDraft(_.product)
