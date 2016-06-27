@@ -21,11 +21,16 @@ export default function ProductDirective (ngComponent) {
       scope.isCurrentUser = isCurrentUser
       scope.toggleComment = toggleComment
       scope.canBuy = canBuy
+      scope.cantBuy = cantBuy
 
       // scope.product.attributes.status = "sold"
 
       function canBuy () {
         return !isSold() && !isCurrentUser()
+      }
+
+      function cantBuy () {
+        return isSold()  
       }
 
       function isSold () {

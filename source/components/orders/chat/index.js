@@ -9,7 +9,7 @@ const includes = [
 export default function orderChatCtrlFactory (ngComponent) {
   ngComponent.controller('orderChatCtrl', orderChatCtrl)
 
-  function orderChatCtrl (Order, Utils, $stateParams, $state, $ionicHistory, CommentStore, currentUser, $ionicScrollDelegate) {
+  function orderChatCtrl (Order, Utils, $stateParams, $state, $ionicHistory, CommentStore, currentUser, $ionicScrollDelegate, $scope) {
     var _ = this
     _.order = {}
     _.firstProduct = {}
@@ -29,6 +29,7 @@ export default function orderChatCtrlFactory (ngComponent) {
       .then(order => {
         _.order = order
         _.firstProduct = setFirstProduct(order)
+        CommentStore.emit('refresh', 'fulfillments', order.relationships.fulfillment.id )
       })
       .catch(Utils.swalError)
     }
@@ -42,12 +43,16 @@ export default function orderChatCtrlFactory (ngComponent) {
       }
     }
 
-    function scrollComments () {
-      $ionicScrollDelegate.$getByHandle('comments').scrollBottom()
+    function scrollComments (type, parentId) {
+      if (type === 'fulfillments' && parentId === _.order.relationships.fulfillment.id ) {
+        $ionicScrollDelegate.$getByHandle('comments').scrollBottom()
+      }
     }
 
     CommentStore.on('new', scrollComments)
     CommentStore.on('fetchFinish', scrollComments)
-    getorder() 
+    $scope.$on("$ionicView.enter", (event, data) => {
+      getorder() 
+    })
   }
 }
