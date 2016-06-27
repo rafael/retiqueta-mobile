@@ -20,6 +20,7 @@ export default function userAvatarFactory (ngComponent) {
         return  typeof source !== 'undefined'
         && source !== ''
         && source !== '/pics/original/missing.png'
+        && source !== '/pics/small/missing.png'
       }
     }
   }

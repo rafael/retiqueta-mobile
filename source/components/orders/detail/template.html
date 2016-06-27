@@ -1,75 +1,77 @@
 <ion-view view-title="{{ 'ORDER_DETAIL' | translate }}">
-	<ion-nav-bar class="bar-assertive">
-		<ion-nav-buttons side="left">
-			<button 
-				class="button back-button buttons button-clear header-item" 
-				ng-click="ctrl.goBack()">
-				<i class="icon ion-ios-arrow-back"></i>
-			</button>
-		</ion-nav-buttons>
-	</ion-nav-bar>
-	<ion-content padding="false">
-		<header class="order-detail-header row">
-			<img 
-			class="thumbnail col col-25" 
-			src="{{ ::ctrl.firstProduct.relationships.product_pictures[0].attributes.small_url}}" 
-			alt="">
-			<section class="content col col-75">
-				<h6 class="price text-assertive">
-					{{ ctrl.order.attributes.total_amount | currency : ctrl.order.attributes.currency }}
-				</h6>
-				<div 
-					class="items-description">
-					<p ng-repeat="item in ctrl.order.relationships.line_items track by $index">
-						{{ ::item.relationships.product.attributes.description }}
-					</p>
-				</div>
-			</section>
-		</header>
-		<section class="order-detail-resume">
-			<div class="order-resume item row">
-				<div class="col col-50">
-					<div class="label">
-						{{ 'ORDER_DATE' | translate }}
-					</div>
-					<div class="value date">
-						{{ ::ctrl.order.attributes.created_at | date : 'd/M/yy' }}
-					</div>
-				</div>
-				<div class="col col-50">
-					<div class="label">
-						{{ 'ORDER_NUMBER' | translate }}
-					</div>
-					<div class="value number" ng-click="ctrl.showOrderId(ctrl.order.id)">
-						{{ ::ctrl.order.id }}
-					</div>
-				</div>
-			</div>
-			<div ng-if="ctrl.order.attributes.payment_info.type === 'credit_card'">
-				<div class="order-resume item row">
-					<div class="col">
-						<div class="label">
-							{{ 'ORDER_PAYMENT_TYPE' | translate }}
-						</div>
-						<div class="value date">
-							<span class="text-uppercase">
-								{{ ::ctrl.order.attributes.payment_info.payment_method }}
-							</span>
-							XXXX-{{ ::ctrl.order.attributes.payment_info.last_four }}
-						</div>
-					</div>
-				</div>
-				<div class="order-resume item row">
-					<div class="col">
-						<div class="label">
-							{{ 'ORDER_CARD_HOLDER' | translate }}
-						</div>
-						<div class="value date">
-							{{ ::ctrl.order.attributes.payment_info.cardholder_name }}
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-	</ion-content>
+  <ion-nav-bar class="bar-assertive">
+    <ion-nav-buttons side="left">
+      <button 
+        class="button back-button buttons button-clear header-item" 
+        ng-click="ctrl.goBack()">
+        <i class="icon ion-ios-arrow-back"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content padding="false">
+    <header class="order-detail-header row">
+      <div class="col col-25">
+        <img 
+        class="thumbnail" 
+        src="{{ ::ctrl.firstProduct.relationships.product_pictures[0].attributes.small_url}}" 
+        alt="">
+      </div>
+      <section class="content col col-75">
+        <h6 class="price text-assertive">
+          {{ ctrl.order.attributes.total_amount | currency : ctrl.order.attributes.currency }}
+        </h6>
+        <div 
+          class="items-description">
+          <p ng-repeat="item in ctrl.order.relationships.line_items track by $index">
+            {{ ::item.relationships.product.attributes.description }}
+          </p>
+        </div>
+      </section>
+    </header>
+    <section class="order-detail-resume">
+      <div class="order-resume item row">
+        <div class="col col-50">
+          <div class="label">
+            {{ 'ORDER_DATE' | translate }}
+          </div>
+          <div class="value date">
+            {{ ::ctrl.order.attributes.created_at | date : 'd/M/yy' }}
+          </div>
+        </div>
+        <div class="col col-50">
+          <div class="label">
+            {{ 'ORDER_NUMBER' | translate }}
+          </div>
+          <div class="value number" ng-click="ctrl.showOrderId(ctrl.order.id)">
+            {{ ::ctrl.order.id }}
+          </div>
+        </div>
+      </div>
+      <div ng-if="ctrl.order.attributes.payment_info.type === 'credit_card'">
+        <div class="order-resume item row">
+          <div class="col">
+            <div class="label">
+              {{ 'ORDER_PAYMENT_TYPE' | translate }}
+            </div>
+            <div class="value date">
+              <span class="text-uppercase">
+                {{ ::ctrl.order.attributes.payment_info.payment_method }}
+              </span>
+              XXXX-{{ ::ctrl.order.attributes.payment_info.last_four }}
+            </div>
+          </div>
+        </div>
+        <div class="order-resume item row">
+          <div class="col">
+            <div class="label">
+              {{ 'ORDER_CARD_HOLDER' | translate }}
+            </div>
+            <div class="value date">
+              {{ ::ctrl.order.attributes.payment_info.cardholder_name }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ion-content>
 </ion-view>

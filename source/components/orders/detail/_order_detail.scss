@@ -2,7 +2,10 @@
 	background-color: $stable;
 	padding-top: 0.6em;
 	padding-bottom: 0.6em;
-	.thumbnail {}
+	.thumbnail {
+		max-width: 100%;
+		height: auto;
+	}
 	.content {
 		.price {
 			font-size: 1.1em;

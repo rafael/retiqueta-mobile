@@ -84,10 +84,12 @@ export default function ProductDetailFactory (ngComponent) {
       }
     }
 
-    function scrollComments () {
-      $timeout(() => {
-        $ionicScrollDelegate.$getByHandle('productDetail').scrollBottom()
-      }, 10)
+    function scrollComments (parentType = 'products', parentId = _.product.id) {
+      if (parentType === 'products' && parentId === _.product.id) { 
+        $timeout(() => {
+          $ionicScrollDelegate.$getByHandle('productDetail').scrollBottom()
+        }, 10)
+      }
     }
 
     CommentStore.on('new', scrollComments)
@@ -98,7 +100,7 @@ export default function ProductDetailFactory (ngComponent) {
     })
 
     $scope.$on("$ionicView.enter", function(event, data) {
-      CommentStore.emit('refresh', $stateParams.productID)
+      CommentStore.emit('refresh', 'product', $stateParams.productID)
       _.showCommentForm = false
       openCommentForm = typeof $stateParams.onComment !== 'undefined'
       _.commentFormWasShowed = typeof $stateParams.onComment !== 'undefined'

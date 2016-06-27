@@ -3,7 +3,7 @@
     class="item item-white" 
     ng-repeat="comment in ordenedComments() track by comment.id" class="list"
     ng-class="{'item-avatar': asChat, 'is-not-me': !authorIsCurrentUser(comment)}"> 	
-    <img ng-if="asChat" src="{{ comment.attributes.user_pic }}" alt="">
+    <user-avatar ng-if="asChat" src="comment.attributes.user_pic"></user-avatar>
     <p class="message">
       <a ng-if="!asChat" class="text-assertive" 
         ui-sref="users.profile({userID: comment.attributes.user_id})">
@@ -15,3 +15,4 @@
     <div class="pl1 pr1 pt2 pb2" ng-show="comments.length == 0 "></div>
   </div>
 </section>
+
