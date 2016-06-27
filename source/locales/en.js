@@ -1,4 +1,5 @@
 var enTranslation = {
+  YES_NO_CONFIRM: 'Yes, No',
   FORM_MIN_NUMBER_ERROR: 'Must be at least {{num}}',
   FORM_MAX_NUMBER_ERROR: 'Must be no more than {{num}}',
   FORM_MAX_LENGTH_ERROR: 'Must be fewer than {{num}} characters',
@@ -47,6 +48,8 @@ var enTranslation = {
   CONNECT_WITH_FACEBOOK: 'Connect using facebook',
   REMOVE_DRAFT: 'Delete draft',
   LETS_RETIQUETA: 'Lets go to resell',
+  CREATE_PRODUCT_SAVE_DRAFT_MESSAGE_TITLE:  'Save this product',
+  CREATE_PRODUCT_SAVE_DRAFT_MESSAGE_CONTENT: 'Do you what save this product information has a draft?',
   PRODUCT_FORM_TITLE: 'Put a name to this product',
   PRODUCT_FORM_ADDRESS: 'Ubication',
   PRODUCT_FORM_DESCRIPTION: 'Describe the product',
