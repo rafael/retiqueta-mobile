@@ -1,7 +1,7 @@
 import { Rules as FormRules, baseErrorsObject } from './product_form_fields'
 import { extractErrorByField, validationFactory } from '../../../libs/merge_validations'
 
-const comitionRate = 0.2
+const comitionRate = 0
 
 export default function ProductCreateFactory (ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
