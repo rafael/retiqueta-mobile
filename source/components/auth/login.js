@@ -8,7 +8,7 @@ const baseErrorsObject = {
 export default function loginCtrlFactory (ngComponent) {
   ngComponent.controller('loginCtrl', loginCtrl)
 
-  function loginCtrl ($scope, $state, FormForConfiguration, Auth, Utils, $translate, $q) {
+  function loginCtrl ($scope, $state, FormForConfiguration, Auth, Utils, $translate, $q, $ionicAnalytics) {
     FormForConfiguration.disableAutoLabels()
     let _ = this
     let notFirstValidation = false
@@ -46,15 +46,29 @@ export default function loginCtrlFactory (ngComponent) {
       })
     }
 
+    $ionicAnalytics.track('User load login view', {})
+
     function submit (user) {
       _.sendingInfo = true
       user.username = user.username.toLowerCase()
+      $ionicAnalytics.track('User try to login', {
+        email: user.email
+      })
       Auth.login(user)
       .then(token => {
         // Utils.swalSuccess($translate.instant('WELCOME_MESSAGE'))
+        $ionicAnalytics.track('User sucessfuly login', {
+          user: {
+            id: token.user_id 
+          }
+        })
         $state.go('users.dashboard')
       })
       .catch(error => {
+        $ionicAnalytics.track('Error on login', {
+          email: user.email,
+          error
+        })
         _.errors = extractErrorByField(error, user, Object.keys(_.errors))
         $scope.$evalAsync(() => {
           _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
@@ -73,7 +87,7 @@ export default function loginCtrlFactory (ngComponent) {
     function formHasErrors (errors) {
       if (Object.keys(errors).length > 0) {
         return Object.keys(errors)
-                .reduce((acc, value) => { typeof errors[value] === 'undefined' })
+        .reduce((acc, value) => { typeof errors[value] === 'undefined' })
       } else {
         return false
       }
@@ -81,14 +95,14 @@ export default function loginCtrlFactory (ngComponent) {
 
     function validateRequired () {
       return isNotThere(_.user, 'username') ||
-             isNotThere(_.user, 'password')
+        isNotThere(_.user, 'password')
     }
 
     function isNotThere (obj, key) {
       return !obj.hasOwnProperty(key) ||
-             obj[key] === null ||
-             typeof obj[key] === 'undefined' ||
-             obj[key] === ''
+        obj[key] === null ||
+          typeof obj[key] === 'undefined' ||
+            obj[key] === ''
     }
 
     $scope.$watchCollection(function() {

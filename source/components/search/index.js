@@ -1,7 +1,7 @@
 export default function searchFactory (ngComponent) {
   ngComponent.controller('SearchProductCtrl', SearchProductCtrl)
 
-  function SearchProductCtrl (Product, $stateParams, Utils, $q, $scope) {
+  function SearchProductCtrl (Product, $stateParams, Utils, $q, $scope, $ionicAnalytics) {
     var _ = this
     _.text = ''
     _.products = []
@@ -29,6 +29,7 @@ export default function searchFactory (ngComponent) {
     }
 
     function prePopulate () {
+      $ionicAnalytics.track('prePopulate search view with featured')
       return Product.getFeatured({include: 'product_pictures'})
       .then(setProducts)
       .catch(Utils.swalError)
@@ -51,6 +52,10 @@ export default function searchFactory (ngComponent) {
     }
 
     function populateWithProduct (page, add = false) {
+      $ionicAnalytics.track('Search for', {
+        page: page,
+        text: _.text
+      })
       return Product.search({
         q: _.text,
         'page[number]': page,

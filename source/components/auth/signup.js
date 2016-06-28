@@ -10,7 +10,7 @@ const baseErrorsObject = {
 export default function signupCtrlFactory (ngComponent) {
   ngComponent.controller('signupCtrl', signupCtrl)
 
-  function signupCtrl ($scope, $state, User, FormForConfiguration, Auth, Utils, $translate, $q, FacebookAuth) {
+  function signupCtrl ($scope, $state, User, FormForConfiguration, Auth, Utils, $translate, $q, FacebookAuth, $ionicAnalytics) {
     FormForConfiguration.disableAutoLabels()
     let _ = this
     let notFirstValidation = false
@@ -32,6 +32,8 @@ export default function signupCtrlFactory (ngComponent) {
       })
     }
 
+    $ionicAnalytics.track('User open signup view', {})
+
     function redirectToDashboard () {
       $state.go('users.dashboard')
     }
@@ -40,12 +42,22 @@ export default function signupCtrlFactory (ngComponent) {
       _.sendingInfo = true
       user.email = user.email.toLowerCase()
       user.username = user.username.toLowerCase()
+      $ionicAnalytics.track('User submit Signup', { 
+        email: user.email, 
+        username: user.username 
+      })
       User.create(user)
         .then(result => {
+          $ionicAnalytics.track('User sucessfuly Signup', result)
           return Auth.login(user)
         })
         .then(redirectToDashboard)
         .catch(error => {
+          $ionicAnalytics.track('Error on user signup', {
+            email: user.email, 
+            username: user.username ,
+            error
+          })
           _.errors = extractErrorByField(error.data, user, Object.keys(_.errors))
           _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
         })
