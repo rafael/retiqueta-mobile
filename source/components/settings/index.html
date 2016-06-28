@@ -5,7 +5,7 @@
         <i class="icon ion-android-person"></i>
         {{ 'EDIT_PROFILE' |  translate }}
       </a>
-     	<a class="item item-icon-left bg-gradient-1" ui-sref="users.balance">
+      <a class="item item-icon-left bg-gradient-1" ui-sref="users.balance">
         <i class="icon ion-connection-bars"></i>
         {{ 'MY_BALANCE' |  translate }}
       </a>
@@ -29,6 +29,16 @@
         {{ 'SIGNOUT' | translate }}
         <i class="icon ion-android-exit rotate-180"></i>
       </a>
+      <div ng-if="ctrl.updateable">
+        <button class="button button-primary button-block " ng-click="ctrl.checkForUpdates()">
+          Check for updates
+        </button>
+        <button class="button button-stable button-block button-pulse" 
+          ng-if="ctrl.hasUpdate" 
+          ng-click="ctrl.doUpdate()">
+          Download update
+        </button>
+      </div>
     </div>
   </ion-content>
 </ion-view>

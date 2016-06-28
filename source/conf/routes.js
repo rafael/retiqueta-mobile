@@ -135,7 +135,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     views: {
       'profile-tab': {
         templateUrl: 'settings/index.html',
-        controller: 'settingsCtrl as settings'
+        controller: 'settingsCtrl as ctrl'
       }
     }
   })

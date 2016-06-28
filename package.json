@@ -99,7 +99,8 @@
       "id": "phonegap-plugin-push"
     },
     "cordova-plugin-geolocation",
-    "cordova-custom-config"
+    "cordova-custom-config",
+    "ionic-plugin-deploy"
   ],
   "cordovaPlatforms": [
     {
