@@ -3,6 +3,10 @@
   "private": "true",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.2.4",
-    "ionic-platform-web-client": "^0.7.1"
+    "ionic-platform-web-client": "^0.7.1",
+    "ngCordova": "^0.1.26-alpha"
+  },
+  "dependencies": {
+    "ngCordova": "^0.1.26-alpha"
   }
 }

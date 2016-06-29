@@ -5,7 +5,11 @@ export default function noOrdersDirectiveFactory (ngComponent) {
     return {
       templateUrl: 'utils/no_orders/template.html',
       restrict: 'E',
-      transclude: true
+      transclude: true,
+      scope: {
+        noBuyButton: '@',
+        noSellButton: '@'
+      }
     }
   }
 }

@@ -9,27 +9,27 @@ const includes = [
 export default function orderChatCtrlFactory (ngComponent) {
   ngComponent.controller('orderChatCtrl', orderChatCtrl)
 
-  function orderChatCtrl (Order, Utils, $stateParams, $ionicHistory, CommentStore, currentUser) {
+  function orderChatCtrl (Order, Utils, $stateParams, $state, $ionicHistory, CommentStore, currentUser, $ionicScrollDelegate, $scope) {
     var _ = this
     _.order = {}
     _.firstProduct = {}
     _.currentUser = currentUser
     _.goBack = goBack
-    _.refreshComment = refreshComment
 
     function goBack () {
-      $ionicHistory.goBack()
-    }
-
-    function refreshComment () {
-      return CommentStore.emit('refresh')    
+      if ($stateParams.type === 'order' || $stateParams.type === 'sell') {
+        $state.go('users.activities.orders')
+      } else {
+        $ionicHistory.goBack()
+      }
     }
 
     function getorder () {
       Order.get($stateParams.id, { include: includes })
-      .then(order => { 
+      .then(order => {
         _.order = order
         _.firstProduct = setFirstProduct(order)
+        CommentStore.emit('refresh', 'fulfillments', order.relationships.fulfillment.id )
       })
       .catch(Utils.swalError)
     }
@@ -43,6 +43,16 @@ export default function orderChatCtrlFactory (ngComponent) {
       }
     }
 
-    getorder()
+    function scrollComments (type, parentId) {
+      if (type === 'fulfillments' && parentId === _.order.relationships.fulfillment.id ) {
+        $ionicScrollDelegate.$getByHandle('comments').scrollBottom()
+      }
+    }
+
+    CommentStore.on('new', scrollComments)
+    CommentStore.on('fetchFinish', scrollComments)
+    $scope.$on("$ionicView.enter", (event, data) => {
+      getorder() 
+    })
   }
 }

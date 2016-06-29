@@ -13,7 +13,8 @@ export default function SelectCateroryFactory (ngComponent) {
         multiple: '=?',
         options: '=',
         placeholder: '@?',
-        autoToggleModal: "@"
+        autoToggleModal: "@",
+        onClickHandler: "=?", 
       },
       link: function($scope, $element, $attributes, formForController) {
         $scope.label = $attributes['label'] || 'label'
@@ -34,6 +35,9 @@ export default function SelectCateroryFactory (ngComponent) {
           formForController.validateForm()
           if ($scope.autoToggleModal !== 'false') {
             toggleModal()
+          }
+          if ($scope.onClickHandler) {
+            $scope.onClickHandler(value)
           }
         }
 

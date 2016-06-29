@@ -1,20 +1,19 @@
 <div class="profile-resume">
 	<div class="item item-white row">
-		<div class="col col-20 perfil-image">
-			<img src="{{ ::user.attributes.profile_pic }}">
+    <div class="col col-20 perfil-image">
+      <user-avatar ng-click="goToUserProfile(user.id)" src="user.attributes.profile_pic"></user-avatar>
 		</div>
 		<div class="user-details col">
 			<h2 class="username">
 				<a ui-sref="users.profile({ userID: user.id })">
-					{{ ::user.attributes.username }}
+					{{ user.attributes.username }}
 				</a>
 			</h2>
 			<h3 class="fullname">
-				{{ ::user.attributes.first_name }}
-				{{ ::user.attributes.last_name }}
+				{{ user.attributes.first_name }}
 			</h3>
 		</div>
-		<div class="col col-25 text-right" ng-hide="isOwner">
+		<div class="col text-right" ng-if="!isOwner">
 			<follow-button 
 				follow-handler="toggleFollowship" 
 				following="ownerFollowing">

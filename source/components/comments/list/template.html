@@ -1,22 +1,18 @@
 <section class="comments-list list pl1 pr1" ng-class="{ 'as-chat': asChat }">
-	<div>
-		<div 
-			class="item item-white" 
-			ng-repeat="comment in comments track by comment.id" class="list"
-			ng-class="{'item-avatar': asChat, 'is-not-me': !authorIsCurrentUser(comment)}"> 	
-			<img ng-if="asChat" src="{{ comment.attributes.user_pic }}" alt="">
-			<p class="message">
-				<a ng-if="!asChat" class="text-assertive" 
-					ui-sref="user.profile({userID: comment.attributes.user_id})">
-					{{ ::comment.attributes.username }}:
-				</a>
-				<span class="content" ng-bind-html="comment.attributes.text | linkify"></span>
-			</p>
-		</div>
-	</div>
-	<div ng-hide="loading">
-		<div class="pl1 pr1 pt2 pb2" ng-show="comments.length == 0 ">
-			<h3>No comments</h3>
-		</div>
-	</div>
+  <div 
+    class="item item-white" 
+    ng-repeat="comment in ordenedComments() track by comment.id" class="list"
+    ng-class="{'item-avatar': asChat, 'is-not-me': !authorIsCurrentUser(comment)}"> 	
+    <user-avatar ng-if="asChat" src="comment.attributes.user_pic"></user-avatar>
+    <p class="message">
+      <a ng-if="!asChat" class="text-assertive" 
+        ui-sref="users.profile({userID: comment.attributes.user_id})">
+        {{ ::comment.attributes.username }}:</a>
+      <span class="content" ng-bind-html="comment.attributes.text | linkify"></span>
+    </p>
+  </div>
+  <div ng-hide="loading">
+    <div class="pl1 pr1 pt2 pb2" ng-show="comments.length == 0 "></div>
+  </div>
 </section>
+

@@ -1,5 +1,8 @@
-<div class="product-show">
+<div class="product-show {{product.attributes.status}}">
   <div class="item item-white item-body">
+    <div class="sold-mark">
+      <span class="sold-mark-text">v</span>
+    </div>
     <picture-slide 
       pictures="product.relationships.product_pictures">
     </picture-slide>
@@ -7,8 +10,8 @@
     <h2 ng-bind-html="product.attributes.title | linkify"></h2>
     <p ng-bind-html="product.attributes.description | linkify"></p>
     -->
-    <div class="product-details-row row">
-      <div class="col col-33">
+    <div class="product-details-row">
+      <div class="product-detail-action-buttons">
         <div class="tabs-no-border item item-white tabs tabs-secundary tabs-icon-left">
           <span
             class="tab-item"
@@ -29,29 +32,35 @@
           </a>
         </div>
       </div>
-      <div class="product-price col col-67">
+      <div class="product-price">
         <div class="original-price">
           <span class="price">
-            {{ ::product.attributes.original_price | currency : product.attributes.currency  }}
-          </span>
-          <span class="divisor">
-            /
-          </span>
+            {{ product.attributes.original_price | currency : product.attributes.currency  }}
+          </span>            
+          /
         </div>
         <div class="retiqueta-price">
-          {{ ::product.attributes.price | currency : products.attributes.currency }}
+          {{ product.attributes.price | currency : products.attributes.currency }}
         </div>
       </div>
     </div>
     <div>
       <div ng-if="isCurrentUser()" class="pt1"></div>
       <a
-        ng-if="!isCurrentUser()"
-        class="button button-block button-assertive"
+        ng-if="canBuy()"
+        class="button button-block button-assertive button-buy"
         ui-sref="users.productDetails.checkout({ productID: product.id})">
-        {{ product.price | currency : 'Bs' }}
         {{ 'BUY_NOW' | translate }}
       </a>
+      <a 
+        href="#"
+        ng-if="cantBuy()"
+        class="button button-block button-buy button-stable">
+        {{ 'SOLD_PRODUCT' | translate }}
+      </a>
+    </div>
+    <div class="pt1 pb1 product-description">
+      <span ng-bind-html="product.attributes.description | linkify"></span>
     </div>
   </div>
 </div>

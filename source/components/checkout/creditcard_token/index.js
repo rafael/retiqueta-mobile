@@ -50,7 +50,7 @@ export default function CreditCardTokenFactory (ngComponent) {
     }
   }
 
-  function creditCardToken (MercadopagoFactory) {
+  function creditCardToken (MercadopagoFactory, Utils) {
     return {
       restrict: 'E',
       templateUrl: 'checkout/creditcard_token/template.html',
@@ -64,7 +64,7 @@ export default function CreditCardTokenFactory (ngComponent) {
       },
       link: {
         pre (scope) {
-          scope.creditcard = creditCardObj
+          scope.creditcard = Object.assign({}, creditCardObj)
         },
         post (scope, element, attrs) {
           let formElement = document.querySelector('form[name="creditcardinfo"]')
@@ -77,7 +77,10 @@ export default function CreditCardTokenFactory (ngComponent) {
           scope.identificationTypes = MercadopagoFactory.resolveIdentificationTypes()
 
           if (scope.formController) {
-            Object.assign(scope.formController, { submit: createToken })
+            Object.assign(scope.formController, { 
+              submit: createToken,
+              clearForm: clearForm
+            })
           }
 
           Object.observe(scope.creditcard, (changes) => {
@@ -91,10 +94,14 @@ export default function CreditCardTokenFactory (ngComponent) {
 
           function changeCredictCard () {
             if (scope.creditcard.cardNumber.length >= 10) {
-              MercadopagoFactory.guessPaymentMethod(scope.creditcard.cardNumber)
+              return MercadopagoFactory.guessPaymentMethod(scope.creditcard.cardNumber)
               .then(onGuess)
               .catch(errorOnGuess)
             }
+          }
+
+          function clearForm () {
+            Object.assign(scope.creditcard, creditCardObj)
           }
 
           function hasError (field) {
@@ -102,15 +109,14 @@ export default function CreditCardTokenFactory (ngComponent) {
           }
 
           function createToken (form) {
-            scope.onSubmitHandler()
-            MercadopagoFactory.resolveToken(formElement)
+            return MercadopagoFactory.resolveToken(formElement)
             .then(onCreateToken)
             .catch(errorOnCreateToken)
           }
 
           function onGuess (response) {
             //console.info("Success on guess")
-            scope.creditcard.methodID = response.response[0].id
+            return scope.creditcard.methodID = response.response[0].id
           }
 
           function errorOnGuess (response) {
@@ -124,9 +130,10 @@ export default function CreditCardTokenFactory (ngComponent) {
           }
 
           function errorOnCreateToken (response) {
-            //console.info('Error on create token')
+            Utils.logger.info('Error on Token creation')
+            Utils.logger.log(response.response)
+            Utils.swalError(response.response)
             scope.errors = helpersFunctions.extractErrors(response.response.cause)
-            //console.log(scope.errors)
           }
         }
       }

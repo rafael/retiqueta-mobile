@@ -57,6 +57,9 @@ submit-button[label="Submit"] {
 }
 
 .auth {
+	.submit-button.disabled, .submit-button:disabled {
+		margin-top: 2.5em;
+	}
 	position: relative;
 	.tabs-not-absolute.has-big-header {
 		.tabs {
@@ -82,6 +85,9 @@ submit-button[label="Submit"] {
 				width: 50%;
 				border-left: 1px solid darken($assertive, 10);
 				overflow: visible;
+				font-size: 1em;
+				padding-top: 0.4em;
+				padding-bottom: 0.4em;
 			}
 			.tab-item:nth-child(3) {
 				border-left: 0px solid $assertive;
@@ -175,6 +181,7 @@ submit-button[label="Submit"] {
 			margin-top: 0;
 			width: 100%;
 			border-radius: 0;
+			font-size: 1.4em;
 			padding-top: 1em;
 			padding-bottom: 1em;
 			text-transform: uppercase;
@@ -200,4 +207,3 @@ submit-button[label="Submit"] {
 		}
 	}
 }
-

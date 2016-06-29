@@ -1,7 +1,7 @@
 export default function AuthFactory (ngComponent) {
   ngComponent.service('Auth', AuthFactory)
 
-  function AuthFactory ($rootScope, ENV, User, $q, $http) {
+  function AuthFactory ($rootScope, ENV, User, $q, $http, Utils) {
     if (ENV.isDevelopment()) {
       window.Auth = this
     }
@@ -17,7 +17,19 @@ export default function AuthFactory (ngComponent) {
       this.user = {}
     })
 
+    $rootScope.$on('session:refresh', (token) => {
+      this.refreshToken(token)
+    })
+
     // Login user
+    //
+    this.updateCurrentUser = () => {
+      return User.get(this.getToken().user_id)
+      .then((result) => {
+        Object.assign(this.user, result)
+      })
+    }
+
     this.login = (user) => {
       var deferred = $q.defer()
       $http({
@@ -45,17 +57,11 @@ export default function AuthFactory (ngComponent) {
 
     this.refreshToken = (token = {}) => {
       let deferred = $q.defer()
-      if(!token.hasOwnProperty('refresh_token') && ENV.auth.hasOwnProperty('token')) {
-        token = ENV.auth.token
-      }
-      if(ENV.isDevelopment()) {
-        console.log('Iniciando refresh_token process')
-        console.log(window.localStorage)
-        console.log('Este es el refresh_token')
-        console.log(token)
-        console.log('Este es el numero de veces que a intentando')
-        console.log(this.updateTokenIntent)
-      }
+      Utils.logger.log('Iniciando refresh_token process')
+      Utils.logger.log(window.localStorage)
+      Utils.logger.log('Este es el refresh_token')
+      Utils.logger.log(token)
+
       if (this.updateTokenIntent <= 1 && token.hasOwnProperty('refresh_token')) {
         this.updateTokenIntent += 1
         $http({
@@ -67,19 +73,15 @@ export default function AuthFactory (ngComponent) {
           }
         })
         .then(result => {
-          if(ENV.isDevelopment()) {
-            console.log("resultado del refresh token")
-            console.log(result)
-          }
+          Utils.logger.log("resultado del refresh token")
+          Utils.logger.log(result)
           this.updateToken(Object.assign({}, token, result.data))
           this.updateTokenIntent = 0
           deferred.resolve(result)
         })
         .catch(e => {
-          if(ENV.isDevelopment()) {
-            console.log("Error al envio de refreshToken")
-            console.log(e)
-          }
+          Utils.logger.log("Error al envio de refreshToken")
+          Utils.logger.log(e)
           this.logout()
           deferred.reject(e)
         })
@@ -92,13 +94,11 @@ export default function AuthFactory (ngComponent) {
     // Login token
     this.loginToken = (token) => {
       this.updateToken(token)
-      ENV.auth.token = token
       $rootScope.$broadcast('session:start')
     }
 
     // Logout user
     this.logout = () => {
-      ENV.auth = {}
       window.localStorage.clear()
       $rootScope.$broadcast('session:finish')
     }
@@ -189,9 +189,10 @@ export default function AuthFactory (ngComponent) {
     }
 
     this.updateToken = (newtoken) => {
+      Utils.logger.info('Updating token with')
+      Utils.logger.log(newtoken)
       var oldtoken = this.getToken()
       newtoken = Object.assign({}, oldtoken, newtoken)
-      ENV.auth.token = newtoken
       return window.localStorage.setItem('token', JSON.stringify(newtoken))
     }
 

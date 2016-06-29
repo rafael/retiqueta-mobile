@@ -1,57 +1,61 @@
-<ion-view view-title="{{ 'BUY_NOW' | translate }}">
-	<ion-content padding="false">
-		<header class="order-detail-header row">
-			<img 
-			class="thumbnail col col-25" 
-			src="{{ ::ctrl.product.relationships.product_pictures[0].attributes.small_url}}" 
-			alt="">
-			<section class="content col col-75">
-				<h6 class="price text-assertive">
-					{{ ctrl.product.attributes.price | currency : ctrl.product.attributes.currency }}
-				</h6>
-				<div class="items-description">
-					<p>
-						{{ ::ctrl.product.attributes.description }}
-					</p>
-				</div>
-			</section>
-		</header>
-		<div class="pl1 pr1">
-			<div class="scan-cardio">
-				<button
-					cardio-reader
-					class="button button-block button-balanced"
-					handler="ctrl.cardioReader">
-					{{ 'SCAN_CARD' | translate }}
-				</button>
-			</div>
-			<credit-card-token
-				creditcard="ctrl.creditcard"
-				on-submit-handler="ctrl.submitCreditForm"
-				on-token-handler="ctrl.PayOrder"
-				hide-submit="true"
-				form-controller="ctrl.creditcardCtrl"
-				saving-order="ctrl.savingOrder">
-			</credit-card-token>
-			<div class="form-basic form-with-labels">
-				<form
-					id="address-form"
-					form-for="ctrl.order"
-					controller="ctrl.formController"
-					validation-rules="ctrl.validationRules"
-					submit-with="ctrl.submitOrder()">
-					<text-field attribute="address"
-						label="{{ 'ORDER_ADDRESS' | translate }}"
-						placeholder="{{ ctrl.validationRules.address.placeholder}}"
-						type="text">
-					</text-field>
-				</form>
-				<button ng-click="ctrl.submitOrder()"
-					class="button button-block button-assertive"
-					ng-disabled="savingOrder">
-					{{ 'ORDER_PAY' | translate }}
-				</button>
-			</div>
-		</div>
-	</ion-content>
+<ion-view view-title="{{ 'BUY_NOW' | translate }}" cache-view="false">
+  <ion-content padding="false">
+    <header class="order-detail-header row">
+      <div class="col col-25">
+        <img 
+          class="thumbnail" 
+          src="{{ ::ctrl.product.relationships.product_pictures[0].attributes.small_url}}" 
+          alt="">
+      </div>
+      <section class="content col col-75">
+        <h6 class="price text-assertive">
+          {{ ctrl.product.attributes.price | currency : ctrl.product.attributes.currency }}
+        </h6>
+        <div class="items-description">
+          <p>
+            {{ ::ctrl.product.attributes.description }}
+          </p>
+        </div>
+      </section>
+    </header>
+    <div class="pl1 pr1">
+      <div class="scan-cardio">
+        <button
+          cardio-reader
+          class="button button-block button-balanced"
+          handler="ctrl.cardioReader">
+          {{ 'SCAN_CARD' | translate }}
+        </button>
+      </div>
+      <credit-card-token
+        creditcard="ctrl.creditcard"
+        on-submit-handler="ctrl.submitCreditForm"
+        on-token-handler="ctrl.PayOrder"
+        hide-submit="true"
+        form-controller="ctrl.creditcardCtrl"
+        saving-order="ctrl.savingOrder">
+      </credit-card-token>
+      <div class="form-basic form-with-labels">
+        <form
+          id="address-form"
+          form-for="ctrl.order"
+          controller="ctrl.formController"
+          validation-rules="ctrl.validationRules"
+          submit-with="ctrl.submitOrder()">
+          <!--
+          <text-field attribute="address"
+            label="{{ 'ORDER_ADDRESS' | translate }}"
+            placeholder="{{ ctrl.validationRules.address.placeholder}}"
+            type="text">
+          </text-field>
+          -->
+        </form>
+        <button ng-click="ctrl.submitOrder()"
+          class="button button-block button-assertive"
+          ng-disabled="savingOrder">
+          {{ 'ORDER_PAY' | translate }}
+        </button>
+      </div>
+    </div>
+  </ion-content>
 </ion-view>

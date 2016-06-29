@@ -13,7 +13,11 @@
 	}
 }
 
+
 .home-bg {
+	.bar-footer {
+		height: 65px;
+	}
 	.tabs {
 		display: table;
 		width: 100%;
@@ -24,6 +28,10 @@
 			float: none;
 			width: 50%;
 			border-left: 1px solid darken($assertive, 10);
+			font-size: 1em;
+			text-transform: uppercase;
+			padding-top: 0.6em;
+			padding-bottom: 0.6em;
 		}
 		.tab-item:nth-child(3) {
 			border-left: 0px solid $assertive;
@@ -34,7 +42,7 @@
 
 .has-bar-footer {
 	.tabs {
-		margin-bottom: 44px;
+		margin-bottom: 65px;
 	}
 }
 /*

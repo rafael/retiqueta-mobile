@@ -10,6 +10,7 @@ export default function(ngComponent) {
       require('./product/create')(ENV, $http, $q),
       require('./product/get')(ENV, $http, $q),
       require('./product/update')(ENV, $http, $q),
+      require('./product/delete')(ENV, $http, $q),
       require('./product/all')(ENV, $http, $q),
       require('./product/search')(ENV, $http, $q),
       require('./product/upload_picture')(ENV, $http, $q)

@@ -1,13 +1,40 @@
-<p ng-show="profilePicture.user.attributes.profile_pic">
-  <img style="max-width: 100%" src="{{profilePicture.user.attributes.profile_pic}}" alt="">
+<p ng-if="ctrl.hasPicture()">
+  <img 
+  ng-click="ctrl.toggleSelectSource()"
+  style="max-width: 100%; border-radius: 100%" 
+  src="{{ctrl.user.attributes.profile_pic}}" alt="">
 </p>
-<p ng-hide="profilePicture.loadingPicture">
-  <picture-input
-    upload-text="'UPLOAD_PICTURE' | translate"
-    take-text="'TAKE_PICTURE' | translate"
-    on-change="profilePicture.updatePicture">
-</p>
-<p ng-show="profilePicture.loadingPicture">
-  <span class="button button-block button-positive">{{ 'UPLOADING_PICTURE' | translate }}</span>
+<p ng-if="!ctrl.hasPicture()">
+  <img 
+  ng-click="ctrl.toggleSelectSource()"
+  style="max-width: 100%; border-radius: 100%" 
+  src="images/add_photo.png" alt="">
 </p>
 
+<div ng-if="ctrl.selectSource" class="modal ng-cloak">
+  <section class="modal-content">
+    <section
+      ng-click="ctrl.toggleSelectSource()"
+      class="modal-body">
+      <div class="actions">
+        <button
+          ng-hide="ctrl.loadingPicture"
+          ng-click="ctrl.takePic()"
+          class="button icon-left ion-ios-camera-outline">
+          {{ 'TAKE_PICTURE' | translate }}
+        </button>
+        <button
+          ng-hide="ctrl.loadingPicture"
+          ng-click="ctrl.selectFromGallery()"
+          class="button icon-left ion-image">
+          {{ 'UPLOAD_PICTURE' | translate }}
+        </button>
+        <button
+          ng-show="ctrl.loadingPicture"
+          class="button icon-left ion-ios-reverse-camera-outline">
+          {{ 'UPLOADING_PICTURE' | translate }}
+        </button>
+      </div>
+    </section>
+  </section>
+</div>

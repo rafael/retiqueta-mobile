@@ -20,21 +20,28 @@ require('./dashboard/index')(components)
 // Auth controllers
 require('./auth/login')(components)
 require('./auth/signup')(components)
-require('./auth/update_token')(components)
+// require('./auth/update_token')(components)
 require('./auth/logout')(components)
 require('./auth/facebook_login')(components)
 
 // User
-require('./wardrobe')(components)
-require('./profile/edit')(components)
-require('./profile/profile_picture')(components)
+require('./user')(components)
 require('./user/profile_header')(components)
 require('./user/profile_resume')(components)
 require('./user/follow_button')(components)
+require('./user/avatar')(components)
+
+// User wardrobe and settings
+require('./wardrobe')(components)
 require('./fellowship')(components)
 require('./settings')(components)
 require('./favorites')(components)
 require('./faq')(components)
+
+// Profile edit
+require('./profile/edit')(components)
+require('./profile/profile_picture')(components)
+
 
 // Sales
 require('./sales')(components)
@@ -85,6 +92,8 @@ require('./utils/text_field')(components)
 require('./utils/auto_next_input_when_full')(components)
 require('./utils/picture_slide')(components)
 require('./utils/no_orders')(components)
+require('./utils/actions_modal')(components)
+require('./utils/auto_height_scroll')(components)
 
 // component example
 // export default function(ngComponent) {

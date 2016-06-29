@@ -1,9 +1,10 @@
 export default function fellowshipCtrlFactory (ngComponent) {
   ngComponent.controller('fellowshipCtrl', fellowshipCtrl)
 
-  function fellowshipCtrl (geter, user, Utils) {
+  function fellowshipCtrl (geter, user, Utils, viewTitle) {
     const _ = this
     _.fellowship = []
+    _.viewTitle = viewTitle
 
     function loadFellowship () {
       geter(user.id)

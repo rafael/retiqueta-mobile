@@ -86,14 +86,15 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     }
   })
-  .state('update-token', {
-    url: '/update-token',
-    controller: 'updateTokenCtrl'
-  })
+  // .state('update-token', {
+  //   url: '/update-token/:token/:userID',
+  //   controller: 'updateTokenCtrl'
+  // })
   .state('users', {
     abstract: true,
     url: '/users',
     templateUrl: 'user/index.html',
+    controller: 'UserTabsCtrl as ctrl',
     data: {
       permissions: {
         only: ['client'],
@@ -146,6 +147,22 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         controller: 'profileEditCtrl as profile'
       }
     },
+    resolve: {
+      identificationTypes: function (MercadopagoFactory, $q) {
+        let defered = $q.defer()
+        MercadopagoFactory.getIdentificationTypes((status, result) => {
+          if (status === 200) {
+            let options = result.map((value) => {
+              return { value: value.id, label: value.name } 
+            })
+            defered.resolve(options)
+          } else {
+            defered.reject(result)
+          }
+        })
+        return defered.promise
+      } 
+    }
   })
   .state('users.favorites', {
     url: '/favorites',
@@ -166,7 +183,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     },
   })
   .state('users.ordersChat', {
-    url: '/orders/{id}',
+    url: '/orders/{id}?type',
     views: {
       'order-detail-tab': {
         templateUrl: 'orders/chat/template.html',
@@ -238,6 +255,9 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       },
       geter: function (User) {
         return User.getFollowers
+      },
+      viewTitle: function () {
+        return 'USER_FRIENDSHIP_FOLLOWERS'
       }
     }
   })
@@ -255,6 +275,9 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       },
       geter: function (User) {
         return User.getFollowing
+      },
+      viewTitle: function () {
+        return 'USER_FRIENDSHIP_FOLLOWING'
       }
     }
   })
@@ -273,13 +296,6 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       'productDetail-tab': {
         templateUrl: 'products/details/index.html',
         controller: 'productDetail as detail',
-      }
-    },
-    resolve: {
-      ProductData: function (Product, $stateParams) {
-        return Product.get($stateParams.productID,  {
-          include: 'user,product_pictures'
-        })
       }
     }
   })

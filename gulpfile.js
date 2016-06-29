@@ -72,7 +72,7 @@ tasks = {
     return gulp.src(source_paths.sass)
       .pipe(globbing({extensions: ['.scss']}))
       .pipe(sass.sync().on('error', sass.logError))
-      .pipe(autoprefixer({ browsers: ['> 1%','iOS 7'], flexbox: true }))
+      .pipe(autoprefixer({ browsers: ['> 0%','iOS 7', 'Android >= 4'], flexbox: true }))
       .pipe(minifyCss({compatibility: 'ie8'}))
       // .pipe(rename(tasks.assetProdName('css')))
       .pipe(gulp.dest(source_paths.prod_css));
@@ -81,7 +81,7 @@ tasks = {
     return gulp.src(source_paths.sass)
       .pipe(globbing({extensions: ['.scss']}))
       .pipe(sass.sync().on('error', sass.logError))
-      .pipe(autoprefixer({ browsers: ['> 1%','iOS 7'], flexbox: true }))
+      .pipe(autoprefixer({ browsers: ['> 0%','iOS 7', 'Android >= 4'], flexbox: true }))
       .pipe(gulp.dest(source_paths.dev_css));
   },
   injectHtml: function(dest, injected_files) {
@@ -230,7 +230,7 @@ gulp.task('build:watch', ['build'], function() {
 gulp.task('serve', ['build:watch'],function() {
   return gulp.src('www')
   .pipe(webserver({
-    host: '192.168.1.178',
+    host: '0.0.0.0',
     open: true,
     livereload: true
   }));

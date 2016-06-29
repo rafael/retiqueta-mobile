@@ -5,6 +5,16 @@
 	.comments {
 		margin-left: -1em;
 		margin-right: -1em;
+		.scroll-view {
+			height: calc(100vh - 250px);
+		}
+	}
+
+	.comments-list {
+		display: flex;
+		flex-direction: column-reverse;
+		.item {
+		}
 	}
 }
 

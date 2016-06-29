@@ -1,4 +1,21 @@
 <ion-view view-title="{{ 'FAQ' | translate }}">
-  <ion-content padding="true">
+  <ion-content padding="false" class="faq-controller">
+    <ion-list>
+      <div ng-repeat="group in ctrl.faqs">
+        <ion-item class="item-stable"
+          ng-click="ctrl.toggleGroup(group)"
+          ng-class="{active: ctrl.isGroupShown(group)}">
+          <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
+          &nbsp;
+          {{group.name}}
+        </ion-item>
+        <ion-item class="item-accordion"
+          ng-show="ctrl.isGroupShown(group)">
+          <p ng-repeat="item in group.items">
+            {{item}}
+          </p>
+        </ion-item>
+      </div>
+    </ion-list>
   </ion-content>
 </ion-view>

@@ -1,18 +1,18 @@
 export default function productCheckoutFactory (ngComponent) {
   ngComponent.controller('productCheckout', productCheckout)
 
-  function productCheckout ($scope, ProductData, Order, Utils, $state) {
+  function productCheckout ($scope, Product, Order, Utils, $state, $stateParams) {
     var _ = this
     var form
     _.savingOrder = false
-    _.product = ProductData
+    _.product = {}
     _.order = {}
     _.formController = {}
     _.creditcard = {}
     _.creditcardCtrl = {}
     _.validationRules = {
       address: {
-        required: true,
+        required: false,
         placeholder: 'Put your address here'
       }
     }
@@ -23,6 +23,16 @@ export default function productCheckoutFactory (ngComponent) {
 
     function submitOrder () {
       _.creditcardCtrl.submit()
+    }
+
+    function LoadProduct () {
+      Product.get($stateParams.productID,  {
+        include: 'user,product_pictures'
+      })
+      .then((product) => {
+        _.product = product
+      })
+      .catch(Utils.swalError)
     }
 
     function cardioReader (responsePromise) {
@@ -63,7 +73,7 @@ export default function productCheckoutFactory (ngComponent) {
     }
 
     function successOnSaveOrder (result) {
-      _.credit_card = {}
+      _.creditcardCtrl.clearForm()
       _.order = {}
       $state.go('users.ordersChat', { id: result.id })
     }
@@ -79,9 +89,14 @@ export default function productCheckoutFactory (ngComponent) {
     }
 
     function getForm() {
+      LoadProduct()
       form = document.getElementById("address-form")
     }
 
+    $scope.$on("$ionicView.enter", function(event, data){
+      _.creditcardCtrl.clearForm()
+    })
+    
     getForm()
   }
 }

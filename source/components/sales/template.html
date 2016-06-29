@@ -17,7 +17,8 @@
 			</h4>
 		</div>
 		<div class="pb4">
-			<order-resume
+      <order-resume
+        type="sell"
 				detail-message="{{ 'SELL_DETAIL' | translate }}"
 				ng-repeat="sell in ctrl.sales track by sell.id"
 				order="sell.relationships.order">

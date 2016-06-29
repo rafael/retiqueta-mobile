@@ -1,0 +1,53 @@
+.edit-profile  {
+	section {
+		padding-bottom: 2em;
+	}
+	.user_basic_data {
+		margin-top: -1.5em;
+	}
+	.profile-header {
+		margin-bottom: -1em;
+	}
+	&.form-basic.form-with-labels {
+		.form-for-field {
+			margin: 0.5em 0;
+			&.with-icon-before {
+				.icon {
+					font-size: 1.7em;
+					bottom: 20px;
+					color: darken($stable, 15%);
+					&.ion-clipboard {
+						bottom: auto;
+						top: 5px;
+					}
+				}
+			}
+		}
+		submit-button {
+			display: block;
+		}
+		.submit-button {
+			background-color: $balanced;
+			display: block;
+			text-align: center;
+			width: 100%;
+			padding-top: 0.4em;
+			padding-bottom: 0.4em;
+			text-transform: uppercase;
+			font-weight: bold;
+		}
+	}
+	.modal {
+		left: 0;
+		padding-right: 0;
+	}
+	.separator-title {
+		margin: 1.5em 0;
+		text-align: center;
+		color: darken($dark, 50%);
+		font-weight: normal;
+		padding-bottom: 0.5em;
+		border-bottom: 1px solid $stable;
+		text-transform: uppercase;
+	}
+}

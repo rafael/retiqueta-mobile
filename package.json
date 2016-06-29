@@ -6,6 +6,7 @@
   "scripts": {
     "serve": "NODE_ENV=development gulp serve",
     "watch": "NODE_ENV=development gulp build:watch",
+    "watch:prod": "NODE_ENV=production gulp build:watch",
     "build": "NODE_ENV=development gulp build",
     "release": "rm -rf www && NODE_ENV=production gulp dist",
     "config_ionic_dev": "ionic io init && ionic config build && ionic config set dev_push true && ionic config set gcm_key 700715737155",
@@ -42,6 +43,7 @@
     "gulp-ng-html2js": "^0.2.0",
     "gulp-protractor": "^1.0.0",
     "gulp-rename": "^1.2.2",
+    "gulp-run": "^1.6.12",
     "gulp-sass": "^2.0.4",
     "gulp-standard": "^5.2.2",
     "gulp-streamify": "^1.0.2",
@@ -66,8 +68,7 @@
     "sweetalert": "^1.1.0",
     "uglifyify": "^3.0.1",
     "vinyl-source-stream": "^1.1.0",
-    "webkit-assign": "^1.4.0",
-    "gulp-run": "^1.6.12"
+    "webkit-assign": "^1.4.0"
   },
   "cordovaPlugins": [
     "cordova-plugin-device",
@@ -76,12 +77,12 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
-    "cordova-plugin-camera@2.1.0",
+    "cordova-plugin-camera",
     "cordova-plugin-dialogs",
     {
       "variables": {
-        "APP_ID": "830345867092501",
-        "APP_NAME": "RetiquetaDummyApp"
+        "APP_ID": "218604841833703",
+        "APP_NAME": "Retiqueta"
       },
       "locator": "https://github.com/Telerik-Verified-Plugins/Facebook.git",
       "id": "cordova-plugin-facebook"
@@ -96,7 +97,9 @@
       },
       "locator": "phonegap-plugin-push@1.4.5",
       "id": "phonegap-plugin-push"
-    }
+    },
+    "cordova-plugin-geolocation",
+    "cordova-custom-config"
   ],
   "cordovaPlatforms": [
     {
@@ -106,8 +109,8 @@
     },
     {
       "platform": "ios",
-      "version": "3.9.2",
-      "locator": "ios@3.9.2"
+      "version": "4.2.0",
+      "locator": "ios@4.2.0"
     }
   ]
 }

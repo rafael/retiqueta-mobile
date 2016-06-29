@@ -3,6 +3,7 @@ require('babelify/polyfill')
 require('object.observe')
 require('array.observe')
 require('promise.prototype.finally')
+require('../vendors/ngCordova/dist/ng-cordova.min.js')
 
 import configurations from './conf'
 import components from './components'
@@ -11,6 +12,7 @@ import partials from './partials'
 import locales from './locales'
 
 const app = angular.module('App', [
+  'ngCordova',
   'App.components',
   'App.partialsPrecompile',
   'App.services',
@@ -23,10 +25,7 @@ const app = angular.module('App', [
   'ionic.service.push'
 ])
 
-app.run((ENV, MercadopagoFactory) => {
-  if(ENV.isDevelopment()) {
-    window.ENV = ENV
-  }
+app.run((MercadopagoFactory) => {
   MercadopagoFactory.resolveIdentificationTypes()
 })
 

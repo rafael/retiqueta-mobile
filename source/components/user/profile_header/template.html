@@ -25,10 +25,10 @@
 		<section class="profile-description">
 			<div class="profile-picture row">
 				<div class="col ranking">
-					<stars-rating count="3.5"></stars-rating>
+          <!-- <stars-rating count="3.5"></stars-rating> -->
 				</div>
-				<div class="col picture">
-					<img src="{{ user.attributes.profile_pic }}">
+        <div class="col picture">
+          <user-avatar src="user.attributes.profile_pic"></user-avatar>
 				</div>
 				<div class="col follow_button">
 					<div ng-hide="isOwner">
@@ -38,8 +38,11 @@
 			</div>
 			<div class="profile-about">
 				<h2 class="profile-name">
-					{{ user.attributes.first_name }}
-					{{ user.attributes.last_name }}
+          <span class="text-assertive">
+            {{ user.attributes.username }}
+          </span> 
+          -
+          {{ user.attributes.first_name }}
 				</h2>
 				<p class="profile-about">
 					{{ user.attributes.bio }}

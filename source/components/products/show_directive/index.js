@@ -8,19 +8,41 @@ export default function ProductDirective (ngComponent) {
       scope: {
         product: '=',
         commentToggleFunc: '&',
-        currentUser: '=',
+        currentUser: '='
       },
-      link (scope, element, attrs) {
-        if (attrs.singlePic) {
-          scope.product.relationships.product_pictures = scope.product.relationships.product_pictures.slice(0, 1)
-        }
-        scope.detail = attrs.detail || false
-        scope.isCurrentUser = () => {
-          return scope.product.relationships.user.id === scope.currentUser.id
-        }
-        scope.toggleComment = () => {
-          scope.commentToggleFunc.call()
-        }
+      link: productTagLink     
+    }
+
+    function productTagLink (scope, element, attrs) {
+      if (attrs.singlePic) {
+        scope.product.relationships.product_pictures = scope.product.relationships.product_pictures.slice(0, 1)
+      }
+      scope.detail = attrs.detail || false
+      scope.isCurrentUser = isCurrentUser
+      scope.toggleComment = toggleComment
+      scope.canBuy = canBuy
+      scope.cantBuy = cantBuy
+
+      // scope.product.attributes.status = "sold"
+
+      function canBuy () {
+        return !isSold() && !isCurrentUser()
+      }
+
+      function cantBuy () {
+        return isSold()  
+      }
+
+      function isSold () {
+        return scope.product.attributes.status === "sold"
+      }
+        
+      function isCurrentUser () {
+        return scope.product.relationships.user.id === scope.currentUser.id
+      }
+        
+      function toggleComment () {
+        scope.commentToggleFunc.call()
       }
     }
   }

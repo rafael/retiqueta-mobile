@@ -9,9 +9,9 @@ export default function loginCtrlFactory (ngComponent) {
   ngComponent.controller('loginCtrl', loginCtrl)
 
   function loginCtrl ($scope, $state, FormForConfiguration, Auth, Utils, $translate, $q) {
-    var _ = this
-
     FormForConfiguration.disableAutoLabels()
+    let _ = this
+    let notFirstValidation = false
     _.user = {}
     _.errors = baseErrorsObject
     _.sendingInfo = false
@@ -38,7 +38,15 @@ export default function loginCtrlFactory (ngComponent) {
       }
     }
 
-    _.submit = (user) => {
+    _.submit = submit
+    _.validateRequired = () => {
+      notFirstValidation = true
+      $scope.$evalAsync(() => {
+        _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
+      })
+    }
+
+    function submit (user) {
       _.sendingInfo = true
       user.username = user.username.toLowerCase()
       Auth.login(user)
@@ -49,7 +57,7 @@ export default function loginCtrlFactory (ngComponent) {
       .catch(error => {
         _.errors = extractErrorByField(error, user, Object.keys(_.errors))
         $scope.$evalAsync(() => {
-          _.formController.validateForm().then(afterValidateForm).catch(afterValidateForm)
+          _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
         })
       })
       .finally(() => {
@@ -58,14 +66,37 @@ export default function loginCtrlFactory (ngComponent) {
     }
 
     function afterValidateForm (errors, values) {
-      _.hasErrors = Object.keys(errors[1]).length > 0 
+      _.hasErrors = formHasErrors(errors[1]) || (validateRequired() && notFirstValidation)
+      notFirstValidation = true
     }
-    /*
+
+    function formHasErrors (errors) {
+      if (Object.keys(errors).length > 0) {
+        return Object.keys(errors)
+                .reduce((acc, value) => { typeof errors[value] === 'undefined' })
+      } else {
+        return false
+      }
+    }
+
+    function validateRequired () {
+      return isNotThere(_.user, 'username') ||
+             isNotThere(_.user, 'password')
+    }
+
+    function isNotThere (obj, key) {
+      return !obj.hasOwnProperty(key) ||
+             obj[key] === null ||
+             typeof obj[key] === 'undefined' ||
+             obj[key] === ''
+    }
+
     $scope.$watchCollection(function() {
       return _.user
     }, function (value) {
-      _.formController.validateForm().then(afterValidateForm).catch(afterValidateForm)
+      $scope.$evalAsync(() => {
+        _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
+      })
     })
-    */
   }
 }

@@ -9,9 +9,11 @@ export default function ResumeProductDirective (ngComponent) {
       scope: {
         product: '=',
       },
-      link (scope, element, attrs) {
-        scope.product.relationships.product_pictures = scope.product.relationships.product_pictures.slice(0, 1)[0]
-      }
+      link: ResumenProductTagLink     
+    }
+    function ResumenProductTagLink (scope, element, attrs) {
+      scope.product.relationships.product_pictures = scope.product.relationships.product_pictures.slice(0, 1)[0]
+      // scope.product.attributes.status = "sold"
     }
   }
 }

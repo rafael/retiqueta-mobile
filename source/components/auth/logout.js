@@ -1,12 +1,10 @@
 export default function logoutCtrlFactory (ngComponent) {
   ngComponent.controller('logoutCtrl', logoutCtrl)
 
-  function logoutCtrl ($state, Auth) {
+  function logoutCtrl ($state, Auth, $ionicHistory) {
     Auth.logout()
-    function init() {
-      window.location.replace('/#')
-      window.location.reload()
-    }
-    init()
+    $ionicHistory.clearHistory()
+    $ionicHistory.clearCache()
+    $state.go('home', { reload: true })
   }
 }

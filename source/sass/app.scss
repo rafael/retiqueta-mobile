@@ -28,12 +28,10 @@ a {
 	opacity: 1;
 	.icon.ion-retiqueta {
 		color: $assertive;
+		font-size: 4em;
 		position: relative;
-		top: 0.0em;
 	}
 	.icon.ion-ios-pricetags-outline {
-		position: relative;
-		top: 0.08em;
 	}
 	&.tabs-item-active {
 		.icon.ion-retiqueta {
@@ -46,6 +44,18 @@ a {
 .text-balanced { color: $balanced; }
 .text-dark { color: $dark; }
 .text-assertive { color: $assertive }
+
+.align-center { text-align: center }
+.align-right { text-align: right }
+.align-left { text-align: left }
+
+.text-uppercase {
+	text-transform: uppercase;
+}
+
+.text-bold {
+	font-weight: bold;
+}
 
 .item.item-white {
 	background-color: white;

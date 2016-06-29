@@ -93,6 +93,7 @@ angular.module("ngLocale", [], ["$provide", function($provide) {
       "CURRENCY_SYM": "Bs",
       "DECIMAL_SEP": ",",
       "GROUP_SEP": ".",
+      "DEFAULT_PRECISION": 0,
       "PATTERNS": [
         {
           "gSize": 3,
