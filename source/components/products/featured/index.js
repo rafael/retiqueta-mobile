@@ -9,7 +9,7 @@ export default function FeaturedDirective (ngComponent) {
         render: '=',
         products: '=',
       },
-      link: featuredProductsLink    
+      link: featuredProductsLink
     }
 
     function featuredProductsLink (scope, element, attrs) {
@@ -24,7 +24,8 @@ export default function FeaturedDirective (ngComponent) {
       }
 
       function loadMore () {
-        $ionicAnalytics.track('Load more featured products', {
+        $ionicAnalytics.track('fetch start', {
+          action: 'Load more featured products',
           page
         })
         if (moreDataCanBeLoaded()) {

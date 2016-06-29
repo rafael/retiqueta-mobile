@@ -23,7 +23,8 @@ export default function likeThisFactory (ngComponent) {
         toggleClass(!scope.product.meta.liked_by_current_user)
         addToLikeCount()
 
-        $ionicAnalytics.track('Like product', {
+        $ionicAnalytics.track('fetch start', {
+          action: 'like product',
           'product_id': productId,
           'likes_count': scope.product.attributes.likes_count
         })

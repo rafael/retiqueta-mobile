@@ -32,7 +32,6 @@ export default function signupCtrlFactory (ngComponent) {
       })
     }
 
-    $ionicAnalytics.track('User open signup view', {})
 
     function redirectToDashboard () {
       $state.go('users.dashboard')
@@ -42,20 +41,20 @@ export default function signupCtrlFactory (ngComponent) {
       _.sendingInfo = true
       user.email = user.email.toLowerCase()
       user.username = user.username.toLowerCase()
-      $ionicAnalytics.track('User submit Signup', { 
-        email: user.email, 
-        username: user.username 
+      $ionicAnalytics.track('fetch start', { 
+        action: 'user signup'
       })
       User.create(user)
         .then(result => {
-          $ionicAnalytics.track('User sucessfuly Signup', result)
+          $ionicAnalytics.track('fetch success', {
+            action: 'user signup'
+          })
           return Auth.login(user)
         })
         .then(redirectToDashboard)
         .catch(error => {
-          $ionicAnalytics.track('Error on user signup', {
-            email: user.email, 
-            username: user.username ,
+          $ionicAnalytics.track('fetch error', {
+            action: 'user signup',
             error
           })
           _.errors = extractErrorByField(error.data, user, Object.keys(_.errors))
@@ -100,6 +99,12 @@ export default function signupCtrlFactory (ngComponent) {
     }, function (value) {
       $scope.$evalAsync(() => {
         _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
+      })
+    })
+
+    $scope.$on('$ionicView.enter', () => {
+      $ionicAnalytics.track('Load', {
+        action: 'user signup'
       })
     })
   }

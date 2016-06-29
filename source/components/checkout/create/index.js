@@ -1,7 +1,7 @@
 export default function productCheckoutFactory (ngComponent) {
   ngComponent.controller('productCheckout', productCheckout)
 
-  function productCheckout ($scope, Product, Order, Utils, $state, $stateParams) {
+  function productCheckout ($ionicAnalytics, $scope, Product, Order, Utils, $state, $stateParams) {
     var _ = this
     var form
     _.savingOrder = false
@@ -26,19 +26,34 @@ export default function productCheckoutFactory (ngComponent) {
     }
 
     function LoadProduct () {
+      $ionicAnalytics.track('fetch start', {
+        action: 'checkout products'
+      })
       Product.get($stateParams.productID,  {
         include: 'user,product_pictures'
       })
       .then((product) => {
+        $ionicAnalytics.track('fetch success', {
+          action: 'checkout products'
+        })
         _.product = product
       })
-      .catch(Utils.swalError)
+      .catch((e) => {
+        $ionicAnalytics.track('fetch error', {
+          action: 'checkout products',
+          error: e
+        })
+        Utils.swalError(e)
+      })
     }
 
     function cardioReader (responsePromise) {
       _.savingOrder = true
       responsePromise
       .then((response) => {
+        $ionicAnalytics.track('fetch success', {
+          action: 'scan credit card'
+        })
         Object.assign(_.creditcard, {
           cardNumber: response.card_number,
           cardExpirationMonth: response.expiry_month,
@@ -46,7 +61,13 @@ export default function productCheckoutFactory (ngComponent) {
           securityCode: response.cvv
         })
       })
-      .catch(Utils.swalError)
+      .catch((error) => {
+        $ionicAnalytics.track('fetch error', {
+          action: 'scan credit card',
+          error
+        })
+        Utils.swalError(error)
+      })
       .finally(() => {
         _.savingOrder = false
       })
@@ -73,12 +94,23 @@ export default function productCheckoutFactory (ngComponent) {
     }
 
     function successOnSaveOrder (result) {
+      $ionicAnalytics.track('fetch success', {
+        action: 'checkout',
+        id: $stateParams.productID,
+        'order_id': result.id
+      })
       _.creditcardCtrl.clearForm()
       _.order = {}
       $state.go('users.ordersChat', { id: result.id })
     }
 
     function errorOnSaveOrder (error) {
+      $ionicAnalytics.track('fetch error', {
+        action: 'checkout',
+        id: $stateParams.productID,
+        errors: error     
+      })
+
       Utils.swalError(error)
     }
 
@@ -93,10 +125,14 @@ export default function productCheckoutFactory (ngComponent) {
       form = document.getElementById("address-form")
     }
 
-    $scope.$on("$ionicView.enter", function(event, data){
+    $scope.$on("$ionicView.enter", function(event, data) {
+      $ionicAnalytics.track('Load', {
+        action: 'checkout',
+        id: $stateParams.productID
+      })
       _.creditcardCtrl.clearForm()
     })
-    
+
     getForm()
   }
 }

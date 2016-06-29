@@ -46,27 +46,23 @@ export default function loginCtrlFactory (ngComponent) {
       })
     }
 
-    $ionicAnalytics.track('User load login view', {})
-
     function submit (user) {
       _.sendingInfo = true
       user.username = user.username.toLowerCase()
-      $ionicAnalytics.track('User try to login', {
-        email: user.email
+      $ionicAnalytics.track('fetch start', {
+        action: 'user login'
       })
       Auth.login(user)
       .then(token => {
         // Utils.swalSuccess($translate.instant('WELCOME_MESSAGE'))
-        $ionicAnalytics.track('User sucessfuly login', {
-          user: {
-            id: token.user_id 
-          }
+        $ionicAnalytics.track('fetch success', {
+          action: 'user login'
         })
         $state.go('users.dashboard')
       })
       .catch(error => {
-        $ionicAnalytics.track('Error on login', {
-          email: user.email,
+        $ionicAnalytics.track('fetch error', {
+          action: 'user login',
           error
         })
         _.errors = extractErrorByField(error, user, Object.keys(_.errors))
@@ -110,6 +106,13 @@ export default function loginCtrlFactory (ngComponent) {
     }, function (value) {
       $scope.$evalAsync(() => {
         _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
+      })
+    })
+
+
+    $scope.$on('$ionicView.enter', () => {
+      $ionicAnalytics.track('Load', {
+        action: 'user login'
       })
     })
   }

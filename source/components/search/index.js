@@ -29,10 +29,22 @@ export default function searchFactory (ngComponent) {
     }
 
     function prePopulate () {
-      $ionicAnalytics.track('prePopulate search view with featured')
+      $ionicAnalytics.track('fetch start', {
+        action: 'load featured on search'
+      })
       return Product.getFeatured({include: 'product_pictures'})
-      .then(setProducts)
-      .catch(Utils.swalError)
+      .then((result) => {
+        $ionicAnalytics.track('fetch success', {
+          action: 'load featured on search'  
+        })
+        setProducts(result)
+      })
+      .catch((error) => {
+        $ionicAnalytics.track('fetch error', {
+          action: 'load featured on search'  
+        })
+        Utils.swalError(error)
+      })
     }
 
     function loadMore (nextpage) {
@@ -52,7 +64,8 @@ export default function searchFactory (ngComponent) {
     }
 
     function populateWithProduct (page, add = false) {
-      $ionicAnalytics.track('Search for', {
+      $ionicAnalytics.track('fetch start', {
+        action: 'searching',
         page: page,
         text: _.text
       })
@@ -62,9 +75,21 @@ export default function searchFactory (ngComponent) {
         'page[size]': 15,
         include: 'user,product_pictures'
       }).then((result) => { 
+        $ionicAnalytics.track('fetch success', {
+          action: 'searching',
+          page: page,
+          text: _.text
+        })
         return setProducts(result, add) 
       })
-      .catch(Utils.swalError)
+      .catch((error) => {
+        $ionicAnalytics.track('fetch error', {
+          action: 'searching',
+          page: page,
+          text: _.text
+        })
+        Utils.swalError(error)
+      })
       .finally(() => {
         _.loading = false
         console.log('Search complete')
@@ -90,6 +115,9 @@ export default function searchFactory (ngComponent) {
     })
 
     $scope.$on("$ionicView.enter", () => {
+      $ionicAnalytics.track('Load', {
+        action: 'search view'
+      })
       LoadProduct() 
     })
 

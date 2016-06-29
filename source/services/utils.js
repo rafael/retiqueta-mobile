@@ -78,7 +78,6 @@ export default function UtilsFactory (ngComponent) {
     }
 
     this.confirm = (title, message, confirmCallback, buttonOptions = YesNoActionsText) => {
-      console.log(title, message, confirmCallback, buttonOptions)
       $rootScope.$evalAsync(() => {
         navigator.notification.confirm(message, confirmCallback, title, buttonOptions)
       })

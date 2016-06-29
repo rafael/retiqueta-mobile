@@ -3,12 +3,16 @@ import { Rules as FormRules, baseErrorsObject } from './product_form_fields'
 export default function ProductSelectionFactory (ngComponent) {
   ngComponent.controller('SelectCategoryCtrl', SelectCategoryCtrl)
 
-  function SelectCategoryCtrl ($state, ProductStore, ENV, $scope) {
+  function SelectCategoryCtrl ($state, ProductStore, ENV, $scope, $ionicAnalytics) {
     var _ = this
     _.product = ProductStore.get()
     _.validationRules = FormRules
     _.onChangeValueCallBack = (category) => {
       ProductStore.set(Object.assign(_.product, {category: category}))
+      $ionicAnalytics.track('Tap', {
+        action: 'User select category',
+        category
+      })
       $state.go('productsNew', {}, { location: 'replace', reload: true })
     }
 
