@@ -23,7 +23,7 @@ const ENV = {
     return DEBUG_MODE
   },
   mercadopago_keys: {
-    public: 'TEST-f4c0a8de-a40c-46c2-90f9-202e66994dd3'
+    public: 'APP_USR-024493bc-8221-4da7-8ff8-4fb1d96cf520'
   },
   auth: {}
 }
