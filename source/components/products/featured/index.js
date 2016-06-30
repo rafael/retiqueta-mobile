@@ -13,6 +13,7 @@ export default function FeaturedDirective (ngComponent) {
     }
 
     function featuredProductsLink (scope, element, attrs) {
+      const PAGE_SIZE = 16
       let canLoadMore = true
       let page = 1
       scope.hasPicture = hasPicture
@@ -20,7 +21,7 @@ export default function FeaturedDirective (ngComponent) {
       scope.moreDataCanBeLoaded = moreDataCanBeLoaded
 
       function moreDataCanBeLoaded () {
-        return canLoadMore
+        return canLoadMore && (scope.products.length === 0 || scope.products.length >= PAGE_SIZE )
       }
 
       function loadMore () {
@@ -42,10 +43,10 @@ export default function FeaturedDirective (ngComponent) {
       }
 
       function loadFeatured (page) {
-        Product.getFeatured({
+        Product.getTimeline({
           include: 'product_pictures, likes',
           'page[number]': page,
-          'page[size]': 16,
+          'page[size]': PAGE_SIZE,
         })
         .then(result => {
           if (page === 1 && result.length > 1) {
