@@ -3,7 +3,7 @@ const numberOfPhotosPerProduct = 4
 export default function productPictureDirectiveFactory (ngComponent) {
   ngComponent.directive('productPicture', productPicture)
 
-  function productPicture (Product, PictureStore, CameraService, $ionicScrollDelegate, Utils) {
+  function productPicture (Product, PictureStore, CameraService, $ionicScrollDelegate, Utils, $ionicAnalytics) {
     return {
       templateUrl: 'products/create/product_picture.html',
       restrict: 'E',
@@ -45,6 +45,9 @@ export default function productPictureDirectiveFactory (ngComponent) {
         }
 
         _.uploadPic = () => {
+          $ionicAnalytics.track('Tap', {
+            action: 'upload picture for product'
+          })
           CameraService.take({
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY
           })
@@ -54,6 +57,9 @@ export default function productPictureDirectiveFactory (ngComponent) {
         }
 
         _.takePic = () => {
+          $ionicAnalytics.track('Tap', {
+            action: 'Take picture for product'
+          })
           CameraService.take()
           .then(result => {
             _.updatePicture('data:image/jpeg;base64,' + result)

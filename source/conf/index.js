@@ -1,7 +1,10 @@
 import routes from './routes'
 import constans from './constants'
 
-angular.module('App.configurations', ['ionic'])
+angular.module('App.configurations', [
+  'ionic',
+  'ionic.service.analytics',
+])
 
 const confs = angular.module('App.configurations')
 

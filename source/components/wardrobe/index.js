@@ -1,7 +1,7 @@
 export default function wardrobeIndexFactory (ngComponent) {
   ngComponent.controller('wardrobeCtrl', wardrobeCtrl)
 
-  function wardrobeCtrl (user, currentUser, Product, User, $scope, $ionicHistory) {
+  function wardrobeCtrl (user, currentUser, Product, User, $scope, $ionicHistory, $ionicAnalytics) {
     var _ = this
     _.user = user
     _.isOwner = (user.id === currentUser.id)
@@ -32,12 +32,18 @@ export default function wardrobeIndexFactory (ngComponent) {
     }
 
     function doRefresh (page = 0, add = false) {
+      $ionicAnalytics.track('fetch start', {
+        action: 'wardrobe products'
+      })
       return Product.getByUser(user.id, {
         // 'page[size]': 15,
         // 'page[number]': page,
         include: 'product_pictures'
       })
       .then(result => {
+        $ionicAnalytics.track('fetch success', {
+          action: 'wardrobe products'
+        })
         return setProducts(result, add)
       })
       .finally(() => {
@@ -61,6 +67,9 @@ export default function wardrobeIndexFactory (ngComponent) {
     }
 
     $scope.$on("$ionicView.enter", function(event, data) {
+      $ionicAnalytics.track('Load', {
+        action: 'wardrobe view'
+      })
       LoadUser()
       ClearHistoryIfOwner()
     })

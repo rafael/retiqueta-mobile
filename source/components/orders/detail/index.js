@@ -9,7 +9,7 @@ const includes = [
 export default function orderCtrlFactory (ngComponent) {
   ngComponent.controller('orderCtrl', orderCtrl)
 
-  function orderCtrl (Order, Utils, $stateParams, $ionicHistory) {
+  function orderCtrl (Order, Utils, $stateParams, $ionicHistory, $scope, $ionicAnalytics) {
     var _ = this
     _.order = {}
     _.firstProduct = {}
@@ -42,6 +42,13 @@ export default function orderCtrlFactory (ngComponent) {
         return {}
       }
     } 
-    getorder()
+
+    $scope.$on('$ionicView.enter', () => {
+      $ionicAnalytics.track('Load', {
+        action: 'order detail',
+        id: $stateParams.id
+      })
+      getorder()
+    })
   }
 }

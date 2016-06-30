@@ -11,9 +11,9 @@ const defaultAttibutes = {
 export default function profileEditFactory (ngComponent) {
   ngComponent.controller('profileEditCtrl', profileEditCtrl)
 
-  function profileEditCtrl (identificationTypes, currentUser, User, FormForConfiguration, Utils, $translate, Auth, $state, $ionicHistory) {
+  function profileEditCtrl ($ionicAnalytics, identificationTypes, currentUser, User, FormForConfiguration, Utils, $translate, Auth, $state, $ionicHistory) {
     FormForConfiguration.disableAutoLabels()
-    
+
     var _ = this
     _.user = currentUser
     _.sendingInfo = false
@@ -26,8 +26,17 @@ export default function profileEditFactory (ngComponent) {
         attrs.bank_account.owner_name = _.user.attributes.first_name
       }
       _.sendingInfo = true
+
+      $ionicAnalytics.track('fetch start', {
+        action: 'edit profile'
+      })
       User.update(_.user.id, attrs)
       .then(result => {
+
+        $ionicAnalytics.track('fetch success', {
+          action: 'edit profile'
+        })
+
         // Utils.swalSuccess($translate.instant('UPDATE_PROFILE_SUCCESS'))
         Auth.user.attributes = Object.assign({}, attrs)
         return $ionicHistory.clearCache()
@@ -36,6 +45,10 @@ export default function profileEditFactory (ngComponent) {
         $state.go('users.me', {}, { reload: true, inherit: false, notify: true })
       })
       .catch(error => {
+        $ionicAnalytics.track('fetch error', {
+          action: 'edit profile',
+          error
+        })
         Utils.swalError(error)
       })
       .finally(() => {

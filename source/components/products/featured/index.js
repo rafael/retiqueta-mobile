@@ -1,7 +1,7 @@
 export default function FeaturedDirective (ngComponent) {
   ngComponent.directive('featuredProducts', featuredProducts)
 
-  function featuredProducts (Product, Utils, $q) {
+  function featuredProducts (Product, Utils, $q, $ionicAnalytics) {
     return {
       templateUrl: 'products/featured/template.html',
       restrict: 'E',
@@ -9,7 +9,7 @@ export default function FeaturedDirective (ngComponent) {
         render: '=',
         products: '=',
       },
-      link: featuredProductsLink    
+      link: featuredProductsLink
     }
 
     function featuredProductsLink (scope, element, attrs) {
@@ -24,6 +24,10 @@ export default function FeaturedDirective (ngComponent) {
       }
 
       function loadMore () {
+        $ionicAnalytics.track('fetch start', {
+          action: 'Load more featured products',
+          page
+        })
         if (moreDataCanBeLoaded()) {
           page = page + 1
           loadFeatured(page)

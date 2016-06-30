@@ -1,7 +1,7 @@
 export default function ordersCtrlFactory (ngComponent) {
   ngComponent.controller('ordersCtrl', ordersCtrl)
 
-  function ordersCtrl (Order, Utils) {
+  function ordersCtrl (Order, Utils, $scope, $ionicAnalytics) {
     var _ = this
     _.loading = false
     _.orders = []
@@ -19,6 +19,12 @@ export default function ordersCtrlFactory (ngComponent) {
         _.loading = false
       })
     }
-    getOrders()
+
+    $scope.$on('$ionicView.enter', () => {
+      $ionicAnalytics.track('Load', {
+        action: 'orders list'
+      })
+      getOrders()
+    })
   }
 }
