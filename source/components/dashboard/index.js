@@ -1,11 +1,11 @@
 export default function DashboardFactory (ngComponent) {
   ngComponent.controller('dashboardCtrl', dashCtrl)
 
-  function dashCtrl (Product, Utils, $scope, $ionicAnalytics) {
+  function dashCtrl (Product, Utils, $scope, $ionicAnalytics, $rootScope) {
     var _ = this
     _.products = []
     _.render = true
-
+    
     function refreshFeatured() {
       _.render = false
       _.render = true
@@ -17,5 +17,7 @@ export default function DashboardFactory (ngComponent) {
       })
       refreshFeatured()
     })
+
+    $rootScope.$broadcast('loading:show')
   }
 }

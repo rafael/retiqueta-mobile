@@ -8,18 +8,21 @@ export default function ProductsDirectiveFactory (ngComponent) {
       scope: {
         products: '=',
         paginationFunc: '=',
-        page: '='
+        page: '=',
+        pageSize: '=?',
+        canLoadMore: '=?'
       },
       link: productsTagLink
     }
 
     function productsTagLink (scope, element, attrs) {
-      let canLoadMore = true
+      scope.canLoadMore = true
       scope.loadMore = loadMore
       scope.moreDataCanBeLoaded = moreDataCanBeLoaded
+      scope.pageSize = (typeof scope.pageSize === 'undefined') ? 15 : scope.pageSize
 
       function moreDataCanBeLoaded () {
-        return canLoadMore
+        return scope.canLoadMore && (scope.products.length === 0 || scope.products.length >= scope.pageSize )
       }
 
       function loadMore () {
@@ -27,12 +30,12 @@ export default function ProductsDirectiveFactory (ngComponent) {
           scope.page = scope.page + 1
           return scope.paginationFunc(scope.page)
           .then((newProducts) => {
-            if (newProducts.length < 1) {
-              canLoadMore = false
+            if (typeof newProducts !== 'undefined' && newProducts.length < 1) {
+              scope.canLoadMore = false
             }
           })
           .catch(() => {   
-            canLoadMore = false
+            scope.canLoadMore = false
           })
           .finally(() => {
             scope.$broadcast('scroll.infiniteScrollComplete')
@@ -42,6 +45,8 @@ export default function ProductsDirectiveFactory (ngComponent) {
           return $q.reject()
         }
       }
+
+
     }
   }
 }

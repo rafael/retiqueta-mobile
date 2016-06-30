@@ -3,11 +3,13 @@ export default function searchFactory (ngComponent) {
 
   function SearchProductCtrl (Product, $stateParams, Utils, $q, $scope, $ionicAnalytics) {
     var _ = this
+    var lastSearch = ''
     _.text = ''
     _.products = []
     _.noResult = false
     _.loading = false
-    _.page = 0
+    _.page = 1
+    _.canLoadMore = true
 
     // Search function
     _.search = searchProducts
@@ -28,16 +30,19 @@ export default function searchFactory (ngComponent) {
       prePopulate()
     }
 
-    function prePopulate () {
+    function prePopulate (page = 1, add = false) {
       $ionicAnalytics.track('fetch start', {
         action: 'load featured on search'
       })
-      return Product.getFeatured({include: 'product_pictures'})
-      .then((result) => {
+      return Product.getFeatured({
+        include: 'product_pictures',
+        'page[number]': page,
+        'page[size]': 15,
+      }).then((result) => {
         $ionicAnalytics.track('fetch success', {
           action: 'load featured on search'  
         })
-        setProducts(result)
+        return setProducts(result, add)
       })
       .catch((error) => {
         $ionicAnalytics.track('fetch error', {
@@ -51,11 +56,11 @@ export default function searchFactory (ngComponent) {
       if (_.text !== '') {
         return populateWithProduct(nextpage, true)
       } else {
-        return Promise.resolve()
+        return prePopulate(nextpage, true)
       }
     }
 
-    function searchProducts (page = 0) {
+    function searchProducts (page = 1) {
       if (_.text === '') { return }
       _.noResult = false
       _.loading = true
@@ -64,6 +69,12 @@ export default function searchFactory (ngComponent) {
     }
 
     function populateWithProduct (page, add = false) {
+      if (lastSearch !== _.text) {
+        Utils.logger.info('Diferent search, reset page and canLoadMore')
+        _.canLoadMore = true
+        _.page = 1
+        page = 1
+      }
       $ionicAnalytics.track('fetch start', {
         action: 'searching',
         page: page,
@@ -75,6 +86,7 @@ export default function searchFactory (ngComponent) {
         'page[size]': 15,
         include: 'user,product_pictures'
       }).then((result) => { 
+        lastSearch = angular.copy(_.text)
         $ionicAnalytics.track('fetch success', {
           action: 'searching',
           page: page,
@@ -109,8 +121,10 @@ export default function searchFactory (ngComponent) {
     Object.observe(_, (changes) => {
       changes.forEach((change) => {
         if (change.name === 'text' && _.text === '') {
+          _.page = 1
+          _.canLoadMore = true
           prePopulate()
-        }
+        } 
       })
     })
 
