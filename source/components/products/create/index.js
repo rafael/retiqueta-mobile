@@ -1,8 +1,6 @@
 import { Rules as FormRules, baseErrorsObject } from './product_form_fields'
 import { extractErrorByField, validationFactory } from '../../../libs/merge_validations'
 
-const comitionRate = 0
-
 export default function ProductCreateFactory (ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
 
@@ -13,7 +11,14 @@ export default function ProductCreateFactory (ngComponent) {
     let lastGeolocationResult = ''
     let action = () => {}
     let picturesHasChanged = false
-
+    var comitionRate = 0
+    try {
+      let storeFee =  currentUser.attributes.store_fee 
+      comitionRate = (typeof storeFee !== 'undefined' && storeFee !== null) ? storeFee : 0
+    } catch(e) {
+      comitionRate = 0
+    }
+    
     _.currentUser = currentUser
     _.pictureStore = PictureStore
     _.product = ProductStore.get()
