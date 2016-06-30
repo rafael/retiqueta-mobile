@@ -45,7 +45,8 @@ export default function CommentListDirectiveFactory (ngComponent) {
           return
         }
 
-        return CommentStore.getBy(parentType, parentId).then(result => {
+        return CommentStore.getBy(parentType, parentId)
+        .then(result => {
           scope.comments = result
         })
         .catch((e) => {

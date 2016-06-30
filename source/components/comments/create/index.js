@@ -26,7 +26,6 @@ export default function CommentCreateDirectiveFactory (ngComponent) {
           action: 'create comment',
           type: scope.parentType,
           id: scope.parentId,
-          message: scope.comment
         })
         CommentStore.create(scope.parentId, { text: scope.comment }, scope.parentType)
         .then(result => {
@@ -34,7 +33,6 @@ export default function CommentCreateDirectiveFactory (ngComponent) {
             action: 'create comment',
             type: scope.parentType,
             id: scope.parentId,
-            message: scope.comment
           })
           CommentStore.emit('new', scope.parentType, scope.parentId, result)
         })
@@ -43,7 +41,6 @@ export default function CommentCreateDirectiveFactory (ngComponent) {
             action: 'create comment',
             type: scope.parentType,
             id: scope.parentId,
-            message: scope.comment,
             error: error
           })
           Utils.swalError(error)

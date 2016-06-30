@@ -44,9 +44,8 @@ export default function UtilsFactory (ngComponent) {
 
     this.cleanErrors = (error) => {
       if (typeof error === 'undefined' || error === null) { return 'Error in the server' }
-      this.logger.log(error)
       let errorMessage = ''
-
+      
       if (error.hasOwnProperty('data') && error.data !== null && error.data.hasOwnProperty('detail')) {
         errorMessage = JSON.stringify(error.data.detail) || ''
       } else if (error.hasOwnProperty('data') && error.data !== null) {
@@ -61,6 +60,10 @@ export default function UtilsFactory (ngComponent) {
     }
 
     this.swalError = (error) => {
+      this.logger.log(error)
+      if (error.hasOwnProperty('status') && error.status === 500) {
+        return
+      }
       this.alert('Oops...', this.cleanErrors(error), 'error')
     }
 

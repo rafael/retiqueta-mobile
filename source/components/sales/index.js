@@ -10,7 +10,7 @@ const includes = [
 export default function salesCtrlFactory (ngComponent) {
   ngComponent.controller('salesCtrl', salesCtrl)
 
-  function salesCtrl (Sell, Utils) {
+  function salesCtrl (Sell, Utils, $scope, $ionicAnalytics) {
     var _ = this
     _.loading = false
     _.sales = []
@@ -29,6 +29,11 @@ export default function salesCtrlFactory (ngComponent) {
       })
     }
 
-    getSales()
+    $scope.$on('$ionicView.enter', () => {
+      $ionicAnalytics.track('Load', {
+        action: 'sales list'
+      })
+      getSales()
+    })
   }
 }

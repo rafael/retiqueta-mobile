@@ -6,7 +6,7 @@ const comitionRate = 0
 export default function ProductCreateFactory (ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
 
-  function productCreateCtrl ($ionicAnalytics, GeoService, $ionicHistory, $ionicPlatform, $q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate, currentUser) {
+  function productCreateCtrl ($ionicAnalytics, GeoService, $ionicHistory, $ionicPlatform, $q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate, currentUser, $rootScope) {
     FormForConfiguration.enableAutoLabels()
     var _ = this
     let picturesIds = PictureStore.ids()
@@ -53,6 +53,9 @@ export default function ProductCreateFactory (ngComponent) {
       })
       _.sendingInfo = true
       product.pictures = _.pictureStore.ids()
+
+      $rootScope.$broadcast('loading:show')
+      
       Product.create(product)
       .then(result => {
         $ionicAnalytics.track('fetch success', {

@@ -1,7 +1,7 @@
 export default function fellowshipCtrlFactory (ngComponent) {
   ngComponent.controller('fellowshipCtrl', fellowshipCtrl)
 
-  function fellowshipCtrl (geter, user, Utils, viewTitle) {
+  function fellowshipCtrl (geter, user, Utils, viewTitle, $scope, $ionicAnalytics) {
     const _ = this
     _.fellowship = []
     _.viewTitle = viewTitle
@@ -13,7 +13,12 @@ export default function fellowshipCtrlFactory (ngComponent) {
       })
       .catch(Utils.swalError)
     }
-
-    loadFellowship()
+  
+    $scope.$on("$ionicView.enter", function(event, data) {
+      $ionicAnalytics.track('Load', {
+        action: 'viewTitle'
+      })
+      loadFellowship()
+    })
   }
 }
