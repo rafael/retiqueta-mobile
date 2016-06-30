@@ -7,7 +7,7 @@ export default function (ngComponent) {
     $ionicPlatform.ready(function() {
       AppPush.init()
 
-      if (ENV.isProduction() || true) {
+      if (ENV.isProduction()) {
         $ionicAnalytics.register()
       }
 
