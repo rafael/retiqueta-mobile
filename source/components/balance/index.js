@@ -25,8 +25,8 @@ export default function balanceCtrlFactory (ngComponent) {
         $ionicAnalytics.track('fetch success', {
           action: 'requestPayout'
         })
-        $state.go($state.current, {}, { reload: true, inherit: false, notify: true })
-      })
+        reloadBalance()
+     })
       .catch((e) => {
         $ionicAnalytics.track('fetch error', {
           action: 'requestPayout',
@@ -35,6 +35,11 @@ export default function balanceCtrlFactory (ngComponent) {
         Utils.swalError(e)
       })
       .finally(() => { _.isBusy = false })
+    }
+
+    function reloadBalance () {
+      _.user.attributes.available_balance = 0
+      getPayouts()
     }
 
     function classByStatus (payoutStatus) {

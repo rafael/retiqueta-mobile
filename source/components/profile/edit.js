@@ -25,6 +25,9 @@ export default function profileEditFactory (ngComponent) {
       if (attrs.bank_account !== null) {
         attrs.bank_account.owner_name = _.user.attributes.first_name
       }
+      
+      attrs.username = attrs.username.trim()
+
       _.sendingInfo = true
 
       $ionicAnalytics.track('fetch start', {
