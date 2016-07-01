@@ -23,7 +23,8 @@ export default function (ngComponent) {
 
   function configIonic ($ionicConfigProvider, $ionicAutoTrackProvider) {
     // $ionicAutoTrackProvider.disableTracking('Tap')
-    $ionicAutoTrackProvider.disableTracking()
+    $ionicAutoTrackProvider.disableTracking('Load')
+    $ionicAutoTrackProvider.disableTracking('Tap')
     $ionicConfigProvider.views.forwardCache(true)
     $ionicConfigProvider.tabs.style('standard')
     $ionicConfigProvider.tabs.position('bottom')

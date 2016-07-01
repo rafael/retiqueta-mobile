@@ -108,7 +108,7 @@ export default function productCheckoutFactory (ngComponent) {
       $ionicAnalytics.track('fetch error', {
         action: 'checkout',
         id: $stateParams.productID,
-        errors: error     
+        error: error     
       })
 
       Utils.swalError(error)
