@@ -20,6 +20,8 @@ export default function searchFactory (ngComponent) {
       if ($stateParams.hasOwnProperty('word') && typeof $stateParams.word !== 'undefined' && $stateParams.word !== '') {
         _.text = $stateParams.word
         searchProducts()
+      } else if (_.text !== '') {
+        searchProducts()
       } else {
         prePopulate()
       }
