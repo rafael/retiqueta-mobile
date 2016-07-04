@@ -1,7 +1,7 @@
 export default function productCheckoutFactory (ngComponent) {
   ngComponent.controller('productCheckout', productCheckout)
 
-  function productCheckout ($ionicAnalytics, $scope, Product, Order, Utils, $state, $stateParams) {
+  function productCheckout ($ionicAnalytics, $scope, $rootScope, Product, Order, Utils, $state, $stateParams) {
     var _ = this
     var form
     _.savingOrder = false
@@ -29,6 +29,7 @@ export default function productCheckoutFactory (ngComponent) {
       $ionicAnalytics.track('fetch start', {
         action: 'checkout products'
       })
+
       Product.get($stateParams.productID,  {
         include: 'user,product_pictures'
       })
@@ -110,7 +111,7 @@ export default function productCheckoutFactory (ngComponent) {
         id: $stateParams.productID,
         error: error     
       })
-
+      Mercadopago.tokenId = null
       Utils.swalError(error)
     }
 

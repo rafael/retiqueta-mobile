@@ -46,9 +46,10 @@ function guessPaymentMethodFactory ($q) {
 
 function createTokenFactory ($q) {
   return function resolveToken (form) {
+    Mercadopago.tokenId = null
     var defered = $q.defer()
     Mercadopago.createToken(form, (status, response) => {
-      if (status === 200) {
+      if (status >= 200 && status < 300) {
         defered.resolve({status, response})
       } else {
         defered.reject({status, response})

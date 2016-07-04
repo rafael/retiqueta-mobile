@@ -65,7 +65,7 @@ export default function loginCtrlFactory (ngComponent) {
           action: 'user login',
           error
         })
-        _.errors = extractErrorByField(error, user, Object.keys(_.errors))
+        _.errors = extractErrorByField(error, user, Object.keys(_.errors), ['usuario', 'contraseña'])
         $scope.$evalAsync(() => {
           _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
         })
