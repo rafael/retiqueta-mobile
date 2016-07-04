@@ -135,6 +135,7 @@ export default function CreditCardTokenFactory (ngComponent) {
           }
 
           function errorOnCreateToken (response) {
+            $rootScope.$broadcast('loading:hide')
             Utils.logger.info('Error on Token creation')
             Utils.logger.log(response)
             Utils.swalError(response.response)

@@ -1,7 +1,7 @@
 export default function productCheckoutFactory (ngComponent) {
   ngComponent.controller('productCheckout', productCheckout)
 
-  function productCheckout ($ionicAnalytics, $scope, $rootScope, Product, Order, Utils, $state, $stateParams) {
+  function productCheckout ($ionicAnalytics, $scope, Product, Order, Utils, $state, $stateParams) {
     var _ = this
     var form
     _.savingOrder = false
