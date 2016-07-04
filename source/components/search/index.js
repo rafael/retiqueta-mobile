@@ -1,7 +1,9 @@
+const PAGE_SIZE = 25
+
 export default function searchFactory (ngComponent) {
   ngComponent.controller('SearchProductCtrl', SearchProductCtrl)
 
-  function SearchProductCtrl (Product, $stateParams, Utils, $q, $scope, $ionicAnalytics) {
+  function SearchProductCtrl ($ionicScrollDelegate, Product, $stateParams, Utils, $q, $scope, $ionicAnalytics) {
     var _ = this
     var lastSearch = ''
     _.text = ''
@@ -10,6 +12,7 @@ export default function searchFactory (ngComponent) {
     _.loading = false
     _.page = 1
     _.canLoadMore = true
+    _.pageSize = PAGE_SIZE
 
     // Search function
     _.search = searchProducts
@@ -39,7 +42,7 @@ export default function searchFactory (ngComponent) {
       return Product.getFeatured({
         include: 'product_pictures',
         'page[number]': page,
-        'page[size]': 15,
+        'page[size]': PAGE_SIZE,
       }).then((result) => {
         $ionicAnalytics.track('fetch success', {
           action: 'load featured on search'  
@@ -51,6 +54,11 @@ export default function searchFactory (ngComponent) {
           action: 'load featured on search'  
         })
         Utils.swalError(error)
+      })
+      .finally(() => {
+        if (page === 1) {
+          $ionicScrollDelegate.scrollTop()
+        }
       })
     }
 
@@ -85,7 +93,7 @@ export default function searchFactory (ngComponent) {
       return Product.search({
         q: _.text,
         'page[number]': page,
-        'page[size]': 15,
+        'page[size]': PAGE_SIZE,
         include: 'user,product_pictures'
       }).then((result) => { 
         lastSearch = angular.copy(_.text)
@@ -107,6 +115,9 @@ export default function searchFactory (ngComponent) {
       .finally(() => {
         _.loading = false
         console.log('Search complete')
+        if (page === 1) {
+          $ionicScrollDelegate.scrollTop()
+        }
       })
     }
 
