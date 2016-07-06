@@ -1,5 +1,5 @@
 'use strict';
-
+/**
 var jsonapi = require('../../../source/libs/jsonapi')
 var clone = require('clone')
 
@@ -80,4 +80,4 @@ describe('Libs: JSONAPI', function () {
 
 });
 
-
+**/

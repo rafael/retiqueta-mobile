@@ -22,10 +22,12 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      "vendors/ionic/js/ionic.bundle.js",
+      "https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js",
+      "https://maps.googleapis.com/maps/api/js?sensor=true",
+      "www/lib/ionic/js//ionic.bundle.js",
+      "www/lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js",
       "node_modules/angular-mocks/angular-mocks.js",
       "test/spec/**/*.js",
-      "www/**/*.js",
     ],
 
     // list of files / patterns to exclude
