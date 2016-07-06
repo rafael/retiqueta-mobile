@@ -1,8 +1,8 @@
-import geteable from '../../libs/geteable'
+import getableRelation from '../../libs/geteable_relation'
 
 export default function userGetFactory (ENV, $http, $q) {
   return {
-    get: geteable(`${ENV.api.url}/v1/users`, $http, $q)
+    get: getableRelation(`${ENV.api.url}/v1/users`, null, $http, $q)
   }
 }
 

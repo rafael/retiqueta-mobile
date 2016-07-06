@@ -8,6 +8,7 @@
         type="search"
         placeholder="{{ 'SEARCH_INPUT_PLACEHOLDER' | translate }}"
         ng-model='search.text'
+        ng-model-options="{ debounce: 500 }" 
         ng-keypress='search.enterHandler($event)'/>
       </label>
       <button class="button button-clear" type="button" ng-click="search.clear()">
