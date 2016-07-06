@@ -49,6 +49,7 @@
         </text-field> 
         <select-field 
           attribute="bank_account.account_type"
+          placeholder="{{ profile.schema.bank_account.account_type.placeholder | translate }}"
           allow-blank
           label="{{ 'EDIT_PROFILE_ACCOUNT_TYPE' | translate }}"
           options="profile.schema.bank_account.account_type.options">
@@ -58,6 +59,7 @@
             <select-field 
               attribute="bank_account.document_type"
               allow-blank
+              placeholder="{{ profile.schema.bank_account.document_type.placeholder | translate }}"
               label="{{ 'EDIT_PROFILE_DOCUMENT_TYPE' | translate }}"
               options="profile.identificationTypes">
             </select-field>

@@ -18,6 +18,7 @@ export default {
     },
     'document_type': {
       require: false,
+      placeholder: 'SELECT_OPTION',
       options: []
     },
     'document_id': {
@@ -25,6 +26,7 @@ export default {
     },
     'account_type': {
       require: false,
+      placeholder: 'SELECT_OPTION',
       options: [
         { value: 'checking', label: 'Corriente' }, 
         { value: 'savings', label: 'Ahorro' }
