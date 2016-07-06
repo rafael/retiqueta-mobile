@@ -5,12 +5,12 @@ var RouteParser = require('../../../../source/services/notifications/routes')
 describe("Notification routes parser", function() {
   it("notification for comment on products", function() {
     var result = RouteParser({
-      url: "https://api.retiqueta.com/v1/products/0218e428-f500-44a5-86a0-c62aa6a6368d/relationship/comments/0218e428-f500-44a5-86a0-c62aa6a6368d"
+      url: "https://api.retiqueta.com/v1/products/3903c11e-fdc5-4d83-b489-7490c1693620/relationships/comments/c1afc5d5-39d3-4cb9-af9e-a38f658f8da9"
     })
     expect(result).toEqual([
       'users.productDetails', 
       { 
-        productID: '0218e428-f500-44a5-86a0-c62aa6a6368d',
+        productID: '3903c11e-fdc5-4d83-b489-7490c1693620',
         onComment: true
       }
     ]);
