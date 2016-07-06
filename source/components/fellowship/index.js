@@ -1,5 +1,6 @@
 const PAGE_SIZE = 100
 const START_PAGE = 0
+
 export default function fellowshipCtrlFactory (ngComponent) {
   ngComponent.controller('fellowshipCtrl', fellowshipCtrl)
 
@@ -23,7 +24,9 @@ export default function fellowshipCtrlFactory (ngComponent) {
             state.canLoadMore = false
           }  
         })
-        .catch(() => {
+        .catch((e) => {
+          Utils.logger.info('Error loading more fellowship relationship')
+          Utils.logger.log(e)
           state.canLoadMore = false
         })
         .finally(() => {

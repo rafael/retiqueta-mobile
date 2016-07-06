@@ -1,4 +1,4 @@
-const PAGE_SIZE = 25
+const PAGE_SIZE = 30
 
 export default function searchFactory (ngComponent) {
   ngComponent.controller('SearchProductCtrl', SearchProductCtrl)
