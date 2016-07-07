@@ -1,4 +1,6 @@
 var enTranslation = {
+  ADD_COMMENT_FORM: 'Add a comment ...',
+  SELECT_OPTION: 'Select an option',
   YES_NO_CONFIRM: 'Yes, No',
   FORM_MIN_NUMBER_ERROR: 'Must be at least {{num}}',
   FORM_MAX_NUMBER_ERROR: 'Must be no more than {{num}}',
