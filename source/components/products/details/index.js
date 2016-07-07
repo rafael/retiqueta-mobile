@@ -23,7 +23,7 @@ export default function ProductDetailFactory (ngComponent) {
         $translate.instant('PRODUCT_DELETE_MESSAGE'),
         (buttonIndex) => {
           if (buttonIndex == 1) {
-            $ionicAnalytics.track('Tap', {
+            $ionicAnalytics.track('Click', {
               action: 'delete product',
               id: id
             })
@@ -82,7 +82,7 @@ export default function ProductDetailFactory (ngComponent) {
 
     function ToggleCommentForm (forceShow = false) {
       _.showCommentForm = !_.showCommentForm || forceShow
-      $ionicAnalytics.track('Tap', {
+      $ionicAnalytics.track('Click', {
         action: 'toggle comment form on product',
         productId: $stateParams.productID
       })

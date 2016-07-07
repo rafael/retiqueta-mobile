@@ -9,7 +9,7 @@ export default function ProductSelectionFactory (ngComponent) {
     _.validationRules = FormRules
     _.onChangeValueCallBack = (category) => {
       ProductStore.set(Object.assign(_.product, {category: category}))
-      $ionicAnalytics.track('Tap', {
+      $ionicAnalytics.track('Click', {
         action: 'User select category',
         category
       })

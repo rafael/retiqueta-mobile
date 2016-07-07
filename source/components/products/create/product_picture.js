@@ -45,7 +45,7 @@ export default function productPictureDirectiveFactory (ngComponent) {
         }
 
         _.uploadPic = () => {
-          $ionicAnalytics.track('Tap', {
+          $ionicAnalytics.track('Click', {
             action: 'upload picture for product'
           })
           CameraService.take({
@@ -57,7 +57,7 @@ export default function productPictureDirectiveFactory (ngComponent) {
         }
 
         _.takePic = () => {
-          $ionicAnalytics.track('Tap', {
+          $ionicAnalytics.track('Click', {
             action: 'Take picture for product'
           })
           CameraService.take()
