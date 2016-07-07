@@ -3,7 +3,7 @@ const PAGE_SIZE = 30
 export default function searchFactory (ngComponent) {
   ngComponent.controller('SearchProductCtrl', SearchProductCtrl)
 
-  function SearchProductCtrl ($ionicScrollDelegate, Product, $stateParams, Utils, $q, $scope, $ionicAnalytics) {
+  function SearchProductCtrl ($ionicScrollDelegate, Product, $stateParams, Utils, $q, $scope, $rootScope, $ionicAnalytics) {
     var _ = this
     var lastSearch = ''
     _.text = ''
@@ -90,6 +90,9 @@ export default function searchFactory (ngComponent) {
         page: page,
         text: _.text
       })
+      if (page === 1) {
+        $rootScope.$broadcast('loading:show')
+      }
       return Product.search({
         q: _.text,
         'page[number]': page,
@@ -145,8 +148,8 @@ export default function searchFactory (ngComponent) {
       $ionicAnalytics.track('Load', {
         action: 'search view'
       })
-      LoadProduct() 
+      _.canLoadMore = true
     })
-
+    LoadProduct() 
   }
 }
