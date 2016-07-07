@@ -57,7 +57,7 @@ export default function signupCtrlFactory (ngComponent) {
             action: 'user signup',
             error
           })
-          _.errors = extractErrorByField(error.data, user, Object.keys(_.errors))
+          _.errors = extractErrorByField(error.data, user, Object.keys(_.errors), ['usuario', 'correo', 'password'])
           _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
         })
         .finally(() => {
