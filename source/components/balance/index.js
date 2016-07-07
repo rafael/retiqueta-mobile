@@ -13,7 +13,7 @@ export default function balanceCtrlFactory (ngComponent) {
     _.statusToLocale = statusToLocale
 
     function requestPayout () {      
-      $ionicAnalytics.track('Tap', {
+      $ionicAnalytics.track('Click', {
         action: 'requestPayout'
       })
       $ionicAnalytics.track('fetch start', {

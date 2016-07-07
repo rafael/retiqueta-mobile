@@ -45,7 +45,7 @@ export default function ProductCreateFactory (ngComponent) {
     }
 
     function goToSelect () {
-      $ionicAnalytics.track('Tap', {
+      $ionicAnalytics.track('Click', {
         action: 'select product type'
       })
       saveDraft(_.product)
@@ -115,13 +115,13 @@ export default function ProductCreateFactory (ngComponent) {
             $translate.instant('CREATE_PRODUCT_SAVE_DRAFT_MESSAGE_CONTENT'),
             (buttonIndex) => {
               if (buttonIndex == 1) {
-                $ionicAnalytics.track('Tap', {
+                $ionicAnalytics.track('Click', {
                   action: 'save draft on create product',
                   product: _.product
                 })
                 saveDraft(_.product)
               } else if (buttonIndex == 2) {
-                $ionicAnalytics.track('Tap', {
+                $ionicAnalytics.track('Click', {
                   action: 'remove draft on create product',
                   product: _.product
                 })
@@ -151,7 +151,7 @@ export default function ProductCreateFactory (ngComponent) {
     }
 
     function reverseGeolocation () {
-      $ionicAnalytics.track('Tap', {
+      $ionicAnalytics.track('Click', {
         action: 'geolocate product'
       })
       Utils.logger.info('Starting geoLocalization')
