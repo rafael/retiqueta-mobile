@@ -30,7 +30,7 @@ describe("Notification routes parser", function() {
   });
   it("notification for comment on fullfiment", function() {
     var result = RouteParser({
-      url: "https://api.retiqueta.com/v1/fulfillments/3903c11e-fdc5-4d83-b489-7490c1693620/relationships/comments/90",
+      url: "https://api.retiqueta.com/v1/orders/3903c11e-fdc5-4d83-b489-7490c1693620",
       type: "url"
     })
     expect(result).toEqual([
@@ -40,6 +40,19 @@ describe("Notification routes parser", function() {
       }
     ]);
   });
+  it("notification without full url only with path", function() {
+    var result = RouteParser({
+      url: "/v1/orders/3903c11e-fdc5-4d83-b489-7490c1693620",
+      type: "url"
+    })
+    expect(result).toEqual([
+      'users.ordersChat', 
+      { 
+        id: '3903c11e-fdc5-4d83-b489-7490c1693620'      
+      }
+    ]);
+  });
+
   it("notification without an url inside of routes must throw an error", function() {
     var payload = {
       url: "https://api.retiqueta.com/v1/comments/10"
