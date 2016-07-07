@@ -8,7 +8,8 @@
         type="search"
         placeholder="{{ 'SEARCH_INPUT_PLACEHOLDER' | translate }}"
         ng-model='search.text'
-        ng-keypress='search.enterHandle($event)'/>
+        ng-model-options="{ debounce: 500 }" 
+        ng-keypress='search.enterHandler($event)'/>
       </label>
       <button class="button button-clear" type="button" ng-click="search.clear()">
         <i class="icon ion-ios-close-outline"></i>
@@ -26,6 +27,7 @@
         products="search.products"
         pagination-func="search.loadMore"
         page="search.page"
+        page-size="search.pageSize"
         can-load-more="search.canLoadMore"></products-list>
     </div>
   </ion-content>

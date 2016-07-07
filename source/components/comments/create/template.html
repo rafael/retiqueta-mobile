@@ -2,8 +2,11 @@
   <textarea 
     ng-model="comment" 
     autofocus
-    placeholder="Add your comment"></textarea>
-  <button class="button text-assertive" ng-click="save()">
+    placeholder="{{ 'ADD_COMMENT_FORM' | translate }}"></textarea>
+  <button 
+    ng-disabled="loading"
+    class="button text-assertive" 
+    ng-click="save()">
     Enviar
   </button>
 </ion-input>
