@@ -48,8 +48,8 @@
         </div>
       </div>
       <div ng-if="ctrl.order.attributes.payment_info.type === 'credit_card'">
-        <div class="order-resume item row">
-          <div class="col">
+        <div class="order-resume item row" ng-if="ctrl.isBuyer()">
+          <div class="col" >
             <div class="label">
               {{ 'ORDER_PAYMENT_TYPE' | translate }}
             </div>
