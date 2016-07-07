@@ -1,4 +1,5 @@
 var esTranslation = {
+  ACCOUNT_PRIVACY_WARNING: '(Información privada y de uso exclusivo de Retiqueta App Mobile C.A.)',
   ADD_COMMENT_FORM: 'Escribe un comentario',
   SELECT_OPTION: 'Seleccionar',
   YES_NO_CONFIRM: 'Si, No',
