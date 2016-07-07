@@ -15,6 +15,9 @@ export default function extractRouteFromPayload (payload) {
   } else if (parser.match('/v1/orders/:id')) {
     const urlVars = parser.processUrl()
     return ['users.ordersChat', { id: urlVars.id }]
+  } else if (parser.match('/v1/users/:userId')) {
+    const urlVars = parser.processUrl()
+    return ['users.profile', { userID: urlVars.userId }]
   } else {
     throw new NotificationException('The payload don\'t match any url in the aplication')
   }
