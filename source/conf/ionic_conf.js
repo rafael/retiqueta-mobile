@@ -9,6 +9,9 @@ export default function (ngComponent) {
 
       if (ENV.isProduction()) {
         $ionicAnalytics.register()
+        $ionicAnalytics.setGlobalProperties({        
+          platform: $ionicPlatform.device()
+        });
       }
 
       if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
