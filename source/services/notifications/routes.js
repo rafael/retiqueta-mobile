@@ -12,7 +12,7 @@ export default function extractRouteFromPayload (payload) {
   } else if (parser.match('/v1/products/:id')) {
     const urlVars = parser.processUrl()
     return ['users.productDetails', { productID: urlVars.id }]
-  } else if (parser.match('/v1/fulfillments/:id/relationships/comments/:commentID')) {
+  } else if (parser.match('/v1/orders/:id')) {
     const urlVars = parser.processUrl()
     return ['users.ordersChat', { id: urlVars.id }]
   } else {
