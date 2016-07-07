@@ -4,4 +4,3 @@ ionic state reset
 ionic build ios
 ionic package build ios --release --profile production
 ionic package build android --release --profile production 
-#ionic package build ios  --profile iosdev 
