@@ -42,6 +42,7 @@ function getLocation (href) {
 function match (pattern, url) {
   const regexPattern = getPattern(pattern)
   const result = url.match(regexPattern)
+
   return result !== null
 }
 

@@ -6,14 +6,20 @@ export default function onNotification (ENV, Utils, $state, $rootScope, $ionicPl
     Utils.logger.log(notification)
 
     try {
-      const urlVars = routes(notification.payload)
-      if (notification._raw.additionalData.foreground === false) {
-        $state.go(...urlVars)
-      } else {
-        scheduleNotification(notification, urlVars)
+      if (notification.payload.type === 'url') {
+        redirectUrl(notification)
       }
     } catch (e) {
       console.log(e)
+    }
+  }
+
+  function redirectUrl (notification) {
+    const urlVars = routes(notification.payload)
+    if (notification._raw.additionalData.foreground === false) {
+      $state.go(...urlVars)
+    } else {
+      scheduleNotification(notification, urlVars)
     }
   }
 
