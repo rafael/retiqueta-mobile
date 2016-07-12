@@ -4,7 +4,7 @@ const START_PAGE = 1
 export default function wardrobeIndexFactory (ngComponent) {
   ngComponent.controller('wardrobeCtrl', wardrobeCtrl)
 
-  function wardrobeCtrl (user, currentUser, Product, User, $scope, $ionicHistory, $ionicAnalytics) {
+  function wardrobeCtrl ($state, user, currentUser, Product, User, $scope, $ionicHistory, $ionicAnalytics) {
     var _ = this
     _.user = user
     _.isOwner = (user.id === currentUser.id)
@@ -14,6 +14,16 @@ export default function wardrobeIndexFactory (ngComponent) {
     _.canLoadMore = true
     _.doRefresh = doRefresh
     _.loadMore = loadMore
+    _.hasGoBack = hasGoBack
+    _.goBack = goBack
+      
+    function goBack () {
+      return history.back()
+    }
+
+    function hasGoBack () {
+      return (user.id !== currentUser.id)
+    }
 
     function loadMore (nextpage) {
       if (_.canLoadMore) {
