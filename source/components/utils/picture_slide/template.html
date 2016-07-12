@@ -7,19 +7,18 @@
         <img
         on-swipe-left="nextSlide($index)"
         on-swipe-right="previusSlide($index)"
-        src="{{ picture.attributes.url }}" 
+        src="{{ picture.attributes.large_url }}" 
         alt="">
-      </picture>		
+      </picture>
     </div>
   </div>
   <div class="picture-slide-counter">
-    <span 
+    <span
       ng-repeat="picture in pictures track by $index"
-      class="counter" 
+      class="counter"
       ng-click="moveTo($index)"
       ng-class="{ 'active': isThisSlide($index) }">
       <i class="icon ion-record"></i>
     </span>
   </div>
 </div>
-
