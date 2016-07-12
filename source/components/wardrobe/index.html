@@ -1,5 +1,13 @@
 <ion-view name="wardrobeView" cache-view="false">
-	<ion-nav-bar class="bar-assertive">
+  <ion-nav-bar class="bar-assertive">
+    <ion-nav-buttons side="left">
+      <button 
+        class="button back-button buttons button-clear header-item" 
+        ng-if="wardrobe.hasGoBack()"
+        ng-click="wardrobe.goBack()">
+        <i class="icon ion-ios-arrow-back"></i>
+      </button>
+    </ion-nav-buttons>
 		<ion-nav-back-button></ion-nav-back-button>
 		<ion-nav-buttons side="right" >
 			<button
