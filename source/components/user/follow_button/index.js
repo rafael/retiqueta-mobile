@@ -1,7 +1,7 @@
 export default function FollowButtonFactory (ngComponent) {
   ngComponent.directive('followButton', followButton)
 
-  function followButton (User, $translate) {
+  function followButton (User, $translate, $ionicAnalytics) {
     return {
       templateUrl: 'user/follow_button/index.html',
       restrict: 'E',
@@ -17,15 +17,18 @@ export default function FollowButtonFactory (ngComponent) {
       scope.followButtonText = followButtonText
 
       function toggleFollowship (following) {
+        $ionicAnalytics.track('fetch start', {
+          action: followAction(following)
+        })
         scope.followHandler(following)
       }
 
+      function followAction (following) {
+        return (following) ? 'UNFOLLOW':'FOLLOW'
+      }
+
       function followButtonText () {
-        if (scope.following) {
-          return $translate.instant('UNFOLLOW')
-        } else {
-          return $translate.instant('FOLLOW')
-        }
+        return $translate.instant(followAction(scope.following))
       }
     }
   }

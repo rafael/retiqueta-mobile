@@ -9,6 +9,9 @@ export default function (ngComponent) {
 
       if (ENV.isProduction()) {
         $ionicAnalytics.register()
+        $ionicAnalytics.setGlobalProperties({
+          platform: $ionicPlatform.device()
+        });
       }
 
       if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -21,7 +24,10 @@ export default function (ngComponent) {
     })
   }
 
-  function configIonic ($ionicConfigProvider) {
+  function configIonic ($ionicConfigProvider, $ionicAutoTrackProvider) {
+    // $ionicAutoTrackProvider.disableTracking('Click')
+    $ionicAutoTrackProvider.disableTracking('Load')
+    $ionicAutoTrackProvider.disableTracking('Tap')
     $ionicConfigProvider.views.forwardCache(true)
     $ionicConfigProvider.tabs.style('standard')
     $ionicConfigProvider.tabs.position('bottom')

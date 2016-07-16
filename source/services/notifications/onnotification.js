@@ -6,14 +6,32 @@ export default function onNotification (ENV, Utils, $state, $rootScope, $ionicPl
     Utils.logger.log(notification)
 
     try {
-      const urlVars = routes(notification.payload)
-      if (notification._raw.additionalData.foreground === false) {
-        $state.go(...urlVars)
-      } else {
-        scheduleNotification(notification, urlVars)
-      }
+      if (notification.payload.type === 'url') {
+        return redirectUrl(notification)
+      } else if ( notification.payload.type === 'fulfillment_comment') {
+        const newPayload = convertFulfillmentCommentOnUrlType(notification, `/v1/orders/${notification.payload.order_id}`)
+        return redirectUrl(newPayload)
+      } 
     } catch (e) {
       console.log(e)
+    }
+  }
+
+  function convertFulfillmentCommentOnUrlType (notification, newUrl) {
+    return Object.assign({}, notification, {
+      payload: {
+        type: 'url',
+        url: newUrl
+      }
+    })
+  }
+  
+  function redirectUrl (notification) {
+    const urlVars = routes(notification.payload)
+    if (notification._raw.additionalData.foreground === false) {
+      return $state.go(...urlVars)
+    } else {
+      return scheduleNotification(notification, urlVars)
     }
   }
 
@@ -23,7 +41,7 @@ export default function onNotification (ENV, Utils, $state, $rootScope, $ionicPl
       text: notification.text,
       data: { changeState: go }    
     }
-    $cordovaLocalNotification.schedule(notificationObj)
+    return $cordovaLocalNotification.schedule(notificationObj)
   }
 }
 

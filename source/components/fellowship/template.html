@@ -1,14 +1,20 @@
 <ion-view view-title="{{ ctrl.viewTitle | translate }}">
 	<ion-content padding="false">
-		<ul class="list">
-			<li 
-				class="item item-white"
+		<ion-list class="fellowship">
+			<ion-item
+				class="item-white"
 				ng-repeat="user in ctrl.fellowship track by user.id">
 				<a 
 					ui-sref="users.profile({userID: user.id})">
 					{{ ::user.attributes.username }}
 				</a>
-			</li>
-		</ul>
+			</ion-item>
+    </ion-list>
+    <ion-infinite-scroll
+      ng-if="ctrl.moreDataCanBeLoaded()"
+      on-infinite="ctrl.loadMore()"
+      distance="1%"
+      immediate-check="false">
+    </ion-infinite-scroll>
 	</ion-content>
 </ion-view>

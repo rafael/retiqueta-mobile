@@ -3,7 +3,7 @@ import { baseErrorObj } from '../../../libs/merge_validations'
 export const Rules = {
   category: {
     required: true,
-    placeholder: 'Select',
+    placeholder: 'SELECT_OPTION',
     values: [
       { value: '#ropa', label: '#Ropa', bg: '#777', icon: 'ion-tshirt-outline' },
       { value: '#zapatos', label: '#Zapatos', bg: '#888', icon: 'ion-android-walk' },

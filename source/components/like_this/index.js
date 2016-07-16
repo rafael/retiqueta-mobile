@@ -1,7 +1,7 @@
 export default function likeThisFactory (ngComponent) {
   ngComponent.directive('likeThis', likeThis)
 
-  function likeThis (Like) {
+  function likeThis (Like, $ionicAnalytics) {
     return {
       retrict: 'A',
       scope: {
@@ -22,6 +22,12 @@ export default function likeThisFactory (ngComponent) {
         toggleElem()
         toggleClass(!scope.product.meta.liked_by_current_user)
         addToLikeCount()
+
+        $ionicAnalytics.track('fetch start', {
+          action: 'like product',
+          'product_id': productId,
+          'likes_count': scope.product.attributes.likes_count
+        })
 
         // Like on the api
         Like.toggle(productId, !scope.product.meta.liked_by_current_user)

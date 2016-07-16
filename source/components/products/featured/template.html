@@ -1,11 +1,15 @@
 <ion-list class="products featured">
   <ion-item
-    class="product-featured"
-    ng-repeat="product in products track by $index">
+    ng-repeat="product in products track by $index"
+    class="product-featured {{ product.attributes.status }}">
     <div class="container" nf-if="hasPicture(product.relationships.product_pictures)">
       <header>
+        <div class="sold-mark">
+          <span class="sold-mark-text">v</span>
+        </div>
+
         <a ui-sref="users.productDetails({productID: product.id})">
-          <img class="thumbnail" src="{{ product.relationships.product_pictures[0].attributes.url }}">
+          <img class="thumbnail" src="{{ product.relationships.product_pictures[0].attributes.large_url }}">
         </a>
       </header>
       <div class="details">
@@ -50,4 +54,3 @@
     immediate-check="false">
   </ion-infinite-scroll>
 </ion-list>
-

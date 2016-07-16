@@ -9,7 +9,7 @@ const includes = [
 export default function orderChatCtrlFactory (ngComponent) {
   ngComponent.controller('orderChatCtrl', orderChatCtrl)
 
-  function orderChatCtrl (Order, Utils, $stateParams, $state, $ionicHistory, CommentStore, currentUser, $ionicScrollDelegate, $scope) {
+  function orderChatCtrl ($ionicAnalytics, Order, Utils, $stateParams, $state, $ionicHistory, CommentStore, currentUser, $ionicScrollDelegate, $scope) {
     var _ = this
     _.order = {}
     _.firstProduct = {}
@@ -25,13 +25,29 @@ export default function orderChatCtrlFactory (ngComponent) {
     }
 
     function getorder () {
+      $ionicAnalytics.track('fetch start', {
+        action: 'fetch order on order chat view',
+        id: $stateParams.id
+      })
       Order.get($stateParams.id, { include: includes })
       .then(order => {
+        $ionicAnalytics.track('fetch success', {
+          action: 'fetch order on order chat view',
+          id: $stateParams.id
+        })
         _.order = order
         _.firstProduct = setFirstProduct(order)
         CommentStore.emit('refresh', 'fulfillments', order.relationships.fulfillment.id )
       })
-      .catch(Utils.swalError)
+      .catch((error) => {
+        $ionicAnalytics.track('fetch error', {
+          action: 'fetch order on order chat view',
+          id: $stateParams.id,
+          error: error
+        })
+
+        Utils.swalError(error)
+      })
     }
 
     function setFirstProduct (order) {
@@ -52,6 +68,10 @@ export default function orderChatCtrlFactory (ngComponent) {
     CommentStore.on('new', scrollComments)
     CommentStore.on('fetchFinish', scrollComments)
     $scope.$on("$ionicView.enter", (event, data) => {
+      $ionicAnalytics.track('Load', {
+        action: 'orders chat',
+        id: $stateParams.id
+      })
       getorder() 
     })
   }

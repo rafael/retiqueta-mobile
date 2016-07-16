@@ -1,4 +1,7 @@
 var esTranslation = {
+  ACCOUNT_PRIVACY_WARNING: '(Información privada y de uso exclusivo de Retiqueta App Mobile C.A.)',
+  ADD_COMMENT_FORM: 'Escribe un comentario',
+  SELECT_OPTION: 'Seleccionar',
   YES_NO_CONFIRM: 'Si, No',
   FORM_MIN_NUMBER_ERROR: 'Debe ser mayor a {{num}}',
   FORM_MAX_NUMBER_ERROR: 'No debe ser mayor a {{num}}',

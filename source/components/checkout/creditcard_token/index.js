@@ -50,7 +50,7 @@ export default function CreditCardTokenFactory (ngComponent) {
     }
   }
 
-  function creditCardToken (MercadopagoFactory, Utils) {
+  function creditCardToken (MercadopagoFactory, Utils, $ionicAnalytics, $rootScope) {
     return {
       restrict: 'E',
       templateUrl: 'checkout/creditcard_token/template.html',
@@ -109,6 +109,7 @@ export default function CreditCardTokenFactory (ngComponent) {
           }
 
           function createToken (form) {
+            $rootScope.$broadcast('loading:show')
             return MercadopagoFactory.resolveToken(formElement)
             .then(onCreateToken)
             .catch(errorOnCreateToken)
@@ -126,14 +127,23 @@ export default function CreditCardTokenFactory (ngComponent) {
 
           function onCreateToken (response) {
             //console.info("Success on create token")
+            $ionicAnalytics.track('fetch success', {
+              action: 'credit card token'
+            })
+
             scope.onTokenHandler(response.response.id, scope.creditcard.methodID)
           }
 
           function errorOnCreateToken (response) {
+            $rootScope.$broadcast('loading:hide')
             Utils.logger.info('Error on Token creation')
-            Utils.logger.log(response.response)
+            Utils.logger.log(response)
             Utils.swalError(response.response)
             scope.errors = helpersFunctions.extractErrors(response.response.cause)
+            $ionicAnalytics.track('fetch error', {
+              action: 'credit card token',
+              errors: scope.errors
+            })
           }
         }
       }

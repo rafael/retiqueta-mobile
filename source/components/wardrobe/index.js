@@ -1,24 +1,42 @@
+const PAGE_SIZE = 30
+const START_PAGE = 1
+
 export default function wardrobeIndexFactory (ngComponent) {
   ngComponent.controller('wardrobeCtrl', wardrobeCtrl)
 
-  function wardrobeCtrl (user, currentUser, Product, User, $scope, $ionicHistory) {
+  function wardrobeCtrl ($state, user, currentUser, Product, User, $scope, $ionicHistory, $ionicAnalytics) {
     var _ = this
     _.user = user
     _.isOwner = (user.id === currentUser.id)
     _.products = []
-    _.page = 0
+    _.page = START_PAGE
+    _.pageSize = PAGE_SIZE
+    _.canLoadMore = true
     _.doRefresh = doRefresh
     _.loadMore = loadMore
+    _.hasGoBack = hasGoBack
+    _.goBack = goBack
+      
+    function goBack () {
+      return history.back()
+    }
+
+    function hasGoBack () {
+      return (user.id !== currentUser.id)
+    }
 
     function loadMore (nextpage) {
-      /* Api dont paginate userProducts
-         if (_.text !== '') {
-         return doRefresh(nextpage, true)
-         } else {
+      if (_.canLoadMore) {
+        return doRefresh(nextpage, true)
+        .then((result) => {
+          if (result.length < PAGE_SIZE) {
+            _.canLoadMore = false
+          }
+        })
+      } else {
          return Promise.resolve()
-         }
-         */
-      return Promise.resolve()
+      }
+      // return Promise.resolve()
     }
 
     function isOwner () {
@@ -31,13 +49,19 @@ export default function wardrobeIndexFactory (ngComponent) {
       } 
     }
 
-    function doRefresh (page = 0, add = false) {
+    function doRefresh (page = START_PAGE, add = false) {
+      $ionicAnalytics.track('fetch start', {
+        action: 'wardrobe products'
+      })
       return Product.getByUser(user.id, {
-        // 'page[size]': 15,
-        // 'page[number]': page,
+        'page[size]': PAGE_SIZE,
+        'page[number]': page,
         include: 'product_pictures'
       })
       .then(result => {
+        $ionicAnalytics.track('fetch success', {
+          action: 'wardrobe products'
+        })
         return setProducts(result, add)
       })
       .finally(() => {
@@ -52,15 +76,20 @@ export default function wardrobeIndexFactory (ngComponent) {
       } else {
         _.products = newProducts
       }
-      _.noResult = _.products.length === 0 && _.text !== ''
       return newProducts
     }
 
     function LoadUser () {
-      User.get(user.id).then(user => { Object.assign(_.user, user) })
+      User.get(user.id)
+      .then(user => { Object.assign(_.user, user) })
+      // .finally(() => { console.log(_.user) })
     }
 
     $scope.$on("$ionicView.enter", function(event, data) {
+      $ionicAnalytics.track('Load', {
+        action: 'wardrobe view'
+      })
+      _.canLoadMore = true
       LoadUser()
       ClearHistoryIfOwner()
     })

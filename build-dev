@@ -1,0 +1,6 @@
+npm install 
+npm run build
+ionic config set dev_push false
+ionic state reset
+ionic build ios
+ionic package build ios  --profile iosdev 

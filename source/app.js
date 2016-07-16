@@ -21,7 +21,6 @@ const app = angular.module('App', [
   'App.configurations',
   'App.locales',
   'ionic.service.core',
-  'ionic.service.analytics',
   'ionic.service.push'
 ])
 

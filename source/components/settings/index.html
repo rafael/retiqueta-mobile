@@ -1,31 +1,49 @@
 <ion-view name="SettingsView" view-title="{{ 'SETTINGS' | translate }}">
   <ion-content padding="true" class="settings">
     <div class="list">
-      <a class="item item-icon-left bg-gradient-1" ui-sref="users.edit">
+      <a
+        ion-track-tap="Click"
+        ion-track-data="{ action: 'open edit profile'}"
+        class="item item-icon-left bg-gradient-1" ui-sref="users.edit">
         <i class="icon ion-android-person"></i>
         {{ 'EDIT_PROFILE' |  translate }}
       </a>
-     	<a class="item item-icon-left bg-gradient-1" ui-sref="users.balance">
+      <a 
+        ion-track-tap="Click"
+        ion-track-data="{ action: 'open balance'}"
+        class="item item-icon-left bg-gradient-1" ui-sref="users.balance">
         <i class="icon ion-connection-bars"></i>
         {{ 'MY_BALANCE' |  translate }}
       </a>
     </div>
     <div class="list">
-      <a class="item item-icon-left bg-gradient-2" ui-sref="users.orders">
+      <a
+        ion-track-tap="Click"
+        ion-track-data="{ action: 'open orders'}"
+        class="item item-icon-left bg-gradient-2" ui-sref="users.orders">
         <i class="icon ion-ios-download-outline"></i>
         {{ 'MY_ORDERS' |  translate }}
       </a>
-      <a class="item item-icon-left bg-gradient-2" ui-sref="users.sales">
+      <a 
+        ion-track-tap="Click"
+        ion-track-data="{ action: 'open sales'}"
+        class="item item-icon-left bg-gradient-2" ui-sref="users.sales">
         <i class="icon ion-ios-upload-outline outline"></i>
         {{ 'MY_SALES' |  translate }}
       </a>
     </div>
     <div class="list">
-      <a class="item item-icon-left bg-gradient-3" ui-sref="users.faq">
+      <a
+        ion-track-tap="Click"
+        ion-track-data="{ action: 'open faqs'}"
+        class="item item-icon-left bg-gradient-3" ui-sref="users.faq">
         {{ 'FAQ' | translate }}
         <i class="icon ion-ios-help-outline"></i>
       </a>
-      <a class="item item-icon-left bg-gradient-3" ui-sref="logout">
+      <a 
+        ion-track-tap="Click"
+        ion-track-data="{ action: 'SIGNOUT'}"
+        class="item item-icon-left bg-gradient-3" ui-sref="logout">
         {{ 'SIGNOUT' | translate }}
         <i class="icon ion-android-exit rotate-180"></i>
       </a>

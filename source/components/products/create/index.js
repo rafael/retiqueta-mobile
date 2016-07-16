@@ -1,19 +1,24 @@
 import { Rules as FormRules, baseErrorsObject } from './product_form_fields'
 import { extractErrorByField, validationFactory } from '../../../libs/merge_validations'
 
-const comitionRate = 0
-
 export default function ProductCreateFactory (ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
 
-  function productCreateCtrl (GeoService, $ionicHistory, $ionicPlatform, $q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate, currentUser) {
+  function productCreateCtrl ($ionicAnalytics, GeoService, $ionicHistory, $ionicPlatform, $q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate, currentUser, $rootScope) {
     FormForConfiguration.enableAutoLabels()
     var _ = this
     let picturesIds = PictureStore.ids()
     let lastGeolocationResult = ''
     let action = () => {}
     let picturesHasChanged = false
-
+    var comitionRate = 0
+    try {
+      let storeFee =  currentUser.attributes.store_fee 
+      comitionRate = (typeof storeFee !== 'undefined' && storeFee !== null) ? storeFee : 0
+    } catch(e) {
+      comitionRate = 0
+    }
+    
     _.currentUser = currentUser
     _.pictureStore = PictureStore
     _.product = ProductStore.get()
@@ -40,20 +45,37 @@ export default function ProductCreateFactory (ngComponent) {
     }
 
     function goToSelect () {
+      $ionicAnalytics.track('Click', {
+        action: 'select product type'
+      })
       saveDraft(_.product)
       $state.go('productsNewSelectCategory', {}, { location: 'replace', reload: true })
     }
 
     function saveProduct (product) {
+      $ionicAnalytics.track('fetch start', {
+        action: 'create product'
+      })
       _.sendingInfo = true
       product.pictures = _.pictureStore.ids()
+
+      $rootScope.$broadcast('loading:show')
+      
       Product.create(product)
       .then(result => {
+        $ionicAnalytics.track('fetch success', {
+          action: 'create product',
+          payload: result
+        })
         removeDraft()
         // Utils.swalSuccess($translate.instant('PRODUCT_SAVE_MESSAGE'))
         $state.go('users.me')
       })
       .catch(error => {
+        $ionicAnalytics.track('fetch error', {
+          action: 'create product',
+          error
+        })
         Utils.logger.info('Error on product creation')
         Utils.logger.log(error)
         _.errors = extractErrorByField(error.data, product, Object.keys(_.errors))
@@ -93,13 +115,21 @@ export default function ProductCreateFactory (ngComponent) {
             $translate.instant('CREATE_PRODUCT_SAVE_DRAFT_MESSAGE_CONTENT'),
             (buttonIndex) => {
               if (buttonIndex == 1) {
+                $ionicAnalytics.track('Click', {
+                  action: 'save draft on create product',
+                  product: _.product
+                })
                 saveDraft(_.product)
               } else if (buttonIndex == 2) {
-                removeDraft()    
+                $ionicAnalytics.track('Click', {
+                  action: 'remove draft on create product',
+                  product: _.product
+                })
+                removeDraft()
               }
               exitView()
             })
-        } else {          
+        } else {
           exitView()
         }
       }
@@ -121,6 +151,9 @@ export default function ProductCreateFactory (ngComponent) {
     }
 
     function reverseGeolocation () {
+      $ionicAnalytics.track('Click', {
+        action: 'geolocate product'
+      })
       Utils.logger.info('Starting geoLocalization')
       _.geolocated = false
       _.geoLocalizationInProgress = true
@@ -137,11 +170,19 @@ export default function ProductCreateFactory (ngComponent) {
     }
 
     function resolveLocation (address) {
+      $ionicAnalytics.track('fetch start', {
+        action: 'revese geolocate address',
+        address
+      })
       Utils.logger.info('Resolving address')
       _.geolocated = false
       _.geoLocalizationInProgress = true
       GeoService.resolveLocation(address)
       .then((location) => {
+        $ionicAnalytics.track('fetch success', {
+          action: 'revese geolocate address',
+          address
+        })
         _.geolocated = true
         lastGeolocationResult = location.formatted_address
         _.product.location = location.formatted_address
@@ -163,7 +204,7 @@ export default function ProductCreateFactory (ngComponent) {
     }
 
     $scope.$watch(() => _.product.location, function (newValue, oldValue) {
-      const needToGeolocate = newValue !== oldValue 
+      const needToGeolocate = newValue !== oldValue
       && newValue !== ''
       && oldValue !== ''
       && newValue !== lastGeolocationResult
@@ -173,7 +214,7 @@ export default function ProductCreateFactory (ngComponent) {
       }
     })
 
-    // Product Store events 
+    // Product Store events
     ProductStore.on('change', () => {
       _.product = ProductStore.get()
     })
@@ -186,6 +227,9 @@ export default function ProductCreateFactory (ngComponent) {
 
     $scope.$on("$destroy", () => { action() })
     $scope.$on("$ionicView.enter", (event, data) => {
+      $ionicAnalytics.track('Load', {
+        action: 'create product'
+      })
       action = $ionicPlatform.registerBackButtonAction(() => {
         if($state.is('productsNew')) {
           goBack()

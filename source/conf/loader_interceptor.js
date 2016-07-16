@@ -10,7 +10,7 @@ export default function LoaderInterceptorFactory (ngComponent) {
   function onHttp ($rootScope, $q) {
     return {
       request: function(config) {
-        if (config.url.indexOf('comments') === -1) {
+        if (config.url.indexOf('authenticate') > -1 || config.url.indexOf('registrations') > -1) {
           $rootScope.$broadcast('loading:show')
         }
         return config

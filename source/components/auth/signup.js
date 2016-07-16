@@ -10,7 +10,7 @@ const baseErrorsObject = {
 export default function signupCtrlFactory (ngComponent) {
   ngComponent.controller('signupCtrl', signupCtrl)
 
-  function signupCtrl ($scope, $state, User, FormForConfiguration, Auth, Utils, $translate, $q, FacebookAuth) {
+  function signupCtrl ($scope, $state, User, FormForConfiguration, Auth, Utils, $translate, $q, FacebookAuth, $ionicAnalytics) {
     FormForConfiguration.disableAutoLabels()
     let _ = this
     let notFirstValidation = false
@@ -32,6 +32,7 @@ export default function signupCtrlFactory (ngComponent) {
       })
     }
 
+
     function redirectToDashboard () {
       $state.go('users.dashboard')
     }
@@ -40,13 +41,23 @@ export default function signupCtrlFactory (ngComponent) {
       _.sendingInfo = true
       user.email = user.email.toLowerCase()
       user.username = user.username.toLowerCase()
+      $ionicAnalytics.track('fetch start', { 
+        action: 'user signup'
+      })
       User.create(user)
         .then(result => {
+          $ionicAnalytics.track('fetch success', {
+            action: 'user signup'
+          })
           return Auth.login(user)
         })
         .then(redirectToDashboard)
         .catch(error => {
-          _.errors = extractErrorByField(error.data, user, Object.keys(_.errors))
+          $ionicAnalytics.track('fetch error', {
+            action: 'user signup',
+            error
+          })
+          _.errors = extractErrorByField(error.data, user, Object.keys(_.errors), ['usuario', 'correo', 'password'])
           _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
         })
         .finally(() => {
@@ -88,6 +99,12 @@ export default function signupCtrlFactory (ngComponent) {
     }, function (value) {
       $scope.$evalAsync(() => {
         _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
+      })
+    })
+
+    $scope.$on('$ionicView.enter', () => {
+      $ionicAnalytics.track('Load', {
+        action: 'user signup'
       })
     })
   }

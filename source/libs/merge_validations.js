@@ -1,8 +1,7 @@
-export function extractErrorByField (httpError, values, errorsTypes) {
-  let result = {}
-  errorsTypes.forEach(errorType => {
+export function extractErrorByField (httpError, values, errorsTypes, errorsTypesTranslation = errorsTypes) {
+  return errorsTypes.reduce((result, errorType, index) => {
     result[errorType] = Object.assign({}, baseErrorObj)
-    let errorTypeRegex = new RegExp(errorType, 'i')
+    let errorTypeRegex = new RegExp(`${errorType}|${errorsTypesTranslation[index]}`, 'i')
     if (httpError.detail.search(errorTypeRegex) >= 0) {
       let message = httpError.detail.split(',').filter(errorMessage => {
         return errorMessage.search(errorTypeRegex) >= 0
@@ -12,8 +11,8 @@ export function extractErrorByField (httpError, values, errorsTypes) {
         last_time_value: values[errorType]
       })
     }
-  })
-  return result
+    return result
+  }, {})
 }
 
 export function validationFactory (field, $q) {

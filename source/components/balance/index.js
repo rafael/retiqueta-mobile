@@ -1,7 +1,7 @@
 export default function balanceCtrlFactory (ngComponent) {
   ngComponent.controller('balanceCtrl', balanceCtrl)
 
-  function balanceCtrl (currentUser, Payout, Utils, $state) {
+  function balanceCtrl (currentUser, Payout, Utils, $state, $scope, $ionicAnalytics) {
     var _ = this
     _.user = currentUser
     _.isBusy = false
@@ -12,14 +12,34 @@ export default function balanceCtrlFactory (ngComponent) {
     _.requestPayout = requestPayout
     _.statusToLocale = statusToLocale
 
-    function requestPayout () {
+    function requestPayout () {      
+      $ionicAnalytics.track('Click', {
+        action: 'requestPayout'
+      })
+      $ionicAnalytics.track('fetch start', {
+        action: 'requestPayout'
+      })
       _.isBusy = true
       Payout.create({ amount: _.user.attributes.available_balance })
       .then(result => {  
-        $state.go($state.current, {}, { reload: true, inherit: false, notify: true })
+        $ionicAnalytics.track('fetch success', {
+          action: 'requestPayout'
+        })
+        reloadBalance()
+     })
+      .catch((e) => {
+        $ionicAnalytics.track('fetch error', {
+          action: 'requestPayout',
+          error: e
+        })
+        Utils.swalError(e)
       })
-      .catch(Utils.swalError)
       .finally(() => { _.isBusy = false })
+    }
+
+    function reloadBalance () {
+      _.user.attributes.available_balance = 0
+      getPayouts()
     }
 
     function classByStatus (payoutStatus) {
@@ -44,12 +64,30 @@ export default function balanceCtrlFactory (ngComponent) {
     }
 
     function getPayouts () {
+      $ionicAnalytics.track('fetch start', {
+        action: 'get payouts on balance view'
+      })
       Payout.all()
-      .then(result => { return _.payouts = result })
+      .then(result => {
+        $ionicAnalytics.track('fetch success', {
+          action: 'get payouts on balance view'
+        })
+        return _.payouts = result 
+      })
       // .then(result => { Utils.logger.log(result) })
-      .catch(Utils.swalError)
+      .catch((error) => {
+        $ionicAnalytics.track('fetch success', {
+          action: 'get payouts on balance view'
+        })
+        Utils.swalError(error)
+      })
     }
-
-    getPayouts()
+    
+    $scope.$on('$ionicView.enter', () => {
+      $ionicAnalytics.track('Load', {
+        action: 'Balance view'
+      })
+      getPayouts()
+    })
   }
 }

@@ -49,5 +49,12 @@
 		padding-bottom: 0.5em;
 		border-bottom: 1px solid $stable;
 		text-transform: uppercase;
+		.subtitle {
+			display: block;
+			font-size: 0.6em;
+			color: $dark;
+			text-transform: none;
+			margin: 0.5em 1em;
+		}
 	}
 }
