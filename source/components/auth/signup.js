@@ -2,7 +2,7 @@ import { extractErrorByField, validationFactory, baseErrorObj } from '../../libs
 import userForm from './user_form_fields'
 
 const baseErrorsObject = {
-  username: Object.assign({}, baseErrorObj),
+  // username: Object.assign({}, baseErrorObj),
   password: Object.assign({}, baseErrorObj),
   email: Object.assign({}, baseErrorObj)
 }
@@ -20,7 +20,7 @@ export default function signupCtrlFactory (ngComponent) {
     _.formController = {}
     _.sendingInfo = false
     _.validationRules = userForm
-    _.validationRules.username.custom = validationFactory('username', $q).bind(_)
+    // _.validationRules.username.custom = validationFactory('username', $q).bind(_)
     _.validationRules.email.custom = validationFactory('email', $q).bind(_)
     _.validationRules.password.acustom = validationFactory('password', $q).bind(_)
 
@@ -40,7 +40,7 @@ export default function signupCtrlFactory (ngComponent) {
     function submit (user) {
       _.sendingInfo = true
       user.email = user.email.toLowerCase()
-      user.username = user.username.toLowerCase()
+      // user.username = user.username.toLowerCase()
       $ionicAnalytics.track('fetch start', { 
         action: 'user signup'
       })
@@ -82,9 +82,9 @@ export default function signupCtrlFactory (ngComponent) {
     }
 
     function validateRequired () {
-      return _.hasErrors = isNotThere(_.user, 'username') ||
-                           isNotThere(_.user, 'password') ||
+      return _.hasErrors = isNotThere(_.user, 'password') ||
                            isNotThere(_.user, 'email')
+    //isNotThere(_.user, 'username') ||
     }
 
     function isNotThere (obj, key) {

@@ -38,7 +38,7 @@ export default function AuthFactory (ngComponent) {
         data: {
           grant_type: 'password',
           client_id: 'ret-mobile-ios',
-          login: user.username.toLowerCase(),
+          login: user.email.toLowerCase(),
           password: user.password
         }
       })

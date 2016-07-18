@@ -1,9 +1,4 @@
 export default {
-  username: {
-    inputType: 'text',
-    placeholder: 'vendedor5000',
-    required: true
-  },
   email: {
     inputType: 'email',
     type: 'email',
