@@ -22,7 +22,7 @@ export default function ProductsDirectiveFactory (ngComponent) {
       scope.pageSize = (typeof scope.pageSize === 'undefined') ? 15 : scope.pageSize
 
       function moreDataCanBeLoaded () {
-        return scope.canLoadMore && (scope.products.length === 0 || scope.products.length >= scope.pageSize )
+        return scope.canLoadMore
       }
 
       function loadMore () {
@@ -34,7 +34,7 @@ export default function ProductsDirectiveFactory (ngComponent) {
               scope.canLoadMore = false
             }
           })
-          .catch(() => {   
+          .catch(() => {
             scope.canLoadMore = false
           })
           .finally(() => {
@@ -45,8 +45,6 @@ export default function ProductsDirectiveFactory (ngComponent) {
           return $q.reject()
         }
       }
-
-
     }
   }
 }

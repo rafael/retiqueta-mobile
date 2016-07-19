@@ -16,7 +16,7 @@ export default function wardrobeIndexFactory (ngComponent) {
     _.loadMore = loadMore
     _.hasGoBack = hasGoBack
     _.goBack = goBack
-      
+
     function goBack () {
       return history.back()
     }
@@ -29,7 +29,7 @@ export default function wardrobeIndexFactory (ngComponent) {
       if (_.canLoadMore) {
         return doRefresh(nextpage, true)
         .then((result) => {
-          if (result.length < PAGE_SIZE) {
+          if (result.length < 1) {
             _.canLoadMore = false
           }
         })
@@ -46,7 +46,7 @@ export default function wardrobeIndexFactory (ngComponent) {
     function ClearHistoryIfOwner () {
       if (isOwner()) {
         $ionicHistory.clearHistory()
-      } 
+      }
     }
 
     function doRefresh (page = START_PAGE, add = false) {
