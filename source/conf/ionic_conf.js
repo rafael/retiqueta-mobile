@@ -3,23 +3,19 @@ export default function (ngComponent) {
   ngComponent.config(configIonic)
   ngComponent.run(onRunningConfiguration)
 
-  function onRunningConfiguration($ionicPlatform, $ionicAnalytics, ENV, AppPush, Auth) {
+  function onRunningConfiguration($ionicPlatform, $ionicAnalytics, ENV, AppPush, Auth, $cordovaKeyboard) {
     $ionicPlatform.ready(function() {
       AppPush.init()
-
+      $cordovaKeyboard.hideAccessoryBar(false)
+      $cordovaKeyboard.disableScroll(false)
+      if (window.StatusBar) {
+        StatusBar.styleLightContent()
+      }
       if (ENV.isProduction()) {
         $ionicAnalytics.register()
         $ionicAnalytics.setGlobalProperties({
           platform: $ionicPlatform.device()
         });
-      }
-
-      if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false)
-        cordova.plugins.Keyboard.disableScroll(false)
-      }
-      if (window.StatusBar) {
-        StatusBar.styleLightContent()
       }
     })
   }

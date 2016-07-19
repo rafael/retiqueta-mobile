@@ -1,7 +1,7 @@
 import { extractErrorByField, validationFactory, baseErrorObj } from '../../libs/merge_validations'
 
 const baseErrorsObject = {
-  username: Object.assign({}, baseErrorObj),
+  email: Object.assign({}, baseErrorObj),
   password: Object.assign({}, baseErrorObj)
 }
 
@@ -18,7 +18,7 @@ export default function loginCtrlFactory (ngComponent) {
     _.hasErrors = false
     _.formController = {}
     _.validationRules = {
-      username: {
+      email: {
         inputType: 'email',
         placeholder: 'Escriba su correo',
         required: true,
@@ -27,7 +27,7 @@ export default function loginCtrlFactory (ngComponent) {
           rule: /\w+@\w+\.\w+/,
           message: 'Invalid email format'
         },
-        custom: validationFactory('username', $q).bind(_)
+        custom: validationFactory('email', $q).bind(_)
       },
       password: {
         inputType: 'password',
@@ -48,7 +48,7 @@ export default function loginCtrlFactory (ngComponent) {
 
     function submit (user) {
       _.sendingInfo = true
-      user.username = user.username.toLowerCase()
+      user.email = user.email.toLowerCase()
       $ionicAnalytics.track('fetch start', {
         action: 'user login'
       })
@@ -90,7 +90,7 @@ export default function loginCtrlFactory (ngComponent) {
     }
 
     function validateRequired () {
-      return isNotThere(_.user, 'username') ||
+      return isNotThere(_.user, 'email') ||
         isNotThere(_.user, 'password')
     }
 
