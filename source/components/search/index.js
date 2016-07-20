@@ -3,7 +3,7 @@ const PAGE_SIZE = 30
 export default function searchFactory (ngComponent) {
   ngComponent.controller('SearchProductCtrl', SearchProductCtrl)
 
-  function SearchProductCtrl ($ionicScrollDelegate, Product, $stateParams, Utils, $q, $scope, $rootScope, $ionicAnalytics) {
+  function SearchProductCtrl ($ionicScrollDelegate, Product, $stateParams, Utils, $q, $scope, $rootScope, $ionicAnalytics, $cordovaKeyboard) {
     var _ = this
     var lastSearch = ''
     _.text = ''
@@ -45,13 +45,13 @@ export default function searchFactory (ngComponent) {
         'page[size]': PAGE_SIZE,
       }).then((result) => {
         $ionicAnalytics.track('fetch success', {
-          action: 'load featured on search'  
+          action: 'load featured on search'
         })
         return setProducts(result, add)
       })
       .catch((error) => {
         $ionicAnalytics.track('fetch error', {
-          action: 'load featured on search'  
+          action: 'load featured on search'
         })
         Utils.swalError(error)
       })
@@ -74,6 +74,9 @@ export default function searchFactory (ngComponent) {
       if (_.text === '') { return }
       _.noResult = false
       _.loading = true
+      try {
+        $cordovaKeyboard.close()
+      } catch(e) {}
       console.log('Searching: ', _.text)
       populateWithProduct(page)
     }
@@ -98,14 +101,14 @@ export default function searchFactory (ngComponent) {
         'page[number]': page,
         'page[size]': PAGE_SIZE,
         include: 'user,product_pictures'
-      }).then((result) => { 
+      }).then((result) => {
         lastSearch = angular.copy(_.text)
         $ionicAnalytics.track('fetch success', {
           action: 'searching',
           page: page,
           text: _.text
         })
-        return setProducts(result, add) 
+        return setProducts(result, add)
       })
       .catch((error) => {
         $ionicAnalytics.track('fetch error', {
@@ -140,7 +143,7 @@ export default function searchFactory (ngComponent) {
           _.page = 1
           _.canLoadMore = true
           prePopulate()
-        } 
+        }
       })
     })
 
@@ -150,6 +153,6 @@ export default function searchFactory (ngComponent) {
       })
       _.canLoadMore = true
     })
-    LoadProduct() 
+    LoadProduct()
   }
 }
