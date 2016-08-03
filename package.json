@@ -99,7 +99,17 @@
       "id": "phonegap-plugin-push"
     },
     "cordova-plugin-geolocation",
-    "cordova-custom-config"
+    "cordova-custom-config",
+    {
+      "variables": {
+        "URL_SCHEME": "retiqueta",
+        "DEEPLINK_SCHEME": "https",
+        "DEEPLINK_HOST": "retiqueta.com",
+        "ANDROID_PATH_PREFIX": "/"
+      },
+      "locator": "ionic-plugin-deeplinks",
+      "id": "ionic-plugin-deeplinks"
+    }
   ],
   "cordovaPlatforms": [
     {
