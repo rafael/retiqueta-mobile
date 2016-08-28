@@ -94,7 +94,7 @@ export default function CreditCardTokenFactory (ngComponent) {
           })
 
           function changeCredictCard () {
-            if (scope.creditcard.cardNumber.length >= 10 && scope.creditcard.methodID !== '') {
+            if (scope.creditcard.cardNumber.length >= 10 && scope.creditcard.methodID === '') {
               return MercadopagoFactory.guessPaymentMethod(scope.creditcard.cardNumber)
               .then(onGuess)
               .catch(errorOnGuess)
