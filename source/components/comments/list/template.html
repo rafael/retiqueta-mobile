@@ -3,7 +3,13 @@
     class="item item-white" 
     ng-repeat="comment in ordenedComments() track by comment.id" class="list"
     ng-class="{'item-avatar': asChat, 'is-not-me': !authorIsCurrentUser(comment)}"> 	
-    <user-avatar ng-if="asChat" src="comment.attributes.user_pic"></user-avatar>
+    <a
+      ui-sref="users.profile({userID: comment.attributes.user_id})"
+      ng-if="asChat">
+      <user-avatar 
+        src="comment.attributes.user_pic">
+      </user-avatar>
+    </a>
     <p class="message">
       <a ng-if="!asChat" class="text-assertive" 
         ui-sref="users.profile({userID: comment.attributes.user_id})">
