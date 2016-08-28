@@ -7,7 +7,8 @@ const creditCardObj = {
   cardExpirationMonth: '',
   cardExpirationYear: '',
   cardholderName: '',
-  docNumber: ''
+  docNumber: '',
+  methodID: ''
 }
 
 export default function CreditCardTokenFactory (ngComponent) {
@@ -93,7 +94,7 @@ export default function CreditCardTokenFactory (ngComponent) {
           })
 
           function changeCredictCard () {
-            if (scope.creditcard.cardNumber.length >= 10) {
+            if (scope.creditcard.cardNumber.length >= 10 && scope.creditcard.methodID !== '') {
               return MercadopagoFactory.guessPaymentMethod(scope.creditcard.cardNumber)
               .then(onGuess)
               .catch(errorOnGuess)
