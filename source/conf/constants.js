@@ -3,8 +3,16 @@ const PRODUCTION = 'production'
 const node_env = process.env.NODE_ENV || DEVELOPMENT
 const DEBUG_MODE = process.env.DEBUG_MODE || true
 
-angular.module('App.contants', [])
+function mercadopagoKeys () {
+  switch (node_env) {
+    case PRODUCTION:
+      return 'APP_USR-024493bc-8221-4da7-8ff8-4fb1d96cf520'
+    default: 
+      return 'TEST-f4c0a8de-a40c-46c2-90f9-202e66994dd3'
+  }
+}
 
+angular.module('App.contants', [])
 const contants = angular.module('App.contants')
 const ENV = {
   app_name: 'Retiqueta',
@@ -23,7 +31,7 @@ const ENV = {
     return DEBUG_MODE
   },
   mercadopago_keys: {
-    public: 'APP_USR-024493bc-8221-4da7-8ff8-4fb1d96cf520'
+    public: mercadopagoKeys()
   },
   auth: {}
 }

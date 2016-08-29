@@ -11,10 +11,12 @@
   <ion-content padding="false">
     <header class="order-detail-header row">
       <div class="col col-25">
-        <img 
-        class="thumbnail" 
-        src="{{ ::ctrl.firstProduct.relationships.product_pictures[0].attributes.small_url}}" 
-        alt="">
+        <a ui-sref="users.productDetails({ productID: ctrl.firstProduct.id })">
+          <img 
+            class="thumbnail" 
+            src="{{ ::ctrl.firstProduct.relationships.product_pictures[0].attributes.small_url}}" 
+            alt="">
+        </a>
       </div>
       <section class="content col col-75">
         <h6 class="price text-assertive">
