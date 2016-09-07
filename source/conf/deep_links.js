@@ -1,13 +1,9 @@
 export default function DeepLinksFactory (ngComponent) {
   ngComponent.run(DeepLinksConf)
 
-  function DeepLinksConf ($state, $ionicPlatform, $timeout) {
+  function DeepLinksConf ($state, $ionicPlatform, $timeout, Utils) {
     const Routes = {
-      '/': {
-        target: 'users.dashboard',
-        parent: 'home'
-      },
-      '/product/:productID': {
+      '/products/:productID': {
         target: 'users.productDetails',
         parent: 'users.dashboard'
       },
@@ -18,6 +14,8 @@ export default function DeepLinksFactory (ngComponent) {
     }
 
     const onMatch = (match) => {
+      Utils.logger.info('Deep link match with:')
+      Utils.logger.log(match)
       $timeout(function() {
         $state.go(match.$route.parent, match.$args)
         $timeout(function() {
@@ -27,6 +25,8 @@ export default function DeepLinksFactory (ngComponent) {
     } 
 
     const onNotMatch = (noMatch) => {
+      Utils.logger.info('Deep link didn\'t match with:')
+      Utils.logger.log(noMatch)
       $state.go('users.dashboard')
     }
 
