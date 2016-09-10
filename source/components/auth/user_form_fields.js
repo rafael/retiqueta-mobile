@@ -9,7 +9,7 @@ export default {
   password: {
     inputType: 'password',
     placeholder: 'Clave',
-    minlength: 8,
+    // minlength: 8,
     required: true
   }
 }
