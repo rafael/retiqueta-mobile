@@ -32,7 +32,7 @@ export default function loginCtrlFactory (ngComponent) {
       password: {
         inputType: 'password',
         placeholder: 'Clave',
-        minlength: 8,
+        // minlength: 8,
         required: true,
         custom: validationFactory('password', $q).bind(_)
       }
