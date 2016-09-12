@@ -119,7 +119,7 @@ var enTranslation = {
   ORDER_TOTAL_AMOUNT: 'Total amount',
   ORDER_ITEM_CATEGORY: 'Category',
   ORDER_ITEM_TYPE: 'Product',
-  ORDER_ITEM_PRICE: 'Price'
+  ORDER_ITEM_PRICE: 'Price',
   FORGOT_PASSWORD:  'Forgot password'
 }
 
