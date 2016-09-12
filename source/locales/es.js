@@ -120,6 +120,7 @@ var esTranslation = {
   ORDER_ITEM_CATEGORY: 'Categoria',
   ORDER_ITEM_TYPE: 'Producto',
   ORDER_ITEM_PRICE: 'Precio'
+  FORGOT_PASSWORD:  'No sé mi clave'
 }
 
 export default esTranslation
