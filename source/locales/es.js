@@ -92,6 +92,7 @@ var esTranslation = {
   BALANCE_EDIT_BANK_ACCOUNT: 'Editar informaci\ón bancaria',
   BALANCE_WITHDRAW: 'Cobrar', 
   BALANCE_STATUS_PROCESSING: 'procesando',
+  BALANCE_STATUS_PAID: 'pago',
   FAQ: 'Preguntas frecuentes',
   ORDERS_NO_EXISTS: 'A\ún no hay compras.',
   SALES_NO_EXISTS: 'A\ún no hay ventas.',
