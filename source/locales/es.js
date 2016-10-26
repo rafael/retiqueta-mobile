@@ -92,6 +92,7 @@ var esTranslation = {
   BALANCE_EDIT_BANK_ACCOUNT: 'Editar informaci\ón bancaria',
   BALANCE_WITHDRAW: 'Cobrar', 
   BALANCE_STATUS_PROCESSING: 'procesando',
+  BALANCE_STATUS_PAID: 'pago',
   FAQ: 'Preguntas frecuentes',
   ORDERS_NO_EXISTS: 'A\ún no hay compras.',
   SALES_NO_EXISTS: 'A\ún no hay ventas.',
@@ -119,7 +120,8 @@ var esTranslation = {
   ORDER_TOTAL_AMOUNT: 'Total a pagar',
   ORDER_ITEM_CATEGORY: 'Categoria',
   ORDER_ITEM_TYPE: 'Producto',
-  ORDER_ITEM_PRICE: 'Precio'
+  ORDER_ITEM_PRICE: 'Precio',
+  FORGOT_PASSWORD:  'No sé mi clave'
 }
 
 export default esTranslation
