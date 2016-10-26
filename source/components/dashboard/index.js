@@ -12,9 +12,7 @@ export default function DashboardFactory (ngComponent) {
     }
 
     $scope.$on("$ionicView.enter", function(event, data) {
-      $ionicAnalytics.track('Load', {
-        action: 'Load timeline'
-      })
+      facebookConnectPlugin.logEvent('timeline.load')
       refreshFeatured()
     })
 

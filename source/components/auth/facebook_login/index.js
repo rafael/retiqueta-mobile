@@ -9,30 +9,21 @@ export default function FacebookButtonDirectiveFactory (ngComponent) {
         scope.loginWithFacebook = loginWithFacebook
 
         function loginWithFacebook () {
-          $ionicAnalytics.track('fetch start', {
-            action: 'loginWithFacebook'
-          })
+          facebookConnectPlugin.logEvent('fblogin.request')
           FacebookAuth.loginWithFacebook()
           .then(successOnFacebook)
           .catch(errorOnFacebook)
         }
 
         function successOnFacebook (result) {
-          $ionicAnalytics.track('fetch success', {
-            action: 'loginWithFacebook'
-          })
           Auth.loginToken(result)
           $state.go('users.dashboard')
         }
 
         function errorOnFacebook (error) {
-          $ionicAnalytics.track('fetch error', {
-            action: 'loginWithFacebook',
-            error
-          })
+          facebookConnectPlugin.logEvent('fblogin.request.error')
           Utils.swalError(error)
         }
-
       }
     }
   }

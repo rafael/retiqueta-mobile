@@ -23,21 +23,13 @@ export default function ProductDetailFactory (ngComponent) {
         $translate.instant('PRODUCT_DELETE_MESSAGE'),
         (buttonIndex) => {
           if (buttonIndex == 1) {
-            $ionicAnalytics.track('Click', {
-              action: 'delete product',
-              id: id
-            })
+            facebookConnectPlugin.logEvent('product.delete.request')
             Product.destroy(id)
             .then(() => {
-              $ionicAnalytics.track('fetch success', {
-                action: 'delete product'
-              })
               $state.go('users.me')
             })
             .catch((e) => {
-              $ionicAnalytics.track('fetch error', {
-                action: 'delete product'
-              })
+              facebookConnectPlugin.logEvent('product.delete.request.error')
               Utils.swalError(e)
             })
           }
@@ -82,11 +74,6 @@ export default function ProductDetailFactory (ngComponent) {
 
     function ToggleCommentForm (forceShow = false) {
       _.showCommentForm = !_.showCommentForm || forceShow
-      $ionicAnalytics.track('Click', {
-        action: 'toggle comment form on product',
-        productId: $stateParams.productID
-      })
-
       if (_.showCommentForm) {
         scrollComments()
       }
@@ -114,10 +101,7 @@ export default function ProductDetailFactory (ngComponent) {
     })
 
     $scope.$on("$ionicView.enter", function(event, data) {
-      $ionicAnalytics.track('Load', {
-        action: 'product view',
-        id: $stateParams.productID
-      })
+      facebookConnectPlugin.logEvent('product.load')
       CommentStore.emit('refresh', 'product', $stateParams.productID)
       _.showCommentForm = false
       openCommentForm = typeof $stateParams.onComment !== 'undefined'

@@ -128,10 +128,7 @@ export default function CreditCardTokenFactory (ngComponent) {
 
           function onCreateToken (response) {
             //console.info("Success on create token")
-            $ionicAnalytics.track('fetch success', {
-              action: 'credit card token'
-            })
-
+            facebookConnectPlugin.logEvent('mercadopago.token.success')
             scope.onTokenHandler(response.response.id, scope.creditcard.methodID)
           }
 
@@ -141,10 +138,7 @@ export default function CreditCardTokenFactory (ngComponent) {
             Utils.logger.log(response)
             Utils.swalError(response.response)
             scope.errors = helpersFunctions.extractErrors(response.response.cause)
-            $ionicAnalytics.track('fetch error', {
-              action: 'credit card token',
-              errors: scope.errors
-            })
+            facebookConnectPlugin.logEvent('mercadopago.token.error')
           }
         }
       }

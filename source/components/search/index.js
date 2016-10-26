@@ -36,23 +36,16 @@ export default function searchFactory (ngComponent) {
     }
 
     function prePopulate (page = 1, add = false) {
-      $ionicAnalytics.track('fetch start', {
-        action: 'load featured on search'
-      })
+      facebookConnectPlugin.logEvent('search.request')
       return Product.getFeatured({
         include: 'product_pictures',
         'page[number]': page,
         'page[size]': PAGE_SIZE,
       }).then((result) => {
-        $ionicAnalytics.track('fetch success', {
-          action: 'load featured on search'
-        })
         return setProducts(result, add)
       })
       .catch((error) => {
-        $ionicAnalytics.track('fetch error', {
-          action: 'load featured on search'
-        })
+        facebookConnectPlugin.logEvent('search.request.error')
         Utils.swalError(error)
       })
       .finally(() => {
@@ -88,11 +81,7 @@ export default function searchFactory (ngComponent) {
         _.page = 1
         page = 1
       }
-      $ionicAnalytics.track('fetch start', {
-        action: 'searching',
-        page: page,
-        text: _.text
-      })
+      facebookConnectPlugin.logEvent('search.nextpage.request')
       if (page === 1) {
         $rootScope.$broadcast('loading:show')
       }
@@ -103,19 +92,10 @@ export default function searchFactory (ngComponent) {
         include: 'user,product_pictures'
       }).then((result) => {
         lastSearch = angular.copy(_.text)
-        $ionicAnalytics.track('fetch success', {
-          action: 'searching',
-          page: page,
-          text: _.text
-        })
         return setProducts(result, add)
       })
       .catch((error) => {
-        $ionicAnalytics.track('fetch error', {
-          action: 'searching',
-          page: page,
-          text: _.text
-        })
+        facebookConnectPlugin.logEvent('search.nextpage.request.error')
         Utils.swalError(error)
       })
       .finally(() => {
@@ -148,9 +128,7 @@ export default function searchFactory (ngComponent) {
     })
 
     $scope.$on("$ionicView.enter", () => {
-      $ionicAnalytics.track('Load', {
-        action: 'search view'
-      })
+      facebookConnectPlugin.logEvent('search.load')
       _.canLoadMore = true
     })
     LoadProduct()

@@ -45,17 +45,13 @@ export default function ProductCreateFactory (ngComponent) {
     }
 
     function goToSelect () {
-      $ionicAnalytics.track('Click', {
-        action: 'select product type'
-      })
+      facebookConnectPlugin.logEvent('product.create.select_type')
       saveDraft(_.product)
       $state.go('productsNewSelectCategory', {}, { location: 'replace', reload: true })
     }
 
     function saveProduct (product) {
-      $ionicAnalytics.track('fetch start', {
-        action: 'create product'
-      })
+      facebookConnectPlugin.logEvent('product.create.request')
       _.sendingInfo = true
       product.pictures = _.pictureStore.ids()
 
@@ -63,19 +59,12 @@ export default function ProductCreateFactory (ngComponent) {
       
       Product.create(product)
       .then(result => {
-        $ionicAnalytics.track('fetch success', {
-          action: 'create product',
-          payload: result
-        })
         removeDraft()
         // Utils.swalSuccess($translate.instant('PRODUCT_SAVE_MESSAGE'))
         $state.go('users.me')
       })
       .catch(error => {
-        $ionicAnalytics.track('fetch error', {
-          action: 'create product',
-          error
-        })
+        facebookConnectPlugin.logEvent('product.create.failure')
         Utils.logger.info('Error on product creation')
         Utils.logger.log(error)
         _.errors = extractErrorByField(error.data, product, Object.keys(_.errors))
@@ -115,16 +104,8 @@ export default function ProductCreateFactory (ngComponent) {
             $translate.instant('CREATE_PRODUCT_SAVE_DRAFT_MESSAGE_CONTENT'),
             (buttonIndex) => {
               if (buttonIndex == 1) {
-                $ionicAnalytics.track('Click', {
-                  action: 'save draft on create product',
-                  product: _.product
-                })
                 saveDraft(_.product)
               } else if (buttonIndex == 2) {
-                $ionicAnalytics.track('Click', {
-                  action: 'remove draft on create product',
-                  product: _.product
-                })
                 removeDraft()
               }
               exitView()
@@ -151,9 +132,7 @@ export default function ProductCreateFactory (ngComponent) {
     }
 
     function reverseGeolocation () {
-      $ionicAnalytics.track('Click', {
-        action: 'geolocate product'
-      })
+      facebookConnectPlugin.logEvent('product.create.geolocate')
       Utils.logger.info('Starting geoLocalization')
       _.geolocated = false
       _.geoLocalizationInProgress = true
@@ -170,19 +149,11 @@ export default function ProductCreateFactory (ngComponent) {
     }
 
     function resolveLocation (address) {
-      $ionicAnalytics.track('fetch start', {
-        action: 'revese geolocate address',
-        address
-      })
       Utils.logger.info('Resolving address')
       _.geolocated = false
       _.geoLocalizationInProgress = true
       GeoService.resolveLocation(address)
       .then((location) => {
-        $ionicAnalytics.track('fetch success', {
-          action: 'revese geolocate address',
-          address
-        })
         _.geolocated = true
         lastGeolocationResult = location.formatted_address
         _.product.location = location.formatted_address
@@ -227,9 +198,7 @@ export default function ProductCreateFactory (ngComponent) {
 
     $scope.$on("$destroy", () => { action() })
     $scope.$on("$ionicView.enter", (event, data) => {
-      $ionicAnalytics.track('Load', {
-        action: 'create product'
-      })
+      facebookConnectPlugin.logEvent('product.create.load')
       action = $ionicPlatform.registerBackButtonAction(() => {
         if($state.is('productsNew')) {
           goBack()

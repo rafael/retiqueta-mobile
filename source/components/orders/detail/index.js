@@ -48,10 +48,7 @@ export default function orderCtrlFactory (ngComponent) {
     } 
 
     $scope.$on('$ionicView.enter', () => {
-      $ionicAnalytics.track('Load', {
-        action: 'order detail',
-        id: $stateParams.id
-      })
+      facebookConnectPlugin.logEvent('order.load')
       getorder()
     })
   }

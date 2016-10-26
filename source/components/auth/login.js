@@ -49,22 +49,14 @@ export default function loginCtrlFactory (ngComponent) {
     function submit (user) {
       _.sendingInfo = true
       user.email = user.email.toLowerCase()
-      $ionicAnalytics.track('fetch start', {
-        action: 'user login'
-      })
+      facebookConnectPlugin.logEvent('login.request')
       Auth.login(user)
       .then(token => {
         // Utils.swalSuccess($translate.instant('WELCOME_MESSAGE'))
-        $ionicAnalytics.track('fetch success', {
-          action: 'user login'
-        })
         $state.go('users.dashboard')
       })
       .catch(error => {
-        $ionicAnalytics.track('fetch error', {
-          action: 'user login',
-          error
-        })
+        facebookConnectPlugin.logEvent('login.request.error')
         _.errors = extractErrorByField(error, user, Object.keys(_.errors), ['usuario', 'contraseña'])
         $scope.$evalAsync(() => {
           _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
@@ -109,11 +101,8 @@ export default function loginCtrlFactory (ngComponent) {
       })
     })
 
-
     $scope.$on('$ionicView.enter', () => {
-      $ionicAnalytics.track('Load', {
-        action: 'user login'
-      })
+      facebookConnectPlugin.logEvent('login.load')
     })
   }
 }

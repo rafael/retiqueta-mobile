@@ -55,9 +55,7 @@ export default function fellowshipCtrlFactory (ngComponent) {
     }
   
     $scope.$on("$ionicView.enter", function(event, data) {
-      $ionicAnalytics.track('Load', {
-        action: viewTitle
-      })
+      facebookConnectPlugin.logEvent('friends.load')
       loadFellowship(START_PAGE)
     })
   }

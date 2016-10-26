@@ -9,10 +9,7 @@ export default function ProductSelectionFactory (ngComponent) {
     _.validationRules = FormRules
     _.onChangeValueCallBack = (category) => {
       ProductStore.set(Object.assign(_.product, {category: category}))
-      $ionicAnalytics.track('Click', {
-        action: 'User select category',
-        category
-      })
+      facebookConnectPlugin.logEvent('product.create.select_category')
       $state.go('productsNew', {}, { location: 'replace', reload: true })
     }
 

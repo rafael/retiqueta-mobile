@@ -41,22 +41,14 @@ export default function signupCtrlFactory (ngComponent) {
       _.sendingInfo = true
       user.email = user.email.toLowerCase()
       // user.username = user.username.toLowerCase()
-      $ionicAnalytics.track('fetch start', { 
-        action: 'user signup'
-      })
+      facebookConnectPlugin.logEvent('signup.request')
       User.create(user)
         .then(result => {
-          $ionicAnalytics.track('fetch success', {
-            action: 'user signup'
-          })
           return Auth.login(user)
         })
         .then(redirectToDashboard)
         .catch(error => {
-          $ionicAnalytics.track('fetch error', {
-            action: 'user signup',
-            error
-          })
+          facebookConnectPlugin.logEvent('signup.request.error')
           _.errors = extractErrorByField(error.data, user, Object.keys(_.errors), ['usuario', 'correo', 'password'])
           _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
         })
@@ -103,9 +95,7 @@ export default function signupCtrlFactory (ngComponent) {
     })
 
     $scope.$on('$ionicView.enter', () => {
-      $ionicAnalytics.track('Load', {
-        action: 'user signup'
-      })
+      facebookConnectPlugin.logEvent('signup.load')
     })
   }
 }

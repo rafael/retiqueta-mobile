@@ -6,9 +6,7 @@ export default function HomeCtrlFactory (ngComponent) {
     _.Appname = ENV.app_name
 
     $scope.$on('$ionicView.enter', () => {
-      $ionicAnalytics.track('Load', {
-        action: 'Home view'
-      })
+      facebookConnectPlugin.logEvent('home.load')
     })
   }
 }

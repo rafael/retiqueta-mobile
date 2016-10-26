@@ -45,9 +45,7 @@ export default function productPictureDirectiveFactory (ngComponent) {
         }
 
         _.uploadPic = () => {
-          $ionicAnalytics.track('Click', {
-            action: 'upload picture for product'
-          })
+          facebookConnectPlugin.logEvent('product.create.upload_picture')
           CameraService.take({
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY
           })
@@ -57,9 +55,7 @@ export default function productPictureDirectiveFactory (ngComponent) {
         }
 
         _.takePic = () => {
-          $ionicAnalytics.track('Click', {
-            action: 'Take picture for product'
-          })
+          facebookConnectPlugin.logEvent('product.create.take_picture')
           CameraService.take()
           .then(result => {
             _.updatePicture('data:image/jpeg;base64,' + result)

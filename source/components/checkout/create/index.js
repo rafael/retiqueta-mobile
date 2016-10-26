@@ -26,24 +26,13 @@ export default function productCheckoutFactory (ngComponent) {
     }
 
     function LoadProduct () {
-      $ionicAnalytics.track('fetch start', {
-        action: 'checkout products'
-      })
-
       Product.get($stateParams.productID,  {
         include: 'user,product_pictures'
       })
       .then((product) => {
-        $ionicAnalytics.track('fetch success', {
-          action: 'checkout products'
-        })
         _.product = product
       })
       .catch((e) => {
-        $ionicAnalytics.track('fetch error', {
-          action: 'checkout products',
-          error: e
-        })
         Utils.swalError(e)
       })
     }
@@ -52,9 +41,7 @@ export default function productCheckoutFactory (ngComponent) {
       _.savingOrder = true
       responsePromise
       .then((response) => {
-        $ionicAnalytics.track('fetch success', {
-          action: 'scan credit card'
-        })
+        facebookConnectPlugin.logEvent('checkout.cardio.success')
         Object.assign(_.creditcard, {
           cardNumber: response.card_number,
           cardExpirationMonth: response.expiry_month,
@@ -63,10 +50,7 @@ export default function productCheckoutFactory (ngComponent) {
         })
       })
       .catch((error) => {
-        $ionicAnalytics.track('fetch error', {
-          action: 'scan credit card',
-          error
-        })
+        facebookConnectPlugin.logEvent('checkout.cardio.error')
         Utils.swalError(error)
       })
       .finally(() => {
@@ -95,22 +79,14 @@ export default function productCheckoutFactory (ngComponent) {
     }
 
     function successOnSaveOrder (result) {
-      $ionicAnalytics.track('fetch success', {
-        action: 'checkout',
-        id: $stateParams.productID,
-        'order_id': result.id
-      })
+      facebookConnectPlugin.logEvent('checkout.request.success')
       _.creditcardCtrl.clearForm()
       _.order = {}
       $state.go('users.ordersChat', { id: result.id })
     }
 
     function errorOnSaveOrder (error) {
-      $ionicAnalytics.track('fetch error', {
-        action: 'checkout',
-        id: $stateParams.productID,
-        error: error     
-      })
+      facebookConnectPlugin.logEvent('checkout.request.error')
       Mercadopago.tokenId = null
       Utils.swalError(error)
     }
@@ -127,8 +103,7 @@ export default function productCheckoutFactory (ngComponent) {
     }
 
     $scope.$on("$ionicView.enter", function(event, data) {
-      $ionicAnalytics.track('Load', {
-        action: 'checkout',
+      facebookConnectPlugin.logEvent('checkout.load', {
         id: $stateParams.productID
       })
       _.creditcardCtrl.clearForm()
