@@ -1,7 +1,7 @@
 export default function profileHeaderFactory (ngComponent) {
   ngComponent.directive('profileHeader', profileHeader)
 
-  function profileHeader (User, Utils, $ionicAnalytics) {
+  function profileHeader (User, Utils, ENV) {
     return {
       templateUrl: 'user/profile_header/template.html',
       restrict: 'E',
@@ -18,12 +18,16 @@ export default function profileHeaderFactory (ngComponent) {
       function toggleFollowship (following) {
         User.followToggle(scope.user.id, following)
         .then(result => {
-          facebookConnectPlugin.logEvent('profile.' + followAction(following) + '.success')
+          if (ENV.isProduction()) {
+            facebookConnectPlugin.logEvent('profile ' + followAction(following) + ' success');
+          }
           scope.user.attributes.followers_count += (result.following) ? 1 : -1
           scope.user.meta.followed_by_current_user = result.following
         })
         .catch(error => {
-          facebookConnectPlugin.logEvent('profile.' + followAction(following) + '.error')
+          if (ENV.isProduction()) {
+            facebookConnectPlugin.logEvent('profile ' + followAction(following) + ' error');
+          }
           Utils.swalError(error)
         })
       }

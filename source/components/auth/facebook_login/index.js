@@ -1,7 +1,7 @@
 export default function FacebookButtonDirectiveFactory (ngComponent) {
   ngComponent.directive('facebookLogin', facebookLogin)
 
-  function facebookLogin (FacebookAuth, Auth, $state, $ionicLoading, Utils, $ionicAnalytics) {
+  function facebookLogin (FacebookAuth, Auth, $state, $ionicLoading, Utils, ENV) {
     return {
       restrict: 'E',
       templateUrl: 'auth/facebook_login/template.html',
@@ -9,7 +9,9 @@ export default function FacebookButtonDirectiveFactory (ngComponent) {
         scope.loginWithFacebook = loginWithFacebook
 
         function loginWithFacebook () {
-          facebookConnectPlugin.logEvent('fblogin.request')
+          if (ENV.isProduction()) {
+            facebookConnectPlugin.logEvent('fblogin request');
+          }
           FacebookAuth.loginWithFacebook()
           .then(successOnFacebook)
           .catch(errorOnFacebook)
@@ -21,7 +23,9 @@ export default function FacebookButtonDirectiveFactory (ngComponent) {
         }
 
         function errorOnFacebook (error) {
-          facebookConnectPlugin.logEvent('fblogin.request.error')
+          if (ENV.isProduction()) {
+            facebookConnectPlugin.logEvent('fblogin request error');
+          }
           Utils.swalError(error)
         }
       }

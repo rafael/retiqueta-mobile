@@ -1,7 +1,7 @@
 export default function ProductDetailFactory (ngComponent) {
   ngComponent.controller('productDetail', productDetail)
 
-  function productDetail ($ionicAnalytics, currentUser, Product, $ionicHistory, $translate, $timeout, $stateParams, Utils, $ionicScrollDelegate, CommentStore, $scope, $state) {
+  function productDetail (ENV, currentUser, Product, $ionicHistory, $translate, $timeout, $stateParams, Utils, $ionicScrollDelegate, CommentStore, $scope, $state) {
     var _ = this
     var openCommentForm = false     
     _.loading = false
@@ -23,13 +23,17 @@ export default function ProductDetailFactory (ngComponent) {
         $translate.instant('PRODUCT_DELETE_MESSAGE'),
         (buttonIndex) => {
           if (buttonIndex == 1) {
-            facebookConnectPlugin.logEvent('product.delete.request')
+            if (ENV.isProduction()) {
+              facebookConnectPlugin.logEvent('product delete request');
+            }
             Product.destroy(id)
             .then(() => {
               $state.go('users.me')
             })
             .catch((e) => {
-              facebookConnectPlugin.logEvent('product.delete.request.error')
+              if (ENV.isProduction()) {
+                facebookConnectPlugin.logEvent('product delete request error')
+              }
               Utils.swalError(e)
             })
           }
@@ -101,7 +105,9 @@ export default function ProductDetailFactory (ngComponent) {
     })
 
     $scope.$on("$ionicView.enter", function(event, data) {
-      facebookConnectPlugin.logEvent('product.load')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('product load')
+      }
       CommentStore.emit('refresh', 'product', $stateParams.productID)
       _.showCommentForm = false
       openCommentForm = typeof $stateParams.onComment !== 'undefined'

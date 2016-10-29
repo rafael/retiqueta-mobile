@@ -1,7 +1,7 @@
 export default function productCheckoutFactory (ngComponent) {
   ngComponent.controller('productCheckout', productCheckout)
 
-  function productCheckout ($ionicAnalytics, $scope, Product, Order, Utils, $state, $stateParams) {
+  function productCheckout (ENV, $scope, Product, Order, Utils, $state, $stateParams) {
     var _ = this
     var form
     _.savingOrder = false
@@ -41,7 +41,9 @@ export default function productCheckoutFactory (ngComponent) {
       _.savingOrder = true
       responsePromise
       .then((response) => {
-        facebookConnectPlugin.logEvent('checkout.cardio.success')
+        if (ENV.isProduction()) {
+          facebookConnectPlugin.logEvent('checkout cardio success');
+        }
         Object.assign(_.creditcard, {
           cardNumber: response.card_number,
           cardExpirationMonth: response.expiry_month,
@@ -50,7 +52,9 @@ export default function productCheckoutFactory (ngComponent) {
         })
       })
       .catch((error) => {
-        facebookConnectPlugin.logEvent('checkout.cardio.error')
+        if (ENV.isProduction()) {
+          facebookConnectPlugin.logEvent('checkout cardio error')
+        }
         Utils.swalError(error)
       })
       .finally(() => {
@@ -79,14 +83,18 @@ export default function productCheckoutFactory (ngComponent) {
     }
 
     function successOnSaveOrder (result) {
-      facebookConnectPlugin.logEvent('checkout.request.success')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('checkout request success')
+      }
       _.creditcardCtrl.clearForm()
       _.order = {}
       $state.go('users.ordersChat', { id: result.id })
     }
 
     function errorOnSaveOrder (error) {
-      facebookConnectPlugin.logEvent('checkout.request.error')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('checkout request error')
+      }
       Mercadopago.tokenId = null
       Utils.swalError(error)
     }
@@ -103,9 +111,12 @@ export default function productCheckoutFactory (ngComponent) {
     }
 
     $scope.$on("$ionicView.enter", function(event, data) {
-      facebookConnectPlugin.logEvent('checkout.load', {
-        id: $stateParams.productID
-      })
+
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('checkout load', {
+          id: $stateParams.productID
+        })
+      }
       _.creditcardCtrl.clearForm()
     })
 

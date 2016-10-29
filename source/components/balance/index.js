@@ -1,7 +1,7 @@
 export default function balanceCtrlFactory (ngComponent) {
   ngComponent.controller('balanceCtrl', balanceCtrl)
 
-  function balanceCtrl (currentUser, Payout, Utils, $state, $scope, $ionicAnalytics) {
+  function balanceCtrl (currentUser, Payout, Utils, $state, $scope, ENV) {
     var _ = this
     _.user = currentUser
     _.isBusy = false
@@ -13,14 +13,18 @@ export default function balanceCtrlFactory (ngComponent) {
     _.statusToLocale = statusToLocale
 
     function requestPayout () {      
-      facebookConnectPlugin.logEvent('payout.request')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('payout request');
+      }
       _.isBusy = true
       Payout.create({ amount: _.user.attributes.available_balance })
       .then(result => {  
         reloadBalance()
      })
       .catch((e) => {
-        facebookConnectPlugin.logEvent('payout.request.error')
+        if (ENV.isProduction()) {
+          facebookConnectPlugin.logEvent('payout request error')
+        }
         Utils.swalError(e)
       })
       .finally(() => { _.isBusy = false })
@@ -62,9 +66,11 @@ export default function balanceCtrlFactory (ngComponent) {
         Utils.swalError(error)
       })
     }
-    
+
     $scope.$on('$ionicView.enter', () => {
-      facebookConnectPlugin.logEvent('payouts.load')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('payouts load')
+      }
       getPayouts()
     })
   }

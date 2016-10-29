@@ -9,7 +9,7 @@ const includes = [
 export default function orderChatCtrlFactory (ngComponent) {
   ngComponent.controller('orderChatCtrl', orderChatCtrl)
 
-  function orderChatCtrl ($ionicAnalytics, Order, Utils, $stateParams, $state, $ionicHistory, CommentStore, currentUser, $ionicScrollDelegate, $scope) {
+  function orderChatCtrl (ENV, Order, Utils, $stateParams, $state, $ionicHistory, CommentStore, currentUser, $ionicScrollDelegate, $scope) {
     var _ = this
     _.order = {}
     _.firstProduct = {}
@@ -54,7 +54,9 @@ export default function orderChatCtrlFactory (ngComponent) {
     CommentStore.on('new', scrollComments)
     CommentStore.on('fetchFinish', scrollComments)
     $scope.$on("$ionicView.enter", (event, data) => {
-      facebookConnectPlugin.logEvent('chat.load')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('chat load');
+      }
       getorder() 
     })
   }

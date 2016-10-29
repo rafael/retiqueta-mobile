@@ -3,7 +3,7 @@ const numberOfPhotosPerProduct = 4
 export default function productPictureDirectiveFactory (ngComponent) {
   ngComponent.directive('productPicture', productPicture)
 
-  function productPicture (Product, PictureStore, CameraService, $ionicScrollDelegate, Utils, $ionicAnalytics) {
+  function productPicture (Product, PictureStore, CameraService, $ionicScrollDelegate, Utils, ENV) {
     return {
       templateUrl: 'products/create/product_picture.html',
       restrict: 'E',
@@ -45,7 +45,9 @@ export default function productPictureDirectiveFactory (ngComponent) {
         }
 
         _.uploadPic = () => {
-          facebookConnectPlugin.logEvent('product.create.upload_picture')
+          if (ENV.isProduction()) {
+            facebookConnectPlugin.logEvent('product create upload_picture');
+          }
           CameraService.take({
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY
           })
@@ -55,7 +57,9 @@ export default function productPictureDirectiveFactory (ngComponent) {
         }
 
         _.takePic = () => {
-          facebookConnectPlugin.logEvent('product.create.take_picture')
+          if (ENV.isProduction()) {
+            facebookConnectPlugin.logEvent('product create take_picture');
+          }
           CameraService.take()
           .then(result => {
             _.updatePicture('data:image/jpeg;base64,' + result)

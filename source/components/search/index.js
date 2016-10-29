@@ -3,7 +3,7 @@ const PAGE_SIZE = 30
 export default function searchFactory (ngComponent) {
   ngComponent.controller('SearchProductCtrl', SearchProductCtrl)
 
-  function SearchProductCtrl ($ionicScrollDelegate, Product, $stateParams, Utils, $q, $scope, $rootScope, $ionicAnalytics, $cordovaKeyboard) {
+  function SearchProductCtrl ($ionicScrollDelegate, Product, $stateParams, Utils, $q, $scope, $rootScope, ENV, $cordovaKeyboard) {
     var _ = this
     var lastSearch = ''
     _.text = ''
@@ -36,7 +36,9 @@ export default function searchFactory (ngComponent) {
     }
 
     function prePopulate (page = 1, add = false) {
-      facebookConnectPlugin.logEvent('search.request')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('search request');
+      }
       return Product.getFeatured({
         include: 'product_pictures',
         'page[number]': page,
@@ -45,7 +47,9 @@ export default function searchFactory (ngComponent) {
         return setProducts(result, add)
       })
       .catch((error) => {
-        facebookConnectPlugin.logEvent('search.request.error')
+        if (ENV.isProduction()) {
+          facebookConnectPlugin.logEvent('search request error')
+        }
         Utils.swalError(error)
       })
       .finally(() => {
@@ -81,7 +85,9 @@ export default function searchFactory (ngComponent) {
         _.page = 1
         page = 1
       }
-      facebookConnectPlugin.logEvent('search.nextpage.request')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('search nextpage request')
+      }
       if (page === 1) {
         $rootScope.$broadcast('loading:show')
       }
@@ -95,7 +101,9 @@ export default function searchFactory (ngComponent) {
         return setProducts(result, add)
       })
       .catch((error) => {
-        facebookConnectPlugin.logEvent('search.nextpage.request.error')
+        if (ENV.isProduction()) {
+          facebookConnectPlugin.logEvent('search nextpage request error');
+        }
         Utils.swalError(error)
       })
       .finally(() => {
@@ -128,7 +136,9 @@ export default function searchFactory (ngComponent) {
     })
 
     $scope.$on("$ionicView.enter", () => {
-      facebookConnectPlugin.logEvent('search.load')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('search load');
+      }
       _.canLoadMore = true
     })
     LoadProduct()

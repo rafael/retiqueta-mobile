@@ -4,7 +4,7 @@ import { extractErrorByField, validationFactory } from '../../../libs/merge_vali
 export default function ProductCreateFactory (ngComponent) {
   ngComponent.controller('productCreateCtrl', productCreateCtrl)
 
-  function productCreateCtrl ($ionicAnalytics, GeoService, $ionicHistory, $ionicPlatform, $q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate, currentUser, $rootScope) {
+  function productCreateCtrl (ENV, GeoService, $ionicHistory, $ionicPlatform, $q, $state, $scope, FormForConfiguration, Product, PictureStore, ProductStore, Utils, $translate, currentUser, $rootScope) {
     FormForConfiguration.enableAutoLabels()
     var _ = this
     let picturesIds = PictureStore.ids()
@@ -45,13 +45,17 @@ export default function ProductCreateFactory (ngComponent) {
     }
 
     function goToSelect () {
-      facebookConnectPlugin.logEvent('product.create.select_type')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('product create select_type')
+      }
       saveDraft(_.product)
       $state.go('productsNewSelectCategory', {}, { location: 'replace', reload: true })
     }
 
     function saveProduct (product) {
-      facebookConnectPlugin.logEvent('product.create.request')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('product create request')
+      }
       _.sendingInfo = true
       product.pictures = _.pictureStore.ids()
 
@@ -64,7 +68,9 @@ export default function ProductCreateFactory (ngComponent) {
         $state.go('users.me')
       })
       .catch(error => {
-        facebookConnectPlugin.logEvent('product.create.failure')
+        if (ENV.isProduction()) {
+          facebookConnectPlugin.logEvent('product create failure');
+        }
         Utils.logger.info('Error on product creation')
         Utils.logger.log(error)
         _.errors = extractErrorByField(error.data, product, Object.keys(_.errors))
@@ -132,7 +138,9 @@ export default function ProductCreateFactory (ngComponent) {
     }
 
     function reverseGeolocation () {
-      facebookConnectPlugin.logEvent('product.create.geolocate')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('product create geolocate')
+      }
       Utils.logger.info('Starting geoLocalization')
       _.geolocated = false
       _.geoLocalizationInProgress = true
@@ -198,7 +206,9 @@ export default function ProductCreateFactory (ngComponent) {
 
     $scope.$on("$destroy", () => { action() })
     $scope.$on("$ionicView.enter", (event, data) => {
-      facebookConnectPlugin.logEvent('product.create.load')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('product create load');
+      }
       action = $ionicPlatform.registerBackButtonAction(() => {
         if($state.is('productsNew')) {
           goBack()

@@ -10,7 +10,7 @@ const baseErrorsObject = {
 export default function signupCtrlFactory (ngComponent) {
   ngComponent.controller('signupCtrl', signupCtrl)
 
-  function signupCtrl ($scope, $state, User, FormForConfiguration, Auth, Utils, $translate, $q, FacebookAuth, $ionicAnalytics) {
+  function signupCtrl ($scope, $state, User, FormForConfiguration, Auth, Utils, $translate, $q, FacebookAuth, ENV) {
     FormForConfiguration.disableAutoLabels()
     let _ = this
     let notFirstValidation = false
@@ -41,14 +41,19 @@ export default function signupCtrlFactory (ngComponent) {
       _.sendingInfo = true
       user.email = user.email.toLowerCase()
       // user.username = user.username.toLowerCase()
-      facebookConnectPlugin.logEvent('signup.request')
+
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('signup request');
+      }
       User.create(user)
         .then(result => {
           return Auth.login(user)
         })
         .then(redirectToDashboard)
         .catch(error => {
-          facebookConnectPlugin.logEvent('signup.request.error')
+          if (ENV.isProduction()) {
+            facebookConnectPlugin.logEvent('signup request error')
+          }
           _.errors = extractErrorByField(error.data, user, Object.keys(_.errors), ['usuario', 'correo', 'password'])
           _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
         })
@@ -95,7 +100,9 @@ export default function signupCtrlFactory (ngComponent) {
     })
 
     $scope.$on('$ionicView.enter', () => {
-      facebookConnectPlugin.logEvent('signup.load')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('signup load')
+      }
     })
   }
 }

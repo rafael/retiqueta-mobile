@@ -11,7 +11,7 @@ const defaultAttibutes = {
 export default function profileEditFactory (ngComponent) {
   ngComponent.controller('profileEditCtrl', profileEditCtrl)
 
-  function profileEditCtrl ($ionicAnalytics, identificationTypes, currentUser, User, FormForConfiguration, Utils, $translate, Auth, $state, $ionicHistory) {
+  function profileEditCtrl (ENV, identificationTypes, currentUser, User, FormForConfiguration, Utils, $translate, Auth, $state, $ionicHistory) {
     FormForConfiguration.disableAutoLabels()
 
     var _ = this
@@ -30,7 +30,9 @@ export default function profileEditFactory (ngComponent) {
 
       _.sendingInfo = true
 
-      facebookConnectPlugin.logEvent('profile.edit.request')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('profile edit request');
+      }
       User.update(_.user.id, attrs)
       .then(result => {
         // Utils.swalSuccess($translate.instant('UPDATE_PROFILE_SUCCESS'))
@@ -41,7 +43,9 @@ export default function profileEditFactory (ngComponent) {
         $state.go('users.me', {}, { reload: true, inherit: false, notify: true })
       })
       .catch(error => {
-        facebookConnectPlugin.logEvent('profile.edit.request.error')
+        if (ENV.isProduction()) {
+          facebookConnectPlugin.logEvent('profile edit request error');
+        }
         Utils.swalError(error)
       })
       .finally(() => {

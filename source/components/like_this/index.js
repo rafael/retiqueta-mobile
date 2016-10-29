@@ -1,7 +1,7 @@
 export default function likeThisFactory (ngComponent) {
   ngComponent.directive('likeThis', likeThis)
 
-  function likeThis (Like, $ionicAnalytics) {
+  function likeThis (Like, ENV) {
     return {
       retrict: 'A',
       scope: {
@@ -23,7 +23,9 @@ export default function likeThisFactory (ngComponent) {
         toggleClass(!scope.product.meta.liked_by_current_user)
         addToLikeCount()
 
-        facebookConnectPlugin.logEvent('product.like.request')
+        if (ENV.isProduction()) {
+          facebookConnectPlugin.logEvent('product like request');
+        }
         // Like on the api
         Like.toggle(productId, !scope.product.meta.liked_by_current_user)
         .catch(error => {

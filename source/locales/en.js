@@ -92,7 +92,7 @@ var enTranslation = {
   BALANCE_EDIT_BANK_ACCOUNT: 'Edit your bank information',
   BALANCE_WITHDRAW: 'Transfer all your balance to your account',
   BALANCE_STATUS_PROCESSING: 'processing',
-    BALANCE_STATUS_PAID: 'paid',
+  BALANCE_STATUS_PAID: 'paid',
   FAQ: 'FAQ',
   ORDERS_NO_EXISTS: 'You don\'t have any orders.',
   SALES_NO_EXISTS: 'You don\'t have any sales.',

@@ -80,7 +80,9 @@ export default function wardrobeIndexFactory (ngComponent) {
     }
 
     $scope.$on("$ionicView.enter", function(event, data) {
-      facebookConnectPlugin.logEvent('wardrobe.load')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('wardrobe load');
+      }
       _.canLoadMore = true
       LoadUser()
       ClearHistoryIfOwner()

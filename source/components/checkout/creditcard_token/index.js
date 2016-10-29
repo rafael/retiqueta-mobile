@@ -51,7 +51,7 @@ export default function CreditCardTokenFactory (ngComponent) {
     }
   }
 
-  function creditCardToken (MercadopagoFactory, Utils, $ionicAnalytics, $rootScope) {
+  function creditCardToken (MercadopagoFactory, Utils, ENV, $rootScope) {
     return {
       restrict: 'E',
       templateUrl: 'checkout/creditcard_token/template.html',
@@ -128,7 +128,9 @@ export default function CreditCardTokenFactory (ngComponent) {
 
           function onCreateToken (response) {
             //console.info("Success on create token")
-            facebookConnectPlugin.logEvent('mercadopago.token.success')
+            if (ENV.isProduction()) {
+              facebookConnectPlugin.logEvent('mercadopago token success')
+            }
             scope.onTokenHandler(response.response.id, scope.creditcard.methodID)
           }
 
@@ -138,7 +140,9 @@ export default function CreditCardTokenFactory (ngComponent) {
             Utils.logger.log(response)
             Utils.swalError(response.response)
             scope.errors = helpersFunctions.extractErrors(response.response.cause)
-            facebookConnectPlugin.logEvent('mercadopago.token.error')
+            if (ENV.isProduction()) {
+              facebookConnectPlugin.logEvent('mercadopago token error')
+            }
           }
         }
       }

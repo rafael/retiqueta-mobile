@@ -1,7 +1,7 @@
 export default function FollowButtonFactory (ngComponent) {
   ngComponent.directive('followButton', followButton)
 
-  function followButton (User, $translate, $ionicAnalytics) {
+  function followButton (User, $translate, ENV) {
     return {
       templateUrl: 'user/follow_button/index.html',
       restrict: 'E',
@@ -17,7 +17,9 @@ export default function FollowButtonFactory (ngComponent) {
       scope.followButtonText = followButtonText
 
       function toggleFollowship (following) {
-        facebookConnectPlugin.logEvent('profile.' + followAction(following) + '.attempt')
+        if (ENV.isProduction()) {
+          facebookConnectPlugin.logEvent('profile ' + followAction(following) + ' request');
+        }
         scope.followHandler(following)
       }
 

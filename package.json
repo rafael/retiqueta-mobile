@@ -79,6 +79,7 @@
     "ionic-plugin-keyboard",
     "cordova-plugin-camera",
     "cordova-plugin-dialogs",
+    "cordova-plugin-geolocation",
     {
       "variables": {
         "APP_ID": "218604841833703",
@@ -98,8 +99,10 @@
       "locator": "phonegap-plugin-push@1.4.5",
       "id": "phonegap-plugin-push"
     },
-    "cordova-plugin-geolocation",
-    "cordova-custom-config",
+    {
+      "id": "cordova-custom-config",
+      "locator": "cordova-custom-config@2.0.3"
+    },
     "cordova-plugin-inappbrowser"
   ],
   "cordovaPlatforms": [

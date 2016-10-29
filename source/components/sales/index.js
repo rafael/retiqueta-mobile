@@ -30,7 +30,7 @@ export default function salesCtrlFactory (ngComponent) {
     }
 
     $scope.$on('$ionicView.enter', () => {
-      facebookConnectPlugin.logEvent('sales.load')
+      facebookConnectPlugin.logEvent('sales load')
       getSales()
     })
   }

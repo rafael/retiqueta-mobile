@@ -8,7 +8,7 @@ const baseErrorsObject = {
 export default function loginCtrlFactory (ngComponent) {
   ngComponent.controller('loginCtrl', loginCtrl)
 
-  function loginCtrl ($scope, $state, FormForConfiguration, Auth, Utils, $translate, $q, $ionicAnalytics) {
+  function loginCtrl ($scope, $state, FormForConfiguration, Auth, Utils, $translate, $q, ENV) {
     FormForConfiguration.disableAutoLabels()
     let _ = this
     let notFirstValidation = false
@@ -49,14 +49,18 @@ export default function loginCtrlFactory (ngComponent) {
     function submit (user) {
       _.sendingInfo = true
       user.email = user.email.toLowerCase()
-      facebookConnectPlugin.logEvent('login.request')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('login request');
+      }
       Auth.login(user)
       .then(token => {
         // Utils.swalSuccess($translate.instant('WELCOME_MESSAGE'))
         $state.go('users.dashboard')
       })
       .catch(error => {
-        facebookConnectPlugin.logEvent('login.request.error')
+        if (ENV.isProduction()) {
+          facebookConnectPlugin.logEvent('login request error');
+        }
         _.errors = extractErrorByField(error, user, Object.keys(_.errors), ['usuario', 'contraseña'])
         $scope.$evalAsync(() => {
           _.formController.validateForm(true).then(afterValidateForm).catch(afterValidateForm)
@@ -102,7 +106,9 @@ export default function loginCtrlFactory (ngComponent) {
     })
 
     $scope.$on('$ionicView.enter', () => {
-      facebookConnectPlugin.logEvent('login.load')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('login load');
+      }
     })
   }
 }
