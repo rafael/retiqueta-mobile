@@ -11,7 +11,7 @@ export default function(ngComponent) {
   ngComponent.factory('authInterceptor', authInterceptor)
   ngComponent.config(configAuthInterceptor)
 
-  function authInterceptor ($rootScope, $injector, $q, ENV, Utils, $ionicPlatform) {
+  function authInterceptor ($rootScope, $injector, $q, ENV, Utils) {
     return {
       request: function (config) {
         config.headers = config.headers || {}
@@ -71,14 +71,7 @@ export default function(ngComponent) {
             location.replace('#/auth/login')
             return $q.reject(response)
           case 0:
-            Utils.swalError('No connection with the server')
-            $ionicPlatform.ready(function() {
-              if(window.Connection) {
-                if(navigator.connection.type == Connection.NONE) {
-                  ionic.Platform.exitApp();
-                }
-              }
-            });
+            Utils.swalError('No connection with the server, please try again later')
             return $q.reject(response)
           case 500:
             Utils.swalError('Error on the server, if the error persist contact retiqueta team')
