@@ -71,13 +71,9 @@ export default function(ngComponent) {
             location.replace('#/auth/login')
             return $q.reject(response)
           case 0:
-            Utils.swalError('No connection with the server')
+            Utils.swalError('No connection with the server, please try again later')
             $ionicPlatform.ready(function() {
-              if(window.Connection) {
-                if(navigator.connection.type == Connection.NONE) {
-                  ionic.Platform.exitApp();
-                }
-              }
+              ionic.Platform.exitApp();
             });
             return $q.reject(response)
           case 500:

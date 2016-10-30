@@ -53,7 +53,7 @@ export default function UtilsFactory (ngComponent) {
       } else if (typeof error === 'string') {
         errorMessage = error
       } else {
-        errorMessage = 'A problem occur getting data'
+        errorMessage = 'Problem fetching data'
       }
 
       return errorMessage.replace(/[{}\[\]\"]/g, '').replace(/error\:/g, '')
