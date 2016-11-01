@@ -227,7 +227,7 @@ gulp.task('build:watch', ['build'], function() {
   gulp.watch(source_paths.all_html, ['ngHtml'])
 });
 
-gulp.task('serve', ['build:watch'],function() {
+gulp.task('server', ['build:watch'],function() {
   return gulp.src('www')
   .pipe(webserver({
     host: '0.0.0.0',

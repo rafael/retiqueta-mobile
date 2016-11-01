@@ -71,7 +71,7 @@
           </div>
         </ion-item>
         <ion-infinite-scroll
-          ng-if="search.canLoadMore()"
+          ng-if="search.canLoadMore"
           on-infinite="search.loadMore(search.page)"
           distance="20%"
           immediate-check="false">
