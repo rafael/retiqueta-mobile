@@ -1,7 +1,7 @@
 export default function DashboardFactory (ngComponent) {
   ngComponent.controller('dashboardCtrl', dashCtrl)
 
-  function dashCtrl (Product, Utils, $scope, $ionicAnalytics, $rootScope) {
+  function dashCtrl (Product, Utils, $scope, ENV, $rootScope) {
     var _ = this
     _.products = []
     _.render = true
@@ -12,9 +12,9 @@ export default function DashboardFactory (ngComponent) {
     }
 
     $scope.$on("$ionicView.enter", function(event, data) {
-      $ionicAnalytics.track('Load', {
-        action: 'Load timeline'
-      })
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('timeline load')
+      }
       refreshFeatured()
     })
 

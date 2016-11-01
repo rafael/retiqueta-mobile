@@ -1,7 +1,7 @@
 export default function balanceCtrlFactory (ngComponent) {
   ngComponent.controller('balanceCtrl', balanceCtrl)
 
-  function balanceCtrl (currentUser, Payout, Utils, $state, $scope, $ionicAnalytics) {
+  function balanceCtrl (currentUser, Payout, Utils, $state, $scope, ENV) {
     var _ = this
     _.user = currentUser
     _.isBusy = false
@@ -13,25 +13,18 @@ export default function balanceCtrlFactory (ngComponent) {
     _.statusToLocale = statusToLocale
 
     function requestPayout () {      
-      $ionicAnalytics.track('Click', {
-        action: 'requestPayout'
-      })
-      $ionicAnalytics.track('fetch start', {
-        action: 'requestPayout'
-      })
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('payout request');
+      }
       _.isBusy = true
       Payout.create({ amount: _.user.attributes.available_balance })
       .then(result => {  
-        $ionicAnalytics.track('fetch success', {
-          action: 'requestPayout'
-        })
         reloadBalance()
      })
       .catch((e) => {
-        $ionicAnalytics.track('fetch error', {
-          action: 'requestPayout',
-          error: e
-        })
+        if (ENV.isProduction()) {
+          facebookConnectPlugin.logEvent('payout request error')
+        }
         Utils.swalError(e)
       })
       .finally(() => { _.isBusy = false })
@@ -64,29 +57,20 @@ export default function balanceCtrlFactory (ngComponent) {
     }
 
     function getPayouts () {
-      $ionicAnalytics.track('fetch start', {
-        action: 'get payouts on balance view'
-      })
       Payout.all()
       .then(result => {
-        $ionicAnalytics.track('fetch success', {
-          action: 'get payouts on balance view'
-        })
         return _.payouts = result 
       })
       // .then(result => { Utils.logger.log(result) })
       .catch((error) => {
-        $ionicAnalytics.track('fetch success', {
-          action: 'get payouts on balance view'
-        })
         Utils.swalError(error)
       })
     }
-    
+
     $scope.$on('$ionicView.enter', () => {
-      $ionicAnalytics.track('Load', {
-        action: 'Balance view'
-      })
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('payouts load')
+      }
       getPayouts()
     })
   }

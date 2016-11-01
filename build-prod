@@ -1,5 +1,6 @@
 npm install 
 npm run release
+ionic resources
 ionic state reset
 ionic build ios
 ionic package build ios --release --profile production

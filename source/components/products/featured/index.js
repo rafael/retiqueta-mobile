@@ -25,10 +25,6 @@ export default function FeaturedDirective (ngComponent) {
       }
 
       function loadMore () {
-        $ionicAnalytics.track('fetch start', {
-          action: 'Load more featured products',
-          page
-        })
         if (moreDataCanBeLoaded()) {
           page = page + 1
           loadFeatured(page)

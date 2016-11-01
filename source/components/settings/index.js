@@ -1,11 +1,11 @@
 export default function SettingsFactory (ngComponent) {
   ngComponent.controller('settingsCtrl', settingsCtrl)
 
-  function settingsCtrl ($ionicAnalytics, $scope) {
+  function settingsCtrl (ENV, $scope) {
     $scope.$on("$ionicView.enter", function(event, data) {
-      $ionicAnalytics.track('Load', {
-        action: 'settings view'
-      })
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('settings load');
+      }
     })
   }
 }

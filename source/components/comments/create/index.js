@@ -1,7 +1,7 @@
 export default function CommentCreateDirectiveFactory (ngComponent) {
   ngComponent.directive('commentForm', CommentForm)
 
-  function CommentForm (CommentStore, Utils, $ionicAnalytics) {
+  function CommentForm (CommentStore, Utils, ENV) {
     return {
       templateUrl: 'comments/create/template.html',
       restrict: 'E',
@@ -22,27 +22,18 @@ export default function CommentCreateDirectiveFactory (ngComponent) {
 
       function saveComment () {
         scope.loading = true
-        $ionicAnalytics.track(`fetch start`, {
-          action: 'create comment',
-          type: scope.parentType,
-          id: scope.parentId,
-        })
+
+        if (ENV.isProduction()) {
+          facebookConnectPlugin.logEvent('comment create request');
+        }
         CommentStore.create(scope.parentId, { text: scope.comment }, scope.parentType)
         .then(result => {
-          $ionicAnalytics.track(`fecth success`, {
-            action: 'create comment',
-            type: scope.parentType,
-            id: scope.parentId,
-          })
           CommentStore.emit('new', scope.parentType, scope.parentId, result)
         })
         .catch(error => {
-          $ionicAnalytics.track(`fetch error`, {
-            action: 'create comment',
-            type: scope.parentType,
-            id: scope.parentId,
-            error: error
-          })
+          if (ENV.isProduction()) {
+            facebookConnectPlugin.logEvent('comment create request error');
+          }
           Utils.swalError(error)
         })
         .finally(() => {

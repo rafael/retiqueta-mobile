@@ -4,7 +4,7 @@ const START_PAGE = 0
 export default function fellowshipCtrlFactory (ngComponent) {
   ngComponent.controller('fellowshipCtrl', fellowshipCtrl)
 
-  function fellowshipCtrl ($q, geter, user, Utils, viewTitle, $scope, $ionicAnalytics) {
+  function fellowshipCtrl ($q, geter, user, Utils, viewTitle, $scope, ENV) {
     const _ = this
     let state = { page: START_PAGE, canLoadMore: true }
     _.fellowship = []
@@ -55,9 +55,9 @@ export default function fellowshipCtrlFactory (ngComponent) {
     }
   
     $scope.$on("$ionicView.enter", function(event, data) {
-      $ionicAnalytics.track('Load', {
-        action: viewTitle
-      })
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('friends load');
+      }
       loadFellowship(START_PAGE)
     })
   }

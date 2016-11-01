@@ -1,7 +1,7 @@
 export default function FollowButtonFactory (ngComponent) {
   ngComponent.directive('followButton', followButton)
 
-  function followButton (User, $translate, $ionicAnalytics) {
+  function followButton (User, $translate, ENV) {
     return {
       templateUrl: 'user/follow_button/index.html',
       restrict: 'E',
@@ -9,7 +9,7 @@ export default function FollowButtonFactory (ngComponent) {
         following: '=',
         followHandler: '='
       },
-      link: followButtonLink     
+      link: followButtonLink
     }
 
     function followButtonLink (scope, element, attrs) {
@@ -17,14 +17,14 @@ export default function FollowButtonFactory (ngComponent) {
       scope.followButtonText = followButtonText
 
       function toggleFollowship (following) {
-        $ionicAnalytics.track('fetch start', {
-          action: followAction(following)
-        })
+        if (ENV.isProduction()) {
+          facebookConnectPlugin.logEvent('profile ' + followAction(following) + ' request');
+        }
         scope.followHandler(following)
       }
 
       function followAction (following) {
-        return (following) ? 'UNFOLLOW':'FOLLOW'
+        return (following) ? 'unfollow':'follow'
       }
 
       function followButtonText () {
