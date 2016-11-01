@@ -1,4 +1,4 @@
-<ion-view 
+<ion-view
   hide-back-button="true">
   <ion-nav-bar>
     <form class="bar bar-header bar-assertive item-input-inset" ng-submit="search.search()">
@@ -8,7 +8,7 @@
         type="search"
         placeholder="{{ 'SEARCH_INPUT_PLACEHOLDER' | translate }}"
         ng-model='search.text'
-        ng-model-options="{ debounce: 500 }" 
+        ng-model-options="{ debounce: 500 }"
         ng-keypress='search.enterHandler($event)'/>
       </label>
       <button class="button button-clear" type="button" ng-click="search.clear()">
@@ -23,12 +23,67 @@
           {{ 'NOT_RESULT_FOR_SEARCH' | translate }}
         </h4>
       </div>
-      <products-list 
+      <ion-list class="products featured">
+        <ion-item
+          ng-repeat="product in search.products track by $index"
+          class="product-featured {{ product.attributes.status }}">
+          <div class="container" nf-if="hasPicture(product.relationships.product_pictures)">
+            <header>
+              <div class="sold-mark">
+                <span class="sold-mark-text">v</span>
+              </div>
+
+              <a ui-sref="users.productDetails({productID: product.id})">
+                <img class="thumbnail" src="{{ product.relationships.product_pictures[0].attributes.small_url }}">
+              </a>
+            </header>
+            <div class="details">
+              <div class="original-price">
+                <span class="price">
+                  {{ product.attributes.original_price | currency : product.attributes.currency  }}
+                </span>
+                /
+              </div>
+              <div class="retiqueta-price">
+                {{ product.attributes.price | currency : products.attributes.currency }}
+              </div>
+            </div>
+            <footer>
+              <div class="item tabs tabs-secondary tabs-icon-left">
+                <span
+                  class="tab-item"
+                  like-this
+                  product="product">
+                  <i class="icon ion-heart"></i>
+                  <span class="count">
+                    {{ product.attributes.likes_count }}
+                  </span>
+                </span>
+                <a class="tab-item"
+                  ui-sref="users.productDetails({productID: product.id, onComment: true})">
+                  <i class="icon ion-chatbox"></i>
+                  <span class="count">
+                    {{ product.attributes.comments_count }}
+                  </span>
+                </a>
+              </div>
+            </footer>
+          </div>
+        </ion-item>
+        <ion-infinite-scroll
+          ng-if="search.canLoadMore()"
+          on-infinite="search.loadMore(search.page)"
+          distance="20%"
+          immediate-check="false">
+        </ion-infinite-scroll>
+      </ion-list>
+<!--
+      <products-list
         products="search.products"
         pagination-func="search.loadMore"
         page="search.page"
         page-size="search.pageSize"
-        can-load-more="search.canLoadMore"></products-list>
+        can-load-more="search.canLoadMore"></products-list> -->
     </div>
   </ion-content>
 </ion-view>
