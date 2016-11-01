@@ -71,7 +71,7 @@ export default function(ngComponent) {
             location.replace('#/auth/login')
             return $q.reject(response)
           case 0:
-            Utils.swalError('No connection with the server')
+            Utils.swalError('No connection with the server, please try again later')
             return $q.reject(response)
           case 500:
             Utils.swalError('Error on the server, if the error persist contact retiqueta team')

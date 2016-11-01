@@ -10,7 +10,7 @@ const includes = [
 export default function salesCtrlFactory (ngComponent) {
   ngComponent.controller('salesCtrl', salesCtrl)
 
-  function salesCtrl (Sell, Utils, $scope, $ionicAnalytics) {
+  function salesCtrl (Sell, Utils, $scope, ENV) {
     var _ = this
     _.loading = false
     _.sales = []
@@ -30,7 +30,9 @@ export default function salesCtrlFactory (ngComponent) {
     }
 
     $scope.$on('$ionicView.enter', () => {
-      facebookConnectPlugin.logEvent('sales load')
+      if (ENV.isProduction()) {
+        facebookConnectPlugin.logEvent('sales load');
+      }
       getSales()
     })
   }
