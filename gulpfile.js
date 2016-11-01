@@ -111,6 +111,12 @@ tasks = {
     var name = "app-" + uuid.v1() + "." + type;
     return name
   },
+  copyMercadoPagoSdk: function () {
+      return gulp.src([
+          'vendors/mercadopago/mercado_pago_sdk.js',
+      ])
+     .pipe(gulp.dest('www/lib/mercadopago/js/'))
+  },
   copyIonicBundle: function () {
     return gulp.src([
       'vendors/ionic/js/**/*.js',
@@ -177,6 +183,11 @@ gulp.task('copyIonic', function() {
   return es.merge(tasks.copyIonicBundle(),tasks.copyIonicIOBundle())
 })
 
+gulp.task('copyMercadoPago', function() {
+    return es.merge(tasks.copyMercadoPagoSdk())
+})
+
+
 gulp.task('cleanIonic', function() {
   var deferred = Q.defer();
   del(['./www/ionic.bundle.min.js', './www/ionic.io.bundle.min.js'], function() {
@@ -199,7 +210,7 @@ gulp.task('ionicIOWebkitAssign', function() {
 
 gulp.task('ionicWebkitAssign', ['cleanIonic', 'ionicBundleWebkitAssign', 'ionicIOWebkitAssign'])
 
-gulp.task('inject', ['ngHtml', 'copyFonts', 'copyIonic', 'copyImages'], function() {
+gulp.task('inject', ['ngHtml', 'copyFonts', 'copyIonic', 'copyImages', 'copyMercadoPago'], function() {
   return tasks.injectHtml(
     source_paths.dev_html,
     es.merge(tasks.devCss(), tasks.devBrowserify())
