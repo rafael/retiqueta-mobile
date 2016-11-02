@@ -33,7 +33,9 @@ export default function searchFactory (ngComponent) {
     }
 
     function searchProducts (page = 1, add = false) {
-      console.log('Search request: page->' + page + ' add-> ' + add + ' text->' + _.text)
+      if (!ENV.isProduction()) {
+        console.log('Search request: page->' + page + ' add-> ' + add + ' text->' + _.text)
+      }
       if (lastSearch !== _.text) {
         Utils.logger.info('Different search, reset page')
         _.page = 1
@@ -44,7 +46,6 @@ export default function searchFactory (ngComponent) {
         facebookConnectPlugin.logEvent('search nextpage request')
       }
 
-      _.noResult = false
       _.loading = true
 
       try {
@@ -69,7 +70,9 @@ export default function searchFactory (ngComponent) {
         Utils.swalError(error)
       })
       .finally(() => {
-        console.log('Search complete')
+        if (!ENV.isProduction()) {
+          console.log('Search complete')
+        }
         if (page === 1) {
           $ionicScrollDelegate.scrollTop()
         }
@@ -85,7 +88,13 @@ export default function searchFactory (ngComponent) {
       } else {
         _.products = newProducts
       }
-      _.noResult = _.products.length === 0 && _.text !== ''
+
+      if (!ENV.isProduction()) {
+        console.log('Product length ' + _.products.length)
+      }
+      
+      _.noResult = _.products.length === 0
+
       return newProducts
     }
 

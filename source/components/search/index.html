@@ -36,6 +36,7 @@
           </div>
         </ion-item>
         <ion-infinite-scroll
+          ng-if="!search.noResult"
           on-infinite="search.search(search.page, true)"
           distance="50%"
           immediate-check="false">
