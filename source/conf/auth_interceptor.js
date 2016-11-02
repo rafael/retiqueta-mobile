@@ -56,9 +56,16 @@ export default function(ngComponent) {
                 });
               })
               .catch((resp) => {
-                deferred.reject(resp)
-                window.localStorage.removeItem('token')
-                $injector.get("$state").go('auth.login')
+                // There could be requests in flight while a refresh token just happened.
+                // In this case one will succeed, the other will return a 400.
+                if (resp.status == 0 || resp.status == 400) {
+                  Utils.swalError('Error refreshing token')
+                  return $q.reject(response)
+                } else {
+                  deferred.reject(resp)
+                  window.localStorage.removeItem('token')
+                  $injector.get("$state").go('auth.login')
+                }
               })
             } else {
               deferred.reject(response)
