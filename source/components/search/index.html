@@ -29,61 +29,18 @@
           class="product-featured {{ product.attributes.status }}">
           <div class="container" nf-if="hasPicture(product.relationships.product_pictures)">
             <header>
-              <div class="sold-mark">
-                <span class="sold-mark-text">v</span>
-              </div>
-
               <a ui-sref="users.productDetails({productID: product.id})">
                 <img class="thumbnail" src="{{ product.relationships.product_pictures[0].attributes.small_url }}">
               </a>
             </header>
-            <div class="details">
-              <div class="original-price">
-                <span class="price">
-                  {{ product.attributes.original_price | currency : product.attributes.currency  }}
-                </span>
-                /
-              </div>
-              <div class="retiqueta-price">
-                {{ product.attributes.price | currency : products.attributes.currency }}
-              </div>
-            </div>
-            <footer>
-              <div class="item tabs tabs-secondary tabs-icon-left">
-                <span
-                  class="tab-item"
-                  like-this
-                  product="product">
-                  <i class="icon ion-heart"></i>
-                  <span class="count">
-                    {{ product.attributes.likes_count }}
-                  </span>
-                </span>
-                <a class="tab-item"
-                  ui-sref="users.productDetails({productID: product.id, onComment: true})">
-                  <i class="icon ion-chatbox"></i>
-                  <span class="count">
-                    {{ product.attributes.comments_count }}
-                  </span>
-                </a>
-              </div>
-            </footer>
           </div>
         </ion-item>
         <ion-infinite-scroll
-          ng-if="search.canLoadMore"
-          on-infinite="search.loadMore(search.page)"
-          distance="20%"
+          on-infinite="search.search(search.page, true)"
+          distance="50%"
           immediate-check="false">
         </ion-infinite-scroll>
       </ion-list>
-<!--
-      <products-list
-        products="search.products"
-        pagination-func="search.loadMore"
-        page="search.page"
-        page-size="search.pageSize"
-        can-load-more="search.canLoadMore"></products-list> -->
     </div>
   </ion-content>
 </ion-view>
