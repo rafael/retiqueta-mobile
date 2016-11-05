@@ -21,9 +21,9 @@ export default function searchFactory (ngComponent) {
       _.text = ''
       if ($stateParams.hasOwnProperty('word') && typeof $stateParams.word !== 'undefined' && $stateParams.word !== '') {
         _.text = $stateParams.word
-        searchProducts()
+        searchProducts(1, false, 10)
       } else {
-        searchProducts()
+        searchProducts(1, false, 10)
       }
     }
 
@@ -32,7 +32,7 @@ export default function searchFactory (ngComponent) {
       searchProducts()
     }
 
-    function searchProducts (page = 1, add = false) {
+    function searchProducts (page = 1, add = false, page_size = PAGE_SIZE) {
       if (!ENV.isProduction()) {
         console.log('Search request: page->' + page + ' add-> ' + add + ' text->' + _.text)
       }
@@ -55,7 +55,7 @@ export default function searchFactory (ngComponent) {
       var searchRequest = {
         'q': _.text,
         'page[number]': page,
-        'page[size]': PAGE_SIZE,
+        'page[size]': page_size,
         'include': 'user,product_pictures'
       }
 
@@ -67,6 +67,8 @@ export default function searchFactory (ngComponent) {
         if (ENV.isProduction()) {
           facebookConnectPlugin.logEvent('search nextpage request error');
         }
+        _.loading = false
+        $scope.$broadcast('scroll.infiniteScrollComplete');
         Utils.swalError(error)
       })
       .finally(() => {
@@ -92,7 +94,7 @@ export default function searchFactory (ngComponent) {
       if (!ENV.isProduction()) {
         console.log('Product length ' + _.products.length)
       }
-      
+
       _.noResult = _.products.length === 0
 
       return newProducts
