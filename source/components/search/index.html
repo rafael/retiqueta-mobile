@@ -33,6 +33,45 @@
                 <img class="thumbnail" src="{{ product.relationships.product_pictures[0].attributes.small_url }}">
               </a>
             </header>
+            <div class="product-details">
+              <div class="price-details">
+                <span class="original-price">
+                  {{ product.attributes.original_price | currency : product.attributes.currency  }}
+                </span>
+                <span class="divisor">/</span>
+                <span class="retiqueta-price">
+                  {{ product.attributes.price | currency : products.attributes.currency }}
+                </span>
+              </div>
+            </div>
+
+            <footer>
+              <div class="item tabs tabs-secondary tabs-icon-left">
+                <a
+                  ng-if="product.attributes.status !== sold"
+                  product="product"
+                  class="button button-assertive button-buy buy-icon"
+                  ui-sref="users.productDetails.checkout({ productID: product.id})">
+                  {{ 'BUY_NOW' | translate }}
+                </a>
+                <a
+                  href="#"
+                  product="product"
+                  ng-if="product.attributes.status === sold"
+                  class="button button-block button-buy button-stable">
+                  {{ 'SOLD_PRODUCT' | translate }}
+                </a>
+                <span
+                  class="tab-item like-icon"
+                  like-this
+                  product="product">
+                  <i class="icon ion-heart"></i>
+                  <span class="count">
+                    {{ product.attributes.likes_count }}
+                  </span>
+                </span>
+              </div>
+            </footer>
           </div>
         </ion-item>
         <ion-infinite-scroll

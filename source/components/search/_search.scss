@@ -29,111 +29,30 @@ form.bar.bar-header.item-input-inset {
 	}
 }
 
-.products.featured {
-	.product-featured {
-		position: relative;
-		.sold-mark {
-			display: none;
-			opacity: 0;
-		}
-		&.sold {
-			position: relative;
-			.sold-mark {
-				opacity: 1;
-				display: block;
-				position: absolute;
-				top: 0;
-				left: 1px;
-				width: 30px;
-				height: 30px;
-				text-align: center;
-				line-height: 20px;
-				z-index: 2000;
-				.sold-mark-text {
-					position: relative;
-					top: 0.1em;
-					left: -0.3em;
-					color: white;
-					font-size: 16px;
-					z-index: 3000;
-				}
-				&:before {
-					position: absolute;
-					top: 0px;
-					left: 0px;
-					content: "";
-					display: block;
-					width: 0;
-					height: 0;
-					color: white;
-					border-top: 20px solid $balanced;
-					border-bottom: 20px solid transparent;
-					border-left: 20px solid $balanced;
-					border-right: 20px solid transparent;
-				}
-			}
-		}
+.buy-icon {
+	margin-right: .3em;
+}
+.like-icon {
+	max-width: 50px;
+	font-size-adjust: auto;
+}
+
+.product-details {
+	display: table-cell;
+	.original-price, .divisor {
+		font-size: 0.8rem;
+		color: $stable-dark;
+		text-decoration: line-through;
 	}
-	.list {
-		@extend .flex-container;
-		@extend .flex-start;
-		justify-content: space-between;
-		align-items: stretch;
-		.product-featured {
-			flex: 0 1 49.5%;
-			margin-bottom: 0.5em;
-			@extend .flex-container;
-			align-items: stretch;
-			.container {
-				flex: 1;
-				@extend .flex-container;
-				flex-direction: column;
-				justify-content: space-between;
-				flex-wrap: wrap;
-				header 	{
-					.thumbnail {
-						max-width: 100%;
-					}
-				}
-				footer {
-					.tabs {
-						border: none;
-						.tab-item:first-child {
-							margin-right: 0.3em;
-						}
-						.tab-item {
-							background-color: $stable;
-							text-align: left;
-							padding-left: 1.6em;
-							.icon {
-								margin-top: 0em;
-							}
-						}
-					}
-				}
-				.details {
-					@extend .flex-container;
-					@extend .flex-start;
-					padding: 0.3em 0.1em 0.6em;
-					align-items: baseline;
-					div {
-					}
-					.original-price, .divisor {
-						font-size: 0.8rem;
-						color: $stable-dark;
-						.price {
-							text-decoration: line-through;
-						}
-					}
-					.retiqueta-price {
-						margin-left: 0.2em;
-						text-align: right;
-						font-size: 1.1rem;
-						color: $assertive;
-						font-weight: 500;
-					}
-				}
-			}
-		}
+	.price-details{
+		vertical-align: middle;
+		text-align: center;
+	}
+	.retiqueta-price {
+		margin-left: 0.2em;
+		text-align: right;
+		font-size: 1.1rem;
+		color: $assertive;
+		font-weight: 500;
 	}
 }
