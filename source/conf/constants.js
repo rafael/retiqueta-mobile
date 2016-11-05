@@ -1,7 +1,9 @@
 const DEVELOPMENT = 'development'
 const PRODUCTION = 'production'
 const node_env = process.env.NODE_ENV || DEVELOPMENT
+const API_ENDPOINT = process.env.API_ENDPOINT || 'http://192.168.99.100'
 const DEBUG_MODE = process.env.DEBUG_MODE || true
+const API_ENDPOINT = process.env.API_ENDPOINT || 'https://api.retiqueta.com'
 
 function mercadopagoKeys () {
   switch (node_env) {
@@ -18,8 +20,7 @@ const ENV = {
   app_name: 'Retiqueta',
   type: node_env,
   api: {
-    // url: (node_env === 'production') ? 'https://api.retiqueta.com':'http://localhost:9393'
-    url: (node_env === 'production') ? 'https://api.retiqueta.com':'https://api.retiqueta.com'
+    url: (node_env === 'production') ? 'https://api.retiqueta.com': API_ENDPOINT
   },
   isDevelopment () {
     return this.type === DEVELOPMENT

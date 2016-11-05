@@ -1,32 +1,39 @@
 export default function(ngComponent) {
 
-  ngComponent.factory('MercadopagoFactory', MercadopagoFactory)
+  ngComponent.factory('MercadopagoFactory', MercadopagoFactory);
 
   function MercadopagoFactory (ENV, $q) {
-    Mercadopago.setPublishableKey(ENV.mercadopago_keys.public)
-
-    Object.assign(Mercadopago, {
-      guessPaymentMethod: guessPaymentMethodFactory($q),
-      resolveToken: createTokenFactory($q),
-      resolveIdentificationTypes: resolveIdentificationTypesFactory($q)
-    })
-
-    return Mercadopago
+    if (typeof Mercadopago === 'undefined') {
+      let Mercadopago = {
+        guessPaymentMethod: function($q) { return null; },
+        resolveToken: function($q) { return null; },
+        resolveIdentificationTypes: function($q) { return null; }
+      };
+      return Mercadopago;
+    }  else {
+      Mercadopago.setPublishableKey(ENV.mercadopago_keys.public);
+      Object.assign(Mercadopago, {
+        guessPaymentMethod: guessPaymentMethodFactory($q),
+        resolveToken: createTokenFactory($q),
+        resolveIdentificationTypes: resolveIdentificationTypesFactory($q)
+      });
+      return Mercadopago;
+    }
   }
 }
 
 function resolveIdentificationTypesFactory ($q) {
-  let methods = { types: [] }
+  let methods = { types: [] };
   return (cached = false) => {
     if (!cached) {
       Mercadopago.getIdentificationTypes((status, result) => {
         if (status === 200) {
-          methods.types =  result
+          methods.types =  result;
         }
-      })
+      });
     }
-    return methods
-  }
+    return methods;
+  };
 }
 
 function guessPaymentMethodFactory ($q) {

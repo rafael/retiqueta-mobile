@@ -5,7 +5,6 @@ export default function UtilsFactory (ngComponent) {
 
   function UtilsFactory (ENV, $rootScope, $translate, $ionicPlatform) {
     let YesNoActionsText = 'Yes, No' 
-
     $translate('YES_NO_CONFIRM')
     .then((translation) => {
       YesNoActionsText = translation
@@ -17,7 +16,7 @@ export default function UtilsFactory (ngComponent) {
           alert(message) { return window.alert(message) },
           confirm(message, cb) {
             if (window.confirm(message)) {
-              cb(1)          
+              cb(1)
             }
           }
         }
@@ -53,7 +52,7 @@ export default function UtilsFactory (ngComponent) {
       } else if (typeof error === 'string') {
         errorMessage = error
       } else {
-        errorMessage = 'A problem occur getting data'
+        errorMessage = 'Problem fetching data'
       }
 
       return errorMessage.replace(/[{}\[\]\"]/g, '').replace(/error\:/g, '')
