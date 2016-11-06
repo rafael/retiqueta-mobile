@@ -5,8 +5,8 @@
         <ion-item class="timeline-card" ng-repeat="card in dashboard.cards track by $index">
           <div class="container">
             <div class="timeline-header">
-              <span class="timeline-title"> {{card.attributes.title}} </span>
-              <span class="timeline-age"> 46 mins old </span>
+              <span class="timeline-title"> {{ card.attributes.title }} </span>
+              <span class="timeline-age"> {{ dashboard.age(card) }} </span>
             </div>
             <div ng-if="card.type === 'featured_picks'" class="timeline-feature-picks">
               <div class="timeline-feature-picks-main">
