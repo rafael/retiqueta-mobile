@@ -7,13 +7,7 @@ export default function DashboardFactory (ngComponent) {
     var ONE_DAY = 60 * 60 * 24;
     var date = new Date
     _.cards = []
-    _.render = true
     _.age = howOld
-
-    function refreshFeatured() {
-      _.render = false
-      _.render = true
-    }
 
     function howOld(card) {
       var difference = (date - new Date(card.attributes.created_at)) / 1000
@@ -192,12 +186,11 @@ export default function DashboardFactory (ngComponent) {
       _.cards = cards
     }
 
-    $scope.$on("$ionicView.beforeEnter", function(event, data) {
+    $scope.$on("$ionicView.enter", () => {
       if (ENV.isProduction()) {
         facebookConnectPlugin.logEvent('timeline load')
       }
       getCards()
     })
-
   }
 }

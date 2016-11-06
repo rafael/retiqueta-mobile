@@ -22,7 +22,7 @@ export default function searchFactory (ngComponent) {
       if ($stateParams.hasOwnProperty('word') && typeof $stateParams.word !== 'undefined' && $stateParams.word !== '') {
         _.text = $stateParams.word
       }
-        searchProducts(1, false, page_size)
+      searchProducts(1, false, page_size)
     }
 
     function clear () {
@@ -100,7 +100,7 @@ export default function searchFactory (ngComponent) {
       if (ENV.isProduction()) {
         facebookConnectPlugin.logEvent('search load');
       }
+      LoadProduct()
     })
-    LoadProduct()
   }
 }
