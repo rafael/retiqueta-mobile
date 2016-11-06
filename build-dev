@@ -5,5 +5,4 @@ npm run build
 ionic config set dev_push false
 ionic resources
 ionic state reset
-ionic build ios
 ionic package build ios  --profile iosdev 

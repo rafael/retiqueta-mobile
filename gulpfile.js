@@ -217,7 +217,7 @@ gulp.task('inject', ['ngHtml', 'copyFonts', 'copyIonic', 'copyImages', 'copyMerc
   )
 })
 
-gulp.task('injectProduction', ['ngHtml', 'copyFonts', 'copyIonic', 'copyImages']);
+gulp.task('injectProduction', ['ngHtml', 'copyFonts', 'copyIonic', 'copyImages', 'copyMercadoPago']);
 
 gulp.task('compile', function() {
   return tasks.injectHtml(
