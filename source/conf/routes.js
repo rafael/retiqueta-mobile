@@ -290,6 +290,15 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     }
   })
+  .state('users.checkout', {
+    url: '/checkout',
+    views: {
+      'productDetail-tab': {
+        templateUrl: 'checkout/create/template.html',
+        controller: 'productCheckout as ctrl'
+      }
+    }
+  })
   .state('users.productDetails', {
     url: '/products/{productID}?onComment',
     views: {
