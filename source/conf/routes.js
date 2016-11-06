@@ -112,7 +112,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     views: {
       'dashboard-tab': {
         templateUrl: 'dashboard/index.html',
-        controller: 'dashboardCtrl as ctrl'
+        controller: 'dashboardCtrl as dashboard'
       }
     }
   })
