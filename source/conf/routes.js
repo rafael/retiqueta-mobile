@@ -153,7 +153,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         MercadopagoFactory.getIdentificationTypes((status, result) => {
           if (status === 200) {
             let options = result.map((value) => {
-              return { value: value.id, label: value.name } 
+              return { value: value.id, label: value.name }
             })
             defered.resolve(options)
           } else {
@@ -161,7 +161,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
           }
         })
         return defered.promise
-      } 
+      }
     }
   })
   .state('users.favorites', {

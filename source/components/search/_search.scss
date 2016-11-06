@@ -36,12 +36,15 @@ form.bar.bar-header.item-input-inset {
 .no-search-title {
 	color: $stable-dark !important;
 }
+
 .buy-icon {
-	min-width: 150px;
+	min-width: 75%;
 	margin-right: .3em;
 }
+
 .like-icon {
-	max-width: 125px;
+	min-width: 75px;
+	max-width: 100px;
 }
 
 .product-details {

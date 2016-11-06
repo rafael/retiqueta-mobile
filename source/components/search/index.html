@@ -48,18 +48,10 @@
             <footer>
               <div class="item tabs tabs-secondary tabs-icon-left">
                 <a
-                  ng-if="product.attributes.status !== sold"
                   product="product"
                   class="button button-assertive button-buy buy-icon"
                   ui-sref="users.productDetails.checkout({ productID: product.id})">
                   {{ 'BUY_NOW' | translate }}
-                </a>
-                <a
-                  href="#"
-                  product="product"
-                  ng-if="product.attributes.status === sold"
-                  class="button button-block button-buy button-stable">
-                  {{ 'SOLD_PRODUCT' | translate }}
                 </a>
                 <span
                   class="tab-item like-icon"

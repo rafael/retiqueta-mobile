@@ -17,14 +17,12 @@ export default function searchFactory (ngComponent) {
     _.search = searchProducts
     _.clear = clear
 
-    function LoadProduct () {
+    function LoadProduct (page_size = 16) {
       _.text = ''
       if ($stateParams.hasOwnProperty('word') && typeof $stateParams.word !== 'undefined' && $stateParams.word !== '') {
         _.text = $stateParams.word
-        searchProducts(1, false, 10)
-      } else {
-        searchProducts(1, false, 10)
       }
+        searchProducts(1, false, page_size)
     }
 
     function clear () {
@@ -60,17 +58,17 @@ export default function searchFactory (ngComponent) {
           'include': 'user,product_pictures'
         }
 
-        return Product.search(searchRequest).then((result) => {
+        Product.search(searchRequest).then((result) => {
           lastSearch = angular.copy(_.text)
-          return setProducts(result, add)
+          setProducts(result, add)
         })
         .catch((error) => {
           if (ENV.isProduction()) {
             facebookConnectPlugin.logEvent('search nextpage request error');
           }
           _.loading = false
-          $scope.$broadcast('scroll.infiniteScrollComplete');
           Utils.swalError(error)
+          $scope.$broadcast('scroll.infiniteScrollComplete');
         })
         .finally(() => {
           if (!ENV.isProduction()) {
@@ -84,32 +82,19 @@ export default function searchFactory (ngComponent) {
           $scope.$broadcast('scroll.infiniteScrollComplete');
         })
       }
+      return _.products
     }
 
-    function setProducts (newProducts, add) {
-      if (add) {
-        _.products = _.products.concat(newProducts)
-      } else {
-        _.products = newProducts
-      }
+    function setProducts (newProducts) {
+      _.products = _.products.concat(newProducts)
+      _.noResult = _.products.length === 0
 
       if (!ENV.isProduction()) {
         console.log('Product length ' + _.products.length)
       }
 
-      _.noResult = _.products.length === 0
-
       return newProducts
     }
-
-    Object.observe(_, (changes) => {
-      changes.forEach((change) => {
-        if (change.name === 'text' && _.text === '') {
-          _.page = 1
-          searchProducts()
-        }
-      })
-    })
 
     $scope.$on("$ionicView.enter", () => {
       if (ENV.isProduction()) {
