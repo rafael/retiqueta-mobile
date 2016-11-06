@@ -21,10 +21,10 @@ export default function DashboardFactory (ngComponent) {
               "created_at": "2016-11-06T02:17:41.447+00:00",
               "products": [
                 {
-                  "id": "94b8dc60-dbf6-4ed3-90b0-fe355693cb33",
+                  "id": "0dc3d0eb-0603-40d8-a869-0a190b57dfc9",
                   "image_large_url": "https://d3e4hek1qnfih2.cloudfront.net//product_pictures/1528e0dab54bd0ec90da22f3ecdfeb1dd8a2bbfe.?1478394600",
-                  "image_medium_url": "https://d3e4hek1qnfih2.cloudfront.net//product_pictures/a09a4698c284ea4c961144f737bb3b0fdd1dd9a9.?1478394600",
-                  "image_small_url": "https://d3e4hek1qnfih2.cloudfront.net//product_pictures/a09a4698c284ea4c961144f737bb3b0fdd1dd9a9.?1478394600"
+                  "image_medium_url": "https://d3e4hek1qnfih2.cloudfront.net//product_pictures/1528e0dab54bd0ec90da22f3ecdfeb1dd8a2bbfe.?1478394600",
+                  "image_small_url": "https://d3e4hek1qnfih2.cloudfront.net//product_pictures/1528e0dab54bd0ec90da22f3ecdfeb1dd8a2bbfe.?1478394600"
                 },
                 {
                   "id": "661666e6-c148-451f-b8c0-863ff795b8a2",
@@ -39,7 +39,7 @@ export default function DashboardFactory (ngComponent) {
                   "image_small_url": "https://d3e4hek1qnfih2.cloudfront.net//product_pictures/4401ad4c7128803b13b87e6a7b20fb355a5a7a04.?1478100228"
                 }
               ],
-              "title": "Test picks"
+              "title": "Retiqueta featured picks"
             }
           }
         ]

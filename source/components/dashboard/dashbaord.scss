@@ -1,47 +1,61 @@
 .dashboard-bg {
 	background-image: url(../images/bg-all.jpg);
-	background-repeat: no-repeat;
+	background-repeat: repeat-y;
 	background-size: cover;
 }
 
+.timeline-card {
+	margin: 30px;
+	min-width: 320px;
+}
+
 .timeline-header {
+	max-height: 20px;
+  min-height: 20px;
+	max-width: 100%;
+	border-bottom: 1px solid $stable-dark;
 }
 
 .timeline-age {
 	float: right;
+	font-size: 8px;
+	font-style: italic;
+	color: $stable-dark;
 }
 
 .timeline-title {
-	font-size: 1.2rem;
+	float: left;
+	font-size: 12px;
+	font-style: italic;
 	width: 80%;
 	color: $stable-dark;
 }
 
-.timeline-card {
-	margin: 30px
+.timeline-feature-picks {
+	padding: 10px;
 }
 
 .timeline-feature-picks-main {
-	float:left;
-	max-width: 240px;
-	max-height: 240px;
-}
-
-.timeline-feature-picks-secondary {
-	float:right;
+	display: inline-block;
+	width: 65%;
 	height: 100%;
 }
 
+.timeline-feature-picks-secondary {
+	height: 100%;
+	width: 32%;
+	display: inline-block;
+	margin-left: 2px;
+}
+
 .timeline-feature-picks-main-img {
-	max-width: 240px;
-	max-height: 240px;
+	width: 100%;
 }
 
 .timeline-feature-picks-secondary-item {
-	max-height: 120px;
-	max-width: 120px;
+	height: 50%;
 }
+
 .timeline-feature-picks-secondary-img {
-	max-width: 120px;
-	max-height: 120px;
+	width: 100%;
 }
