@@ -291,7 +291,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     }
   })
   .state('users.checkout', {
-    url: '/checkout',
+    url: '/products/{productID}/checkout',
     views: {
       'productDetail-tab': {
         templateUrl: 'checkout/create/template.html',
