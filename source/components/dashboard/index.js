@@ -7,31 +7,26 @@ export default function DashboardFactory (ngComponent) {
     var ONE_DAY = 60 * 60 * 24;
     var date = new Date
     _.cards = []
-    _.age = howOld
 
     function howOld(card) {
       var difference = (date - new Date(card.attributes.created_at)) / 1000
+      var age = 0
       if (difference < ONE_HOUR) {
-        if (!ENV.isProduction()) {
-          console.log('Card is: ' + difference / 60 + 'm old')
-        }
-        return Math.round(difference / 60) + "m"
+        age = Math.round(difference / 60) + "m"
       } else if (difference < ONE_DAY) {
-        var age = Math.round(difference / 3600)
-        if (!ENV.isProduction()) {
-          console.log('Card is: ' + age + 'hr(s) old')
-        }
+        age = Math.round(difference / 3600)
         if(age == 1) {
-          return "1 hr"
+          age =  "1 hr"
         } else {
-          return age + " hrs"
+          age =  age + " hrs"
         }
       } else {
-        if (!ENV.isProduction()) {
-          console.log('Card is: ' + difference / 86400 + 'days old')
-        }
-        return Match.round(difference / 86400) + " d"
+        age = Match.round(difference / 86400) + " d"
       }
+      if (!ENV.isProduction()) {
+        console.log('Card is: ' + age + ' old.')
+      }
+      card.attributes.age = age
     }
 
     function getCards() {
@@ -180,9 +175,10 @@ export default function DashboardFactory (ngComponent) {
         ]
       }
       if (!ENV.isProduction()) {
-        console.log('Get cards')
+        console.log('Getting timeline cards.')
       }
       var cards = cardsResponse.data
+      cards.map(howOld)
       _.cards = cards
     }
 
