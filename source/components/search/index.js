@@ -85,7 +85,10 @@ export default function searchFactory (ngComponent) {
       return _.products
     }
 
-    function setProducts (newProducts) {
+    function setProducts (newProducts, add) {
+      if(!add) {
+        _.products = []
+      }
       _.products = _.products.concat(newProducts)
       _.noResult = _.products.length === 0
 
