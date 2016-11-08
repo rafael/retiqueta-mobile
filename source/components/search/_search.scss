@@ -22,10 +22,8 @@ form.bar.bar-header.item-input-inset {
 }
 
 .platform-ios.platform-cordova:not(.fullscreen) {
-	.bar-header:not(.bar-subheader).item-input-inset {
-		.button {
-			margin-top: 19px !important;
-		}
+	.product-details {
+		display: none
 	}
 }
 
@@ -45,6 +43,11 @@ form.bar.bar-header.item-input-inset {
 .like-icon {
 	min-width: 75px;
 	max-width: 100px;
+}
+
+.product-featured {
+	display: flex;
+	flex-shrink: 1;
 }
 
 .product-details {
