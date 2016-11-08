@@ -103,7 +103,8 @@ export default function searchFactory (ngComponent) {
       if (ENV.isProduction()) {
         facebookConnectPlugin.logEvent('search load');
       }
-      LoadProduct()
     })
+
+    LoadProduct()
   }
 }
