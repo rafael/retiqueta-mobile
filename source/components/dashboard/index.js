@@ -21,7 +21,7 @@ export default function DashboardFactory (ngComponent) {
           age =  age + " hrs"
         }
       } else {
-        age = Match.round(difference / 86400) + " d"
+        age = Math.round(difference / 86400) + " d"
       }
       if (!ENV.isProduction()) {
         console.log('Card is: ' + age + ' old.')
@@ -48,6 +48,9 @@ export default function DashboardFactory (ngComponent) {
       }).catch((error) => {
         if (ENV.isProduction()) {
           facebookConnectPlugin.logEvent('timeline request error');
+        }
+        if (!ENV.isProduction()) {
+          console.log('Timeline error ' + error)
         }
         Utils.swalError(error)
       })
