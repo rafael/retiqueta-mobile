@@ -21,6 +21,14 @@ form.bar.bar-header.item-input-inset {
 	}
 }
 
+.platform-ios.platform-cordova:not(.fullscreen) {
+	.bar-header:not(.bar-subheader).item-input-inset {
+		.button {
+			margin-top: 19px !important;
+		}
+	}
+}
+
 .no-search-container {
 	text-align: center;
 }
