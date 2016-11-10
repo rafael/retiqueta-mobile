@@ -1,0 +1,39 @@
+<ion-scroll direction="x"  class="pictures-scroll">
+  <div class="pictures-scroll-item" ng-repeat="picture in ctrl.pictures">
+    <img ng-if="ctrl.hasUrl(picture)" src="{{picture.attributes.url}}" alt="">
+    <button
+      ng-if="!ctrl.hasUrl(picture)"
+      class="add-picture"
+      ng-click="ctrl.setSelectSource($index)">
+      <img src="images/add_photo.png" >
+    </button>
+  </div>
+</ion-scroll>
+
+<div ng-if="ctrl.selectSource" class="modal ng-cloak">
+  <section class="modal-content">
+    <section
+      class="modal-body"
+      ng-click="ctrl.setSelectSource(ctrl.pictureIndex, false)">
+      <div class="actions">
+        <button
+          ng-hide="ctrl.loadingPicture"
+          ng-click="ctrl.takePic()"
+          class="button icon-left ion-ios-camera-outline">
+          {{ 'TAKE_PICTURE' | translate }}
+        </button>
+        <button
+          ng-hide="ctrl.loadingPicture"
+          ng-click="ctrl.uploadPic()"
+          class="button icon-left ion-image">
+          {{ 'UPLOAD_PICTURE' | translate }}
+        </button>
+        <button
+          ng-show="ctrl.loadingPicture"
+          class="button icon-left ion-ios-reverse-camera-outline">
+          {{ 'UPLOADING_PICTURE' | translate }}
+        </button>
+      </div>
+    </section>
+  </section>
+</div>

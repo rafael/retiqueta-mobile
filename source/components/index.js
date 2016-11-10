@@ -57,8 +57,10 @@ require('./orders/chat')(components)
 
 // Products
 require('./products/create/index')(components)
+require('./products/edit/index')(components)
 require('./products/create/product_picture')(components)
 require('./products/create/select_category')(components)
+require('./products/edit/select_category')(components)
 require('./products/show_directive')(components)
 require('./products/list_directive')(components)
 require('./products/resume_directive')(components)

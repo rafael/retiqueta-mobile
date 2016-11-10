@@ -1,0 +1,94 @@
+<ion-view view-title="{{ 'PRODUCT_UPDATE' | translate }}">
+  <ion-nav-bar class="bar-assertive">
+    <ion-nav-buttons side="left">
+      <button 
+        class="button back-button buttons button-clear header-item" 
+        ng-click="edit.goBack()">
+        <i class="icon ion-ios-arrow-back"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content 
+    padding="true" 
+    scroll="true" 
+    class="form-basic form-with-labels new_product">
+    <product-picture></product-picture>
+    <p ng-if="edit.pictureHasErrors()" class="pictures-errors">
+      {{ edit.pictureErrors.message }}
+    </p>
+    <form form-for="edit.product"
+      no-validate
+      controller="edit.formController"
+      validation-rules="edit.validationRules"
+      submit-with="edit.submit(edit.product)">
+
+      <text-plus-field attribute="description"
+        multiline="true"
+        label="{{ 'PRODUCT_FORM_DESCRIPTION' | translate }}"
+        placeholder="{{ edit.validationRules.description.placeholder}}"
+        type="text">
+      </text-plus-field>
+
+      <div class="row">
+        <div class="col col-90">
+          <text-plus-field attribute="location"
+            debounce="1000"
+            label="{{ 'PRODUCT_FORM_ADDRESS' | translate }}"
+            placeholder="{{ edit.validationRules.address.placeholder}}"
+            type="text">
+          </text-plus-field>
+        </div>
+        <div class="col col-10 geolocation-button">
+          <a
+            ng-click="edit.reverseGeolocation()"
+            ng-class="{'location-done': edit.geolocated, 'location-processing': edit.geoLocalizationInProgress }"
+            class="button button-icon icon ion-android-locate">
+          </a>
+        </div>
+      </div>
+
+      <text-plus-field attribute="category"
+        label="{{ 'PRODUCT_FORM_CATEGORY' | translate }}"
+        placeholder="{{ edit.validationRules.category.placeholder | translate}}"
+        type="text"
+        ng-click="edit.goToSelect()">
+      </text-plus-field>
+
+      <div class="row">
+        <div class="col-50">
+          <text-field attribute="original_price"
+            type="tel"
+            pattern="[0-9]*"
+            label="{{ 'PRODUCT_FORM_ORIGINAL_PRICE' | translate }}"
+            placeholder="{{ edit.validationRules.original_price.placeholder }}"
+            type="text">
+          </text-plus-field>
+        </div>
+        <div class="col-50">
+          <text-field attribute="price"
+            type="tel"
+            pattern="[0-9]*"
+            label="{{ 'PRODUCT_FORM_PRICE' | translate }}"
+            placeholder="{{ edit.validationRules.price.placeholder }}"
+            type="text">
+          </text-plus-field>
+        </div>
+      </div>
+
+      <div class="submit-area bg-stable comition-area">
+        <div class="label">
+          {{ 'PRODUCT_FORM_COMITION' | translate }}
+        </div>
+        <div class="comition">
+          {{ edit.comitionCalculate(edit.product) | currency:edit.currentUser.attributes.currency.code }}
+        </div>
+      </div>
+
+      <div class="publish">
+        <submit-button  
+          disable="edit.sendingInfo" 
+          label="{{ 'PRODUCT_UPDATE' | translate }}" ></submit-button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>
