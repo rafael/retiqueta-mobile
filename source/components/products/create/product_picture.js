@@ -11,7 +11,6 @@ export default function productPictureDirectiveFactory (ngComponent) {
       bindToController: true,
       controller () {
         var _ = this
-        _.picture = ''
         _.pictures = PictureStore.getExactNumber(numberOfPhotosPerProduct)
         _.loadingPicture = false
         _.selectSource = false

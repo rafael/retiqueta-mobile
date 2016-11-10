@@ -12,13 +12,16 @@ export default function ProductSelectEditCategoryFactory (ngComponent) {
       if (ENV.isProduction()) {
         facebookConnectPlugin.logEvent('product edit select_category');
       }
-      debugger;
-      console.log($scope);
-      $state.go('^');
+      ProductStore.set(Object.assign(_.product, {category: category}));
+      $state.go('users.productDetails.edit', { productID: _.product.id }, { location: 'replace', reload: true });
     }
 
     function goBack () {
       return history.back();
     }
+
+    $scope.$on("$ionicView.enter", (event, data) => {
+      _.product = ProductStore.get()
+    })
   }
 }

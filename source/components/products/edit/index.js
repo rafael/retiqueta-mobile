@@ -1,6 +1,8 @@
 import { Rules as FormRules, baseErrorsObject } from './product_form_fields'
 import { extractErrorByField, validationFactory } from '../../../libs/merge_validations'
 
+const numberOfPhotosPerProduct = 4;
+
 export default function ProductEditFactory (ngComponent) {
   ngComponent.controller('productEditCtrl', productEditCtrl)
 
@@ -20,7 +22,7 @@ export default function ProductEditFactory (ngComponent) {
 
     _.currentUser = currentUser
     _.pictureStore = PictureStore
-    _.product = ProductStore.get()
+    _.product = ProductStore.get();
     _.sendingInfo = false
     _.geolocated = false
     _.geoLocalizationInProgress = false
@@ -64,11 +66,11 @@ export default function ProductEditFactory (ngComponent) {
 
       $rootScope.$broadcast('loading:show')
 
-      Product.create(product)
+      Product.update(product.id, product)
       .then(result => {
-        // Utils.swalSuccess($translate.instant('PRODUCT_SAVE_MESSAGE'))
         removeDraft();
-        $state.go('users.me')
+        $ionicHistory.clearCache();
+        $state.go('users.productDetails', { productID: product.id }, { reload: true, inherit: false, notify: true  });
       })
       .catch(error => {
         if (ENV.isProduction()) {
@@ -143,7 +145,16 @@ export default function ProductEditFactory (ngComponent) {
       if (needToGeolocate) {
         resolveLocation(_.product.location)
       }
-    })
+    });
+
+    ProductStore.on('change', () => {
+      _.product = ProductStore.get();
+    });
+
+    PictureStore.on('change', () => {
+      picturesHasChanged = true;
+    });
+
 
     function LoadProduct () {
       Product.get($stateParams.productID,  {
@@ -152,8 +163,10 @@ export default function ProductEditFactory (ngComponent) {
         .then((product) => {
           product.attributes.id = product.id;
           _.product = product.attributes;
-          //debugger;
-          //ProductStore.set(product.attributes);
+          for (var i = 0; i < product.relationships.product_pictures.length - 1; i++) {
+            PictureStore.setPicture(numberOfPhotosPerProduct, i,  product.relationships.product_pictures[i]);
+          }
+          ProductStore.set(product.attributes);
         })
         .catch((e) => {
           Utils.swalError(e);
@@ -163,6 +176,7 @@ export default function ProductEditFactory (ngComponent) {
     function removeDraft () {
       ProductStore.clear()
       PictureStore.clear()
+      _.product = ProductStore.get();
       _.sendingInfo = false
       _.geolocated = false
       _.geoLocalizationInProgress = false
@@ -176,10 +190,9 @@ export default function ProductEditFactory (ngComponent) {
       if (ENV.isProduction()) {
         facebookConnectPlugin.logEvent('product create load');
       }
-      //if (_.product.id != $stateParams.productID) {
+      if (_.product.id != $stateParams.productID) {
         LoadProduct();
-       // debugger;
-      //}
+      }
     });
   }
 }
