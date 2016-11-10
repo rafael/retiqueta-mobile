@@ -13,7 +13,8 @@ export default function ProductSelectEditCategoryFactory (ngComponent) {
         facebookConnectPlugin.logEvent('product edit select_category');
       }
       debugger;
-      $state.go('users.productsEdit', { productID: $stateParams.productID, category: category }, { location: 'replace', reload: true });
+      console.log($scope);
+      $state.go('^');
     }
 
     function goBack () {

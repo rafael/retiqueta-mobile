@@ -52,8 +52,7 @@ export default function ProductEditFactory (ngComponent) {
       if (ENV.isProduction()) {
         facebookConnectPlugin.logEvent('product edit select_type')
       }
-      //$state.go('users.productsEdit', { productID: _.product.id }, { location: 'replace', reload: true })
-      $state.go('users.productsEdit.SelectCategory', { productID: _.product.id }, { location: 'replace', reload: true })
+      $state.go('.select_category', { productID: _.product.id }, { location: 'replace', reload: true })
     }
 
     function saveProduct (product) {

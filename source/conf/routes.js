@@ -308,20 +308,20 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       }
     }
   })
-  .state('users.productsEdit', {
-      url: '/products/{productID}/edit',
+  .state('users.productDetails.edit', {
+      url: '/edit',
       views: {
-        'productDetail-tab': {
+        'productDetail-tab@users': {
           templateUrl: 'products/edit/index.html',
           controller: 'productEditCtrl as edit'
         }
       },
       resolve: ResolveUser
   })
-  .state('users.productsEdit.SelectCategory', {
+  .state('users.productDetails.edit.select_category', {
+    url: '/edit_select_category',
     views: {
-      'productDetail-tab': {
-        url: '/products/{productID}/edit/select_category',
+      'productDetail-tab@users': {
         templateUrl: 'products/edit/select_category.html',
         controller: 'productSelectEditCategoryCtrl as psecCtrl'
       }
