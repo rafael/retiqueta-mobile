@@ -23,6 +23,9 @@ export default function productCheckoutFactory (ngComponent) {
     _.goBack = goBack
 
     function submitOrder () {
+        if (ENV.isProduction()) {
+          facebookConnectPlugin.logEvent('checkout submit');
+        }
       _.creditcardCtrl.submit()
     }
 
