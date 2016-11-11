@@ -1,7 +1,35 @@
 <ion-view view-title="{{ 'DASHBOARD_TITLE' | translate }}">
-  <ion-content padding="false">
-    <featured-products
-      render="ctrl.render"
-      products="ctrl.products"></featured-products>
+  <ion-content padding="false" class="dashboard-bg">
+    <div>
+      <ion-list class="timeline-cards">
+        <ion-item class="timeline-card" ng-repeat="card in dashboard.cards track by $index">
+          <div class="container">
+            <div class="timeline-header">
+              <span class="timeline-title"> {{ card.data.attributes.title }} </span>
+              <span class="timeline-age"> {{ card.data.attributes.age }} </span>
+            </div>
+            <div ng-if="card.data.type === 'featured_picks'" class="timeline-feature-picks">
+              <div class="timeline-feature-picks-main">
+                <a ui-sref="users.productDetails({productID: card.data.attributes.products[0].id})">
+                  <img class="thumbnail timeline-feature-picks-main-img" src="{{ card.data.attributes.products[0].image_medium_url }}">
+                </a>
+              </div>
+              <div class="timeline-feature-picks-secondary">
+                <div class="timeline-feature-picks-secondary-item">
+                  <a ui-sref="users.productDetails({productID: card.data.attributes.products[1].id})">
+                    <img class="thumbnail timeline-feature-picks-secondary-img" src="{{ card.data.attributes.products[1].image_small_url }}">
+                  </a>
+                </div>
+                <div class="timeline-feature-picks-secondary-item">
+                  <a ui-sref="users.productDetails({productID: card.data.attributes.products[2].id})">
+                    <img class="thumbnail timeline-feature-picks-secondary-img" src="{{ card.data.attributes.products[2].image_small_url }}">
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+    </div>
   </ion-content>
 </ion-view>

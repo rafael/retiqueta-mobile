@@ -112,7 +112,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     views: {
       'dashboard-tab': {
         templateUrl: 'dashboard/index.html',
-        controller: 'dashboardCtrl as ctrl'
+        controller: 'dashboardCtrl as dashboard'
       }
     }
   })
@@ -153,7 +153,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         MercadopagoFactory.getIdentificationTypes((status, result) => {
           if (status === 200) {
             let options = result.map((value) => {
-              return { value: value.id, label: value.name } 
+              return { value: value.id, label: value.name }
             })
             defered.resolve(options)
           } else {
@@ -161,7 +161,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
           }
         })
         return defered.promise
-      } 
+      }
     }
   })
   .state('users.favorites', {
@@ -287,6 +287,15 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
       'search-tab': {
         templateUrl: 'search/index.html',
         controller: 'SearchProductCtrl as search'
+      }
+    }
+  })
+  .state('users.checkout', {
+    url: '/products/{productID}/checkout',
+    views: {
+      'productDetail-tab': {
+        templateUrl: 'checkout/create/template.html',
+        controller: 'productCheckout as ctrl'
       }
     }
   })

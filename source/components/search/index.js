@@ -11,136 +11,100 @@ export default function searchFactory (ngComponent) {
     _.noResult = false
     _.loading = false
     _.page = 1
-    _.canLoadMore = true
     _.pageSize = PAGE_SIZE
 
     // Search function
     _.search = searchProducts
-    _.loadMore = loadMore
     _.clear = clear
 
-    function LoadProduct () {
+    function LoadProduct (page_size = 16) {
+      _.text = ''
       if ($stateParams.hasOwnProperty('word') && typeof $stateParams.word !== 'undefined' && $stateParams.word !== '') {
         _.text = $stateParams.word
-        searchProducts()
-      } else if (_.text !== '') {
-        searchProducts()
-      } else {
-        prePopulate()
       }
+      searchProducts(1, false, page_size)
     }
 
     function clear () {
       _.text = ''
-      prePopulate()
+      searchProducts()
     }
 
-    function prePopulate (page = 1, add = false) {
-      if (ENV.isProduction()) {
-        facebookConnectPlugin.logEvent('search request');
-      }
-      return Product.getFeatured({
-        include: 'product_pictures',
-        'page[number]': page,
-        'page[size]': PAGE_SIZE,
-      }).then((result) => {
-        return setProducts(result, add)
-      })
-      .catch((error) => {
+    function searchProducts (page = 1, add = false, page_size = PAGE_SIZE) {
+      if(!_.loading) {
+        if (!ENV.isProduction()) {
+          console.log('Search request: page->' + page + ' add-> ' + add + ' text->' + _.text)
+        }
+        if (lastSearch !== _.text) {
+          Utils.logger.info('Different search, reset page')
+          _.page = 1
+          page = 1
+        }
+
         if (ENV.isProduction()) {
-          facebookConnectPlugin.logEvent('search request error')
+          facebookConnectPlugin.logEvent('search nextpage request')
         }
-        Utils.swalError(error)
-      })
-      .finally(() => {
-        if (page === 1) {
-          $ionicScrollDelegate.scrollTop()
-        }
-      })
-    }
 
-    function loadMore (nextpage) {
-      if (_.text !== '') {
-        return populateWithProduct(nextpage, true)
-      } else {
-        return prePopulate(nextpage, true)
-      }
-    }
+        _.loading = true
 
-    function searchProducts (page = 1) {
-      if (_.text === '') { return }
-      _.noResult = false
-      _.loading = true
-      try {
-        $cordovaKeyboard.close()
-      } catch(e) {}
-      console.log('Searching: ', _.text)
-      populateWithProduct(page)
-    }
+        try {
+          $cordovaKeyboard.close()
+        } catch(e) {}
 
-    function populateWithProduct (page, add = false) {
-      if (lastSearch !== _.text) {
-        Utils.logger.info('Diferent search, reset page and canLoadMore')
-        _.canLoadMore = true
-        _.page = 1
-        page = 1
-      }
-      if (ENV.isProduction()) {
-        facebookConnectPlugin.logEvent('search nextpage request')
-      }
-      if (page === 1) {
-        $rootScope.$broadcast('loading:show')
-      }
-      return Product.search({
-        q: _.text,
-        'page[number]': page,
-        'page[size]': PAGE_SIZE,
-        include: 'user,product_pictures'
-      }).then((result) => {
-        lastSearch = angular.copy(_.text)
-        return setProducts(result, add)
-      })
-      .catch((error) => {
-        if (ENV.isProduction()) {
-          facebookConnectPlugin.logEvent('search nextpage request error');
+        var searchRequest = {
+          'q': _.text,
+          'page[number]': page,
+          'page[size]': page_size,
+          'include': 'user,product_pictures'
         }
-        Utils.swalError(error)
-      })
-      .finally(() => {
-        _.loading = false
-        console.log('Search complete')
-        if (page === 1) {
-          $ionicScrollDelegate.scrollTop()
-        }
-      })
+
+        Product.search(searchRequest).then((result) => {
+          lastSearch = angular.copy(_.text)
+          setProducts(result, add)
+        })
+        .catch((error) => {
+          if (ENV.isProduction()) {
+            facebookConnectPlugin.logEvent('search nextpage request error');
+          }
+          _.loading = false
+          Utils.swalError(error)
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        })
+        .finally(() => {
+          if (!ENV.isProduction()) {
+            console.log('Search complete')
+          }
+          if (page === 1) {
+            $ionicScrollDelegate.scrollTop()
+          }
+          _.loading = false
+          _.page = page+1
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        })
+      }
+      return _.products
     }
 
     function setProducts (newProducts, add) {
-      if (add) {
-        _.products = _.products.concat(newProducts)
-      } else {
-        _.products = newProducts
+      if(!add) {
+        _.products = []
       }
-      _.noResult = _.products.length === 0 && _.text !== ''
+      _.products = _.products.concat(newProducts)
+      _.noResult = _.products.length === 0
+
+      if (!ENV.isProduction()) {
+        console.log('Product length ' + _.products.length)
+      }
+
       return newProducts
     }
-
-    Object.observe(_, (changes) => {
-      changes.forEach((change) => {
-        if (change.name === 'text' && _.text === '') {
-          _.page = 1
-          _.canLoadMore = true
-          prePopulate()
-        }
-      })
-    })
 
     $scope.$on("$ionicView.enter", () => {
       if (ENV.isProduction()) {
         facebookConnectPlugin.logEvent('search load');
       }
-      _.canLoadMore = true
     })
+
     LoadProduct()
   }
 }

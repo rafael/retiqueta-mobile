@@ -1,7 +1,7 @@
 export default function productCheckoutFactory (ngComponent) {
   ngComponent.controller('productCheckout', productCheckout)
 
-  function productCheckout (ENV, $scope, Product, Order, Utils, $state, $stateParams) {
+  function productCheckout (ENV, $scope, $ionicHistory, Product, Order, Utils, $state, $stateParams) {
     var _ = this
     var form
     _.savingOrder = false
@@ -20,6 +20,7 @@ export default function productCheckoutFactory (ngComponent) {
     _.submitCreditForm = submitCreditForm
     _.cardioReader = cardioReader
     _.submitOrder = submitOrder
+    _.goBack = goBack
 
     function submitOrder () {
       _.creditcardCtrl.submit()
@@ -35,6 +36,14 @@ export default function productCheckoutFactory (ngComponent) {
       .catch((e) => {
         Utils.swalError(e)
       })
+    }
+
+    function goBack () {
+      if ($ionicHistory.backView() !== null) {
+        $ionicHistory.goBack()
+      } else {
+        $state.go('users.productsSearch')
+      }
     }
 
     function cardioReader (responsePromise) {

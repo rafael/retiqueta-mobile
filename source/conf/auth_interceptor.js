@@ -11,7 +11,7 @@ export default function(ngComponent) {
   ngComponent.factory('authInterceptor', authInterceptor)
   ngComponent.config(configAuthInterceptor)
 
-  function authInterceptor ($rootScope, $injector, $q, ENV, Utils) {
+  function authInterceptor ($rootScope, $injector, $q, ENV, Utils, $ionicPlatform) {
     return {
       request: function (config) {
         config.headers = config.headers || {}

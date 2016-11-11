@@ -1,10 +1,19 @@
 <ion-view view-title="{{ 'BUY_NOW' | translate }}" cache-view="false">
+  <ion-nav-bar class="bar-assertive">
+    <ion-nav-buttons side="left">
+      <button
+        class="button back-button buttons button-clear header-item"
+        ng-click="ctrl.goBack()">
+        <i class="icon ion-ios-arrow-back"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
   <ion-content padding="false">
     <header class="order-detail-header row">
       <div class="col col-25">
-        <img 
-          class="thumbnail" 
-          src="{{ ::ctrl.product.relationships.product_pictures[0].attributes.small_url}}" 
+        <img
+          class="thumbnail"
+          src="{{ ::ctrl.product.relationships.product_pictures[0].attributes.small_url}}"
           alt="">
       </div>
       <section class="content col col-75">
