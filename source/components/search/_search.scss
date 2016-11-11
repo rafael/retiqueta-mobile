@@ -52,6 +52,7 @@ form.bar.bar-header.item-input-inset {
 
 .product-details {
 	display: table-cell;
+	flex-shrink: 1;
 	.original-price, .divisor {
 		font-size: 0.8rem;
 		color: $stable-dark;
