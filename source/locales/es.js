@@ -123,7 +123,9 @@ var esTranslation = {
   ORDER_ITEM_CATEGORY: 'Categoria',
   ORDER_ITEM_TYPE: 'Producto',
   ORDER_ITEM_PRICE: 'Precio',
-  FORGOT_PASSWORD:  'No sé mi clave'
+  FORGOT_PASSWORD:  'No sé mi clave',
+  ORDERS_LOADING: 'Cargando...',
+  SALES_LOADING: 'Cargando...'
 }
 
 export default esTranslation
