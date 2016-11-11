@@ -59,7 +59,7 @@ export default function ProductEditFactory (ngComponent) {
 
     function saveProduct (product) {
       if (ENV.isProduction()) {
-        facebookConnectPlugin.logEvent('product create request')
+        facebookConnectPlugin.logEvent('product edit request')
       }
       _.sendingInfo = true
       product.pictures = _.pictureStore.ids()
@@ -74,7 +74,7 @@ export default function ProductEditFactory (ngComponent) {
       })
       .catch(error => {
         if (ENV.isProduction()) {
-          facebookConnectPlugin.logEvent('product create failure');
+          facebookConnectPlugin.logEvent('product edit failure');
         }
         Utils.logger.info('Error on product creation')
         Utils.logger.log(error)
@@ -93,7 +93,7 @@ export default function ProductEditFactory (ngComponent) {
 
     function reverseGeolocation () {
       if (ENV.isProduction()) {
-        facebookConnectPlugin.logEvent('product create geolocate')
+        facebookConnectPlugin.logEvent('product edit geolocate')
       }
       Utils.logger.info('Starting geoLocalization')
       _.geolocated = false
@@ -188,7 +188,7 @@ export default function ProductEditFactory (ngComponent) {
     // Life Cicle Events
     $scope.$on("$ionicView.enter", (event, data) => {
       if (ENV.isProduction()) {
-        facebookConnectPlugin.logEvent('product create load');
+        facebookConnectPlugin.logEvent('product edit load');
       }
       if (_.product.id != $stateParams.productID) {
         LoadProduct();
