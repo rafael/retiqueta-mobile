@@ -77,47 +77,46 @@ export default function ProductDetailFactory (ngComponent) {
     }
 
     function ToggleCommentForm (forceShow = false) {
-      _.showCommentForm = !_.showCommentForm || forceShow
+      _.showCommentForm = !_.showCommentForm || forceShow;
       if (_.showCommentForm) {
-        scrollComments()
+        scrollComments();
       }
     }
 
     function needToShowCommentForm () {
       if (openCommentForm) {
-        ToggleCommentForm(openCommentForm)
+        ToggleCommentForm(openCommentForm);
       }
     }
 
     function scrollComments (parentType = 'products', parentId = _.product.id) {
-      if (parentType === 'products' && parentId === _.product.id) { 
+      if (parentType === 'products' && parentId === _.product.id) {
         $timeout(() => {
-          $ionicScrollDelegate.$getByHandle('productDetail').scrollBottom()
-        }, 10)
+          $ionicScrollDelegate.$getByHandle('productDetail').scrollBottom();
+        }, 10);
       }
     }
 
-    CommentStore.on('new', scrollComments)
-    CommentStore.on('fetchFinish', needToShowCommentForm)
+    CommentStore.on('new', scrollComments);
+    CommentStore.on('fetchFinish', needToShowCommentForm);
 
     $scope.$watch(() => _.showCommentForm, (value) => {
-      _.commentFormWasShowed = _.commentFormWasShowed || value
-    })
+      _.commentFormWasShowed = _.commentFormWasShowed || value;
+    });
 
     $scope.$on("$ionicView.enter", function(event, data) {
       if (ENV.isProduction()) {
-        facebookConnectPlugin.logEvent('product load')
+        facebookConnectPlugin.logEvent('product load');
       }
-      CommentStore.emit('refresh', 'product', $stateParams.productID)
-      _.showCommentForm = false
-      openCommentForm = typeof $stateParams.onComment !== 'undefined'
-      _.commentFormWasShowed = typeof $stateParams.onComment !== 'undefined'
+      CommentStore.emit('refresh', 'product', $stateParams.productID);
+      _.showCommentForm = false;
+      openCommentForm = typeof $stateParams.onComment !== 'undefined';
+      _.commentFormWasShowed = typeof $stateParams.onComment !== 'undefined';
       $timeout(() => {
-        $ionicScrollDelegate.$getByHandle('productDetail').scrollTop()
-      }, 10)
-      needToShowCommentForm()
-    })
-
-    LoadProduct()
+        $ionicScrollDelegate.$getByHandle('productDetail').scrollTop();
+      }, 10);
+      needToShowCommentForm();
+    });
+    LoadProduct();
   }
 }

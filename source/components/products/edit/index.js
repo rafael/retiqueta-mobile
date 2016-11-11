@@ -163,7 +163,7 @@ export default function ProductEditFactory (ngComponent) {
         .then((product) => {
           product.attributes.id = product.id;
           _.product = product.attributes;
-          for (var i = 0; i < product.relationships.product_pictures.length - 1; i++) {
+          for (var i = 0; i < product.relationships.product_pictures.length; i++) {
             PictureStore.setPicture(numberOfPhotosPerProduct, i,  product.relationships.product_pictures[i]);
           }
           ProductStore.set(product.attributes);
