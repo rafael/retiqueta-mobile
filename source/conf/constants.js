@@ -1,8 +1,8 @@
 const DEVELOPMENT = 'development'
 const PRODUCTION = 'production'
 const node_env = process.env.NODE_ENV || DEVELOPMENT
+const API_ENDPOINT = process.env.API_ENDPOINT || 'http://192.168.99.100'
 const DEBUG_MODE = process.env.DEBUG_MODE || true
-const API_ENDPOINT = process.env.API_ENDPOINT || 'https://api.retiqueta.com'
 
 function mercadopagoKeys () {
   switch (node_env) {
