@@ -38,13 +38,12 @@ form.bar.bar-header.item-input-inset {
 }
 
 .buy-icon {
-	min-width: 75%;
 	margin-right: .3em;
+	flex-shrink: 1;
 }
 
 .like-icon {
-	min-width: 75px;
-	max-width: 100px;
+	flex-shrink: 2;
 }
 
 .product-featured {
