@@ -7,8 +7,9 @@ const defaultProduct = {
   original_price: '',
   price: '',
   lat_lon: '',
-  pictures: ''
-}
+  pictures: '',
+  id: null
+};
 
 export default function productStoreFacotry (ngComponent) {
   ngComponent.factory('ProductStore', ProductStore)

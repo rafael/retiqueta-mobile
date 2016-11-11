@@ -35,6 +35,8 @@ var esTranslation = {
   UPLOADING_PICTURE: 'Actualizando tu imagen ...',
   UPDATE_PROFILE: 'Guardar cambios',
   PRODUCT_SAVE_MESSAGE: 'Se ha guardado tu producto',
+  PRODUCT_EDIT: 'Editar Producto',
+  PRODUCT_UPDATE: 'Actualizar producto',
   ADD_PRODUCT_TO_WARDROBE: 'Crea tu nuevo producto',
   SEARCH_PRODUCT: 'Buscar producto',
   SEARCH_INPUT_PLACEHOLDER: 'B\úsqueda por #',

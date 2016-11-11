@@ -1,0 +1,182 @@
+ion-content.form-basic.form-with-labels.new_product.scroll-content.ionic-scroll.overflow-scroll.has-header.keyboard-up {
+	height: auto !important;
+}
+
+@keyframes blink {
+	0% {
+		color: $stable;
+	}
+	50% {
+		color: $dark;
+	}
+	100% {
+		color: $stable;
+	}
+}
+
+.form-basic.new_product {
+	form {
+		.submit-button {
+			text-transform: uppercase;
+			font-weight: bold;
+			font-size: 1em;
+			padding-top: 0.4em;
+			padding-bottom: 0.4em;
+		}
+		select-field {
+			.form-for-field::before {
+				display: block;
+			}
+		}
+		.geolocation-button {
+			position: relative;
+			top: 1.4em;
+			left: -0.2em;
+			a {
+				color: lighten($dark, 0%);
+			}
+			a.location-processing {
+				animation-duration: 800ms;
+				animation-name: blink;
+				animation-iteration-count: infinite;
+			}
+			a.location-done {
+				color: darken($dark, 30%);
+			}
+		}
+		input[name="category"] {
+			pointer-events:none;
+		}
+		.publish {
+			margin-top: 2.5em;
+			.submit-button {
+				display: block;
+				width: 100%;
+			}
+		}
+		.submit-area {
+			background-color: white;
+			width: calc( 100% + 20px);
+			position: relative;
+			left: -10px;
+			padding: 0.8em 0.8em;
+			&.comition-area {
+				margin-top: 0em;
+			}
+			&.bg-stable {
+				background: $stable;
+				.label {
+					color: $dark;
+				}
+				.comition {
+					color: $assertive;
+					font-weight: bold;
+					font-size: 1.2em;
+				}
+			}
+			&:before,
+			&:after {
+				content: "";
+				display: block;
+				clear: both;
+			}
+			.polis {
+				font-size: 0.9em;
+				padding-top: 0.6em;
+				color: $dark;
+				text-align: center;
+				display: block;
+			}
+		}
+	}
+}
+
+.pictures-scroll {
+	margin-bottom: 1em;
+	.scroll {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+	}
+	.pictures-scroll-item {
+		flex: 1 0 30%;
+		margin-right: 2%;
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+		.add-picture {
+			width: 100%;
+			border: none;
+			background-color: transparent;
+			padding: 0;
+			img {
+				max-width: 100%;
+				min-width: 100%;
+			}
+		}
+	}
+}
+
+.modal {
+	position: fixed;
+	padding-right: 1.4em;
+	z-index: 10000;
+	background-color: rgba($light, 0.8);
+	.modal-content {
+		height: 100vh;
+		.modal-body {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-content: center;
+			justify-content: center;
+			align-items: center;
+			height: 80vh;
+			.actions {
+				flex: 0 1 80%;
+				border: 1px solid $dark;
+				border-radius: 0.5em;
+				overflow: hidden;
+				position: relative;
+				&:before {
+					position: absolute;
+					top: 50%;
+					left: 5%;
+					width: 90%;
+					content: "";
+					display: block;
+					height: 1px;
+					background-color: rgba($dark, 0.7);
+					z-index: 1;
+				}
+			}
+			.button {
+				margin-top: 0;
+				margin-bottom: 0;
+				border-radius: 0;
+				text-align: left;
+				padding: 1em 1em;
+				width: 100%;
+				&:before {
+					color: $assertive;
+					margin-right: 0.4em;
+					font-size: 2em;
+				}
+				&.ion-ios-camera-outline:before {
+					font-size: 2.4em;
+				}
+			}
+		}
+	}
+	.modal-header {
+		.modal-close {
+			color: $dark;
+			position: relative;
+			top: 0.4em;
+			left: 0.2em;
+			font-size: 2em;
+			cursor: pointer;
+		}
+	}
+}

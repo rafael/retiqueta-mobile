@@ -304,7 +304,26 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     views: {
       'productDetail-tab': {
         templateUrl: 'products/details/index.html',
-        controller: 'productDetail as detail',
+        controller: 'productDetail as detail'
+      }
+    }
+  })
+  .state('users.productDetails.edit', {
+      url: '/edit',
+      views: {
+        'productDetail-tab@users': {
+          templateUrl: 'products/edit/index.html',
+          controller: 'productEditCtrl as edit'
+        }
+      },
+      resolve: ResolveUser
+  })
+  .state('users.productDetails.edit.select_category', {
+    url: '/edit_select_category',
+    views: {
+      'productDetail-tab@users': {
+        templateUrl: 'products/edit/select_category.html',
+        controller: 'productSelectEditCategoryCtrl as psecCtrl'
       }
     }
   })

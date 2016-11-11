@@ -1,6 +1,6 @@
 <ion-scroll direction="x"  class="pictures-scroll">
   <div class="pictures-scroll-item" ng-repeat="picture in ctrl.pictures">
-    <img ng-if="ctrl.hasUrl(picture)" src="{{picture.attributes.url}}" alt="">
+      <img ng-if="ctrl.hasUrl(picture)" src="{{picture.attributes.url}}" alt="" ng-click="ctrl.setSelectSource($index)">
     <button
       ng-if="!ctrl.hasUrl(picture)"
       class="add-picture"

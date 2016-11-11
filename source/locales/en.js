@@ -35,6 +35,8 @@ var enTranslation = {
   UPLOADING_PICTURE: 'Uploading your picture ...',
   UPDATE_PROFILE: 'Update profile',
   PRODUCT_SAVE_MESSAGE: 'Your product is save in your wardrobe',
+  PRODUCT_EDIT: 'Edit product',
+  PRODUCT_UPDATE: 'Update product',
   ADD_PRODUCT_TO_WARDROBE: 'Add new product to your wardrobe',
   SEARCH_PRODUCT: 'Search',
   SEARCH_INPUT_PLACEHOLDER: 'Search by #',

@@ -1,4 +1,4 @@
-<ion-view view-title="{{ 'PRODUCT_DETAIL' | translate }}">
+<ion-view view-title="{{ 'PRODUCT_DETAIL' | translate }}" cache-view="false">
   <ion-nav-bar class="bar-assertive">
     <ion-nav-buttons side="left">
       <button
@@ -45,6 +45,11 @@
           ng-click="detail.deleteProduct(detail.product.id)"
           class="button icon-left ion-ios-trash-outline">
           {{ 'PRODUCT_DELETE' | translate }}
+        </button>
+        <button
+          ui-sref="users.productDetails.edit({productID: detail.product.id})"
+          class="button icon-left ion-edit">
+          {{ 'PRODUCT_EDIT' | translate }}
         </button>
       </modal-actions>
 
