@@ -3,7 +3,8 @@ const PAGE_SIZE = 30
 export default function searchFactory (ngComponent) {
   ngComponent.controller('SearchProductCtrl', SearchProductCtrl)
 
-  function SearchProductCtrl ($ionicScrollDelegate,
+  function SearchProductCtrl (
+    $ionicScrollDelegate,
     Product,
     $stateParams,
     Utils,

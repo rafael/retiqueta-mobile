@@ -27,8 +27,28 @@
                 </div>
               </div>
             </div>
+            <div ng-if="card.data.type === 'user_likes'" class="timeline-feature-picks">
+              <div class="timeline-user-likes-main">
+                <a ui-sref="users.productDetails({productID: card.data.attributes.products[0].id})">
+                  <img class="thumbnail timeline-feature-picks-main-img" src="{{ card.data.attributes.products[0].image_medium_url }}">
+                </a>
+              </div>
+              <div class="timeline-user-likes-divider">
+              </div>
+              <div class="timeline-user-likes-main">
+                <a ui-sref="users.productDetails({productID: card.data.attributes.products[1].id})">
+                  <img class="thumbnail timeline-feature-picks-main-img" src="{{ card.data.attributes.products[1].image_medium_url }}">
+                </a>
+              </div>
+            </div>
           </div>
         </ion-item>
+        <ion-infinite-scroll
+          ng-if="dashboard.isMore"
+          on-infinite="dashboard.getCards(dashboard.page, true)"
+          distance="20%"
+          immediate-check="false">
+        </ion-infinite-scroll>
       </ion-list>
     </div>
   </ion-content>
