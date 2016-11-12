@@ -8,7 +8,7 @@
         <i class="icon ion-android-person"></i>
         {{ 'EDIT_PROFILE' |  translate }}
       </a>
-      <a 
+      <a
         ion-track-tap="Click"
         ion-track-data="{ action: 'open balance'}"
         class="item item-icon-left bg-gradient-1" ui-sref="users.balance">
@@ -24,7 +24,7 @@
         <i class="icon ion-ios-download-outline"></i>
         {{ 'MY_ORDERS' |  translate }}
       </a>
-      <a 
+      <a
         ion-track-tap="Click"
         ion-track-data="{ action: 'open sales'}"
         class="item item-icon-left bg-gradient-2" ui-sref="users.sales">
@@ -40,13 +40,19 @@
         {{ 'FAQ' | translate }}
         <i class="icon ion-ios-help-outline"></i>
       </a>
-      <a 
+      <a
         ion-track-tap="Click"
         ion-track-data="{ action: 'SIGNOUT'}"
         class="item item-icon-left bg-gradient-3" ui-sref="logout">
         {{ 'SIGNOUT' | translate }}
         <i class="icon ion-android-exit rotate-180"></i>
       </a>
+    </div>
+    <div>
+    </div>
+    <div class = "item">
+      Platform: {{ settings.currentPlatform }} / 
+      App Version: {{ settings.currentPlatformVersion }}
     </div>
   </ion-content>
 </ion-view>
