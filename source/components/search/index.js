@@ -3,7 +3,16 @@ const PAGE_SIZE = 30
 export default function searchFactory (ngComponent) {
   ngComponent.controller('SearchProductCtrl', SearchProductCtrl)
 
-  function SearchProductCtrl ($ionicScrollDelegate, Product, $stateParams, Utils, $q, $scope, $rootScope, ENV, $cordovaKeyboard) {
+  function SearchProductCtrl ($ionicScrollDelegate,
+    Product,
+    $stateParams,
+    Utils,
+    $q,
+    $scope,
+    $rootScope,
+    ENV,
+    $cordovaKeyboard) {
+
     var _ = this
     var lastSearch = ''
     _.text = ''
@@ -100,8 +109,12 @@ export default function searchFactory (ngComponent) {
     }
 
     $scope.$on("$ionicView.enter", () => {
-      if (ENV.isProduction()) {
+      if (ENV.isProduction() && _.products.length === 0) {
         facebookConnectPlugin.logEvent('search load');
+      } else {
+        try {
+          $cordovaKeyboard.close()
+        } catch(e) {}
       }
     })
 
