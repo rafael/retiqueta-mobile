@@ -20,7 +20,7 @@ export default function DashboardFactory (ngComponent) {
     _.getCards = getCards
 
     function howOld(card) {
-      var difference = (date - new Date(card.data.attributes.created_at)) / 1000
+      var difference = (date - new Date(card.attributes.created_at)) / 1000
       var age = 0
       if (difference < ONE_HOUR) {
         age = Math.round(difference / 60) + "m"
@@ -34,7 +34,7 @@ export default function DashboardFactory (ngComponent) {
       } else {
         age = Math.round(difference / 86400) + " d"
       }
-      card.data.attributes.age = age
+      card.attributes.age = age
     }
 
     function getCards(page = 1, add = false) {
