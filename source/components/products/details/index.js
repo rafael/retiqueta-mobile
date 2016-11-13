@@ -1,13 +1,24 @@
 export default function ProductDetailFactory (ngComponent) {
   ngComponent.controller('productDetail', productDetail)
 
-  function productDetail (ENV, currentUser, Product, $ionicHistory, $translate, $timeout, $stateParams, Utils, $ionicScrollDelegate, CommentStore, $scope, $state) {
+  function productDetail (ENV,
+    currentUser,
+    Product,
+    $ionicHistory,
+    $translate,
+    $timeout,
+    $stateParams,
+    Utils,
+    $ionicScrollDelegate,
+    CommentStore,
+    $scope,
+    $state) {
     var _ = this
-    var openCommentForm = false     
+    var openCommentForm = false
     _.loading = false
-    _.product = {} 
+    _.product = {}
     _.optionsModal = false
-    _.showCommentForm = false   
+    _.showCommentForm = false
     _.commentFormWasShowed = false
     _.goBack = goBack
     _.currentUser = currentUser
@@ -19,7 +30,7 @@ export default function ProductDetailFactory (ngComponent) {
 
     function deleteProduct (id) {
       Utils.confirm(
-        $translate.instant('PRODUCT_DELETE_CONFIRMATION'), 
+        $translate.instant('PRODUCT_DELETE_CONFIRMATION'),
         $translate.instant('PRODUCT_DELETE_MESSAGE'),
         (buttonIndex) => {
           if (buttonIndex == 1) {

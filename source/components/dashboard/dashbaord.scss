@@ -31,6 +31,23 @@
 	color: $stable-dark;
 }
 
+
+.timeline-user-likes-main {
+	display: inline-block;
+	width: 45%;
+	max-height: 100%;
+}
+
+.timeline-user-likes-divider {
+	display: inline-block;
+	width: 5%;
+	max-height: 100%;
+}
+
+.timeline-user-likes-main-img {
+	width: 100%;
+}
+
 .timeline-feature-picks {
 	padding: 10px;
 }
@@ -40,7 +57,6 @@
 	width: 65%;
 	height: 100%;
 }
-
 .timeline-feature-picks-secondary {
 	height: 100%;
 	width: 32%;
@@ -51,6 +67,7 @@
 .timeline-feature-picks-main-img {
 	width: 100%;
 }
+
 
 .timeline-feature-picks-secondary-item {
 	height: 50%;

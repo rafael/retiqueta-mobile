@@ -103,7 +103,8 @@
       "id": "cordova-custom-config",
       "locator": "cordova-custom-config@2.0.3"
     },
-    "cordova-plugin-inappbrowser"
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-app-version"
   ],
   "cordovaPlatforms": [
     {
