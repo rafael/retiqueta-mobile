@@ -15,8 +15,8 @@ export default function SettingsFactory (ngComponent) {
       $cordovaAppVersion.getVersionCode().then(function (code) {
           _.VersionCode = code
       });
-      $cordovaAppVersion.getPackageName().then(function (pack) {
-          _.AppPackage = pack
+      $cordovaAppVersion.getVersionNumber().then(function (version) {
+          _.AppVersion = version
       });
     }
 
