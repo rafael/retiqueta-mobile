@@ -23,13 +23,20 @@ export default function(ngComponent) {
         return config
       },
       responseError: function (response) {
-        var string_token = window.localStorage.getItem('token')
-        const token = extractToken(string_token)
-        Utils.logger.log('Some error on HTTP protocol')
-        Utils.logger.log(response)
-        Utils.logger.log('The actual token is')
-        Utils.logger.log(string_token)
-        switch (response.status) {
+        var string_token = window.localStorage.getItem('token');
+        window.localStorage.setItem('last_request_at', Date.now());
+        var last_request_at = window.localStorage.getItem('last_request_at'); 
+        var parsed_last_request_at = new Date(parseInt(last_request_at, 10)).getTime();
+        if (typeof last_request_at !== 'undefined' && last_request_at !== 'null' && last_request_at !== null && (Date.now() - parsed_last_request_at) < 10 * 1000 ) {
+          return $q.reject(response);
+         }
+        else {
+          const token = extractToken(string_token)
+          Utils.logger.log('Some error on HTTP protocol')
+          Utils.logger.log(response)
+          Utils.logger.log('The actual token is')
+          Utils.logger.log(string_token)
+          switch (response.status) {
           case 400:
             // The token is erased from localStorage without reason, this is why i save in memory until refresh_token finish
             return $q.reject(response)
@@ -45,28 +52,28 @@ export default function(ngComponent) {
                   client_id: 'ret-mobile-ios'
                 }
               })
-              .then((result) => {
-                Utils.logger.info('Token Updated')
-                Utils.logger.log(writeToken(token, result.data))
-                Utils.logger.info('repeat previus request')
-                $injector.get("$http")(response.config).then(function(resp) {
-                  deferred.resolve(resp);
-                },function(resp) {
-                  deferred.reject(resp);
-                });
-              })
-              .catch((resp) => {
-                // There could be requests in flight while a refresh token just happened.
-                // In this case one will succeed, the other will return a 400.
-                if (resp.status == 0 || resp.status == 400) {
-                  Utils.swalError('Error refreshing token')
-                  return $q.reject(response)
-                } else {
-                  deferred.reject(resp)
-                  window.localStorage.removeItem('token')
-                  $injector.get("$state").go('auth.login')
-                }
-              })
+                .then((result) => {
+                  Utils.logger.info('Token Updated')
+                  Utils.logger.log(writeToken(token, result.data))
+                  Utils.logger.info('repeat previus request')
+                  $injector.get("$http")(response.config).then(function(resp) {
+                    deferred.resolve(resp);
+                  },function(resp) {
+                    deferred.reject(resp);
+                  });
+                })
+                .catch((resp) => {
+                  // There could be requests in flight while a refresh token just happened.
+                  // In this case one will succeed, the other will return a 400.
+                  if (resp.status == 0) {
+                    Utils.swalError('Error refreshing token')
+                    return $q.reject(response)
+                  } else {
+                    deferred.reject(resp)
+                    window.localStorage.removeItem('token')
+                    $injector.get("$state").go('auth.login')
+                  }
+                })
             } else {
               deferred.reject(response)
               window.localStorage.removeItem('token')
@@ -85,6 +92,7 @@ export default function(ngComponent) {
             return $q.reject(response)
           default:
             return $q.reject(response)        
+          }
         }
       }
     }
