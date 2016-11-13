@@ -23,7 +23,7 @@ export default function DashboardFactory (ngComponent) {
       var difference = (date - new Date(card.attributes.created_at)) / 1000
       var age = 0
       if (difference < ONE_HOUR) {
-        age = Math.round(difference / 60) + "m"
+        age = Math.max(Math.round(difference / 60),1) + "m"
       } else if (difference < ONE_DAY) {
         age = Math.round(difference / 3600)
         if(age == 1) {
