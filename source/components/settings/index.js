@@ -4,38 +4,31 @@ export default function SettingsFactory (ngComponent) {
   function settingsCtrl (
     ENV,
     $scope,
-    $ionicPlatform) {
+    $ionicPlatform,
+    $cordovaAppVersion) {
 
     var _ = this
-    _.deviceInformation = '{ test: value }';
-    _.isWebView = 'false';
-    _.isIPad = 'false';
-    _.isIOS = 'false';
-    _.isAndroid = 'false';
-    _.isWindowsPhone = 'false';
-    _.currentPlatform = 'None';
-    _.currentPlatformVersion = '0.0.0';
+    _.AppVersion = 'App version not detect'
+    _.VersionCode = 'Version code not detect'
 
-    $ionicPlatform.ready(function() {
-      if($ionicPlatform.version() !== 'undefined') {
-        _.deviceInformation = $ionicPlatform.device();
-        _.isWebView = $ionicPlatform.isWebView();
-        _.isIPad = $ionicPlatform.isIPad();
-        _.isIOS = $ionicPlatform.isIOS();
-        _.isAndroid = $ionicPlatform.isAndroid();
-        _.isWindowsPhone = $ionicPlatform.isWindowsPhone();
-        _.currentPlatform = $ionicPlatform.platform();
-        _.currentPlatformVersion = $ionicPlatform.version();
-      }
-    });
+    function seed() {
+      $cordovaAppVersion.getVersionCode().then(function (code) {
+          _.VersionCode = code
+      });
+      $cordovaAppVersion.getPackageName().then(function (pack) {
+          _.AppPackage = pack
+      });
+    }
 
     $scope.$on("$ionicView.enter", function(event, data) {
       if (ENV.isProduction()) {
         facebookConnectPlugin.logEvent('settings load');
-      } else {
-        console.log('Settings load')
       }
     })
+
+    if (ENV.isProduction()) {
+      seed()
+    }
   }
 
 }
