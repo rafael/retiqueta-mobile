@@ -123,7 +123,9 @@ var enTranslation = {
   ORDER_ITEM_CATEGORY: 'Category',
   ORDER_ITEM_TYPE: 'Product',
   ORDER_ITEM_PRICE: 'Price',
-  FORGOT_PASSWORD:  'Forgot password'
+  FORGOT_PASSWORD:  'Forgot password',
+  ORDERS_LOADING: 'Loading...',
+  SALES_LOADING: 'Loading...'
 }
 
 export default enTranslation
