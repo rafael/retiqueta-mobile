@@ -46,12 +46,6 @@
 
             <footer>
               <div class="item tabs tabs-secondary tabs-icon-left">
-                <a
-                  product="product"
-                  class="button button-assertive button-buy buy-icon"
-                  ui-sref="users.checkout({productID: product.id})">
-                  {{ 'BUY_NOW' | translate }}
-                </a>
                 <span
                   class="tab-item like-icon"
                   like-this
@@ -61,6 +55,12 @@
                     {{ product.attributes.likes_count }}
                   </span>
                 </span>
+                <a
+                  product="product"
+                  class="button button-assertive button-buy buy-icon"
+                  ui-sref="users.checkout({productID: product.id})">
+                  {{ 'BUY_NOW' | translate }}
+                </a>
               </div>
             </footer>
           </div>
