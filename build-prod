@@ -1,5 +1,4 @@
 npm install 
-rm -rf www/
 npm run release
 ionic resources
 ionic state reset
