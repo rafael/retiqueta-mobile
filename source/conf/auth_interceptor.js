@@ -24,18 +24,15 @@ export default function(ngComponent) {
       },
       responseError: function (response) {
         var string_token = window.localStorage.getItem('token');
-        window.localStorage.setItem('last_request_at', Date.now());
-        var last_request_at = window.localStorage.getItem('last_request_at'); 
+        var last_request_at = window.localStorage.getItem('last_request_at');
         var parsed_last_request_at = new Date(parseInt(last_request_at, 10)).getTime();
         if (typeof last_request_at !== 'undefined' && last_request_at !== 'null' && last_request_at !== null && (Date.now() - parsed_last_request_at) < 10 * 1000 ) {
           return $q.reject(response);
          }
         else {
           const token = extractToken(string_token)
-          Utils.logger.log('Some error on HTTP protocol')
+          window.localStorage.setItem('last_request_at', Date.now());
           Utils.logger.log(response)
-          Utils.logger.log('The actual token is')
-          Utils.logger.log(string_token)
           switch (response.status) {
           case 400:
             // The token is erased from localStorage without reason, this is why i save in memory until refresh_token finish
