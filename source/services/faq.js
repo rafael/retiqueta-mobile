@@ -2,7 +2,22 @@ export default function(ngComponent) {
 
   ngComponent.factory('Faqs', Faqs)
 
-  function Faqs () {
+  function Faqs ($cordovaAppVersion) {
+    var appVersion = 'App version not detect';
+    var versionCode = 'Version code not detect';
+    function seed() {
+      $cordovaAppVersion.getVersionCode().then(function (code) {
+        appVersion = code;
+      });
+      $cordovaAppVersion.getVersionNumber().then(function (version) {
+        versionCode = version;
+      });
+    }
+
+    if (ENV.isProduction()) {
+      seed();
+    }
+
     const Model = [
       {
         name: '¿Quiénes somos?',
@@ -67,6 +82,10 @@ export default function(ngComponent) {
       {
         name: '¡Contacta a Retiqueta!',
         items: ['Queremos estar muy cerca de ti. Nos puedes escribir a nuestro email ​inforetiqueta@gmail.com  y no dudes en darnos feedback o comunicarnos cualquier inquietud que tengas. Nos encanta  que nos escribas por mensajes directo o privados a través de nuestras redes sociales.']
+      },
+      {
+        name: '¿Qué version de la app estoy usando? ',
+        items: ['Tu version es: ' + appVersion + " y código: " + versionCode]
       }
     ]
 
