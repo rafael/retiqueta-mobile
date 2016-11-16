@@ -85,8 +85,12 @@
         "APP_ID": "218604841833703",
         "APP_NAME": "Retiqueta"
       },
-      "locator": "https://github.com/Telerik-Verified-Plugins/Facebook.git",
-      "id": "cordova-plugin-facebook"
+      "locator": "https://github.com/jeduan/cordova-plugin-facebook4",
+      "id": "cordova-plugin-facebook4@1.7.4"
+    },
+    {
+      "locator": "https://github.com/jackpocket/cordova-plugin-facebook-push-campaign.git",
+      "id": "cordova-plugin-facebook-push-campaign@1.0.0"
     },
     {
       "locator": "https://github.com/highercomve/card.io.git",
