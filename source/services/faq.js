@@ -3,6 +3,7 @@ export default function(ngComponent) {
   ngComponent.factory('Faqs', Faqs)
 
   function Faqs () {
+
     const Model = [
       {
         name: '¿Quiénes somos?',
@@ -17,7 +18,7 @@ export default function(ngComponent) {
         items: [
           'Quisiéramos no cobrar comisión pero nuestro equipo trabaja duro!.... Recuerda que tu colocas el precio y ganas el 75% por cada producto vendido. Es decir, que nuestra comisión es de un 25% de ese precio por cada ropa o accesorio que vendas.'
         , 'PROMO: En los primeros meses de lanzamiento no vamos a cobrar comisión. Te notificaremos vía email cuando termine la promoción.'
-        ]       
+        ]
       },
       {
         name: '¿Cómo definir el precio de mi ropa y/o accesorios?',
@@ -28,7 +29,7 @@ export default function(ngComponent) {
         , '- ¿Es de una marca reconocida? '
         , '- ¿Es una prenda de vestir o accesorio que está de moda en este momento?'
         , 'Revisa un producto de la misma categoría en Retiqueta y detalla todos estos factores. No olvides pensar si el cliente debe pagar por el envío o si lo estás incluyendo en el precio.'
-        ]    
+        ]
       },
       {
         name: '¿Cuál es el método de envío/recibo?',
@@ -67,6 +68,10 @@ export default function(ngComponent) {
       {
         name: '¡Contacta a Retiqueta!',
         items: ['Queremos estar muy cerca de ti. Nos puedes escribir a nuestro email ​inforetiqueta@gmail.com  y no dudes en darnos feedback o comunicarnos cualquier inquietud que tengas. Nos encanta  que nos escribas por mensajes directo o privados a través de nuestras redes sociales.']
+      },
+      {
+        name: '¿Qué version de la app estoy usando?',
+        items: ['Tu version es: APP_VERSION y código: APP_CODE']
       }
     ]
 
