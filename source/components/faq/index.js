@@ -8,6 +8,7 @@ export default function faqCtrlFactory (ngComponent) {
     _.toggleGroup = toggleGroup
     _.isGroupShown = isGroupShown
     _.info = info
+    _.updatedItem = null;
 
     function toggleGroup (group) {
       if (isGroupShown(group)) {
@@ -22,16 +23,15 @@ export default function faqCtrlFactory (ngComponent) {
     };
 
     function info(item) {
-      var reVersion = /app_version/gi;
-      var rgCode = /app_code/gi;
-      var updatedItem = item
+      var reVersion = /APP_VERSION/gi;
+      var rgCode = /APP_CODE/gi;
       $cordovaAppVersion.getVersionCode().then(function (code) {
-        updatedItem = item.replace(reVersion, code);
+        _.updatedItem = item.replace(reVersion, code);
       });
       $cordovaAppVersion.getVersionNumber().then(function (version) {
-        updatedItem = updatedItem.replace(rgCode, version);
+        _.updatedItem = _.updatedItem.replace(rgCode, version);
       });
-      return updatedItem
+      return _.updatedItem;
     }
 
   }
