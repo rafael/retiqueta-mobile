@@ -8,7 +8,7 @@
               <span class="timeline-title"> {{ card.attributes.title }} </span>
               <span class="timeline-age"> {{ card.attributes.age }} </span>
             </div>
-            <div ng-if="card.type === 'featured_picks'" class="timeline-feature-picks">
+            <div ng-if="card.attributes.products.length === 3" class="timeline-feature-picks">
               <div class="timeline-feature-picks-main">
                 <a ui-sref="users.productDetails({productID: card.attributes.products[0].id})">
                   <img class="thumbnail timeline-feature-picks-main-img" src="{{ card.attributes.products[0].image_medium_url }}">
@@ -27,7 +27,7 @@
                 </div>
               </div>
             </div>
-            <div ng-if="card.type === 'user_likes'" class="timeline-feature-picks">
+            <div ng-if="card.attributes.products.length === 2" class="timeline-feature-picks">
               <div class="timeline-user-likes-main">
                 <a ui-sref="users.productDetails({productID: card.attributes.products[0].id})">
                   <img class="thumbnail timeline-feature-picks-main-img" src="{{ card.attributes.products[0].image_medium_url }}">
