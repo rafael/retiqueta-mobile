@@ -10,7 +10,7 @@
   </ion-nav-bar>
   <ion-content class="order-chat" padding="false" scroll="false">
     <header class="order-detail-header list row">
-      <div class="col col-75">
+      <div class="col">
         <a class="item item-avatar item-icon-right"
           ui-sref="users.ordersDetail({ id: ctrl.order.id})">
           <img
@@ -25,8 +25,10 @@
           </p>
         </a>
       </div>
-      <div class="col col-25">
-        <i class="pending-send" ng-if="ctrl.isBuyerAndPending"> send me </i>
+      <div class="col col-25" ng-if="ctrl.isBuyerAndPending">
+        <div class="row send-row"></div>
+        <button class="pending-send send-row row"> send me </button>
+        <div class="row send-row"></div>
       </div>
     </header>
     <section ng-if="ctrl.isBuyer"> Buyer </div>
