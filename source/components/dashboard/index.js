@@ -19,6 +19,10 @@ export default function DashboardFactory (ngComponent) {
     _.pageSize = 5
     _.getCards = getCards
 
+    function filterCard(card) {
+      return card.type == 'featured_picks' || card.type == 'user_likes'
+    }
+
     function howOld(card) {
       var difference = (date - new Date(card.attributes.created_at)) / 1000
       var age = 0
@@ -53,6 +57,7 @@ export default function DashboardFactory (ngComponent) {
         Timeline.get(request).then((result) => {
           if(typeof result !== 'undefined' && result.length > 0) {
             result.map(howOld)
+            result = result.filter(filterCard)
             if(add) {
               _.cards = _.cards.concat(result)
             } else {
