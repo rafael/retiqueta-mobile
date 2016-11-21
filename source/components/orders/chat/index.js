@@ -21,6 +21,7 @@ export default function orderChatCtrlFactory (ngComponent) {
     _.buyerOrSeller = buyerOrSeller($stateParams.type)
     _.isBuyer = isBuyer()
     _.isBuyerAndPending = isBuyerAndPending()
+    _.isSellerAndSent = isSellerAndSent()
     _.isSeller = isSeller()
     _.upperStatus = status().toUpperCase()
 
@@ -43,6 +44,10 @@ export default function orderChatCtrlFactory (ngComponent) {
 
     function isBuyerAndPending() {
       return _.buyerOrSeller === 'buyer' && _.status === 'pending'
+    }
+
+    function isSellerAndSent() {
+      return _.buyerOrSeller === 'seller' && _.status === 'sent'
     }
 
     function isSeller() {
