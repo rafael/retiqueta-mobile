@@ -7,6 +7,7 @@ export default function orderChatCtrlFactory (ngComponent) {
     $ionicHistory,
     $ionicScrollDelegate,
     Order,
+    Fulfillment,
     $scope,
     $stateParams,
     $state,
@@ -25,6 +26,19 @@ export default function orderChatCtrlFactory (ngComponent) {
 
     function isBuyer() {
       return _.buyerOrSeller === 'buyer'
+    }
+
+    function updateStatus() {
+      Fulfillment.update(_.order.relationships.fulfillment.id, { status: 'sent' })
+        .then(result => {
+          result;
+        })
+        .catch(error => {
+          if (ENV.isProduction()) {
+            facebookConnectPlugin.logEvent('profile edit request error');
+          }
+          Utils.swalError(error)
+        });
     }
 
     function isBuyerAndPending() {
