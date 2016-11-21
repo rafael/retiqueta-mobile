@@ -12,21 +12,21 @@ export default function orderChatCtrlFactory (ngComponent) {
     $stateParams,
     $state,
     Utils) {
-    var _ = this
-    _.order = $stateParams.order
-    _.firstProduct = setFirstProduct(_.order)
-    _.status = status()
-    _.currentUser = currentUser
-    _.goBack = goBack
-    _.buyerOrSeller = buyerOrSeller($stateParams.type)
-    _.isBuyer = isBuyer()
-    _.isBuyerAndPending = isBuyerAndPending()
-    _.isSellerAndSent = isSellerAndSent()
-    _.isSeller = isSeller()
-    _.upperStatus = status().toUpperCase()
+    var _ = this;
+    _.order = $stateParams.order;
+    _.firstProduct = setFirstProduct(_.order);
+    _.status = status();
+    _.currentUser = currentUser;
+    _.goBack = goBack;
+    _.buyerOrSeller = buyerOrSeller($stateParams.type);
+    _.isBuyer = isBuyer();
+    _.isBuyerAndPending = isBuyerAndPending();
+    _.isSellerAndSent = isSellerAndSent();
+    _.isSeller = isSeller();
+    _.upperStatus = status().toUpperCase();
 
     function isBuyer() {
-      return _.buyerOrSeller === 'buyer'
+      return _.buyerOrSeller === 'buyer';
     }
 
     function updateStatus() {
@@ -38,65 +38,65 @@ export default function orderChatCtrlFactory (ngComponent) {
           if (ENV.isProduction()) {
             facebookConnectPlugin.logEvent('profile edit request error');
           }
-          Utils.swalError(error)
+          Utils.swalError(error);
         });
     }
 
     function isBuyerAndPending() {
-      return _.buyerOrSeller === 'buyer' && _.status === 'pending'
+      return _.buyerOrSeller === 'buyer' && _.status === 'pending';
     }
 
     function isSellerAndSent() {
-      return _.buyerOrSeller === 'seller' && _.status === 'sent'
+      return _.buyerOrSeller === 'seller' && _.status === 'sent';
     }
 
     function isSeller() {
-      return _.buyerOrSeller === 'seller'
+      return _.buyerOrSeller === 'seller';
     }
 
     function buyerOrSeller(type) {
       if(type === 'order') {
-        return 'buyer'
+        return 'buyer';
       } else {
-        return 'seller'
+        return 'seller';
       }
     }
 
     function status() {
-      return _.order.relationships.fulfillment.attributes.status
+      return _.order.relationships.fulfillment.attributes.status;
     }
 
     function goBack () {
       if ($stateParams.type === 'order' || $stateParams.type === 'sell') {
-        $state.go('users.activities.orders')
+        $state.go('users.activities.orders');
       } else {
-        $ionicHistory.goBack()
+        $ionicHistory.goBack();
       }
     }
 
     function setFirstProduct (order) {
-      let line_item = order.relationships.line_items[0]
+      let line_item = order.relationships.line_items[0];
       if (order.relationships.line_items.length > 0) {
-        return line_item.relationships.product
+        return line_item.relationships.product;
       } else {
-        return {}
+        return {};
       }
     }
 
     function scrollComments (type, parentId) {
       if (type === 'fulfillments' && parentId === _.order.relationships.fulfillment.id ) {
-        $ionicScrollDelegate.$getByHandle('comments').scrollBottom()
+        $ionicScrollDelegate.$getByHandle('comments').scrollBottom();
       }
     }
 
-    CommentStore.on('new', scrollComments)
-    CommentStore.on('fetchFinish', scrollComments)
+    CommentStore.on('new', scrollComments);
+    CommentStore.on('fetchFinish', scrollComments);
 
     $scope.$on("$ionicView.enter", (event, data) => {
       if (ENV.isProduction()) {
         facebookConnectPlugin.logEvent('chat load');
       }
-      CommentStore.emit('refresh', 'fulfillments', $stateParams.order.relationships.fulfillment.id )
-    })
+      CommentStore.emit('refresh', 'fulfillments', $stateParams.order.relationships.fulfillment.id );
+    });
   }
 }
