@@ -44,10 +44,10 @@
 	}
 	// Buyer css
 	.status-pending-buyer {
-		background-color: $balanced;
+		background-color: $dark;
 	}
 	.status-sent-buyer {
-		background-color: $dark;
+		background-color: $balanced;
 	}
 	.status-delivered-buyer {
 		background-color: $dark;
@@ -58,10 +58,10 @@
 
 	// Seller css
 	.status-pending-seller {
-		background-color: $dark;
+		background-color: $balanced;
 	}
 	.status-sent-seller {
-		background-color: $balanced;
+		background-color: $dark;
 	}
 	.status-delivered-seller {
 		background-color: $dark;

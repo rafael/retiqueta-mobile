@@ -24,16 +24,21 @@ export default function orderChatCtrlFactory (ngComponent) {
     _.isSellerAndPending = isSellerAndPending();
     _.isSeller = isSeller();
     _.upperStatus = status().toUpperCase();
+    _.updateStatus = updateStatus
 
     function isBuyer() {
       return _.buyerOrSeller === 'buyer';
     }
 
     function updateStatus(status) {
+      if (!ENV.isProduction()) {
+        console.log("updating status");
+      }
+
       Fulfillment.update(_.order.relationships.fulfillment.id, { status: status })
         .then(result => {
           _.order.relationships.fulfillment.status = status;
-          $state.go('users.ordersChat', {id: _.order.id, type: $stateParams.type, order: _.order }, { reload: true, inherit: false, notify: true  });
+          $state.transitionTo($state.current, {id: _.order.id, type: $stateParams.type, order: _.order }, { reload: true, inherit: false, notify: true  });
         })
         .catch(error => {
           if (ENV.isProduction()) {
@@ -90,14 +95,14 @@ export default function orderChatCtrlFactory (ngComponent) {
       }
     }
 
-    CommentStore.on('new', scrollComments);
-    CommentStore.on('fetchFinish', scrollComments);
-
     $scope.$on("$ionicView.enter", (event, data) => {
       if (ENV.isProduction()) {
         facebookConnectPlugin.logEvent('chat load');
       }
-      CommentStore.emit('refresh', 'fulfillments', $stateParams.order.relationships.fulfillment.id );
     });
+
+    CommentStore.on('new', scrollComments);
+    CommentStore.on('fetchFinish', scrollComments);
+    CommentStore.emit('refresh', 'fulfillments', $stateParams.order.relationships.fulfillment.id );
   }
 }

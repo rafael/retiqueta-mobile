@@ -25,19 +25,17 @@
           </p>
         </a>
       </div>
-      <div class="col col-25" ng-if="ctrl.isBuyerAndSent" ng-click="ctrl.updateStatus('delivered')">
+      <div class="col col-25" ng-if="ctrl.isBuyerAndSent">
         <div class="row send-row"></div>
-        <button class="pending-send send-row row"> send me </button>
+        <button class="pending-send send-row row" ng-click="ctrl.updateStatus('delivered')"> send me </button>
         <div class="row send-row"></div>
       </div>
-      <div class="col col-25" ng-if="ctrl.isSellerAndPending" ng-click="ctrl.updateStatus('sent')">
+      <div class="col col-25" ng-if="ctrl.isSellerAndPending">
         <div class="row send-row"></div>
-        <button class="pending-send send-row row"> send me </button>
+        <button class="pending-send send-row row" ng-click="ctrl.updateStatus('sent')"> send me </button>
         <div class="row send-row"></div>
       </div>
     </header>
-    <section ng-if="ctrl.isBuyer"> Buyer </div>
-    <section ng-if="ctrl.isSeller"> Seller </div>
     <section class="comments">
       <ion-scroll  delegate-handle="comments">
         <comments-list
