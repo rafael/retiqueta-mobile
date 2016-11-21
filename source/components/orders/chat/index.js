@@ -20,8 +20,8 @@ export default function orderChatCtrlFactory (ngComponent) {
     _.goBack = goBack;
     _.buyerOrSeller = buyerOrSeller($stateParams.type);
     _.isBuyer = isBuyer();
-    _.isBuyerAndPending = isBuyerAndPending();
-    _.isSellerAndSent = isSellerAndSent();
+    _.isBuyerAndSent = isBuyerAndSent();
+    _.isSellerAndPending = isSellerAndPending();
     _.isSeller = isSeller();
     _.upperStatus = status().toUpperCase();
 
@@ -29,10 +29,11 @@ export default function orderChatCtrlFactory (ngComponent) {
       return _.buyerOrSeller === 'buyer';
     }
 
-    function updateStatus() {
-      Fulfillment.update(_.order.relationships.fulfillment.id, { status: 'sent' })
+    function updateStatus(status) {
+      Fulfillment.update(_.order.relationships.fulfillment.id, { status: status })
         .then(result => {
-          result;
+          _.order.relationships.fulfillment.status = status;
+          $state.go('users.ordersChat', {id: _.order.id, type: $stateParams.type, order: _.order }, { reload: true, inherit: false, notify: true  });
         })
         .catch(error => {
           if (ENV.isProduction()) {
@@ -42,12 +43,12 @@ export default function orderChatCtrlFactory (ngComponent) {
         });
     }
 
-    function isBuyerAndPending() {
-      return _.buyerOrSeller === 'buyer' && _.status === 'pending';
+    function isBuyerAndSent() {
+      return _.buyerOrSeller === 'buyer' && _.status === 'sent';
     }
 
-    function isSellerAndSent() {
-      return _.buyerOrSeller === 'seller' && _.status === 'sent';
+    function isSellerAndPending() {
+      return _.buyerOrSeller === 'seller' && _.status === 'pending';
     }
 
     function isSeller() {
