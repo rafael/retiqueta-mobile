@@ -1,3 +1,11 @@
+const includes = [
+  'line_items',
+  'line_items.product',
+  'line_items.product.product_pictures',
+  'user',
+  'fulfillment',
+].join(',')
+
 export default function ordersCtrlFactory (ngComponent) {
   ngComponent.controller('ordersCtrl', ordersCtrl)
 
@@ -9,7 +17,7 @@ export default function ordersCtrlFactory (ngComponent) {
     function getOrders () {
       _.loading = true
       Order.getAll({
-        include: 'line_items,line_items.product,line_items.product.product_pictures,user,'
+        include: includes
       })
       .then(orders => {
         _.orders = orders

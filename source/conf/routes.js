@@ -189,7 +189,8 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
         templateUrl: 'orders/chat/template.html',
         controller: 'orderChatCtrl as ctrl'
       }
-    }
+    },
+    params: { order: null }
   })
   .state('users.ordersDetail', {
     url: '/orders/{id}/detail',

@@ -7,15 +7,15 @@ $error-message-top: 100%;
 // -------------------------------
 
 $light:                           #fff !default;
-$positive:                        #387ef5 !default;
-$calm:                            #21AA74 !default;
-$energized:                       #ffc900 !default;
-$royal:                           #886aea !default;
-$balanced: #21AA74;
-$assertive: #F6947B;
-$assertive-dark: #DC6D55;
+$positive:                        #387ef5 !default; // Navy Blue
+$calm:                            #21AA74 !default; // Green
+$energized:                       #ffc900 !default; // yellow
+$royal:                           #886aea !default; // purple
+$balanced: #21AA74; // GREEN
+$assertive: #F6947B; // BOLD SALMON
+$assertive-dark: #DC6D55; // Dark salmon
 $dark: #A8A8A8;
-$stable: #F2F2F2;
+$stable: #F2F2F2; // Clear ? / Grey
 $facebook: #0571b9;
 $stable-dark: darken($stable, 30%);
 

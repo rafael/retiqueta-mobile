@@ -16,6 +16,35 @@
 		.item {
 		}
 	}
+
+	.status {
+		max-height: 24px;
+		font-size: 12px;
+		color: #FFF;
+		border-width: 1px;
+		border-radius: 4px;
+		border-style: solid;
+		display: inline-block;
+		padding: 2px 4px 2px;
+	}
+
+	.status-pending-buyer {
+		background-color: $balanced;
+	}
+
+	.pending-send {
+		background-color: $balanced;
+		color: #FFF;
+		border-width: 1px;
+		border-radius: 4px;
+		border-style: solid;
+		display: inline-block;
+		padding: 2px 4px 2px;
+	}
+	
+	.status-pending-seller {
+		background-color: $dark;
+	}
 }
 
 .comment-form {

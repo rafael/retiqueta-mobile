@@ -1,20 +1,51 @@
-const includes = [
-  'line_items',
-  'line_items.product',
-  'line_items.product.product_pictures',
-  'user',
-  'fulfillment',
-].join(',')
-
 export default function orderChatCtrlFactory (ngComponent) {
   ngComponent.controller('orderChatCtrl', orderChatCtrl)
 
-  function orderChatCtrl (ENV, Order, Utils, $stateParams, $state, $ionicHistory, CommentStore, currentUser, $ionicScrollDelegate, $scope) {
+  function orderChatCtrl (CommentStore,
+    currentUser,
+    ENV,
+    $ionicHistory,
+    $ionicScrollDelegate,
+    Order,
+    $scope,
+    $stateParams,
+    $state,
+    Utils) {
     var _ = this
-    _.order = {}
-    _.firstProduct = {}
+    _.order = $stateParams.order
+    _.firstProduct = setFirstProduct(_.order)
+    _.status = status()
     _.currentUser = currentUser
     _.goBack = goBack
+    _.buyerOrSeller = buyerOrSeller($stateParams.type)
+    _.isBuyer = isBuyer()
+    _.isBuyerAndPending = isBuyerAndPending()
+    _.isSeller = isSeller()
+    _.upperStatus = status().toUpperCase()
+
+    function isBuyer() {
+      return _.buyerOrSeller === 'buyer'
+    }
+
+    function isBuyerAndPending() {
+      return _.buyerOrSeller === 'buyer' && _.status === 'pending'
+    }
+
+    function isSeller() {
+      return _.buyerOrSeller === 'seller'
+    }
+
+    function buyerOrSeller(type) {
+      if(type === 'order') {
+        return 'buyer'
+      } else {
+        return 'seller'
+      }
+    }
+
+    function status() {
+      return _.order.relationships.fulfillment.attributes.status
+    }
 
     function goBack () {
       if ($stateParams.type === 'order' || $stateParams.type === 'sell') {
@@ -22,18 +53,6 @@ export default function orderChatCtrlFactory (ngComponent) {
       } else {
         $ionicHistory.goBack()
       }
-    }
-
-    function getorder () {
-      Order.get($stateParams.id, { include: includes })
-      .then(order => {
-        _.order = order
-        _.firstProduct = setFirstProduct(order)
-        CommentStore.emit('refresh', 'fulfillments', order.relationships.fulfillment.id )
-      })
-      .catch((error) => {
-        Utils.swalError(error)
-      })
     }
 
     function setFirstProduct (order) {
@@ -53,11 +72,12 @@ export default function orderChatCtrlFactory (ngComponent) {
 
     CommentStore.on('new', scrollComments)
     CommentStore.on('fetchFinish', scrollComments)
+
     $scope.$on("$ionicView.enter", (event, data) => {
       if (ENV.isProduction()) {
         facebookConnectPlugin.logEvent('chat load');
       }
-      getorder() 
+      CommentStore.emit('refresh', 'fulfillments', $stateParams.order.relationships.fulfillment.id )
     })
   }
 }

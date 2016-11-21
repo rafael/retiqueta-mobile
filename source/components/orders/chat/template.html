@@ -9,27 +9,34 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content class="order-chat" padding="false" scroll="false">
-    <header class="order-detail-header list">
-      <a class="item item-avatar item-icon-right"
-        ui-sref="users.ordersDetail({ id: ctrl.order.id})">
-        <img 
-        src="{{ ::ctrl.firstProduct.relationships.product_pictures[0].attributes.small_url}}" 
-        alt="">
-        <h2 class="text-assertive">
-          {{ ctrl.order.attributes.total_amount | currency : ctrl.order.attributes.currency }}
-        </h2>
-        <p>
-          {{ ctrl.firstProduct.attributes.description }}
-        </p>
-        <i class="icon ion-chevron-right"></i>
-      </a>
+    <header class="order-detail-header list row">
+      <div class="col col-75">
+        <a class="item item-avatar item-icon-right"
+          ui-sref="users.ordersDetail({ id: ctrl.order.id})">
+          <img
+          src="{{ ::ctrl.firstProduct.relationships.product_pictures[0].attributes.small_url}}"
+          alt="">
+          <h2 class="text-assertive">
+            {{ ctrl.order.attributes.total_amount | currency : ctrl.order.attributes.currency }}
+          </h2>
+          <div class="status status-{{ ctrl.status }}-{{ ctrl.buyerOrSeller }}">{{ ctrl.upperStatus }}</div>
+          <p>
+            {{ ctrl.firstProduct.attributes.description }}
+          </p>
+        </a>
+      </div>
+      <div class="col col-25">
+        <i class="pending-send" ng-if="ctrl.isBuyerAndPending"> send me </i>
+      </div>
     </header>
+    <section ng-if="ctrl.isBuyer"> Buyer </div>
+    <section ng-if="ctrl.isSeller"> Seller </div>
     <section class="comments">
       <ion-scroll  delegate-handle="comments">
-        <comments-list 
+        <comments-list
           reverse="true"
           as-chat="true"
-          parent-type="fulfillments" 
+          parent-type="fulfillments"
           current-user-id="{{ ctrl.currentUser.id }}"
           parent-id="{{ ctrl.order.relationships.fulfillment.id }}"></comments-list>
       </ion-scroll>
@@ -38,7 +45,7 @@
   <ion-footer-bar class="comment-form">
     <section class="form">
       <comment-form
-        parent-type="fulfillments" 
+        parent-type="fulfillments"
         parent-id="{{ ctrl.order.relationships.fulfillment.id }}"></comment-form>
     </section>
   </ion-footer-bar>
