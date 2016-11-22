@@ -19,20 +19,20 @@
           <h2 class="text-assertive">
             {{ ctrl.order.attributes.total_amount | currency : ctrl.order.attributes.currency }}
           </h2>
-          <div class="status status-{{ ctrl.status }}-{{ ctrl.buyerOrSeller }}">{{ ctrl.upperStatus }}</div>
+          <div id="status" class="{{ ctrl.statusClass }}">{{ ctrl.upperStatus }}</div>
           <p>
             {{ ctrl.firstProduct.attributes.description }}
           </p>
         </a>
       </div>
-      <div class="col col-25" ng-if="ctrl.isBuyerAndSent">
+      <div id="buyer-button" class="col col-33" ng-if="ctrl.isBuyerAndSent">
         <div class="row send-row"></div>
-        <button class="pending-send send-row row" ng-click="ctrl.updateStatus('delivered')"> send me </button>
+        <button class="pending-send send-row row" ng-click="ctrl.updateStatus('delivered')"> Item Received </button>
         <div class="row send-row"></div>
       </div>
-      <div class="col col-25" ng-if="ctrl.isSellerAndPending">
+      <div id="seller-button" class="col col-33" ng-if="ctrl.isSellerAndPending">
         <div class="row send-row"></div>
-        <button class="pending-send send-row row" ng-click="ctrl.updateStatus('sent')"> send me </button>
+        <button class="pending-send send-row row" ng-click="ctrl.updateStatus('sent')"> Send Item </button>
         <div class="row send-row"></div>
       </div>
     </header>

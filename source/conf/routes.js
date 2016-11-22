@@ -174,6 +174,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     },
   })
   .state('users.orders', {
+    cache: false,
     url: '/orders',
     views: {
       'profile-tab': {
@@ -183,6 +184,7 @@ routes.config(function ($stateProvider, $urlRouterProvider) {
     },
   })
   .state('users.ordersChat', {
+    cache: false,
     url: '/orders/{id}?type',
     views: {
       'order-detail-tab': {

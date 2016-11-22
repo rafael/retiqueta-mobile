@@ -13,23 +13,77 @@ export default function orderChatCtrlFactory (ngComponent) {
     $state,
     Utils) {
     var _ = this;
+    // Order information
     _.order = $stateParams.order;
-    _.firstProduct = setFirstProduct(_.order);
-    _.status = status();
     _.currentUser = currentUser;
-    _.goBack = goBack;
-    _.buyerOrSeller = buyerOrSeller($stateParams.type);
+    _.status = _.order.relationships.fulfillment.attributes.status
+    _.firstProduct = setFirstProduct(_.order);
+    _.buyerOrSeller = buyerOrSeller();
+    _.statusClass = statusClass();
+    _.upperStatus = upperStatus();
+    // Buyer or Seller information acessors
     _.isBuyer = isBuyer();
     _.isBuyerAndSent = isBuyerAndSent();
     _.isSellerAndPending = isSellerAndPending();
     _.isSeller = isSeller();
-    _.upperStatus = status().toUpperCase();
-    _.updateStatus = updateStatus
+    // Function
+    _.updateStatus = updateStatus;
+    _.goBack = goBack;
 
+    // Determines if user viewing page is the buyer or seller
+    function buyerOrSeller() {
+      if($stateParams.type === 'order') {
+        return 'buyer';
+      } else {
+        return 'seller';
+      }
+    }
+
+    // If seller = True
+    function isSeller() {
+      return _.buyerOrSeller === 'seller';
+    }
+
+    // If buyer = True
     function isBuyer() {
       return _.buyerOrSeller === 'buyer';
     }
 
+    // If buyer and the order has been SENT = True
+    function isBuyerAndSent() {
+      return isBuyer() && _.status === 'sent';
+    }
+
+    // If seller and the order is still PENDING = True
+    function isSellerAndPending() {
+      return isSeller() && _.status === 'pending';
+    }
+
+    // Returns the class of existing status
+    function statusClass() {
+      if (!ENV.isProduction()) {
+        console.log("generate status class for status ".concat(_.status).concat(" and user is ").concat(_.buyerOrSeller));
+      }
+      return "status status-".concat(_.status).concat("-").concat(_.buyerOrSeller);
+    }
+
+    function upperStatus(){
+      return _.status.toUpperCase();
+    }
+
+    // Hides the status update button
+    function hideButton() {
+      if (!ENV.isProduction()) {
+        console.log("hide button");
+      }
+      if(_.isBuyer){
+        document.getElementById('buyer-button').style.display = 'none';
+      } else {
+        document.getElementById('seller-button').style.display = 'none';
+      }
+    }
+
+    // Updates status of order, then calls UI updating functions to 'refresh' data on screen
     function updateStatus(status) {
       if (!ENV.isProduction()) {
         console.log("updating status");
@@ -37,8 +91,10 @@ export default function orderChatCtrlFactory (ngComponent) {
 
       Fulfillment.update(_.order.relationships.fulfillment.id, { status: status })
         .then(result => {
-          _.order.relationships.fulfillment.status = status;
-          $state.transitionTo($state.current, {id: _.order.id, type: $stateParams.type, order: _.order }, { reload: true, inherit: false, notify: true  });
+          _.status = status;
+          document.getElementById("status").innerHTML=upperStatus();
+          document.getElementById("status").className=statusClass();
+          hideButton();
         })
         .catch(error => {
           if (ENV.isProduction()) {
@@ -46,30 +102,6 @@ export default function orderChatCtrlFactory (ngComponent) {
           }
           Utils.swalError(error);
         });
-    }
-
-    function isBuyerAndSent() {
-      return _.buyerOrSeller === 'buyer' && _.status === 'sent';
-    }
-
-    function isSellerAndPending() {
-      return _.buyerOrSeller === 'seller' && _.status === 'pending';
-    }
-
-    function isSeller() {
-      return _.buyerOrSeller === 'seller';
-    }
-
-    function buyerOrSeller(type) {
-      if(type === 'order') {
-        return 'buyer';
-      } else {
-        return 'seller';
-      }
-    }
-
-    function status() {
-      return _.order.relationships.fulfillment.attributes.status;
     }
 
     function goBack () {
