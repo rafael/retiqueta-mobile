@@ -16,62 +16,64 @@
     </form>
   </ion-nav-bar>
   <ion-content padding="false">
-    <div>
-      <div class="padding no-search-container" ng-show="search.noResult">
-        <h4 class="no-search-title">
-          {{ 'NOT_RESULT_FOR_SEARCH' | translate }}
-        </h4>
-      </div>
-      <ion-list class="products featured">
-        <ion-item
-          ng-repeat="product in search.products track by $index"
-          class="product-featured {{ product.attributes.status }}">
-          <div class="container" nf-if="hasPicture(product.relationships.product_pictures)">
-            <header>
-              <a ui-sref="users.productDetails({productID: product.id})">
-                <img class="thumbnail" src="{{ product.relationships.product_pictures[0].attributes.small_url }}">
-              </a>
-            </header>
-            <div class="product-details">
-              <div class="price-details">
-                <span class="original-price">
-                  {{ product.attributes.original_price | currency : product.attributes.currency  }}
-                </span>
-                <span class="divisor">/</span>
-                <span class="retiqueta-price">
-                  {{ product.attributes.price | currency : products.attributes.currency }}
-                </span>
-              </div>
-            </div>
-
-            <footer>
-              <div class="item tabs tabs-secondary tabs-icon-left">
-                <span
-                  class="tab-item like-icon"
-                  like-this
-                  product="product">
-                  <i class="icon ion-heart"></i>
-                  <span class="count">
-                    {{ product.attributes.likes_count }}
-                  </span>
-                </span>
-                <a
-                  product="product"
-                  class="button button-assertive button-buy buy-icon"
-                  ui-sref="users.checkout({productID: product.id})">
-                  {{ 'BUY_NOW' | translate }}
-                </a>
-              </div>
-            </footer>
-          </div>
-        </ion-item>
-        <ion-infinite-scroll
-          ng-if="!search.noResult"
-          on-infinite="search.search(search.page, true)"
-          distance="30%"
-          immediate-check="false">
-        </ion-infinite-scroll>
-      </ion-list>
+    <ion-refresher
+      spinner="spiral"
+      on-refresh="search.search()">
+    </ion-refresher>
+    <div class="padding no-search-container" ng-show="search.noResult">
+      <h4 class="no-search-title">
+        {{ 'NOT_RESULT_FOR_SEARCH' | translate }}
+      </h4>
     </div>
+    <ion-list class="products featured">
+      <ion-item
+        ng-repeat="product in search.products track by $index"
+        class="product-featured {{ product.attributes.status }}">
+        <div class="container" nf-if="hasPicture(product.relationships.product_pictures)">
+          <header>
+            <a ui-sref="users.productDetails({productID: product.id})">
+              <img class="thumbnail" src="{{ product.relationships.product_pictures[0].attributes.small_url }}">
+            </a>
+          </header>
+          <div class="product-details">
+            <div class="price-details">
+              <span class="original-price">
+                {{ product.attributes.original_price | currency : product.attributes.currency  }}
+              </span>
+              <span class="divisor">/</span>
+              <span class="retiqueta-price">
+                {{ product.attributes.price | currency : products.attributes.currency }}
+              </span>
+            </div>
+          </div>
+
+          <footer>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+              <span
+                class="tab-item like-icon"
+                like-this
+                product="product">
+                <i class="icon ion-heart"></i>
+                <span class="count">
+                  {{ product.attributes.likes_count }}
+                </span>
+              </span>
+              <a
+                product="product"
+                class="button button-assertive button-buy buy-icon"
+                ui-sref="users.checkout({productID: product.id})">
+                {{ 'BUY_NOW' | translate }}
+              </a>
+            </div>
+          </footer>
+        </div>
+      </ion-item>
+      <ion-infinite-scroll
+        ng-if="!search.noResult"
+        on-infinite="search.search(search.page, true)"
+        distance="30%"
+        immediate-check="false">
+      </ion-infinite-scroll>
+    </ion-list>
   </ion-content>
 </ion-view>
