@@ -66,7 +66,6 @@ var esTranslation = {
   PRODUCT_DELETE_CONFIRMATION: '¿Deseas eliminar este producto?',
   PRODUCT_DELETE_MESSAGE: 'Despues de eliminar este producto no existe manera de recuperarlo',
   PRODUCT_DELETE: 'Eliminar producto',
-  COMISION_POLITICS: 'PROMO: En los primeros meses de lanzamiento no vamos a cobrar comisión. Te notificaremos vía email cuando termine la promoción.',
   FOLLOWERS_COUNT: 'Seguidores',
   FOLLOWING_COUNT: 'Seguidos',
   PROFILE_PRODUCT_COUNT: 'Retiquetas en mi closet',

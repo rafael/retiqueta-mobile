@@ -66,7 +66,6 @@ var enTranslation = {
   PRODUCT_DELETE: 'Delete product',
   PRODUCT_DELETE_CONFIRMATION: 'Are you sure about deleting this product?',
   PRODUCT_DELETE_MESSAGE: 'After you do this there is no way to turn back',
-  COMISION_POLITICS: 'Politica de comisi\ón de Retiqueta',
   FOLLOWERS_COUNT: 'Followers',
   FOLLOWING_COUNT: 'Following',
   PROFILE_PRODUCT_COUNT: 'Retiquetas on my wardrobe',

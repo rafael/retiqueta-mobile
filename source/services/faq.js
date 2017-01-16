@@ -16,8 +16,7 @@ export default function(ngComponent) {
       {
         name: 'Política de comisión de Retiqueta',
         items: [
-          'Quisiéramos no cobrar comisión pero nuestro equipo trabaja duro!.... Recuerda que tu colocas el precio y ganas el 75% por cada producto vendido. Es decir, que nuestra comisión es de un 25% de ese precio por cada ropa o accesorio que vendas.'
-        , 'PROMO: En los primeros meses de lanzamiento no vamos a cobrar comisión. Te notificaremos vía email cuando termine la promoción.'
+          'Quisiéramos no cobrar comisión pero nuestro equipo trabaja duro!.... Recuerda que tu colocas el precio y ganas el 80% por cada producto vendido. Es decir, que nuestra comisión es de un 20% de ese precio por cada ropa o accesorio que vendas.'
         ]
       },
       {
