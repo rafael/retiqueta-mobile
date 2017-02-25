@@ -8,7 +8,7 @@
     "watch": "NODE_ENV=development gulp build:watch",
     "watch:prod": "NODE_ENV=production gulp build:watch",
     "build": "NODE_ENV=development gulp build",
-    "release": "rm -rf www && rm -rf platforms && NODE_ENV=production gulp dist",
+    "release": "npm install && rm -rf www && rm -rf platforms && NODE_ENV=production gulp dist && ionic state reset && ionic resources",
     "config_ionic_dev": "ionic io init && ionic config build && ionic config set dev_push true && ionic config set gcm_key 700715737155",
     "config_ionic_prod": "ionic io init && ionic config build && ionic config set dev_push false && ionic config set gcm_key 700715737155",
     "sp": "gulp serve:dist"
