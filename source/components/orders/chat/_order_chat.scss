@@ -16,6 +16,64 @@
 		.item {
 		}
 	}
+
+	.status {
+		max-height: 24px;
+		font-size: 12px;
+		color: #FFF;
+		border-width: 1px;
+		border-radius: 4px;
+		border-style: solid;
+		display: inline-block;
+		padding: 2px 4px 2px;
+	}
+
+	.send-row {
+		height: 33%;
+		display: inline-block;
+	}
+
+	.pending-send {
+		background-color: $balanced;
+		color: #FFF;
+		border-width: 1px;
+		border-radius: 4px;
+		border-style: solid;
+		display: inline-block;
+		padding: 2px 4px 2px;
+	}
+
+	.status {
+		background-color: $dark;
+	}
+	
+	// Buyer css
+	.status-pending-buyer {
+		background-color: $dark;
+	}
+	.status-sent-buyer {
+		background-color: $balanced;
+	}
+	.status-delivered-buyer {
+		background-color: $dark;
+	}
+	.status-complete-buyer {
+		background-color: $stable;
+	}
+
+	// Seller css
+	.status-pending-seller {
+		background-color: $balanced;
+	}
+	.status-sent-seller {
+		background-color: $dark;
+	}
+	.status-delivered-seller {
+		background-color: $dark;
+	}
+	.status-complete-seller {
+		background-color: $stable;
+	}
 }
 
 .comment-form {

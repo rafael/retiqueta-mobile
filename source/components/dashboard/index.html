@@ -1,55 +1,57 @@
 <ion-view view-title="{{ 'DASHBOARD_TITLE' | translate }}">
   <ion-content padding="false" class="dashboard-bg">
-    <div>
-      <ion-list class="timeline-cards">
-        <ion-item class="timeline-card" ng-repeat="card in dashboard.cards track by $index">
-          <div class="container">
-            <div class="timeline-header">
-              <span class="timeline-title"> {{ card.attributes.title }} </span>
-              <span class="timeline-age"> {{ card.attributes.age }} </span>
+    <ion-refresher
+      spinner="spiral"
+      on-refresh="dashboard.getCards()">
+    </ion-refresher>
+    <ion-list class="timeline">
+      <ion-item class="card" ng-repeat="card in dashboard.cards track by $index">
+        <div class="container">
+          <div class="header">
+            <span class="title"> {{ card.attributes.title }} </span>
+            <span class="age"> {{ card.attributes.age }} </span>
+          </div>
+          <div ng-if="card.attributes.products.length === 2" class="content row">
+            <div class="col col-50">
+              <a ui-sref="users.productDetails({productID: card.attributes.products[0].id})">
+                <img class="thumbnail full-width" src="{{ card.attributes.products[0].image_medium_url }}">
+              </a>
             </div>
-            <div ng-if="card.type === 'featured_picks'" class="timeline-feature-picks">
-              <div class="timeline-feature-picks-main">
-                <a ui-sref="users.productDetails({productID: card.attributes.products[0].id})">
-                  <img class="thumbnail timeline-feature-picks-main-img" src="{{ card.attributes.products[0].image_medium_url }}">
-                </a>
-              </div>
-              <div class="timeline-feature-picks-secondary">
-                <div class="timeline-feature-picks-secondary-item">
-                  <a ui-sref="users.productDetails({productID: card.attributes.products[1].id})">
-                    <img class="thumbnail timeline-feature-picks-secondary-img" src="{{ card.attributes.products[1].image_small_url }}">
-                  </a>
-                </div>
-                <div class="timeline-feature-picks-secondary-item">
-                  <a ui-sref="users.productDetails({productID: card.attributes.products[2].id})">
-                    <img class="thumbnail timeline-feature-picks-secondary-img" src="{{ card.attributes.products[2].image_small_url }}">
-                  </a>
-                </div>
-              </div>
+            <div class="photo-divider">
             </div>
-            <div ng-if="card.type === 'user_likes'" class="timeline-feature-picks">
-              <div class="timeline-user-likes-main">
-                <a ui-sref="users.productDetails({productID: card.attributes.products[0].id})">
-                  <img class="thumbnail timeline-feature-picks-main-img" src="{{ card.attributes.products[0].image_medium_url }}">
-                </a>
-              </div>
-              <div class="timeline-user-likes-divider">
-              </div>
-              <div class="timeline-user-likes-main">
+            <div class="col col-50">
+              <a ui-sref="users.productDetails({productID: card.attributes.products[1].id})">
+                <img class="thumbnail full-width" src="{{ card.attributes.products[1].image_medium_url }}">
+              </a>
+            </div>
+          </div>
+          <div ng-if="card.attributes.products.length === 3" class="content row">
+            <div class="col col-66">
+              <a ui-sref="users.productDetails({productID: card.attributes.products[0].id})">
+                <img class="thumbnail full-width" src="{{ card.attributes.products[0].image_medium_url }}">
+              </a>
+            </div>
+            <div class="col col-33">
+              <div class="row responsive-X">
                 <a ui-sref="users.productDetails({productID: card.attributes.products[1].id})">
-                  <img class="thumbnail timeline-feature-picks-main-img" src="{{ card.attributes.products[1].image_medium_url }}">
+                  <img class="thumbnail full-width" src="{{ card.attributes.products[1].image_small_url }}">
+                </a>
+              </div>
+              <div class="row responsive-X">
+                <a ui-sref="users.productDetails({productID: card.attributes.products[2].id})">
+                  <img class="thumbnail full-width" src="{{ card.attributes.products[2].image_small_url }}">
                 </a>
               </div>
             </div>
           </div>
-        </ion-item>
-        <ion-infinite-scroll
-          ng-if="dashboard.isMore"
-          on-infinite="dashboard.getCards(dashboard.page, true)"
-          distance="20%"
-          immediate-check="false">
-        </ion-infinite-scroll>
-      </ion-list>
-    </div>
+        </div>
+      </ion-item>
+      <ion-infinite-scroll
+        ng-if="dashboard.isMore"
+        on-infinite="dashboard.getCards(dashboard.page, true)"
+        distance="10%"
+        immediate-check="false">
+      </ion-infinite-scroll>
+    </ion-list>
   </ion-content>
 </ion-view>

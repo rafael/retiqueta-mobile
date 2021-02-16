@@ -9,27 +9,39 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content class="order-chat" padding="false" scroll="false">
-    <header class="order-detail-header list">
-      <a class="item item-avatar item-icon-right"
-        ui-sref="users.ordersDetail({ id: ctrl.order.id})">
-        <img 
-        src="{{ ::ctrl.firstProduct.relationships.product_pictures[0].attributes.small_url}}" 
-        alt="">
-        <h2 class="text-assertive">
-          {{ ctrl.order.attributes.total_amount | currency : ctrl.order.attributes.currency }}
-        </h2>
-        <p>
-          {{ ctrl.firstProduct.attributes.description }}
-        </p>
-        <i class="icon ion-chevron-right"></i>
-      </a>
+    <header class="order-detail-header list row">
+      <div class="col">
+        <a class="item item-avatar item-icon-right"
+          ui-sref="users.ordersDetail({ id: ctrl.order.id})">
+          <img
+          src="{{ ::ctrl.firstProduct.relationships.product_pictures[0].attributes.small_url}}"
+          alt="">
+          <h2 class="text-assertive">
+            {{ ctrl.order.attributes.total_amount | currency : ctrl.order.attributes.currency }}
+          </h2>
+          <div id="status" class="{{ ctrl.statusClass }}">{{ ctrl.upperStatus }}</div>
+          <p>
+            {{ ctrl.firstProduct.attributes.description }}
+          </p>
+        </a>
+      </div>
+      <div id="buyer-button" class="col col-33" ng-if="ctrl.isBuyerAndSent">
+        <div class="row send-row"></div>
+        <button class="pending-send send-row row" ng-click="ctrl.updateStatus('delivered')"> Item Received </button>
+        <div class="row send-row"></div>
+      </div>
+      <div id="seller-button" class="col col-33" ng-if="ctrl.isSellerAndPending">
+        <div class="row send-row"></div>
+        <button class="pending-send send-row row" ng-click="ctrl.updateStatus('sent')"> Send Item </button>
+        <div class="row send-row"></div>
+      </div>
     </header>
     <section class="comments">
       <ion-scroll  delegate-handle="comments">
-        <comments-list 
+        <comments-list
           reverse="true"
           as-chat="true"
-          parent-type="fulfillments" 
+          parent-type="fulfillments"
           current-user-id="{{ ctrl.currentUser.id }}"
           parent-id="{{ ctrl.order.relationships.fulfillment.id }}"></comments-list>
       </ion-scroll>
@@ -38,7 +50,7 @@
   <ion-footer-bar class="comment-form">
     <section class="form">
       <comment-form
-        parent-type="fulfillments" 
+        parent-type="fulfillments"
         parent-id="{{ ctrl.order.relationships.fulfillment.id }}"></comment-form>
     </section>
   </ion-footer-bar>

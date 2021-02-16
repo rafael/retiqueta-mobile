@@ -84,23 +84,25 @@ export default function productCheckoutFactory (ngComponent) {
     }
 
     function saveOrder () {
-      _.savingOrder = true
-      var orderObj = Order.buildOrder(_.order, [_.product])
+      _.savingOrder = true;
+      var orderObj = Order.buildOrder(_.order, [_.product]);
       Order.create(orderObj)
       .then(successOnSaveOrder)
       .catch(errorOnSaveOrder)
       .finally(() => {
-        _.savingOrder = false
-      })
+        _.savingOrder = false;
+      });
     }
 
     function successOnSaveOrder (result) {
       if (ENV.isProduction()) {
-        facebookConnectPlugin.logEvent('checkout request success')
+        facebookConnectPlugin.logEvent('checkout request success');
+        facebookConnectPlugin.logPurchase(result.attributes.total_amount,
+                                          result.attributes.currency);
       }
-      _.creditcardCtrl.clearForm()
-      _.order = {}
-      $state.go('users.ordersChat', { id: result.id })
+      _.creditcardCtrl.clearForm();
+      _.order = {};
+      $state.go('users.ordersChat', { id: result.id });
     }
 
     function errorOnSaveOrder (error) {

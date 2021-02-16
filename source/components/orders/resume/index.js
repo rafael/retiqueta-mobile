@@ -10,7 +10,7 @@ export default function OrderDirectiveFactory (ngComponent) {
         detailMessage: "@",
         type: "@"
       },
-      link: orderResumeLink  
+      link: orderResumeLink
     }
 
     function orderResumeLink (scope, element, attrs) {
@@ -22,8 +22,7 @@ export default function OrderDirectiveFactory (ngComponent) {
         } else {
           return {}
         }
-      }   
+      }
     }
   }
 }
-
